@@ -18,6 +18,20 @@ import Loading from '../Loading/LoadingIndicator';
 import OauthLogins from './OauthLogins';
 import './Login.css';
 
+type LoginDataTypes = {
+    id: number, 
+    ok: boolean, 
+    ttl: number, 
+    banned: boolean, 
+    banReason: string, 
+    type: string
+};
+
+type LoginFormValues = {
+    username: string;
+    password: string;
+}
+
 const layout = {
     labelCol: {
         span: 8
@@ -27,10 +41,10 @@ const layout = {
     }
 };
 
-export const Component = () => {
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [userBanned, setUserBanned] = useState(null);
-    const [loginLoading, setLoginLoading] = useState(false);
+export const Component = (): React.ReactElement => {
+    const [errorMessage, setErrorMessage] = useState<null | string>(null);
+    const [userBanned, setUserBanned] = useState<null | boolean>(null);
+    const [loginLoading, setLoginLoading] = useState<null | boolean>(false);
 
     const loginQuery = useQuery(GET_IS_LOGGED_IN);
     const client = useApolloClient();
@@ -39,7 +53,7 @@ export const Component = () => {
 
     let from = location.state?.from?.pathname || '/';
 
-    const loginResponse = (loginData, username) => {
+    const loginResponse = (loginData: LoginDataTypes, username: string) => {
         const { id, ok, ttl, banned, banReason, type } = loginData;
         const ttlInSeconds = ttl * 1000;
 
@@ -69,7 +83,7 @@ export const Component = () => {
     };
 
     // Finished checking login values.
-    const onFinish = async (values) => {
+    const onFinish = async (values:LoginFormValues) => {
         if (loginLoading) return;
 
         const { username, password } = values;
@@ -85,7 +99,7 @@ export const Component = () => {
     };
 
     // Fail!
-    const onFinishFailed = (errorInfo) => {
+    const onFinishFailed = (errorInfo: any) => {
         setErrorMessage('Failed: ' + errorInfo);
         setLoginLoading(false);
     };
@@ -126,7 +140,7 @@ export const Component = () => {
                     ]}
                 >
                     <Input
-                        disabled={loginLoading}
+                        disabled={loginLoading?? true}
                         name="username"
                         className="input-field"
                         placeholder={t('usernamePlaceholder')}
@@ -151,7 +165,7 @@ export const Component = () => {
                     ]}
                 >
                     <Input.Password
-                        disabled={loginLoading}
+                        disabled={loginLoading ?? true}
                         className="input-field"
                         placeholder={t('passwordPlaceholder')}
                         type="password"
@@ -170,7 +184,7 @@ export const Component = () => {
                 <Form.Item>
                     <Button
                         aria-label={t('login')}
-                        loading={loginLoading}
+                        loading={loginLoading ?? true}
                         className="login-button"
                         size="large"
                         type="primary"

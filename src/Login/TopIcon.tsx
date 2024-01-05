@@ -1,7 +1,7 @@
 import { getConfig } from '../App/utils';
 import './Login.css';
 
-const TopIcon = () => {
+const TopIcon = (): React.ReactElement => {
     const config = getConfig();
     return (
         <div className="icon-header">

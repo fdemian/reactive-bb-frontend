@@ -1,11 +1,33 @@
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { Tooltip } from 'antd';
 import { getOauthConfig } from '../App/utils';
 import './Login.css';
 
-const oauthIcons = [
+type OauthService = {
+   name: string;
+   scope: string;
+   clientId: string;
+   link: string;
+   extraParams: string;
+};
+
+type ForumConfigItem = {
+
+    name: string;
+    description: string;
+    logoURL: string;
+    faviconURL: string;
+    faviconType: string;
+    items_per_page: number;
+};
+
+type OauthIconType = {
+  name: string;
+  icon: any;
+};
+
+const oauthIcons: OauthIconType[] = [
     {
         name: 'google',
         icon: faGoogle
@@ -24,18 +46,21 @@ const oauthIcons = [
     }
 ];
 
-const getOauthLink = (service, config) => {
+const getOauthLink = (service: OauthService, config: ForumConfigItem): string => {
     const { link, clientId, scope, extraParams, name } = service;
     const redirectURI = `${config.redirectURI}/oauth/${name}`;
     const params = `response_type=code&redirect_uri=${redirectURI}&scope=${scope}&client_id=${clientId}`;
     return `${link}?${params}${extraParams}`;
 };
 
-const getOuathIcon = (name) => {
-    return oauthIcons.find((i) => i.name === name).icon;
+const getOuathIcon = (name: string): any | null => {
+    const oauthIcon = oauthIcons.find((i) => i.name === name);
+    if(!oauthIcon)
+        return null;
+    return oauthIcon.icon;
 };
 
-const OauthLogins = ({ t }) => {
+const OauthLogins = ({ t }): React.ReactElement => {
     const oauthConfig = getOauthConfig();
     const services = oauthConfig.services;
     return (
@@ -63,10 +88,6 @@ const OauthLogins = ({ t }) => {
             </div>
         </>
     );
-};
-
-OauthLogins.propTypes = {
-    t: PropTypes.func.isRequired
 };
 
 export default OauthLogins;

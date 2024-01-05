@@ -1,6 +1,6 @@
 import { Spin, Alert } from 'antd';
 
-const Loading = () => {
+const Loading = (): React.ReactElement => {
     return (
         <div className="loading-indicator">
             <Spin tip="Loading...">
