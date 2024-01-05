@@ -1,0 +1,100 @@
+@media screen and (min-width:720px) {
+    .baseView {
+        display: flex;
+        padding-top: 12px;
+    }
+
+    .baseView .left {
+        max-width: 448px;
+        min-width: 224px;
+    }
+
+    .baseView .left input {
+        width: 370px;
+    }
+
+    .baseView .right {
+        flex: 1;
+        padding-left: 104px;
+    }
+}
+
+.baseView .right .avatar_title {
+    height: 22px;
+    line-height: 22px;
+    margin-bottom: 8px;
+}
+
+.baseView .right .avatar {
+    margin-bottom: 12px;
+    overflow: hidden;
+    margin-left: 0px;
+}
+
+.baseView .avatar img {
+    width: 100%;
+}
+
+.baseView .right  .button_view {
+    width: 144px;
+    text-align: center;
+}
+
+@media screen and (max-width: @screen-xl) {
+    .baseView {
+        flex-direction: column-reverse;
+    }
+    .baseView .right {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 448px;
+    }
+    .baseView .right .avatar_title {
+        display: none;
+    }
+}
+
+
+.avatar-uploader,
+.avatar-uploader-trigger,
+.avatar {
+    width: 160px;
+    height: 160px;
+}
+.remove-image-btn {
+    width: 160px;
+    margin-bottom: 10px;
+}
+
+.avatar-uploader {
+    display: block;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 0%;
+    margin-top: 10px;
+    text-align: center;
+    /*padding-left: 9%;*/
+}
+
+.avatar-uploader-trigger {
+    vertical-align: middle;
+    font-size: 28px;
+    color: #999;
+}
+
+/* ------------------------------------------------- */
+
+
+.ProfileTitleHeading
+{
+    display: inline;
+    margin-right: 12px;
+    word-wrap: break-word;
+    font-size: 28px;
+    line-height: 32px;
+    overflow: hidden;
+    text-align: center;
+}

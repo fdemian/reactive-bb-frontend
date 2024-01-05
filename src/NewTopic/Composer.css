@@ -1,0 +1,128 @@
+.ComposerTitle
+{
+    margin-bottom:40px;
+}
+
+.composer-title-text, .TagChooseText
+{
+    font-size: 25px;
+}
+
+.composer-title-text {
+    margin-left: 35%;
+}
+
+.ComposerHeadContainer.Desktop
+{
+    display: flex;
+}
+
+.ComposerHeadContainer.Mobile
+{
+    display: block;
+    width: 100%;
+    margin-left: 1%;
+}
+
+.ComposerHeadContainer.Mobile .TitleInput
+{
+    margin-bottom: 7px;
+}
+
+.CategoriesContainer
+{
+    width: 40%;
+}
+
+.PostEditorContainer
+{
+    margin-bottom:80px;
+    height: 300px;
+    width: 100%;
+    margin-left: 1%;
+    display: contents;
+}
+
+.tags-container
+{
+    margin-bottom: 40px;
+    margin-left: 25%;
+}
+
+.TagContainer {
+    margin-top: 40px;
+}
+
+.TagContainer .ant-tag {
+    font-size: 21px;
+    height: 37px;
+    padding-top: 4px;
+}
+
+.accept-button {
+    background-color: #3366CC !important;
+}
+
+.cancel-button {
+    background-color: darkred !important;
+}
+
+@media screen and (max-width: 720px) {
+    .categories-dropdown-container {
+        width: 100%;
+    }
+
+    .composer-container {
+        padding-top: 40px;
+        padding-bottom: 150px;
+        width: 95%;
+        margin-left: 2.5%;
+    }
+
+    .confirm-buttons {
+        margin-left: 10%;
+    }
+
+    .editor-shell-container {
+        margin-top: 50px;
+    }
+
+}
+
+@media screen and (min-width: 720px) {
+    .TitleInputContainer
+    {
+        margin-right: 12px;
+        width: 635px;
+    }
+
+    .categories-dropdown-container {
+        width: 454px;
+    }
+
+    .composer-container
+    {
+        padding-top: 40px;
+        padding-bottom: 150px;
+        width: 80%;
+        margin-left: 15%;
+    }
+
+    .confirm-buttons {
+        margin-left: 24%;
+    }
+}
+
+@media (min-width: 2000px) {
+    .ComposerHeadContainer.Desktop {
+        margin-left: 25%;
+    }
+
+    .toolbar, .editor-shell-container {
+        margin-left: 25%;
+    }
+
+    .toolbar-footer {
+        margin-left: 58%;
+    }
+}

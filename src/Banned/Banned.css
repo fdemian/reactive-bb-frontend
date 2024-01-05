@@ -1,0 +1,9 @@
+.ban-status-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.ban-reason-renderer-container {
+    width: 60%;
+    margin-left: 20%;
+}

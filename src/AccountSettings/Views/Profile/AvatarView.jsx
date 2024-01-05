@@ -1,0 +1,85 @@
+import { Upload, Button } from 'antd';
+import PropTypes from 'prop-types';
+import AccountAvatar from '../../../UserAvatar/UserAvatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleXmark, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { UPLOAD_AVATAR, REMOVE_AVATAR } from '../../Mutations';
+import { GET_PROFILE } from '../../Queries';
+import { useMutation } from '@apollo/client';
+import './ProfileView.css';
+
+const uploadURL = '';
+
+const AvatarView = ({ avatar, username, id, t }) => {
+    const [uploadAvatar] = useMutation(UPLOAD_AVATAR, {
+        refetchQueries: [GET_PROFILE, 'GetUser'],
+    });
+
+    const [removeAvatar, { loading }] = useMutation(REMOVE_AVATAR, {
+        refetchQueries: [GET_PROFILE, 'GetUser'],
+    });
+
+    const uploadImage = async (options) => {
+        const { file } = options;
+        const fmData = new FormData();
+        fmData.append('image', file);
+        uploadAvatar({
+            variables: {
+                id: id,
+                image: file,
+            },
+        });
+    };
+
+    const removeImage = async () => {
+        removeAvatar({
+            variables: {
+                id: id,
+            },
+        });
+    };
+
+    return (
+        <>
+            <Button
+                danger
+                type="primary"
+                size="large"
+                icon={<FontAwesomeIcon icon={faCircleXmark} />}
+                loading={loading}
+                onClick={() => removeImage()}
+                className="remove-image-btn"
+                disabled={!avatar}
+            >
+                Remove avatar
+            </Button>
+            <div className="avatar">
+                <AccountAvatar avatar={avatar} username={username} size={160} shape="square" />
+            </div>
+
+            <Upload
+                className="avatar-uploader"
+                name="avatar"
+                data-testid="upload-component"
+                showUploadList={false}
+                action={uploadURL}
+                customRequest={uploadImage}
+            >
+                <FontAwesomeIcon
+                    icon={faUpload}
+                    className="avatar-uploader-trigger"
+                />
+                <h2>{t('avatarChange')}</h2>
+            </Upload>
+        </>
+    );
+};
+
+AvatarView.propTypes = {
+    id: PropTypes.number,
+    avatar: PropTypes.string,
+    username: PropTypes.string.isRequired,
+    t: PropTypes.func.isRequired,
+};
+
+export default AvatarView;

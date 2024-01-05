@@ -1,0 +1,83 @@
+.account-menu .ant-dropdown-menu-item {
+    width: 200px !important;
+    min-width: 200px !important;
+}
+
+.AccountMenu .Avatar .ant-avatar-string {
+    position: initial;
+}
+
+.NotificationsSubmenu
+{
+    margin-right: 0%;
+    padding-left: 0%;
+    padding-bottom: 11px;
+    margin-left: 74%;
+    padding-top: 8px;
+}
+
+.NotificationsIcon
+{
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+.UserMenu
+{
+    height: 50px;
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 27px;
+}
+
+.UserMenu > .Avatar
+{
+    top: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.UserAvatarImg
+{
+    width:35px;
+    height: 35px;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.UserMenuName
+{
+    display: inline;
+    font-size: 15px;
+    vertical-align: text-top;
+    font-weight: 500;
+}
+
+.UserMenuAvatar {
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+.UserMenuAvatar .Avatar {
+    margin-right: 4px;
+    margin-top: -5px;
+}
+
+.MenuIcon
+{
+    margin: 2px;
+}
+
+.username-menu-text {
+    text-align: center;
+    color: rgba(0,0,0,.65);
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.AccountDropdownMenu .divider {
+    height: 12px;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}

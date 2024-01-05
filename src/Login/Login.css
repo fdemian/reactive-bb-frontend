@@ -1,0 +1,170 @@
+.login-grid-container {
+    margin-top: 50px;
+}
+
+.login-container {
+    width: 368px;
+    margin: 0 auto;
+}
+
+.oauth-login-icon {
+    margin-right: 10px;
+    color: gainsboro;
+}
+
+.oauth-google:hover {
+    color: red;
+}
+
+.oauth-twitter:hover {
+    color: rgb(29, 155, 240);
+}
+
+.oauth-github:hover {
+    color: black;
+}
+
+.oauth-facebook:hover {
+    color: blue;
+}
+
+.icon-header {
+    text-align: center;
+}
+
+.icon-logo {
+    width: 70px;
+    height: 70px;
+}
+
+.login-icon-text {
+    font-size: 29px;
+    vertical-align: middle;
+    color: #3366cc !important;
+}
+
+.login-container .ant-tabs-nav-wrap {
+    text-align: left;
+    margin-left: 110px;
+}
+
+.icon-title {
+    font-size: 33px;
+    color: rgba(0, 0, 0, 0.85);
+    font-family: Myriad Pro, Helvetica Neue, Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    position: relative;
+    top: 2px;
+}
+
+.simulated-link {
+    color: #1890ff;
+    background-color: transparent;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.login-container .ant-popover-placement-right {
+    left: 398px !important;
+}
+
+.login-info-alert {
+    left: 554px !important;
+    width: 500px;
+}
+
+@media screen and (min-width: 768px) {
+    .login-container input,
+    .login-container .antd-pro-login-submit {
+        width: 400px;
+    }
+
+    .login-container form {
+        width: 900px;
+    }
+
+    .login-container .ant-tabs-tabpane.ant-tabs-tabpane-active {
+        padding-left: 0%;
+    }
+
+    .alt-login-container > div {
+        margin-left: 152px;
+    }
+
+    .login .alt-login-title {
+        color: darkgray;
+        font-weight: bold;
+        margin-left: 17%;
+    }
+
+    .register .alt-login-title {
+        color: darkgray;
+        margin-left: 14%;
+    }
+
+    .oauth-icons {
+        margin-left: 39%;
+    }
+    .oauth-logins-text {
+        margin-left: 42%;
+    }
+
+    .login-form {
+        margin-left: 34%;
+    }
+
+    .input-field {
+        width: 500px;
+    }
+    .login-button {
+        width: 500px !important;
+    }
+}
+
+/* ----- Mobile ----- */
+
+@media screen and (max-width: 768px) {
+    .input-field {
+        width: 300px !important;
+    }
+
+    .login-button {
+        width: 300px !important;
+    }
+
+    .login-container form {
+        width: 100%;
+    }
+
+    .login-container .ant-tabs-tabpane.ant-tabs-tabpane-active {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .alt-login-title {
+        color: gainsboro;
+    }
+
+    .alt-login-container {
+        text-align: center;
+    }
+
+    .login .alt-login-title,
+    .register .alt-login-title {
+        color: gainsboro;
+        margin-left: 0;
+    }
+
+    .login-form {
+        margin-left: 7%;
+    }
+
+    .oauth-icons {
+        margin-left: 25% !important;
+    }
+
+    .oauth-logins-text {
+        margin-left: 25% !important;
+    }
+}

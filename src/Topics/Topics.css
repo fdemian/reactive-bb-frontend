@@ -1,0 +1,136 @@
+.topics-title-title {
+    text-align: center;
+    font-size: 37px;
+}
+
+.topics-header-title {
+    font-size: 27px;
+}
+
+.topic-link {
+    vertical-align: bottom;
+}
+
+.ant-statistic-title {
+    color: black !important;
+}
+
+.ant-statistic-content-value {
+    color: darkblue !important;
+}
+
+.categories-link-mobile {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.category-date-mobile {
+    font-size: 25px;
+    color: black;
+}
+
+.mobile-header-buttons {
+    margin-bottom: 5px;
+}
+
+.mobile-categories-icon {
+    margin-right: 3px;
+}
+
+.topics-list-container-mobile {
+    padding: 0px;
+    margin: 0px;
+}
+
+.ant-card-body {
+    padding: 0px;
+}
+
+.topic-item-title-mobile {
+    margin-right: 15px;
+    font-size: 30px;
+}
+
+/* DESKTOP */
+@media screen and (min-width: 720px) {
+    .closed-topic-icon {
+        vertical-align: sub;
+    }
+
+    .ant-card-body {
+        padding: 24px;
+    }
+
+    .topics-list-container {
+        width: 80%;
+        margin-left: 10% !important;
+    }
+
+    .categories-button,
+    .categories-select {
+        margin-right: 5px !important;
+    }
+
+    .topic-item-title {
+        margin-right: 15px;
+        font-size: 20px;
+    }
+
+    .ant-list-item-action .ant-list-item-action-split {
+        display: none;
+    }
+
+    .list-item-title {
+        font-size: 24px;
+        height: 16px;
+    }
+
+    .list-item-title-mobile {
+        font-size: 14px;
+    }
+
+    .ant-statistic-content-value {
+        color: gainsboro;
+    }
+
+    .user-item {
+        font-size: 22px;
+    }
+
+    .topic-pin-btn {
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .user-item-mobile {
+        font-size: 14px;
+    }
+
+    .categories-link {
+        margin-top: 15px;
+        padding: 5px;
+    }
+
+    .author-link {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    .user-link-topics,
+    .user-link-topics:hover {
+    }
+
+    .author-link-mobile {
+        font-size: 14px;
+    }
+
+    .categiries-link-mobile {
+        display: inline;
+    }
+
+    .ant-pro-list-row-show-extra-hover .ant-pro-list-row-subTitle {
+        margin-top: -22px;
+    }
+}

@@ -1,0 +1,153 @@
+.editor-shell {
+    margin-top: 10px;
+}
+
+.renderer-readonly .editor-shell {
+    border: none;
+    width: 100%;
+}
+
+.code-action-menu-container {
+    z-index: 10000;
+    height: 35.8px;
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.user-name-mentions {
+    margin-top: 7px;
+    margin-left: 2px;
+}
+
+#typeahead-menu {
+    z-index: 10000 !important;
+}
+
+
+.code-action-menu-container .code-highlight-language {
+    margin-right: 4px;
+}
+
+.code-action-menu-container button.menu-item {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 4px;
+    background: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+}
+
+.code-action-menu-container button.menu-item i.format {
+    height: 16px;
+    width: 16px;
+    opacity: 0.6;
+    display: flex;
+    color: rgba(0, 0, 0, 0.5);
+    background-size: contain;
+}
+
+.code-action-menu-container button.menu-item:hover {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+}
+
+.code-action-menu-container button.menu-item:active {
+    background-color: rgba(223, 232, 250);
+    border: 1px solid rgba(0, 0, 0, 0.45);
+}
+
+.source-link-component {
+    margin-left: 90%;
+}
+
+cite {
+    margin-left: 90%;
+}
+
+#emojis-typeahead, #mentions-typeahead {
+    z-index: 100000 !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3) !important;
+    position: fixed !important;
+    background: #fff !important;
+    display: inline-block !important;
+    margin-left: 8px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 368px !important;
+    font-size: 0.9em !important;
+}
+
+#emojis-typeahead  ul li, #mentions-typeahead ul li {
+    padding: 10px 15px !important;
+    margin: 0 !important;
+    min-width: 180px !important;
+    font-size: 14px !important;
+    outline: none !important;
+    cursor: pointer !important;
+    border-radius: 8px !important;
+}
+
+#emojis-typeahead ul,#mentions-typeahead ul {
+    padding: 0 !important;
+    list-style: none !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+}
+
+
+#emojis-typeahead ul li.selected, #mentions-typeahead ul li.selected {
+    background: #eee !important;
+}
+
+#emojis-typeahead ul li.hovered, #mentions-typeahead ul li.hovered {
+    background: #ddd !important;
+}
+
+.ExcalidrawModal__overlay
+{
+    z-index: 1000 !important;
+}
+
+.author-link-quote {
+    margin-left: 5px;
+}
+
+figcaption {
+    cursor: pointer !important;
+}
+
+cite {
+    margin-left: -5% !important;
+}
+
+@media (min-width: 1700px) {
+    .editor-shell {
+        width: 1130px;
+        width: 1481px;
+    }
+}
+
+@media (min-width: 780px) {
+    .editor-shell {
+        width: 1111px;
+    }
+}
+
+@media (max-width: 780px) {
+    .editor-shell {
+        width: 364px;
+    }
+
+    .editor-content-editable-root {
+        padding: 4 !important;
+    }
+}

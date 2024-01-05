@@ -1,0 +1,168 @@
+.item-content {
+    margin-top: 100px;
+    margin-left: 50px;
+    min-height: 40px;
+    display:block;
+}
+
+.reply-cancel-btn {
+    background-color: darkred !important;
+}
+
+.posts-page-container .ant-list-item-action-split {
+    display: none;
+}
+
+.post-mod-controls {
+    /*margin-top: 15px;
+    margin-left: 85%;*/
+}
+
+.post-mod-back {
+    margin-left: -10px;
+}
+
+.post-composer-container {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.editor {
+    min-height: 265px;
+}
+
+.reply-title {
+    margin-left: 14%;
+}
+
+.reply-buttons {
+    /*margin-left: 27%;*/
+    margin-left: 42%;
+}
+
+.posts-page-container p {
+    font-size: 18px;
+}
+
+.user-name {
+    font-size:20px;
+}
+
+.post-date {
+    color: gainsboro;
+    font-size: 17px;
+}
+
+.post-user-status {
+    font-size: 20px;
+}
+
+.topic-name {
+    text-align: center;
+    font-size: 28px !important;
+    width: auto;
+    word-break: break-word;
+    white-space: break-spaces;
+}
+
+.dropdown-button-quote {
+    margin-right: 18px;
+    display: inline;
+    vertical-align: sub;
+}
+
+.like-post-icon, .bookmark-post-icon {
+    vertical-align: middle;
+}
+
+.bookmark-post-icon {
+    margin-left: 12px;
+}
+
+.replies-content {
+    margin-left: 70px;
+    text-align: center;
+}
+
+.views-content {
+    margin-left: 50px;
+    text-align: center;
+}
+
+.date-content {
+    margin-left: 50px;
+    text-align: center;
+}
+
+.posts-tag {
+    font-size: 20px;
+}
+
+.posts-tags {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.topic-breadcrumbs {
+    margin-left: 20px;
+}
+
+.reply-button {
+    margin-left: 90%;
+}
+
+.reply-button-login {
+    margin-left: 85%;
+}
+
+.close-topic-button, .delete-topic-button {
+    background-color: darkred !important;
+}
+
+.topic-statistics {
+    display: flex;
+    margin-left: 25px;
+    margin-top: 15px;
+}
+
+.post-selected {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
+@media screen and (max-width:720px) {
+    .reply-buttons {
+        margin-left: 28%;
+    }
+
+    .reply-button {
+        margin-left: 60%;
+    }
+
+    .reply-button-login {
+        margin-left: 0%;
+    }
+
+    .post-composer-container {
+        margin-left: 0%;
+        width: 100%;
+    }
+
+    :where(.css-dev-only-do-not-override-13q4hlo).ant-list-split .ant-list-item {
+        padding: 0px !important;
+    }
+
+    .editor {
+      min-height: 150px !important;
+    }
+}
+
+@media screen and (min-width:1920px) {
+    .post-composer-container {
+        height: 230px;
+        margin-left: 29%;
+        width: 100%;
+    }
+}

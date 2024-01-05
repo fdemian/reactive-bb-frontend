@@ -1,0 +1,20 @@
+.categories-name {
+  font-size: 27px;
+}
+
+.categories-description {
+   font-size: 18px;
+   color: black;
+}
+
+.category-form-container {
+    margin-left: 10%;
+}
+
+.new-category-button {
+    margin-left: 10%;
+}
+
+.category-cancel-btn {
+    background-color: darkred !important;
+}

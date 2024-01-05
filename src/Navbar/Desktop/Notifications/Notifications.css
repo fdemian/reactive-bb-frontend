@@ -1,0 +1,12 @@
+.notifications-dropdown .ant-dropdown-menu-item {
+    width: 250px !important;
+    min-width: 250px !important;
+}
+
+.notifications-icon-header {
+    cursor: pointer;
+}
+
+.notifications-link, .notifications-link:hover {
+    color: black;
+}
