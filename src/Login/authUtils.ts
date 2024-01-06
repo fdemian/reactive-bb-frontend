@@ -22,10 +22,10 @@ export const getUserName = (): string | null => {
     return localStorage.getItem(USER_USERNAME);
 };
 
-export const setLoginData = (id:string, username:string, ttl:string) => {
-    localStorage.setItem(USER_ID, id);
+export const setLoginData = (id:number, username:string, ttl:number) => {
+    localStorage.setItem(USER_ID, id.toString());
     localStorage.setItem(USER_USERNAME, username);
-    localStorage.setItem(TOKEN_TTL, ttl);
+    localStorage.setItem(TOKEN_TTL, ttl.toString());
 };
 
 const clearTTL = (): void => localStorage.removeItem(TOKEN_TTL);
@@ -92,7 +92,7 @@ export const refreshToken = async (onFail?:FailFnType) => {
 
     if (data.ok) {
         const expiration: number = getTTLForToken();
-        const id: number = setTimeout(refreshToken, expiration);
+        const id: NodeJS.Timeout = setTimeout(refreshToken, expiration);
         removeCurrentTimeout();
         saveTimeout(id.toString());
     } else {
@@ -111,8 +111,8 @@ export const getBanStatus = (): BanStatusReturn  => {
     };
 };
 
-export const setBanStatus = (banned: string, banReason: string): void => {
-    localStorage.setItem(BANNED_USER, banned);
+export const setBanStatus = (banned: boolean, banReason: string): void => {
+    localStorage.setItem(BANNED_USER, banned.toString());
     localStorage.setItem(BAN_REASON, banReason);
 };
 
