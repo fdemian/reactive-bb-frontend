@@ -8,7 +8,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-const MessagesMenu = ({ messages, chatSubscription, enabled, t }) => {
+type MessageType = {
+    id: number;
+    avatar: string;
+    username: string;
+}
+
+type MessagesData = {
+   data: { chatsByUser: MessageType[] };
+   loading: boolean;
+   error: boolean;
+};
+
+type MessagesMenuProps = {
+    chatSubscription: () => void;
+    enabled: boolean;
+    messages: MessagesData;
+    t: (key:string) => string;
+};
+
+const MessagesMenu = ({ messages, chatSubscription, enabled, t }: MessagesMenuProps) => {
     useEffect(() => {
         chatSubscription();
     }, [chatSubscription]);
@@ -25,7 +44,7 @@ const MessagesMenu = ({ messages, chatSubscription, enabled, t }) => {
                 <div>
                     <FontAwesomeIcon
                         icon={faArrowsRotate}
-                        spin={messages.length > 0}
+                        spin={data.chatsByUser.length > 0}
                     />
                     &nbsp; {t('dismissMessages')}
                 </div>
@@ -43,6 +62,7 @@ const MessagesMenu = ({ messages, chatSubscription, enabled, t }) => {
                 </div>
             ),
             key: 'see-all-messages',
+            disabled: false
         },
     ];
     const messageItems =

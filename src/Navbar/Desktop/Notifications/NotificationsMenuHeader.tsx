@@ -1,11 +1,16 @@
-import PropTypes from 'prop-types';
 import Badge from 'antd/lib/badge';
 import Tooltip from 'antd/lib/tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faBellSlash } from '@fortawesome/free-solid-svg-icons';
+import { NotificationType } from '../../navbarTypes';
 import './Notifications.css';
 
-const NotificationsHeader = ({ notifications, enabled }) => {
+type NotificationsHeaderParams = {
+    notifications: NotificationType[];
+    enabled: boolean;
+};
+
+const NotificationsHeader = ({ notifications, enabled }: NotificationsHeaderParams) => {
     if (enabled) {
         return (
             <span className="notifications-icon-header header-enabled">
@@ -33,29 +38,6 @@ const NotificationsHeader = ({ notifications, enabled }) => {
       </span>
         );
     }
-};
-
-
-NotificationsHeader.propTypes = {
-    notifications: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            link: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            read: PropTypes.bool.isRequired,
-            originator: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string,
-                username: PropTypes.string.isRequired
-            }),
-            user: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string,
-                username: PropTypes.string.isRequired
-            })
-        })
-    ),
-    enabled: PropTypes.bool.isRequired
 };
 
 export default NotificationsHeader;

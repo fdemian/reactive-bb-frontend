@@ -15,7 +15,6 @@ import {
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import { GET_IS_LOGGED_IN, SET_LOGIN } from '../Login/queries';
 import './Navbar.css';
-import PropTypes from "prop-types";
 
 // Desktop search bar component.
 const SearchBar= lazy(() => import('./Desktop/SearchBarComponent'));
@@ -28,8 +27,15 @@ const DesktopNavLogged = lazy(() => import('./Desktop/NavbarLogged'));
 const MobileNavUnlogged = lazy(() => import('./Mobile/NavbarMobileUnlogged'));
 const MobileNavLogged = lazy(() => import('./Mobile/NavbarMobileLogged'));
 
+type NavbarProps = {
+  mobile: boolean;
+  name: string;
+  logoURL: string;
+  isLoading: boolean;
+  isError: boolean;
+};
 
-const Navbar = ({mobile, name, logoURL, isLoading, isError }) => {
+const Navbar = ({mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
 
     const { t } = useTranslation('navbar', { keyPrefix: 'navbar' });
     const client = useApolloClient();
@@ -206,13 +212,5 @@ const Navbar = ({mobile, name, logoURL, isLoading, isError }) => {
     </nav>
     )
 }
-
-Navbar.propTypes = {
-  mobile: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  logoURL: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.any
-};
 
 export default Navbar;

@@ -15,8 +15,12 @@ import {
 } from './utils';
 import { useTranslation } from 'react-i18next';
 import { getBanStatus } from '../Login/authUtils';
+import enUS from 'antd/locale/en_US';
+import { DirectionType } from 'antd/es/config-provider';
 
-const Navbar = lazy(() => import('../Navbar/Navbar'));
+const CONTENT_DIRECTION: DirectionType = "ltr";
+
+const Navbar = lazy(() => import('../Navbar/Navbar.tsx'));
 const AppError = lazy(() => import('./AppError'));
 const BanStatusBanner = lazy(() => import('./BanStatusBanner'));
 
@@ -47,14 +51,14 @@ const App = () => {
 
     // In order to change the background color, override colorBgBase
     const appConfigProps = {
-        direction: "ltr",
+        direction: CONTENT_DIRECTION,
         theme: { 
             token: {
                 colorBgBase: "FFFFFF",
                 colorPrimary: "0618EC"
             }
         },
-        locale: ready ? language : 'en'
+        locale: enUS
     };
 
     return (

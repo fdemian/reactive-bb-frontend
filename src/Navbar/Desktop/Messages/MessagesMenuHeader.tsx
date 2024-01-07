@@ -1,17 +1,29 @@
-import PropTypes from "prop-types";
 import { Badge, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import './Messages.css';
 
+type MessageType = {
+  id: number;
+  avatar: string;
+  username: string;
+  read: boolean;
+}
+
+type MessagesHeaderProps = {
+  t: (key:string) => string;
+  messages: MessageType[];
+  enabled: boolean;
+};
+
 const bellIconStyle = { marginTop: '23px' };
 
-const MessagesHeader = ({ t, messages, enabled }) => {
+const MessagesHeader = ({ t, messages, enabled }: MessagesHeaderProps) => {
     if (enabled) {
         return (
-            <span className="message-icon-header header-enabled">
+        <span className="message-icon-header header-enabled">
         <Badge
-            count={messages.filter((n) => n['read'] !== undefined && !n.read).length}
+            count={messages.filter((n: MessageType) => n['read'] !== undefined && !n.read).length}
             offset={[0, 9]}
             size="small"
         >
@@ -41,15 +53,5 @@ const MessagesHeader = ({ t, messages, enabled }) => {
         );
     }
 };
-
-MessagesHeader.propTypes = {
-    t: PropTypes.func.isRequired,
-    messages: PropTypes.arrayOf({
-        id: PropTypes.number.isRequired,
-        avatar: PropTypes.string,
-        username: PropTypes.string.isRequired
-    }),
-    enabled: PropTypes.bool.isRequired
-}
 
 export default MessagesHeader;

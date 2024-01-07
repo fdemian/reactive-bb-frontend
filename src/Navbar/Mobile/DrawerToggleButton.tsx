@@ -1,10 +1,22 @@
-import PropTypes from 'prop-types';
 import { Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import AccountAvatar from "../../UserAvatar/UserAvatar";
 
-const DrawerToggleButton = (props) => {
+type DrawerUserType = {
+    avatar: string;
+    username: string;
+};
+
+type DrawerToggleButtonProps = {
+    openDrawer: () => void; 
+    isLoggedIn: boolean; 
+    user: DrawerUserType | null, 
+    showBadge: boolean;
+    t: (key: string) => string;
+};
+
+const DrawerToggleButton = (props: DrawerToggleButtonProps) => {
     const { openDrawer, isLoggedIn, user, showBadge, t } = props;
 
     return (
@@ -29,16 +41,5 @@ const DrawerToggleButton = (props) => {
     </span>
     );
 };
-
-DrawerToggleButton.propTypes = {
-    t: PropTypes.func.isRequired,
-    openDrawer: PropTypes.func.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
-    user: PropTypes.shape({
-        avatar: PropTypes.string.isRequired,
-        username: PropTypes.string.isRequired
-    }),
-    showBadge: PropTypes.bool.isRequired
-}
 
 export default DrawerToggleButton;

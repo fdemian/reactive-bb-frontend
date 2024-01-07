@@ -1,8 +1,13 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import "./Navbar.css";
 
-const NavLogo = ({ mobile, name, logoURL }) => {
+type NavLogoProps = {
+    mobile: boolean;
+    name: string;
+    logoURL: string;
+};
+
+const NavLogo = ({ mobile, name, logoURL }: NavLogoProps): React.ReactElement => {
     return (
         <Link to="/" className="topnav header-logo">
             <img
@@ -17,12 +22,6 @@ const NavLogo = ({ mobile, name, logoURL }) => {
             {mobile ? null : <span className="forum-name-navbar">{name}</span>}
         </Link>
     );
-};
-
-NavLogo.propTypes = {
-    mobile: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
-    logoURL: PropTypes.string.isRequired
 };
 
 export default NavLogo;

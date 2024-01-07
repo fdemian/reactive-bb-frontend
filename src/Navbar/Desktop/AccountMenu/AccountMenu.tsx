@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Spin, Dropdown } from 'antd';
 import AccountAvatar from '../../../UserAvatar/UserAvatar';
@@ -11,9 +10,17 @@ import {
     faBookmark,
     faSignOutAlt 
 } from '@fortawesome/free-solid-svg-icons';
+import { UserType } from '../../../User/userTypes';
 import './AccountMenu.css';
 
-const AccountMenu = ({ userType, user, logoutFn, t }) => {
+type AccountMenuType = {
+    userType: string;
+    user: UserType;
+    logoutFn: () => void;
+    t: (key:string) => string;
+};
+
+const AccountMenu = ({ userType, user, logoutFn, t }:AccountMenuType) => {
     if (user === undefined) return <Spin />;
 
     const isMod = userType !== 'U';
@@ -140,15 +147,4 @@ const AccountMenu = ({ userType, user, logoutFn, t }) => {
     );
 };
 
-AccountMenu.propTypes = {
-    userType: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        avatar: PropTypes.string,
-        username: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired,
-    }),
-    logoutFn: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
-};
 export default AccountMenu;

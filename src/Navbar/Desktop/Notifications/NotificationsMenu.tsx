@@ -1,14 +1,33 @@
-import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Dropdown } from 'antd';
 import NotificationsHeader from './NotificationsMenuHeader';
 import Notification from './Notification';
+import { NotificationType } from '../../navbarTypes';
 import { Empty } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate, faEye, faInbox } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-const NotificationsMenu = (props) => {
+
+type MarkReadParams = {
+    variables: {
+        notifications: number[],
+    };
+    optimisticResponse: {
+        markAsRead: NotificationType[],
+    };
+};
+
+type NotificationProps = {
+    notification: NotificationType;
+    notifications: NotificationType[];
+    enabled: boolean;
+    markAsRead: (p: MarkReadParams) => void;
+    newSubscription: () => void;
+    t: (key:string) => string;
+};
+
+const NotificationsMenu = (props: NotificationProps) => {
     const { notifications, newSubscription, markAsRead, enabled, t } = props;
 
     const dismissNotifications = () => {
@@ -94,31 +113,6 @@ const NotificationsMenu = (props) => {
       </span>
         </Dropdown>
     );
-};
-
-NotificationsMenu.propTypes = {
-    notifications: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            link: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            read: PropTypes.bool.isRequired,
-            originator: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string,
-                username: PropTypes.string.isRequired
-            }),
-            user: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string,
-                username: PropTypes.string.isRequired
-            })
-        })
-    ),
-    newSubscription: PropTypes.func.isRequired,
-    markAsRead: PropTypes.func.isRequired,
-    enabled: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default NotificationsMenu;

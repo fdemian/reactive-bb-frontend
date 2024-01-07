@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState, Suspense } from 'react';
 import { Drawer, Spin, Menu } from 'antd';
 import { Link } from 'react-router-dom';
@@ -6,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSignIn } from '@fortawesome/free-solid-svg-icons';
 import DrawerToggleButton from './DrawerToggleButton';
 
-const NavbarMobileUnlogged = ({ t }) => {
+const NavbarMobileUnlogged = ({ t }:{ t: (key:string) => string; }) => {
 
     const [drawerVisible, setDrawerVisible] = useState(false);
     const closeDrawer = () => setDrawerVisible(false);
@@ -59,7 +58,7 @@ const NavbarMobileUnlogged = ({ t }) => {
             >
                 <Suspense fallback={<Spin />}>
                     <Menu
-                       onClick={null}
+                       onClick={undefined}
                        defaultSelectedKeys={[]}
                        defaultOpenKeys={[]}
                        mode="inline"
@@ -70,10 +69,6 @@ const NavbarMobileUnlogged = ({ t }) => {
         </>
     )
 }
-
-NavbarMobileUnlogged.propTypes = {
-    t: PropTypes.func
-};
 
 export default NavbarMobileUnlogged;
 

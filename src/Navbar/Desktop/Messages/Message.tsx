@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom';
 import UserAvatar from '../../../UserAvatar/UserAvatar';
-import PropTypes from 'prop-types';
 
-const Message = ({ message }) => {
+type MessageProps = {
+    message: {
+      id: number;
+      avatar: string;
+      username: string;
+    };
+};
+
+const Message = ({ message }: MessageProps) => {
     const { avatar, id, username } = message;
 
     return (
@@ -13,15 +20,6 @@ const Message = ({ message }) => {
             </Link>
         </div>
     );
-};
-
-
-Message.propTypes = {
-  message: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      avatar: PropTypes.string.isRequired,
-      username:PropTypes.string.isRequired
-  })
 };
 
 export default Message;

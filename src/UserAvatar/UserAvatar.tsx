@@ -1,7 +1,22 @@
-import PropTypes from 'prop-types';
 import { Avatar } from 'antd';
 
-const AccountAvatar = ({ avatar, username, size, shape }) => {
+type AvatarSizeType = {
+    xs: number; 
+    sm: number; 
+    md: number; 
+    lg: number; 
+    xl: number;
+    xxl: number;
+};
+
+type AccountAvatarTypes = {
+    avatar: string; 
+    username: string; 
+    size: number | AvatarSizeType;
+    shape: "circle" |  "square" | undefined;
+};
+
+const AccountAvatar = ({ avatar, username, size, shape }: AccountAvatarTypes) => {
     if (avatar === null || avatar === undefined)
         return (
             <Avatar
@@ -18,7 +33,6 @@ const AccountAvatar = ({ avatar, username, size, shape }) => {
     return (
         <Avatar
             shape={shape === undefined ? 'circle' : shape}
-            type="circle"
             size={size}
             className="Avatar"
             role="img"
@@ -27,23 +41,6 @@ const AccountAvatar = ({ avatar, username, size, shape }) => {
             alt={`Avatar of ${username}`}
         />
     );
-};
-
-AccountAvatar.propTypes = {
-    avatar: PropTypes.string,
-    username: PropTypes.string.isRequired,
-    size: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.shape({ 
-            xs: PropTypes.number, 
-            sm: PropTypes.number, 
-            md: PropTypes.number, 
-            lg: PropTypes.number, 
-            xl: PropTypes.number, 
-            xxl: PropTypes.number 
-        })
-    ]),
-    shape: PropTypes.string
 };
 
 export default AccountAvatar;

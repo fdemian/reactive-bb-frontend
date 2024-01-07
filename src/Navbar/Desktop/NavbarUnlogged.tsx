@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import '../Navbar.css';
 
-const NavbarUnlogged = ({ t }) => {
+const NavbarUnlogged = ({ t }: { t: (key:string) => string}) => {
     return (
         <>
             <Link to="/login" className="navbar-link-button">

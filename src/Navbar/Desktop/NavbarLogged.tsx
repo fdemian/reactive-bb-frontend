@@ -1,13 +1,14 @@
 import { lazy, Suspense } from "react";
-import PropTypes from 'prop-types';
 import { Spin } from 'antd';
+import { NavbarLoggedProps } from '../navbarTypes';
 import '../Navbar.css';
 
 const AccountMenu = lazy(() => import('./AccountMenu/AccountMenu'));
 const Notifications = lazy(() => import('./Notifications/NotificationsMenu'));
 const Messages = lazy(() => import('./Messages/MessagesMenu'));
 
-const NavbarLogged = (props) => {
+
+const NavbarLogged = (props: NavbarLoggedProps) => {
 
     const {
         loading,
@@ -62,50 +63,5 @@ const NavbarLogged = (props) => {
     </>
     );
 }
-
-NavbarLogged.propTypes = {
-    loading: PropTypes.bool.isRequired,
-    userType: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        username: PropTypes.string.isRequired,
-        avatar: PropTypes.string,
-        type: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired,
-        banReason: PropTypes.string
-    }),
-    chats: PropTypes.shape({
-      data: PropTypes.arrayOf({
-        id: PropTypes.number.isRequired,
-        avatar: PropTypes.string,
-        username: PropTypes.string.isRequired
-      }),
-      loading: PropTypes.bool.isRequired,
-      error: PropTypes.bool
-    }),
-    chatSubscription: PropTypes.func.isRequired,
-    notifications: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            link: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            read: PropTypes.bool.isRequired,
-            originator: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string,
-                username: PropTypes.string.isRequired
-            }),
-            user: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string,
-                username: PropTypes.string.isRequired
-            })
-        })
-    ),
-    newSubscription: PropTypes.func.isRequired,
-    logoutFn: PropTypes.func.isRequired,
-    markAsRead: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
-};
 
 export default NavbarLogged;

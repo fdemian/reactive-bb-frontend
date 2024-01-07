@@ -16,12 +16,44 @@ import NotificationMobile from './NotificationMobile';
 import ChatMobile from './ChatMobile';
 import { Link } from 'react-router-dom';
 import { getItem } from './utils';
+import { UserType } from '../../User/userTypes';
 import '../Navbar.css';
 import DrawerToggleButton from "./DrawerToggleButton";
+import { NotificationType } from '../navbarTypes';
 
 const AccountAvatar = lazy(() => import('../../UserAvatar/UserAvatar'));
 
-const NavbarMobileLogged = (props) => {
+type ChatType = {
+    id: number;
+    avatar: string;
+    username: string;
+};
+
+
+type MarkReadParams = {
+    variables: {
+        notifications: number[],
+    };
+    optimisticResponse: {
+        markAsRead: NotificationType[],
+    };
+};
+
+type NavbarMobileLoggedProps = {
+    loading: boolean;
+    userType: string;
+    user: UserType;
+    chats: { data: { chatsByUser: ChatType[] } };
+    chatSubscription: () => void;
+    notifications: NotificationType[];
+    notificationsEnabled: boolean;
+    newSubscription: () => void;
+    logoutFn: () => void;
+    markAsRead: (p: MarkReadParams) => void;
+    t: (key:string) => string;
+};
+
+const NavbarMobileLogged = (props: NavbarMobileLoggedProps) => {
     const {
         user,
         notificationsEnabled,
@@ -191,7 +223,7 @@ const NavbarMobileLogged = (props) => {
             ),
             chatsDisabled
         ),
-    ] : [getItem(<Spin role="loading" aria-busy={true} data-testid="loading-spinner" />)];
+    ] : [getItem(<Spin role="loading" aria-busy={true} data-testid="loading-spinner" />, "loading", undefined)];
 
     return (
     <>
@@ -223,7 +255,7 @@ const NavbarMobileLogged = (props) => {
         >
             <Suspense fallback={<Spin />}>
                 <Menu
-                    onClick={null}
+                    onClick={undefined}
                     defaultSelectedKeys={[]}
                     defaultOpenKeys={[]}
                     mode="inline"
@@ -233,48 +265,6 @@ const NavbarMobileLogged = (props) => {
         </Drawer>
     </>
     );
-};
-
-NavbarMobileLogged.propTypes = {
-    loading: PropTypes.bool.isRequired,
-    userType: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        username: PropTypes.string.isRequired,
-        avatar: PropTypes.string,
-        type: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired,
-        banReason: PropTypes.string.isRequired
-    }),
-    chats: PropTypes.arrayOf({
-        id: PropTypes.number.isRequired,
-        avatar: PropTypes.string,
-        username: PropTypes.string.isRequired
-    }),
-    chatSubscription: PropTypes.func.isRequired,
-    notifications: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            link: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            read: PropTypes.bool.isRequired,
-            originator: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string,
-                username: PropTypes.string.isRequired
-            }),
-            user: PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string,
-                username: PropTypes.string.isRequired
-            })
-        })
-    ),
-    notificationsEnabled: PropTypes.bool.isRequired,
-    newSubscription: PropTypes.func.isRequired,
-    logoutFn: PropTypes.func.isRequired,
-    markAsRead: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default NavbarMobileLogged;

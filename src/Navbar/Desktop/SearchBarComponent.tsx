@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
 import { Input } from 'antd';
 import '../Navbar.css';
 
-const SearchBarComponent = ({ searchText, setSearchValue, enterPress, t }) => {
+type SearchBarProps = {
+    searchText: string; 
+    setSearchValue: React.ChangeEventHandler<HTMLInputElement>;
+    enterPress: () => void; 
+    t: (key:string) => string;
+};
+
+const SearchBarComponent = ({ searchText, setSearchValue, enterPress, t }: SearchBarProps) => {
     return(
     <span className="search-bar-navbar">
       <Input
@@ -15,12 +21,5 @@ const SearchBarComponent = ({ searchText, setSearchValue, enterPress, t }) => {
     </span>
     );
 }
-
-SearchBarComponent.propTypes = {
-    searchText: PropTypes.string.isRequired,
-    setSearchValue: PropTypes.func.isRequired,
-    enterPress: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
-};
 
 export default SearchBarComponent;
