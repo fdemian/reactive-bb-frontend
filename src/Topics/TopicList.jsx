@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import { List, Spin, Statistic } from 'antd';
-import format_title_string from '../utils/formats.js';
+import format_title_string from '../utils/formats';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 

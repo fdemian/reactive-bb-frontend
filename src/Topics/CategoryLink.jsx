@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Tag } from 'antd';
-import format_title_string from '../utils/formats.js';
+import format_title_string from '../utils/formats';
 import './Topics.css';
 
 const CategoryLink = ({ category, isMobile }) => {
