@@ -1,5 +1,6 @@
 import { useState, Suspense } from 'react';
 import { Drawer, Spin, Menu } from 'antd';
+import type { MenuProps } from 'antd/es/menu';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSignIn } from '@fortawesome/free-solid-svg-icons';
@@ -11,8 +12,9 @@ const NavbarMobileUnlogged = ({ t }:{ t: (key:string) => string; }) => {
     const closeDrawer = () => setDrawerVisible(false);
     const openDrawer = () => setDrawerVisible(true);
 
-    const items = [
+    const items: MenuProps['items']  = [
         {
+            key: 'login',
             label: (
                 <Link
                     className="login-menu-link-mobile"
@@ -27,6 +29,7 @@ const NavbarMobileUnlogged = ({ t }:{ t: (key:string) => string; }) => {
             )
         },
         {
+            key: 'register',
             label: (
                 <Link className="login-menu-link-mobile" onClick={closeDrawer} to="/register">
                     <FontAwesomeIcon icon={faUserPlus} />

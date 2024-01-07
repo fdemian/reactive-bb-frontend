@@ -19,7 +19,6 @@ type MarkReadParams = {
 };
 
 type NotificationProps = {
-    notification: NotificationType;
     notifications: NotificationType[];
     enabled: boolean;
     markAsRead: (p: MarkReadParams) => void;
@@ -105,7 +104,7 @@ const NotificationsMenu = (props: NotificationProps) => {
     return (
         <Dropdown
             overlayClassName="notifications-dropdown"
-            menu={enabled ? { items } : []}
+            menu={enabled ? { items } : {}}
             placement="bottom"
         >
       <span>

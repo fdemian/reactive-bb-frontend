@@ -43,7 +43,7 @@ const Notification = ({ t, notification, markAsRead, notifications }: Notificati
             <UserAvatar
                 avatar={notification.user.avatar}
                 username={notification.user.username}
-                size="20px"
+                size={20}
                 shape="square"
             />
             &nbsp; &nbsp;

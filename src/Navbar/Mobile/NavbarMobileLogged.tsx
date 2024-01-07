@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Menu, Spin, Badge, Drawer } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,44 +15,13 @@ import NotificationMobile from './NotificationMobile';
 import ChatMobile from './ChatMobile';
 import { Link } from 'react-router-dom';
 import { getItem } from './utils';
-import { UserType } from '../../User/userTypes';
 import '../Navbar.css';
 import DrawerToggleButton from "./DrawerToggleButton";
-import { NotificationType } from '../navbarTypes';
+import { NavbarLoggedProps } from '../navbarTypes';
 
 const AccountAvatar = lazy(() => import('../../UserAvatar/UserAvatar'));
 
-type ChatType = {
-    id: number;
-    avatar: string;
-    username: string;
-};
-
-
-type MarkReadParams = {
-    variables: {
-        notifications: number[],
-    };
-    optimisticResponse: {
-        markAsRead: NotificationType[],
-    };
-};
-
-type NavbarMobileLoggedProps = {
-    loading: boolean;
-    userType: string;
-    user: UserType;
-    chats: { data: { chatsByUser: ChatType[] } };
-    chatSubscription: () => void;
-    notifications: NotificationType[];
-    notificationsEnabled: boolean;
-    newSubscription: () => void;
-    logoutFn: () => void;
-    markAsRead: (p: MarkReadParams) => void;
-    t: (key:string) => string;
-};
-
-const NavbarMobileLogged = (props: NavbarMobileLoggedProps) => {
+const NavbarMobileLogged = (props: NavbarLoggedProps) => {
     const {
         user,
         notificationsEnabled,
@@ -223,7 +191,7 @@ const NavbarMobileLogged = (props: NavbarMobileLoggedProps) => {
             ),
             chatsDisabled
         ),
-    ] : [getItem(<Spin role="loading" aria-busy={true} data-testid="loading-spinner" />, "loading", undefined)];
+    ] : [getItem(<Spin aria-busy={true} data-testid="loading-spinner" />, "loading", undefined)];
 
     return (
     <>

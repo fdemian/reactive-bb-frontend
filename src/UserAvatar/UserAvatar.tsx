@@ -12,7 +12,7 @@ type AvatarSizeType = {
 type AccountAvatarTypes = {
     avatar: string; 
     username: string; 
-    size: number | AvatarSizeType;
+    size: number | AvatarSizeType | "large" | "small" | "default";
     shape: "circle" |  "square" | undefined;
 };
 
@@ -22,7 +22,6 @@ const AccountAvatar = ({ avatar, username, size, shape }: AccountAvatarTypes) =>
             <Avatar
                 shape={shape === undefined ? 'circle' : shape}
                 size={size}
-                role="img"
                 className="Avatar"
                 aria-label={`Avatar of ${username}`}
             >
@@ -35,7 +34,6 @@ const AccountAvatar = ({ avatar, username, size, shape }: AccountAvatarTypes) =>
             shape={shape === undefined ? 'circle' : shape}
             size={size}
             className="Avatar"
-            role="img"
             aria-label={`Avatar of ${username}`}
             src={`/static/avatars/${avatar}`}
             alt={`Avatar of ${username}`}

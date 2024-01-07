@@ -1,7 +1,9 @@
 type ChatType = {
+   author: {
     id: number;
     avatar: string;
     username: string;
+   };
 };
 
 type ChatMobileProps = {
@@ -10,7 +12,7 @@ type ChatMobileProps = {
 }
 
 const ChatMobile = ({ t, chat }: ChatMobileProps) => {
-    return <div>{`${t("chatWith")} ${chat.username}`}</div>;
+    return <div>{`${t("chatWith")} ${chat.author.username}`}</div>;
 };
 
 export default ChatMobile;

@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { UserType } from '../User/userTypes';
 
 type UserNotificationType = {
@@ -6,26 +7,53 @@ type UserNotificationType = {
     username: string;
 };
 
-type ChatNotificationType = {
-    data: UserNotificationType[];
-    loading: boolean;
-    error: boolean;
+export type ChatType = {
+    author: {
+      id: number;
+      avatar: string;
+      username: string;
+    };
+    read: boolean;
+};
+
+export type MessageType = {
+    id: number;
+    avatar: string;
+    username: string;
+    read: boolean;
 };
 
 
-export type NavbarLoggedProps = { 
+export type ChatsByUserResponse = {
+    data: { 
+        chatsByUser: ChatType[] 
+    }; 
+    loading: boolean; 
+    error?: ApolloError | undefined;
+};
+
+type MarkReadParams = {
+    variables: {
+        notifications: number[],
+    };
+    optimisticResponse: {
+        markAsRead: NotificationType[],
+    };
+};
+
+export type NavbarLoggedProps = {
     loading: boolean;
-    userType: string;
+    userType: string | null;
     user: UserType;
-    t: (key:string) => string;
-    chats: ChatNotificationType;
+    chats: ChatsByUserResponse;
     chatSubscription: () => void;
     notifications: NotificationType[];
+    notificationsEnabled: boolean;
     newSubscription: () => void;
     logoutFn: () => void;
-    markAsRead: (n: number[]) => void; 
+    markAsRead: (p: MarkReadParams) => void;
+    t: (key:string) => string;
 };
-
 
 export type NotificationType = {
     id: number;

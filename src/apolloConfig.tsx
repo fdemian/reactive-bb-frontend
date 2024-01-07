@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, split } from '@apollo/client';
+import { ApolloClient, ApolloLink, split , ServerError} from '@apollo/client';
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
@@ -13,14 +13,14 @@ const redirectToLogout = () => {
     window.location.replace(newURL + '?from=' + from);
 };
 
-const eraseUserTokensAndLogout = async (url, host, protocol) => {
+const eraseUserTokensAndLogout = async (url:string, host:string, protocol:string) => {
     if (url.indexOf('logout') === -1) {
         await fetch(`${protocol}//${host}/api/logout`, { method: 'POST' });
         redirectToLogout();
     }
 };
 
-const getWSURL = () => {
+const getWSURL = ():string => {
     const host = window.location.host;
     const port = '8000';
     const isLocalhost = host.toString().includes('localhost');
@@ -30,10 +30,18 @@ const getWSURL = () => {
     return 'wss://' + host + '/api/subscriptions';
 };
 
-const errorLink = onError(async (props) => {
-    const { networkError } = props;
-    if (networkError) {
-        const { statusCode } = networkError;
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors){
+        graphQLErrors.forEach(({ message, locations, path }) =>
+        console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        )
+        );   
+    }
+
+        if (networkError && networkError.name === "ServerError") {
+        const errorParsed:ServerError = networkError as ServerError;
+        const { statusCode } = errorParsed;
         const { href, host, protocol } = window.location;
         if (statusCode === 412) {
             eraseUserTokensAndLogout(href, host, protocol);

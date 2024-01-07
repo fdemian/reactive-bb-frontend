@@ -1,19 +1,18 @@
 import { es, enUS } from 'date-fns/locale';
-import { setDefaultOptions } from 'date-fns';
+import { setDefaultOptions, Locale } from 'date-fns';
 import type { ConfigType, OAuthConfig } from './types';
-
 const IS_MOBILE = 'isMobile';
 const DEFAULT_PAGE_ITEMS = 'DEFAULT_PAGE_ITEMS';
 const DEFAULT_LOCALE = 'DEFAULT_LOCALE';
 const OAUTH_CONFIG = 'OAUTH_CONFIG';
 const CONFIG = 'CONFIG';
-
-const locales = {
-    es: es,
-    en: enUS
+  
+const locales: { [key: string]: Locale }  = {
+   'es': es,
+   'en': enUS
 };
 
-function loadLocale(lang) {
+function loadLocale(lang:string) {
     setDefaultOptions({ locale: locales[lang] });
 }
 
@@ -27,7 +26,7 @@ export const getConfig = (): ConfigType => {
     return JSON.parse(localStorage.getItem(CONFIG) ?? "{}");
 };
 
-export const setOauthConfig = async (config: OAuthConfig) => {
+export const setOauthConfig = async (config: string) => {
     localStorage.setItem(OAUTH_CONFIG, config);
 };
 
@@ -44,8 +43,8 @@ export const getIsMobile = () => {
     return isMobile === 'true';
 };
 
-export const setDefaultPageItems = async (items) => {
-    localStorage.setItem(DEFAULT_PAGE_ITEMS, items);
+export const setDefaultPageItems = async (items:number) => {
+    localStorage.setItem(DEFAULT_PAGE_ITEMS, items.toString());
 };
 
 export const getDefaultPageItems = () => {
@@ -56,7 +55,7 @@ export const getDefaultLocale = () => {
     return localStorage.getItem(DEFAULT_LOCALE);
 };
 
-export const setDefaultLocale = (language) => {
+export const setDefaultLocale = (language:string) => {
     const locale = getLocale(language);
     if (!localStorage.getItem(DEFAULT_LOCALE)) {
         localStorage.setItem(DEFAULT_LOCALE, locale);

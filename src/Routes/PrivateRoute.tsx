@@ -1,11 +1,17 @@
-import PropTypes from 'prop-types';
 import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { useApolloClient, useQuery } from '@apollo/client';
 import { SET_LOGIN, GET_IS_LOGGED_IN } from '../Login/queries';
 import { clearUser } from '../Login/authUtils';
 import { getBanStatus, getUserType } from '../Login/authUtils';
 
-const PrivateRoute = ({ component: Component, ...rest }): React.ReactElement | null => {
+type PrivateRouteProps = {
+    component: () => React.ReactElement;
+    requiresActiveUser: boolean; 
+    modRoute: boolean; 
+    adminRoute: boolean;
+};
+
+const PrivateRoute = ({ component: Component, ...rest }:PrivateRouteProps): React.ReactElement | null => {
     const navigate = useNavigate();
     const { requiresActiveUser, modRoute, adminRoute } = rest;
     const loginQuery = useQuery(GET_IS_LOGGED_IN);
@@ -52,14 +58,8 @@ const PrivateRoute = ({ component: Component, ...rest }): React.ReactElement | n
         navigate('/banned');
         return null;
     }
-    
+        
     return <Component />;
 };
-
-
-PrivateRoute.propTypes = {
-    component: PropTypes.any.isRequired
-};
-
 
 export default PrivateRoute;

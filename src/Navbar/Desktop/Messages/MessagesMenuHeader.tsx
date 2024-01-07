@@ -1,18 +1,12 @@
 import { Badge, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { ChatType } from '../../navbarTypes';
 import './Messages.css';
-
-type MessageType = {
-  id: number;
-  avatar: string;
-  username: string;
-  read: boolean;
-}
 
 type MessagesHeaderProps = {
   t: (key:string) => string;
-  messages: MessageType[];
+  messages: ChatType[];
   enabled: boolean;
 };
 
@@ -23,7 +17,7 @@ const MessagesHeader = ({ t, messages, enabled }: MessagesHeaderProps) => {
         return (
         <span className="message-icon-header header-enabled">
         <Badge
-            count={messages.filter((n: MessageType) => n['read'] !== undefined && !n.read).length}
+            count={messages.filter((n: ChatType) => n['read'] !== undefined && !n.read).length}
             offset={[0, 9]}
             size="small"
         >

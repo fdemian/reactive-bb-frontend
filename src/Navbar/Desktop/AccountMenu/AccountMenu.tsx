@@ -14,7 +14,7 @@ import { UserType } from '../../../User/userTypes';
 import './AccountMenu.css';
 
 type AccountMenuType = {
-    userType: string;
+    userType: string | null;
     user: UserType;
     logoutFn: () => void;
     t: (key:string) => string;
@@ -34,7 +34,7 @@ const AccountMenu = ({ userType, user, logoutFn, t }:AccountMenuType) => {
                         avatar={user.avatar}
                         username={user.username}
                         shape="circle"
-                        size="medium"
+                        size="default"
                     />
                     &nbsp;
                     <strong className="username-menu-text">{user.username}</strong>

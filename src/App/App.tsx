@@ -79,7 +79,7 @@ const App = () => {
                         <header role="banner">
                             <Navbar 
                                 isLoading={loading} 
-                                isError={error} 
+                                isError={error !== null && error !== undefined}  
                                 mobile={isMobile} 
                                 name={name} 
                                 logoURL={logoURL} 

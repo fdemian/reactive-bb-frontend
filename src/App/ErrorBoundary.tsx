@@ -3,7 +3,7 @@ import { useRouteError } from 'react-router-dom';
 const { Paragraph, Text } = Typography;
 
 const ErrorBoundary = () => {
-    const error = useRouteError();
+    const error:any = useRouteError();
     const stackStr = error.stack.split('\n');
 
     return (
@@ -11,7 +11,7 @@ const ErrorBoundary = () => {
             <div className="desc" key="error-desc">
                 <Paragraph key="error-desc-paragraph">
                     <Text strong style={{ fontSize: 16 }} key="error-desc-paragraph-text">
-                        {stackStr.map((s) => (
+                        {stackStr.map((s:string) => (
                             <p key={s}>{s}</p>
                         ))}
                     </Text>

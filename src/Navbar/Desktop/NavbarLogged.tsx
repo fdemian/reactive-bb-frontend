@@ -22,9 +22,9 @@ const NavbarLogged = (props: NavbarLoggedProps) => {
         markAsRead,
         t,
     } = props;
-
+    
     if (loading || !user)
-       return <Spin role="loading" aria-busy={true} data-testid="loading-spinner" />;
+       return <Spin aria-busy={true} data-testid="loading-spinner" />;
 
     return (
     <>
@@ -34,7 +34,6 @@ const NavbarLogged = (props: NavbarLoggedProps) => {
               newSubscription={newSubscription}
               markAsRead={markAsRead}
               enabled={true}
-              userId={user.id}
               t={t}
           />
         </span>
@@ -42,7 +41,6 @@ const NavbarLogged = (props: NavbarLoggedProps) => {
           <span role="button" className="account-nav-items" aria-label={t('messages')}>
             <Messages
                 chatSubscription={chatSubscription}
-                markRead={() => console.log('MARK READ!')}
                 messages={chats}
                 enabled={true}
                 t={t}
@@ -50,7 +48,7 @@ const NavbarLogged = (props: NavbarLoggedProps) => {
           </span>
         </Suspense>
         <Suspense fallback={<Spin />}>
-            <span role="button" className="account-nav-items" aria-label={user[0]}>
+            <span role="button" className="account-nav-items" aria-label={user.username[0]}>
             <AccountMenu
                 userType={userType}
                 user={user}

@@ -44,7 +44,7 @@ const Navbar = ({mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
 
     const [searchText, setSearchText] = useState('');
     const navigate = useNavigate();
-    const setSearchValue = (e) => setSearchText(e.target.value);
+    const setSearchValue = (e:any) => setSearchText(e.target.value);
     const enterPress = () => {
         navigate('/search?term=' + searchText);
         setSearchText('');
@@ -157,7 +157,7 @@ const Navbar = ({mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
             <Col span={6}>
                 {
                     isLoading ? <Spin /> :
-                    <NavLogo loading={isLoading} mobile={mobile} name={name} logoURL={logoURL} />                    
+                    <NavLogo mobile={mobile} name={name} logoURL={logoURL} />                    
                 }
             </Col>
             <Col span={6}>
