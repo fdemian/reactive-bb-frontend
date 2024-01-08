@@ -5,7 +5,7 @@ import './Register.css';
 
 const { Paragraph, Text, Link } = Typography;
 
-export const Component = () => {
+export const Component = ():React.ReactElement => {
     const { t } = useTranslation('register', { keyPrefix: 'register' });
     let { mail } = useParams();
     return (

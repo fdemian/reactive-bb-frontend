@@ -4,7 +4,7 @@ import { Form, Input, Button, Alert, Tooltip } from 'antd';
 import TopIcon from '../Login/TopIcon';
 import OuathLogins from '../Login/OauthLogins';
 import Loading from '../Loading/LoadingIndicator';
-import PasswordStrengthBar from '../PasswordStrength/PasswordStrengthBar';
+import PasswordStrengthBar from '../PasswordStrength/PasswordStrengthBar.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faUser,
@@ -28,6 +28,13 @@ const layout = {
     }
 };
 
+type FormValues = {
+    passwordValue: string;
+    passwordrepeat: string;
+    username: string; 
+    email: string;
+};
+
 export const Component = () => {
 
     const [form] = Form.useForm();
@@ -40,7 +47,7 @@ export const Component = () => {
     const [checkUsername, usernameQueryResp] = useLazyQuery(CHECK_USERNAME);
     const [passwordValue, setPasswordValue] = useState(null);
 
-    const onFinish = (values) => {
+    const onFinish = (values:FormValues) => {
         if (passwordValue !== values.passwordrepeat) {
             setError(true);
             setErrorMessage(t("passNoMatch"));
@@ -57,7 +64,7 @@ export const Component = () => {
         });
     };
 
-    const checkUsernameAvailability = async (e) => {
+    const checkUsernameAvailability = async (e:any) => {
         const username = e.target.value;
         if (username.length < 4) return;
         checkUsername({
@@ -67,7 +74,7 @@ export const Component = () => {
         });
     };
 
-    const onFinishFailed = (errorInfo) => {
+    const onFinishFailed = (errorInfo:any) => {
         console.log('Failed:', errorInfo.errorFields);
     };
 
@@ -81,8 +88,7 @@ export const Component = () => {
             return <Navigate to={`/activationinfo/${email}`} />;
         }
     }
-
-    const userQueryLoading = usernameQueryResp.loading;
+    
     const usernameTaken =
         usernameQueryResp.data && usernameQueryResp.data.checkUsername.exists === true;
 
@@ -135,7 +141,6 @@ export const Component = () => {
                         autoComplete="username"
                         onChange={checkUsernameAvailability}
                         suffix={usernameQueryResp.data && UserNameSuffix}
-                        loading={userQueryLoading}
                     />
                 </Form.Item>
                 <Form.Item
@@ -195,12 +200,9 @@ export const Component = () => {
                             />
                         }
                         autoComplete="password"
-                        onChange={(e) => setPasswordValue(e.target.value)}
+                        onChange={(e:any) => setPasswordValue(e.target.value)}
                     />
-                    <PasswordStrengthBar
-                        password={passwordValue}
-                        t={t}
-                    />
+                    <PasswordStrengthBar password={passwordValue ?? ""} t={t} />
                 </Form.Item>
                 <Form.Item
                     label=""
@@ -218,7 +220,7 @@ export const Component = () => {
                         role="textbox"
                         className="input-field"
                         placeholder={t('repeatPasswordPlaceholder')}
-                        onChange={null}
+                        onChange={undefined}
                         type="password"
                         prefix={
                             <FontAwesomeIcon

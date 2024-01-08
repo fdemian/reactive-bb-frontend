@@ -9,13 +9,17 @@ import Loading from '../Loading/LoadingIndicator';
 import { RESET_PASSWORD } from './Mutations';
 import './ResetPassword.css';
 
+type ActivatePasswordValues = {
+    password: string;
+};
+
 export const Component = () => {
     const navigate = useNavigate();
     const { t } = useTranslation('register', { keyPrefix: 'register' });
     const [resetPassword, { data, loading }] = useMutation(RESET_PASSWORD);
     let { token } = useParams();
 
-    const onFinish = (values) => {
+    const onFinish = (values:ActivatePasswordValues) => {
         resetPassword({
             variables: {
                 token: token,

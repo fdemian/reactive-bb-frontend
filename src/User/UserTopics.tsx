@@ -1,13 +1,19 @@
-import PropTypes from 'prop-types';
-import { GET_TOPICS_BY_USER } from './Queries';
-import Loading from '../Loading/LoadingIndicator';
-import Avatar from '../UserAvatar/UserAvatar';
+import { GET_TOPICS_BY_USER } from './Queries.js';
+import Loading from '../Loading/LoadingIndicator.js';
+import Avatar from '../UserAvatar/UserAvatar.js';
 import { List } from 'antd';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import format_title_string from '../utils/formats.js';
+import { UserType, TopicType } from './userTypes';
 
-const UserTopics = ({ id, user }) => {
+
+type UserTopicsProps = {
+    id: number;
+    user: UserType;
+}
+
+const UserTopics = ({ id, user }: UserTopicsProps) => {
     const { loading, error, data } = useQuery(GET_TOPICS_BY_USER, {
         variables: { id: id },
     });
@@ -24,7 +30,7 @@ const UserTopics = ({ id, user }) => {
             size="large"
             data-testid="user-topics"
             dataSource={topics}
-            renderItem={(item) => (
+            renderItem={(item:TopicType) => (
                 <List.Item id={`post-${item.id}`} key={item.id}>
                     <List.Item.Meta
                         avatar={
@@ -48,20 +54,6 @@ const UserTopics = ({ id, user }) => {
             )}
         />
     );
-};
-
-UserTopics.propTypes = {
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        username: PropTypes.string.isRequired,
-        avatar: PropTypes.string.isRequired,
-        fullname: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired,
-        about: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired
-    })
 };
 
 export default UserTopics;

@@ -6,7 +6,7 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { refreshToken, setLoginData } from '../Login/authUtils';
 import { useTranslation } from 'react-i18next';
 
-export const Component = () => {
+export const Component = (): React.ReactElement => {
     let { service } = useParams();
     const [searchParams] = useSearchParams();
     const code = searchParams.get('code');
@@ -14,7 +14,7 @@ export const Component = () => {
     const navigate = useNavigate();
     const { t } = useTranslation('oauth', { keyPrefix: 'oauth' });
 
-    const registerUser = async (code, service) => {
+    const registerUser = async (code:string, service:string) => {
         const jsonData = JSON.stringify({
             service: service,
             code: code
@@ -29,6 +29,17 @@ export const Component = () => {
 
     useEffect(() => {
         async function oauthFlow() {
+
+            if(code === null){
+               navigate(`/autherror/${service}`);   
+               return;             
+            }
+
+            if(service === undefined){
+                navigate(`/autherror/`);
+                return;
+            }
+
             const data = await registerUser(code, service);
             const { id, ok, ttl } = data;
 

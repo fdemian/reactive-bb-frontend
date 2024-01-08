@@ -2647,6 +2647,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/zxcvbn@npm:^4.4.4":
+  version: 4.4.4
+  resolution: "@types/zxcvbn@npm:4.4.4"
+  checksum: e7efc6ca5e5aa5764981d853c53c4fe7b9b36a187bde29a2465cc1028e385073b7ae1fed126c41e86a6b0cd96f6326d0e8aa3a506bd0dca8fb98803a166f2c20
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^6.17.0":
   version: 6.17.0
   resolution: "@typescript-eslint/eslint-plugin@npm:6.17.0"
@@ -7968,6 +7975,7 @@ __metadata:
     "@testing-library/user-event": ^14.5.2
     "@types/react": ^18.2.46
     "@types/react-dom": ^18.2.18
+    "@types/zxcvbn": ^4.4.4
     "@typescript-eslint/eslint-plugin": ^6.17.0
     "@typescript-eslint/parser": ^6.17.0
     "@vitejs/plugin-react-swc": ^3.5.0

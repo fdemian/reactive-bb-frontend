@@ -10,10 +10,16 @@ import { RESET_PASSWORD_REQUEST } from './Mutations';
 import Loading from '../Loading/LoadingIndicator';
 import './ResetPassword.css';
 
+
+type ResetPasswordValues = {
+    email: string;
+};
+
+
 export const Component = () => {
     const [resetInitiated, setResetInitiated] = useState(false);
     const navigate = useNavigate();
-    const onFinish = (values) => {
+    const onFinish = (values:ResetPasswordValues) => {
         const { email } = values;
         resetPassword({
             variables: {

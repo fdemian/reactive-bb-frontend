@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
 import { Drawer, Button, Badge } from 'antd';
+import { MobileCategoryDrawerProps } from './topicTypes';
 
-const MobileCategoryDrawer = (props) => {
+const MobileCategoryDrawer = (props: MobileCategoryDrawerProps) => {
     const {
         categoriesData,
         categoriesDrawer,
@@ -14,7 +14,6 @@ const MobileCategoryDrawer = (props) => {
         <Drawer
             title="Pick a category"
             placement="bottom"
-            size="70%"
             onClose={() => {}}
             open={categoriesDrawer}
             extra={
@@ -43,19 +42,6 @@ const MobileCategoryDrawer = (props) => {
             </>
         </Drawer>
     );
-};
-
-
-MobileCategoryDrawer.propTypes = {
-  categoriesData: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired
-    })
-  ),
-  categoriesDrawer: PropTypes.bool.isRequired,
-  toggleCategoriesDrawer: PropTypes.func.isRequired,
-  selectCategoriesMobile: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
 };
 
 export default MobileCategoryDrawer;

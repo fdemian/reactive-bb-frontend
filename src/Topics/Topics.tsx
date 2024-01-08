@@ -32,15 +32,15 @@ export const Component = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const pageParams = searchParams.get('page');
     const initialPage = getPageNumber(pageParams);
-    const PAGE_LIMIT = parseInt(getDefaultPageItems(), 10);
+    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? "5", 10);
     const PAGE_OFFSET = (initialPage - 1) * PAGE_LIMIT;
 
     //
-    const [currentPage, setCurrentPage] = useState(initialPage);
-    const [categoryFilter, setCategoryFilter] = useState('all');
-    const [categoriesDrawer, setCategoriesDrawer] = useState(false);
+    const [currentPage, setCurrentPage] = useState<number>(initialPage);
+    const [categoryFilter, setCategoryFilter] = useState<string>('all');
+    const [categoriesDrawer, setCategoriesDrawer] = useState<boolean>(false);
     const toggleCategoriesDrawer = () => setCategoriesDrawer(!categoriesDrawer);
-    const selectCategoriesMobile = (name) => {
+    const selectCategoriesMobile = (name:string) => {
         setCategoryFilter(name);
         toggleCategoriesDrawer();
     };
@@ -87,11 +87,11 @@ export const Component = () => {
     const numberOfPages = Math.ceil(topicsCount / PAGE_LIMIT);
 
     // Page changed
-    const onChangePage = (page) => {
+    const onChangePage = (page:number) => {
         const _offset = (currentPage - 1) * PAGE_LIMIT;
         const _limit = (currentPage - 1) * PAGE_LIMIT + PAGE_LIMIT;
         setCurrentPage(page);
-        setSearchParams({ page: page });
+        setSearchParams({ page: page.toString() });
         fetchMore({
             variables: {
                 offset: _offset,
@@ -134,7 +134,7 @@ export const Component = () => {
             >
                 <Suspense fallback={<Spin />}>
                     <TopicList
-                        userType={userType}
+                        userType={userType ?? ""}
                         pinnedTopics={pinnedTopics}
                         topics={filteredTopics}
                         isMobile={isMobile}

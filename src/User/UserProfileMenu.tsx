@@ -1,13 +1,17 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Menu } from 'antd';
-//import { useTranslation } from 'react-i18next';
 import UserPosts from './UserPosts';
 import UserTopics from './UserTopics';
 import UserLikes from './UserLikes';
+import { UserType } from './userTypes';
 import './User.css';
 
-const UserProfileMenu = ({ id, user }) => {
+type UserProfileProps = {
+    id: number;
+    user: UserType;
+}
+
+const UserProfileMenu = ({ id, user }: UserProfileProps) => {
 
     const menuMap = [
         {
@@ -31,7 +35,7 @@ const UserProfileMenu = ({ id, user }) => {
     ];
     const [selectIndex, setSelectIndex] = useState(0);
 
-    const setKey = ({ key }) => {
+    const setKey = ({ key }: { key:string; }) => {
         const index = menuMap.findIndex((s) => s.key === key);
         setSelectIndex(index);
     };
@@ -54,20 +58,6 @@ const UserProfileMenu = ({ id, user }) => {
             </div>
         </div>
     );
-};
-
-UserProfileMenu.propTypes = {
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        username: PropTypes.string.isRequired,
-        avatar: PropTypes.string.isRequired,
-        fullname: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired,
-        about: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired
-    })
 };
 
 export default UserProfileMenu;

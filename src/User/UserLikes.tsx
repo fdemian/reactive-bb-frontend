@@ -1,15 +1,19 @@
-import PropTypes from 'prop-types';
-import { GET_POSTS_BY_USER } from './Queries';
+import { GET_LIKES_BY_USER } from './Queries';
 import Loading from '../Loading/LoadingIndicator';
 import Avatar from '../UserAvatar/UserAvatar';
 import { List } from 'antd';
 import { Link } from 'react-router-dom';
 import Renderer from '../Editor/Renderer';
-
+import { UserType, LikeType } from './userTypes';
 import { useQuery } from '@apollo/client';
 
-const UserPosts = ({ id, user }) => {
-    const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {
+type UserLikesProps = {
+    id: number;
+    user: UserType;
+}
+
+const UserLikes = ({ id, user }: UserLikesProps) => {
+    const { loading, error, data } = useQuery(GET_LIKES_BY_USER, {
         variables: { id: id },
     });
 
@@ -17,14 +21,15 @@ const UserPosts = ({ id, user }) => {
 
     if (loading) return <Loading />;
 
-    const posts = data.postsByUser;
+    const likes = data.likesByUser;
+
     return (
         <List
             itemLayout="vertical"
             size="large"
-            data-testid="user-posts"
-            dataSource={posts}
-            renderItem={(item) => (
+            data-testid="user-likes"
+            dataSource={likes}
+            renderItem={(item:LikeType) => (
                 <List.Item id={`post-${item.id}`} key={item.id}>
                     <List.Item.Meta
                         avatar={
@@ -36,30 +41,16 @@ const UserPosts = ({ id, user }) => {
                             />
                         }
                         title={
-                            <Link to={`/posts/${item.id}/${item.topicId}`}>
+                            <Link to={`/posts/${item.post.id}/${item.post.topicId}`}>
                                 <span className="user-name">{user.username}</span>
                             </Link>
                         }
                     />
-                    <Renderer content={item.content} />
+                    <Renderer content={item.post.content} />
                 </List.Item>
             )}
         />
     );
 };
 
-UserPosts.propTypes = {
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        username: PropTypes.string.isRequired,
-        avatar: PropTypes.string.isRequired,
-        fullname: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired,
-        about: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired
-    })
-};
-
-export default UserPosts;
+export default UserLikes;

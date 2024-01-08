@@ -16,7 +16,7 @@ export const translateStrings = [
     "veryStrongPassword"
 ];
 
-export const getPasswordScore = (password) => {
+export const getPasswordScore = (password:string) => {
     const passwordStats = zxcvbn(password);
     return passwordStats.score;
 }

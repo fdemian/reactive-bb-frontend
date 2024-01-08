@@ -1,4 +1,6 @@
-export const getFilteredTopics = (topics, categoryFilter) => {
+import { TopicType  } from "./topicTypes";
+
+export const getFilteredTopics = (topics:TopicType[], categoryFilter:string) => {
     if (categoryFilter === 'all') return topics;
 
     if (categoryFilter.toLowerCase() === 'uncategorized')

@@ -13,7 +13,7 @@ import './User.css';
 
 export const Component = () => {
     let { id } = useParams();
-    const parsedId = parseInt(id, 10);
+    const parsedId = parseInt(id ?? "5", 10);
     const queryOpts = { variables: { id: parsedId }, skip: !id };
     const { loading, error, data } = useQuery(GET_USER, queryOpts);
     const { t } = useTranslation('accountSettings', { keyPrefix: 'settings.profile' });
@@ -36,7 +36,6 @@ export const Component = () => {
             <div className="user-title">
                 <span className="user-avatar">
                     <UserAvatar
-                        alt={username}
                         avatar={avatar}
                         username={username}
                         size={180}

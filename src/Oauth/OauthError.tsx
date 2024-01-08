@@ -4,7 +4,7 @@ import { Button, Result, Typography } from 'antd';
 
 const { Paragraph, Text } = Typography;
 
-export const Component = () => {
+export const Component = (): React.ReactElement => {
     let { service } = useParams();
     const navigate = useNavigate();
     const goToLoginPage = () => navigate('/login');

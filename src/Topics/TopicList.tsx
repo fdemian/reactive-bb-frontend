@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { List, Spin, Statistic } from 'antd';
 import format_title_string from '../utils/formats';
 import { format } from 'date-fns';
-import PropTypes from 'prop-types';
+import { TopicsListParams } from './topicTypes';
 
 // Lazy imports.
 const Avatar = lazy(() => import('../UserAvatar/UserAvatar'));
@@ -12,9 +12,9 @@ const ClosedIcon = lazy(() => import('./ClosedIcon'));
 const PinTopic = lazy(() => import('./PinTopic'));
 const PinnedIndicator = lazy(() => import('./PinnedIndicator'));
 
-const getDate = (date) => format(new Date(date), 'MMM d yyyy');
+const getDate = (date:string) => format(new Date(date), 'MMM d yyyy');
 
-const TopicsList = (props) => {
+const TopicsList = (props:TopicsListParams) => {
 
     const {
         topics,
@@ -101,49 +101,5 @@ const TopicsList = (props) => {
         />
     );
 };
-
-
-TopicsList.propTypes = {
-    topics: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        views: PropTypes.number.isRequired,
-        replies: PropTypes.number.isRequired,
-        created: PropTypes.string.isRequired,
-        closed: PropTypes.bool.isRequired,
-        pinned: PropTypes.bool.isRequired,
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string,
-            username: PropTypes.string.isRequired,
-        }),
-        category: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    })),
-    pinnedTopics: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        views: PropTypes.number.isRequired,
-        replies: PropTypes.number.isRequired,
-        created: PropTypes.string.isRequired,
-        closed: PropTypes.bool.isRequired,
-        pinned: PropTypes.bool.isRequired,
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string,
-            username: PropTypes.string.isRequired,
-        }),
-        category: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    })),
-    isMobile: PropTypes.bool.isRequired,
-    userType: PropTypes.string,
-    t: PropTypes.func.isRequired
-};
-
 
 export default TopicsList;

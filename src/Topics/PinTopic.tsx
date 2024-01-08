@@ -1,19 +1,21 @@
-import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import { GET_TOPICS, PIN_TOPIC } from './Queries';
 import { Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
+import { TopicType } from './topicTypes';
 import './Topics.css';
 
-const PinTopic = ({ topic }) => {
+type PinTopicParams = {topic: TopicType};
+
+const PinTopic = ({ topic }: PinTopicParams) => {
 
     const [pinTopicMut] = useMutation(PIN_TOPIC);
 
-    const pinTopic = (id) =>
+    const pinTopic = (id:number) =>
         pinTopicMut({
             variables: {
-                topic: parseInt(id, 10)
+                topic: id
             },
             refetchQueries: [GET_TOPICS, 'GetTopics']
         });
@@ -38,26 +40,5 @@ const PinTopic = ({ topic }) => {
   </span>
     );
 }
-
-PinTopic.propTypes = {
-    topic: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        views: PropTypes.number.isRequired,
-        replies: PropTypes.number.isRequired,
-        created: PropTypes.instanceOf(Date).isRequired,
-        closed: PropTypes.bool.isRequired,
-        pinned: PropTypes.bool.isRequired,
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string.isRequired,
-            username: PropTypes.string.isRequired,
-        }),
-        category: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    })
-};
 
 export default PinTopic;

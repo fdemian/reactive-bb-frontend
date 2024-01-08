@@ -1,14 +1,15 @@
-import PropTypes from "prop-types";
 import { Suspense } from 'react';
 import { Select, Button, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import type {TopicsHeaderParams} from './topicTypes';
+
 import './Topics.css';
 
 const Option = Select.Option;
 
-const TopicsHeader = (props) => {
+const TopicsHeader = (props: TopicsHeaderParams) => {
     const {
         isMobile,
         categories,
@@ -62,7 +63,7 @@ const TopicsHeader = (props) => {
                     optionFilterProp="children"
                     defaultValue={categoryFilter}
                     filterOption={(input, option) =>
-                        option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                       option !== undefined && option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     }
                     onChange={setCategoryFilter}
                 >
@@ -83,25 +84,6 @@ const TopicsHeader = (props) => {
             </div>
         </Suspense>
     );
-};
-
-
-TopicsHeader.propTypes = {
-    isMobile: PropTypes.bool.isRequired,
-    categories: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired
-      })
-    ),
-    categoryFilter: PropTypes.string.isRequired,
-    setCategoryFilter: PropTypes.func.isRequired,
-    toggleCategoriesDrawer: PropTypes.func.isRequired,
-    tr: PropTypes.func.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
-    banStatus:  PropTypes.shape({
-        banned: PropTypes.bool.isRequired,
-        banReason: PropTypes.string
-    })
 };
 
 export default TopicsHeader;

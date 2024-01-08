@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Progress } from 'antd';
 import {
   getPasswordScore,
@@ -6,11 +5,18 @@ import {
   PASSWORD_COLORS
 } from './utils';
 
-const PasswordStrengthBar = ({password, t}) => {
+type TranslationFn = (key:string) => string;
+
+type PasswordStrengthBarTypes = {
+    password: string;
+    t: TranslationFn;
+};
+
+const PasswordStrengthBar = ({password, t}:PasswordStrengthBarTypes) => {
     if(!password)
         return <br />;
 
-    const score = getPasswordScore(password);
+    const score:number = getPasswordScore(password);
     const percent = (score/4)*100;
 
     return (
@@ -28,10 +34,5 @@ const PasswordStrengthBar = ({password, t}) => {
         </div>
     );
 }
-
-PasswordStrengthBar.propTypes = {
-    password: PropTypes.string,
-    t: PropTypes.func
-};
 
 export default PasswordStrengthBar;

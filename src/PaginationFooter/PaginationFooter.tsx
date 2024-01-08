@@ -7,7 +7,13 @@ import { getIsMobile } from '../App/utils';
 import { useTranslation } from 'react-i18next';
 import './PaginationFooter.css';
 
-const PaginationFooter = ({ lastPage, currentPage, onChangePage }) => {
+type PaginationFooterProps = {
+    lastPage:number; 
+    currentPage:number;
+    onChangePage: (p:number) => void;
+};
+
+const PaginationFooter = ({ lastPage, currentPage, onChangePage }:PaginationFooterProps) => {
     const [shortCutBtnPage, setShortCutBtnPage] = useState(1);
     const [showGoToPage, setShowGoToPage] = useState(false);
 
@@ -24,7 +30,7 @@ const PaginationFooter = ({ lastPage, currentPage, onChangePage }) => {
     const toggleGoTo = () => setShowGoToPage(!showGoToPage);
     const goToFirstPage = () => onChangePage(1);
     const goToLastPage = () => onChangePage(lastPage);
-    const pageShortcutChangeBtn = (value) => setShortCutBtnPage(value);
+    const pageShortcutChangeBtn = (value:number | null) => setShortCutBtnPage(value ?? 0);
     const pageShortCutClick = () => {
         setShowGoToPage(false);
         onChangePage(shortCutBtnPage);
@@ -49,7 +55,7 @@ const PaginationFooter = ({ lastPage, currentPage, onChangePage }) => {
           <Button
               danger
               type="primary"
-              size="medium"
+              size="middle"
               onClick={toggleGoTo}
               className="cancel-go-page-button"
           >
@@ -58,7 +64,7 @@ const PaginationFooter = ({ lastPage, currentPage, onChangePage }) => {
           </Button>
           <Button
               type="primary"
-              size="medium"
+              size="middle"
               onClick={pageShortCutClick}
               className="go-to-button"
           >
