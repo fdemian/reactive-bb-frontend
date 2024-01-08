@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import './Editor.css';
 
-const Renderer = ({ content }) => {
+type RendererParse = { content: string | null; };
+
+const Renderer = ({ content }:RendererParse) => {
     let parsedContent;
     const { t } = useTranslation('editor', { keyPrefix: 'editor' });
 
@@ -19,7 +21,7 @@ const Renderer = ({ content }) => {
         placeholderText: '',
         initialState: parsedContent,
         readOnly: true,
-        onError: (error) => {
+        onError: (error: Error) => {
             throw error;
         },
         imageConfig: {
@@ -27,7 +29,7 @@ const Renderer = ({ content }) => {
             defaultCaptionText: '',
         },
         twitterConfig: {
-            loadingComponent: ({ tweetId }) => (
+            loadingComponent: ({ tweetId }:{ tweetId: string; }) => (
                 <p>
                     {t('internal.loadingTweet')}...(ID={tweetId})
                 </p>
@@ -40,7 +42,7 @@ const Renderer = ({ content }) => {
             emojiData: null,
         },
         citation: {
-            sourceLinkComponent: ({ sourceLink }) => (
+            sourceLinkComponent: ({ sourceLink }: { sourceLink: string; }) => (
                 <a href={sourceLink} className="source-link-component">
                     <FontAwesomeIcon icon={faArrowUp} size="lg" />
                 </a>

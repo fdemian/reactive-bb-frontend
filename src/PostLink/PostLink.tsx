@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import { useQuery } from '@apollo/client';
 import { Navigate, useParams } from 'react-router-dom';
 import { getDefaultPageItems } from '../App/utils';
-import format_title_string from '../utils/formats.js';
+import format_title_string from '../utils/formats';
 import Loading from '../Loading/LoadingIndicator';
 import { GET_POSITION_IN_PAGE } from './Queries';
 
@@ -14,11 +14,11 @@ export const Component = () => {
     const params = useParams();
     const { id } = params;
     const pageItems = getDefaultPageItems();
-    const postId = parseInt(id, 10);
+    const postId = parseInt(id ?? "-1", 10);
     const { data, loading, error } = useQuery(GET_POSITION_IN_PAGE, {
         variables: {
             post: postId,
-            itemscount: parseInt(pageItems, 10)
+            itemscount: parseInt(pageItems ?? "5", 10)
         }
     });
 

@@ -18,12 +18,12 @@ export const Component = () => {
     const searchTerm = searchParams.get('term');
     const pageParams = searchParams.get('page');
     const { t } = useTranslation('search', { keyPrefix: 'search' });
-    const [searchIn, setSearchIn] = useState([]);
-    const [search, setSearch] = useState(searchTerm);
+    const [searchIn, setSearchIn] = useState<string[]>([]);
+    const [search, setSearch] = useState<string | null>(searchTerm);
     const initialPage = getPageNumber(pageParams);
-    const PAGE_LIMIT = parseInt(getDefaultPageItems(), 10);
+    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? "5", 10);
     const PAGE_OFFSET = (initialPage - 1) * PAGE_LIMIT;
-    const [currentPage, setCurrentPage] = useState(initialPage);
+    const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
     // Total page calculation.
     const [performSearch, { data, loading, error, fetchMore }] = useLazyQuery(SEARCH_TERM, {
@@ -32,8 +32,7 @@ export const Component = () => {
             where: searchIn.length === 0 ? ['titles', 'posts'] : searchIn,
             limit: PAGE_LIMIT,
             offset: PAGE_OFFSET
-        },
-        skip: !search
+        }
     });
 
     useEffect(() => {
@@ -52,11 +51,11 @@ export const Component = () => {
         }
     }, [PAGE_LIMIT, PAGE_OFFSET, performSearch, search, searchIn, searchTerm]);
 
-    const onSearch = (value) => {
+    const onSearch = (value:string) => {
         if (!value || value.trim() === '') return;
         setSearch(value);
         setSearchParams({
-            page: 1,
+            page: "1",
             term: value
         });
         setCurrentPage(1);
@@ -71,11 +70,11 @@ export const Component = () => {
     };
 
     // Page changed
-    const onChangePage = (page) => {
+    const onChangePage = (page:number) => {
         const _offset = (currentPage - 1) * PAGE_LIMIT;
         const _limit = (currentPage - 1) * PAGE_LIMIT + PAGE_LIMIT;
         setCurrentPage(page);
-        setSearchParams({ page: page, term: search });
+        setSearchParams({ page: page.toString(), term: search ?? "" });
         fetchMore({
             variables: {
                 offset: _offset,
@@ -128,7 +127,7 @@ export const Component = () => {
             <SearchHeader
                 setSearchIn={setSearchIn}
                 searchIn={searchIn}
-                search={search}
+                search={search ?? ""}
                 onSearch={onSearch}
                 t={t}
             />

@@ -4,12 +4,20 @@ import { Divider, Input, Select, Form } from 'antd';
 const { Option } = Select;
 const { Search } = Input;
 
-const SearchHeader = ({ setSearchIn, searchIn, search, onSearch, t }) => {
-    const handleChange = (value) => setSearchIn(value);
-    const onFinish = (values) => {
+type SearchHeaderProps = {
+    setSearchIn: (value:string[]) => void; 
+    searchIn: string[];
+    search:string; 
+    onSearch: (value:string) => void;
+    t: (key:string) => string;
+};
+
+const SearchHeader = ({ setSearchIn, searchIn, search, onSearch, t }: SearchHeaderProps) => {
+    const handleChange = (value:string[]) => setSearchIn(value);
+    const onFinish = (values:string) => {
         console.log('Success:', values);
     };
-    const onFinishFailed = (errorInfo) => {
+    const onFinishFailed = (errorInfo:any) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -38,7 +46,6 @@ const SearchHeader = ({ setSearchIn, searchIn, search, onSearch, t }) => {
                     <Select
                         defaultValue={searchIn}
                         aria-label="Search dropdown"
-                        name="searchin"
                         key="search-option-select"
                         mode="multiple"
                         style={{ width: '100%' }}

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const { Paragraph, Text } = Typography;
 
-const PostLinkError = () => {
+const PostLinkError = (): React.ReactElement => {
     const { t } = useTranslation('postLink', { keyPrefix: 'postLink' });
     
     return (
