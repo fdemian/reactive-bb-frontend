@@ -2588,6 +2588,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/katex@npm:^0.16.7":
+  version: 0.16.7
+  resolution: "@types/katex@npm:0.16.7"
+  checksum: 4fd15d93553be97c02c064e16be18d7ccbabf66ec72a9dc7fd5bfa47f0c7581da2f942f693c7cb59499de4c843c2189796e49c9647d336cbd52b777b6722a95a
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 20.10.6
   resolution: "@types/node@npm:20.10.6"
@@ -7973,6 +7980,7 @@ __metadata:
     "@testing-library/jest-dom": ^6.2.0
     "@testing-library/react": ^14.1.2
     "@testing-library/user-event": ^14.5.2
+    "@types/katex": ^0.16.7
     "@types/react": ^18.2.46
     "@types/react-dom": ^18.2.18
     "@types/zxcvbn": ^4.4.4

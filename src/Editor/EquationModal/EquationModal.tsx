@@ -1,11 +1,22 @@
-import PropTypes from "prop-types";
 import { Button, Switch } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck} from '@fortawesome/free-solid-svg-icons';
 import KatexSelector from './KatexSelector';
 import KatexRenderer from './KatexRenderer';
 
-const EditorModal = ({cancelFn, okFunction, inline, setInline, equation, setEquation, t }) => {
+type OkFnProps = { equation: string; inline: boolean; };
+
+type EditorModalProps = {
+  cancelFn: (p:any) => void;
+  okFunction: (p:OkFnProps) => void;
+  inline:boolean; 
+  setInline:(p:boolean) => void; 
+  equation: string;
+  setEquation: (p:string) => void;
+  t:(key:string) => string;
+};
+
+const EditorModal = ({cancelFn, okFunction, inline, setInline, equation, setEquation, t }:EditorModalProps) => {
     return (
         <>
             <div>
@@ -42,16 +53,6 @@ const EditorModal = ({cancelFn, okFunction, inline, setInline, equation, setEqua
             </div>
         </>
     );
-};
-
-EditorModal.propTypes = {
-    cancelFn: PropTypes.func.isRequired,
-    okFunction: PropTypes.func.isRequired,
-    inline: PropTypes.bool.isRequired,
-    setInline: PropTypes.func.isRequired,
-    equation: PropTypes.string.isRequired,
-    setEquation: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default EditorModal;

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Spin, Button, Result } from 'antd';
 import { useMutation } from '@apollo/client';
 import { REMOVE_BAN } from './Mutations';
@@ -6,15 +5,19 @@ import { GET_MENTION_USERS } from '../../Editor/Queries';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
 import Renderer from '../../Editor/Renderer';
 import BanExpirationClock from './BanExpirationClock';
+import { BanUserTypes } from '../moderationPanelTypes';
 import './Ban.css';
 
-const RemoveBanScreen = ({ user, goBack, t }) => {
+const RemoveBanScreen = ({ user, goBack, t }:BanUserTypes) => {
     const [removeBanMutation, { data, loading }] = useMutation(REMOVE_BAN, {
         refetchQueries: [{ query: GET_MENTION_USERS }, 'GET_MENTION_USERS'],
     });
 
     const removeBan = () => {
-        const _id = parseInt(user.id, 10);
+        if(!user)
+           return;
+
+        const _id = parseInt(user.id.toString(), 10);
         removeBanMutation({
             variables: {
                 user: _id,
@@ -22,8 +25,8 @@ const RemoveBanScreen = ({ user, goBack, t }) => {
         });
     };
 
-    if (loading) return <Spin />;
-
+    if (loading || !user) return <Spin />;
+    
     if (!loading && data && data.removeUserBan === true)
         return (
             <Result
@@ -72,19 +75,5 @@ const RemoveBanScreen = ({ user, goBack, t }) => {
         </div>
     );
 };
-
-RemoveBanScreen.propTypes = {
-  user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      avatar: PropTypes.string,
-      username: PropTypes.string.isRequired,
-      banned: PropTypes.bool.isRequired,
-      banReason: PropTypes.string,
-      banExpires: PropTypes.string
-  }),
-  goBack: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
-};
-
 
 export default RemoveBanScreen;

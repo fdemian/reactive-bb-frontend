@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 import { Spin, Button, Tooltip, Checkbox, Result } from 'antd';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
@@ -10,9 +9,10 @@ import { GET_MENTION_USERS } from '../../Editor/Queries';
 import { useMutation } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { BanUserTypes } from '../moderationPanelTypes';
 import './Ban.css';
 
-const BanUser = ({ user, goBack, t }) => {
+const BanUser = ({ user, goBack, t }:BanUserTypes) => {
     const [banLimitDate, setBanLimitDate] = useState(null);
     const [isPermanent, setIsPermanent] = useState(false);
     const [banMutation, { data, loading }] = useMutation(BAN_USER, {
@@ -20,20 +20,23 @@ const BanUser = ({ user, goBack, t }) => {
     });
 
     const banUser = () => {
-        const _id = parseInt(user.id, 10);
+        if(!containerRef || !containerRef.current || !user)
+            return;
+
+        // @ts-ignore
         const reason = containerRef.current.getContent();
-        const banDate = isPermanent ? null : new Date(banLimitDate);
+        const banDate = (isPermanent || !banLimitDate) ? null : new Date(banLimitDate);
 
         banMutation({
             variables: {
-                user: _id,
+                user: user.id,
                 expires: banDate,
                 reason: JSON.stringify(reason),
             },
         });
     };
 
-    const datePickerChange = (date) => {
+    const datePickerChange = (date:any) => {
         if (date === null) {
             setBanLimitDate(null);
             return;
@@ -42,11 +45,11 @@ const BanUser = ({ user, goBack, t }) => {
     };
 
     const containerRef = useRef(null);
-    const mentions = [];
+    const mentions:any[] = [];
     const setMentions = () => {};
     const isMobile = getIsMobile();
 
-    if (loading) return <Spin />;
+    if (loading || !user) return <Spin />;
 
     if (!loading && data && data.banUser === true)
         return (
@@ -92,7 +95,6 @@ const BanUser = ({ user, goBack, t }) => {
                 </h2>
                 <BanDatePicker onChange={datePickerChange} disabled={isPermanent} />
                 <Checkbox
-                    role="checkbox"
                     aria-label={t('permanent')}
                     className="checkbox-ban-permanent"
                     checked={isPermanent}
@@ -139,19 +141,5 @@ const BanUser = ({ user, goBack, t }) => {
         </div>
     );
 };
-
-
-BanUser.propTypes = {
-  user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      avatar: PropTypes.string,
-      username: PropTypes.string.isRequired,
-      banned: PropTypes.bool.isRequired,
-      banReason: PropTypes.string
-  }),
-  goBack: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
-};
-
 
 export default BanUser;

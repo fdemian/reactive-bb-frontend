@@ -1,15 +1,15 @@
-import PropTypes from "prop-types";
 import { useState, lazy, Suspense } from 'react';
 import { Tooltip, Badge, Modal, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone, faUpload, faCloudArrowUp, faTrash, faUndo, faRedo } from '@fortawesome/free-solid-svg-icons';
+import { FooterProps } from "./editorTypes";
 import './Toolbar.css';
 
 const ImageModal = lazy(() => import('./ImageModal/ImageModal'));
 const InlineImageModal = lazy(() => import('./InlineImageModal/InlineImageModal'));
 const UpdateInlineImageDialog = lazy(() => import('./InlineImageModal/UpdateInlineImageModal'));
 
-const EditorFooter = (props) => {
+const EditorFooter = (props:FooterProps) => {
 
     const {
         inlineModalUpdateVisible,
@@ -223,23 +223,6 @@ const EditorFooter = (props) => {
             </Modal>
         </div>
     );
-};
-
-EditorFooter.propTypes = {
-    inlineModalUpdateVisible: PropTypes.bool.isRequired,
-    setInlineModalUpdateVisible: PropTypes.func.isRequired,
-    inlineImagemodalProps: PropTypes.shape({
-      activeEditor: PropTypes.any.isRequired,
-      nodeKey: PropTypes.string.isRequired
-    }),
-    insertImage: PropTypes.func.isRequired,
-    insertInlineImage: PropTypes.func.isRequired,
-    inlineImageModalVisible: PropTypes.bool.isRequired,
-    setInlineImageModalVisible: PropTypes.func.isRequired,
-    editor: PropTypes.any.isRequired,
-    canUndo: PropTypes.bool.isRequired,
-    canRedo: PropTypes.bool.isRequired,
-    t:PropTypes.func.isRequired
 };
 
 export default EditorFooter;

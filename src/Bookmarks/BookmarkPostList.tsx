@@ -5,11 +5,12 @@ import Renderer from '../Editor/Renderer';
 import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { BookmarkListProps, BookmarkType } from './bookmarkTypes';
 import './Bookmarks.css';
 
-const BookmarkPostList = ({ bookmarks, userId, removeBookmark, t }) => {
+const BookmarkPostList = ({ bookmarks, userId, removeBookmark, t }:BookmarkListProps) => {
     const navigate = useNavigate();
-    const deleteBookmark = (bookmark) => {
+    const deleteBookmark = (bookmark:BookmarkType) => {
         removeBookmark({
             variables: {
                 user: userId,
@@ -26,7 +27,7 @@ const BookmarkPostList = ({ bookmarks, userId, removeBookmark, t }) => {
         });
     };
 
-    const goToBookmark = (bookmark) => navigate(`/postlink/${bookmark.post.id}`);
+    const goToBookmark = (bookmark:BookmarkType) => navigate(`/postlink/${bookmark.post.id}`);
 
     return (
         <List
@@ -39,7 +40,7 @@ const BookmarkPostList = ({ bookmarks, userId, removeBookmark, t }) => {
             }
             dataSource={bookmarks}
             renderItem={(bookmark) => (
-                <List.Item id={bookmark.id} key={bookmark.id}>
+                <List.Item id={bookmark.id.toString()} key={bookmark.id}>
                     <List.Item.Meta
                         key={bookmark.id}
                         avatar={

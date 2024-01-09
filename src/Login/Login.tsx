@@ -19,12 +19,13 @@ import OauthLogins from './OauthLogins';
 import './Login.css';
 
 type LoginDataTypes = {
-    id: number, 
-    ok: boolean, 
-    ttl: number, 
-    banned: boolean, 
-    banReason: string, 
-    type: string
+    id: number;
+    ok: boolean; 
+    ttl: number;
+    banned: boolean;
+    banReason: string;
+    banExpirationTime: string;
+    type: string;
 };
 
 type LoginFormValues = {
@@ -54,12 +55,12 @@ export const Component = (): React.ReactElement => {
     let from = location.state?.from?.pathname || '/';
 
     const loginResponse = (loginData: LoginDataTypes, username: string) => {
-        const { id, ok, ttl, banned, banReason, type } = loginData;
+        const { id, ok, ttl, banned, banReason, banExpirationTime, type } = loginData;
         const ttlInSeconds = ttl * 1000;
 
         if (ok) {
             setUserType(type);
-            setBanStatus(banned, banReason);
+            setBanStatus(banned, banReason, banExpirationTime);
             setLoginData(id, username, ttlInSeconds);
             setUserBanned(userBanned);
 

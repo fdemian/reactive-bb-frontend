@@ -1,10 +1,12 @@
-import PropTypes from "prop-types";
 import AccountAvatar from '../../UserAvatar/UserAvatar';
 import { List, Button } from 'antd';
 import { getLockoutTimeStr } from './utils';
+import { SearchUserListProps } from '../moderationPanelTypes';
+import { UserType } from '../../User/userTypes';
 
-const SearchUsersList = ({ users, setScreenType, setUserToBan, t }) => {
-    const changeToBanScreen = (user) => {
+const SearchUsersList = ({ users, setScreenType, setUserToBan, t }:SearchUserListProps) => {
+    
+    const changeToBanScreen = (user:UserType) => {
         setScreenType(user.banned ? 'removeban' : 'ban');
         setUserToBan(user);
     };
@@ -31,7 +33,7 @@ const SearchUsersList = ({ users, setScreenType, setUserToBan, t }) => {
                             <AccountAvatar
                                 avatar={user.avatar}
                                 username={user.username}
-                                size="5px"
+                                size={5}
                                 shape="circle"
                             />
                         }
@@ -44,13 +46,6 @@ const SearchUsersList = ({ users, setScreenType, setUserToBan, t }) => {
             )}
         />
     );
-};
-
-SearchUsersList.propTypes = {
-   users: PropTypes.array.isRequired,
-   setScreenType: PropTypes.func.isRequired,
-   setUserToBan: PropTypes.func.isRequired,
-   t: PropTypes.func.isRequired
 };
 
 export default SearchUsersList;

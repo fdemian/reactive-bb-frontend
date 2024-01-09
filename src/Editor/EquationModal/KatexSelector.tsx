@@ -3,7 +3,13 @@ import { Input, Tabs, Tooltip } from 'antd';
 import KatexRenderer from './KatexRenderer';
 import './EquationModal.css';
 
-const KatexSelector = ({ equation, setEquation, t }) => {
+type KatexSelectorProps = {
+    equation: string;
+    setEquation: (p:string) => void;
+    t: (key:string) => string;
+  };
+
+const KatexSelector = ({ equation, setEquation, t }:KatexSelectorProps) => {
     const POPULAR_INPUTS = [
         { text: t('equationModal.fraction'), equation: '\\frac{a}{b}' },
         { text: t('equationModal.power'), equation: 'a^b' },
@@ -139,7 +145,7 @@ const KatexSelector = ({ equation, setEquation, t }) => {
 
     return (
         <>
-            <Tabs defaultActiveKey="1" onChange={null} items={tabItems} />
+            <Tabs defaultActiveKey="1" onChange={undefined} items={tabItems} />
             <br />
             <br />
             <Input

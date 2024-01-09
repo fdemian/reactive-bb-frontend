@@ -1,20 +1,20 @@
-import PropTypes from "prop-types";
 import { useNavigate } from 'react-router-dom';
 import { Table, Spin, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GET_FLAGGED_POSTS, REMOVE_FLAG } from './Queries';
 import { useQuery, useMutation } from '@apollo/client';
+import { FlaggedDataType, TranslationFn,  FlaggedMessagesProps } from '../moderationPanelTypes';
 import '../ModerationPanel.css';
 
-const getReasonText = (reasonId, flaggedData, t) => {
+const getReasonText = (reasonId:number, flaggedData:FlaggedDataType, t:TranslationFn) => {
     if (reasonId === 4) {
       return flaggedData.reasonText;
     }
     return t('flagReason-' + reasonId);
 };
 
-const FlaggedMessages = ({ t }) => {
+const FlaggedMessages = ({ t }:FlaggedMessagesProps) => {
     const navigate = useNavigate();
 
     const { data, loading, error } = useQuery(GET_FLAGGED_POSTS, {
@@ -37,7 +37,7 @@ const FlaggedMessages = ({ t }) => {
         },
     });
 
-    const removeFlag = (postId, userId) => {
+    const removeFlag = (postId:number, userId:number) => {
         removeFlagMutation({
             variables: {
                 post: postId,
@@ -68,13 +68,13 @@ const FlaggedMessages = ({ t }) => {
             title: 'Reason',
             dataIndex: 'reasonId',
             key: 'reasonId',
-            render: (reasonId, flaggedData) => getReasonText(reasonId, flaggedData, t),
+            render: (reasonId:number, flaggedData:FlaggedDataType) => getReasonText(reasonId, flaggedData, t),
         },
         {
             title: '',
             dataIndex: '',
             key: '',
-            render: (_, record) => (
+            render: (_:any, record:FlaggedDataType) => (
                 <Tooltip title="Go to post">
                     <FontAwesomeIcon
                         onClick={() => navigate(`/postlink/${record.postId}`)}
@@ -89,7 +89,7 @@ const FlaggedMessages = ({ t }) => {
             title: '',
             dataIndex: '',
             key: '',
-            render: (_, record) => (
+            render: (_:any, record:FlaggedDataType) => (
                 <Tooltip title="Remove this flag from post">
                     <FontAwesomeIcon
                         onClick={() => removeFlag(record.postId, record.userId)}
@@ -118,10 +118,6 @@ const FlaggedMessages = ({ t }) => {
             <Table dataSource={flaggedPosts} columns={columns} />
         </div>
     );
-};
-
-FlaggedMessages.propTypes = {
-    t: PropTypes.func.isRequired
 };
 
 export default FlaggedMessages;

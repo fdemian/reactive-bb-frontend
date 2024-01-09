@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
 import { Input, Form, Upload, Spin, Image, message, notification } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,13 +10,36 @@ const { Dragger } = Upload;
 
 const SIZE_P = '120px';
 
-const ImageModal = (props) => {
+type ImageModalProps = { 
+  imageURL: string;
+  setImageURL: (p:string | null) => void;
+  altText: string;
+  setAltText: (p:string) => void;
+  t:(key:string) => string; 
+};
+
+type OptionType = {
+  file: any;
+};
+
+type FileType =  {
+  status: string;
+  name: string;
+};
+
+type DroppedFileType = {
+    dataTransfer: {
+        files:FileType[];
+    }
+};
+
+const ImageModal = (props:ImageModalProps) => {
     const { imageURL, setImageURL, altText, setAltText, t } = props;
 
     const [uploadImage] = useMutation(UPLOAD_IMAGE);
 
     const [uploading, setUploading] = useState(false);
-    const uploadImageToServer = async (options) => {
+    const uploadImageToServer = async (options:OptionType) => {
         const { file } = options;
 
         setUploading(true);
@@ -49,7 +71,7 @@ const ImageModal = (props) => {
         action: '',
         customRequest: uploadImageToServer,
         beforeUpload: () => true,
-        onChange(info) {
+        onChange(info:any) {
             const { status } = info.file;
             if (status !== 'uploading') {
                 console.log(info.file, info.fileList);
@@ -60,7 +82,7 @@ const ImageModal = (props) => {
                 message.error(`${info.file.name} file upload failed.`);
             }
         },
-        onDrop(e) {
+        onDrop(e:DroppedFileType) {
             console.log('Dropped files', e.dataTransfer.files);
         },
     };
@@ -122,14 +144,6 @@ const ImageModal = (props) => {
             </Form>
         </div>
     );
-};
-
-ImageModal.propTypes = {
-    imageURL: PropTypes.string.isRequired,
-    setImageURL: PropTypes.func.isRequired,
-    altText: PropTypes.string.isRequired,
-    setAltText: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default ImageModal;

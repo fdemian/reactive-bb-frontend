@@ -1,10 +1,14 @@
-import PropTypes from 'prop-types';
 import { Progress } from 'antd';
 import { getExpirationTime } from './utils';
 import { differenceInMilliseconds } from 'date-fns';
 
-const BanExpirationClock = ({ lockoutTime, t }) => {
-    if (lockoutTime === null | lockoutTime === undefined) return <h3>{t('permanentlyBanned')}</h3>;
+type BanClockProps = {
+    lockoutTime: string | null | undefined;
+    t:(key:string) => string;
+};
+
+const BanExpirationClock = ({ lockoutTime, t }:BanClockProps) => {
+    if (lockoutTime === null || lockoutTime === undefined) return <h3>{t('permanentlyBanned')}</h3>;
 
     const dateDiffString = getExpirationTime(lockoutTime);
     const msDiff = differenceInMilliseconds(
@@ -20,10 +24,5 @@ const BanExpirationClock = ({ lockoutTime, t }) => {
         />
     );
 }
-
-BanExpirationClock.propTypes = {
-    lockoutTime: PropTypes.string.isRequired,
-    t: PropTypes.func.isRequired
-};
 
 export default BanExpirationClock;

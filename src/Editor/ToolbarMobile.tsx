@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
 import {
     Button,
@@ -8,9 +7,7 @@ import {
     ColorPicker
 } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-    faUnlink, 
-    faLink, 
+import {
     faBold, 
     faTrash,
     faItalic, 
@@ -44,26 +41,15 @@ import {
     faTextHeight
 } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
-
-
+import { ToolbarProps } from "./editorTypes";
+import { getCodeLanguageOptions } from "kalliope";
+import { SIGN, getLinkIcon } from './utils';
+import type { ColorVal } from './utils';
 import './Toolbar.css';
 
 const { Option } = Select;
 
-const getLinkIcon = (isLink) => {
-    if (isLink) return faUnlink;
-
-    return faLink;
-};
-
-const CAN_USE_DOM =
-    typeof window !== 'undefined' &&
-    typeof window.document !== 'undefined' &&
-    typeof window.document.createElement !== 'undefined';
-const IS_APPLE = CAN_USE_DOM && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-const SIGN = IS_APPLE ? '⌘' : 'Ctrl';
-
-const Toolbar = (props) => {
+const Toolbar = (props:ToolbarProps) => {
     const {
         editor,
         formats,
@@ -81,48 +67,31 @@ const Toolbar = (props) => {
     const [toolbarMode, setToolbarMode] = useState('format');
 
     //
-    const blockFormatChangeFn = (val) => {
+    const blockFormatChangeFn = (val:string) => {
         editor.executeCommand(val);
     };
 
-    const onCodeLanguageSelect = (val) => {
+    const onCodeLanguageSelect = (val:string) => {
         editor.executeCommand('CODE_LANGUAGE_CHANGE', val);
     };
 
-    const onFontSizeChange = (fs) => {
+    const onFontSizeChange = (fs:string) => {
         editor.executeCommand('CHANGE_FONT_SIZE', fs);
     };
 
-    const onFontFamilyChange = (ff) => {
+    const onFontFamilyChange = (ff:string) => {
         editor.executeCommand('CHANGE_FONT', ff);
     };
 
-    const onFontColorChange = (val) => {
+    const onFontColorChange = (val:ColorVal) => {
         editor.executeCommand('CHANGE_FONT_COLOR', val.toHexString());
     };
-
-    const onBGColorChange = (val) => {
+    
+    const onBGColorChange = (val:ColorVal) => {
         editor.executeCommand('CHANGE_FONT_BG_COLOR', val.toHexString());
     };
 
-    const CODE_LANGUAGE_OPTIONS = [
-        { value: 'c', name: 'C' },
-        { value: 'cpp', name: 'C++' },
-        { value: 'clike', name: 'C-like' },
-        { value: 'css', name: 'CSS' },
-        { value: 'html', name: 'HTML' },
-        { value: 'java', name: 'Java' },
-        { value: 'js', name: 'JavaScript' },
-        { value: 'markdown', name: 'Markdown' },
-        { value: 'objc', name: 'Objective-C' },
-        { value: 'plain', name: 'Plain Text' },
-        { value: 'py', name: 'Python' },
-        { value: 'rust', name: 'Rust' },
-        { value: 'sql', name: 'SQL' },
-        { value: 'swift', name: 'Swift' },
-        { value: 'xml', name: 'XML' },
-        { value: 'ts', name: 'Typescript' },
-    ];
+    const CODE_LANGUAGE_OPTIONS:[[number, number]] = getCodeLanguageOptions();
 
     //
     const BUTTON_ELEMENTS = [
@@ -403,7 +372,7 @@ const Toolbar = (props) => {
                             minWidth: '160px',
                             maxWidth: '250px',
                         }}
-                        onClick={null}
+                        onClick={undefined}
                         type="default"
                         className="dropdown-menu-toolbar"
                         block
@@ -419,10 +388,8 @@ const Toolbar = (props) => {
                     onChange={onCodeLanguageSelect}
                     value={formats.codeLanguage}
                 >
-                    {CODE_LANGUAGE_OPTIONS.map((l) => (
-                        <Option key={l.name} value={l.value}>
-                            {l.name}
-                        </Option>
+                    {CODE_LANGUAGE_OPTIONS.map(([value, name]) => (
+                        <Option key={value} value={value}>{name}</Option>
                     ))}
                 </Select>
             </div>
@@ -441,7 +408,7 @@ const Toolbar = (props) => {
                         aria-label="dropdown-formats"
                         role="button"
                         style={{ width: '160px' }}
-                        onClick={null}
+                        onClick={undefined}
                         type="default"
                         className="dropdown-menu-toolbar"
                         block
@@ -457,7 +424,7 @@ const Toolbar = (props) => {
                         role="button"
                         key="dropdown-font-family-button"
                         style={{ width: '160px' }}
-                        onClick={null}
+                        onClick={undefined}
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
@@ -476,7 +443,7 @@ const Toolbar = (props) => {
                         style={{ width: '70px', marginTop: '4px' }}
                         key="dropdown-menu-font-size"
                         aria-label="FONT_SIZE"
-                        onClick={null}
+                        onClick={undefined}
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
@@ -493,6 +460,7 @@ const Toolbar = (props) => {
                         <Button
                             key={t('toolbar.fontColor')}
                             aria-label={t('toolbar.fontColor')}
+                            /* @ts-ignore */
                             onClick={toggleFontColorModal}
                             type="default"
                             className="dropdown-menu-toolbar"
@@ -510,6 +478,7 @@ const Toolbar = (props) => {
                         <Button
                             key={t('toolbar.bgColor')}
                             aria-label={t('toolbar.bgColor')}
+                            /* @ts-ignore */
                             onClick={toggleBgColorModal}
                             type="default"
                             className="dropdown-menu-toolbar"
@@ -573,7 +542,8 @@ const Toolbar = (props) => {
                                 <button
                                     className="toolbar-style-button"
                                     key={b.text}
-                                    onClick={b.onClick}
+                                    /* @ts-ignore */
+                                    onClick={b.onClick} 
                                     aria-label={b.text}
                                 >
                                     <FontAwesomeIcon icon={b.icon} size="lg" color="gainsboro" />
@@ -585,41 +555,6 @@ const Toolbar = (props) => {
             </div>
         </div>
     );
-};
-
-Toolbar.propTypes = {
-    editor: PropTypes.any.isRequired,
-    formats: PropTypes.shape({
-        blockType: PropTypes.string.isRequired,
-        selectedElementKey: PropTypes.string,
-        isLink: PropTypes.bool.isRequired,
-        isBold: PropTypes.bool.isRequired,
-        isSpoiler: PropTypes.bool.isRequired,
-        isKeyboard: PropTypes.bool.isRequired,
-        isItalic: PropTypes.bool.isRequired,
-        isUnderline: PropTypes.bool.isRequired,
-        isStrikethrough: PropTypes.bool.isRequired,
-        isSubscript: PropTypes.bool.isRequired,
-        isSuperscript: PropTypes.bool.isRequired,
-        isCode: PropTypes.bool.isRequired,
-        canUndo: PropTypes.bool.isRequired,
-        canRedo: PropTypes.bool.isRequired,
-        isRTL: PropTypes.bool.isRequired,
-        codeLanguage: PropTypes.string.isRequired,
-        fontSize: PropTypes.string.isRequired,
-        fontColor: PropTypes.string.isRequired,
-        bgColor: PropTypes.string.isRequired,
-        fontFamily: PropTypes.string.isRequired
-    }),
-    clearFormatting: PropTypes.func.isRequired,
-    toggleEquationModal: PropTypes.func.isRequired,
-    toggleBgColorModal: PropTypes.func.isRequired,
-    toggleFontColorModal: PropTypes.func.isRequired,
-    toggleImageModal: PropTypes.func.isRequired,
-    toggleTweetToolbar: PropTypes.func.isRequired,
-    toggleTableToolbar: PropTypes.func.isRequired,
-    toggleVideoToolbar: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default Toolbar;

@@ -9,8 +9,6 @@ import {
 } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-    faUnlink, 
-    faLink, 
     faTrash,
     faBold, 
     faItalic, 
@@ -46,7 +44,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Toolbar.css';
-import PropTypes from "prop-types";
+import { ToolbarProps } from './editorTypes';
+import { SIGN, getLinkIcon } from './utils';
 import { getCodeLanguageOptions } from "kalliope";
 
 const recomendedColors = [
@@ -84,25 +83,13 @@ const recomendedColors = [
 
 const { Option } = Select;
 
-const CAN_USE_DOM =
-    typeof window !== 'undefined' &&
-    typeof window.document !== 'undefined' &&
-    typeof window.document.createElement !== 'undefined';
-const IS_APPLE = CAN_USE_DOM && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-const SIGN = IS_APPLE ? '⌘' : 'Ctrl';
-
 const EquationModal = lazy(() => import('./EquationModal/EquationModal'));
 const TweetToolbar = lazy(() => import('./TweetToolbar'));
 const TableToolbar = lazy(() => import('./TableToolbar'));
 const VideoToolbar = lazy(() => import('./VideoToolbar'));
 const InsertImageToolbar = lazy(() => import('./ImageModal/InsertImageToolbar'));
 
-const getLinkIcon = (isLink) => {
-    if (isLink) return faUnlink;
-    return faLink;
-};
-
-const Toolbar = (props) => {
+const Toolbar = (props:ToolbarProps) => {
     const {
         equationModalVisible,
         equation,
@@ -167,8 +154,8 @@ const Toolbar = (props) => {
         editor.executeCommand('CHANGE_FONT_BG_COLOR', val.toHexString());
     };
 
-    const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions();
-
+    const CODE_LANGUAGE_OPTIONS:[[number, number]] = getCodeLanguageOptions();
+    
     //
     const BUTTON_ELEMENTS = [
         {
@@ -506,7 +493,7 @@ const Toolbar = (props) => {
                             minWidth: '160px',
                             maxWidth: '250px',
                         }}
-                        onClick={null}
+                        onClick={undefined}
                         type="default"
                         className="dropdown-menu-toolbar"
                         block
@@ -572,7 +559,7 @@ const Toolbar = (props) => {
                 >
                     <Button
                         style={{ minWidth: '160px', maxWidth: '250px' }}
-                        onClick={null}
+                        onClick={undefined}
                         type="default"
                         className="dropdown-menu-toolbar"
                         block
@@ -587,7 +574,7 @@ const Toolbar = (props) => {
                     <Button
                         key="dropdown-font-family-button"
                         style={{ width: '160px' }}
-                        onClick={null}
+                        onClick={undefined}
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
@@ -605,7 +592,7 @@ const Toolbar = (props) => {
                         role="button"
                         key="dropdown-menu-font-size"
                         aria-label="FONT_SIZE"
-                        onClick={null}
+                        onClick={undefined}
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
@@ -715,53 +702,6 @@ const Toolbar = (props) => {
             </div>
         </div>
     );
-};
-
-Toolbar.propTypes = {
-    equationModalVisible: PropTypes.bool.isRequired,
-    equation: PropTypes.string.isRequired,
-    setEquation: PropTypes.func.isRequired,
-    inline: PropTypes.bool.isRequired,
-    setInline: PropTypes.func.isRequired,
-    editor: PropTypes.any.isRequired,
-    formats: PropTypes.shape({
-        blockType: PropTypes.string.isRequired,
-        selectedElementKey: PropTypes.string,
-        isLink: PropTypes.bool.isRequired,
-        isBold: PropTypes.bool.isRequired,
-        isSpoiler: PropTypes.bool.isRequired,
-        isKeyboard: PropTypes.bool.isRequired,
-        isItalic: PropTypes.bool.isRequired,
-        isUnderline: PropTypes.bool.isRequired,
-        isStrikethrough: PropTypes.bool.isRequired,
-        isSubscript: PropTypes.bool.isRequired,
-        isSuperscript: PropTypes.bool.isRequired,
-        isCode: PropTypes.bool.isRequired,
-        canUndo: PropTypes.bool.isRequired,
-        canRedo: PropTypes.bool.isRequired,
-        isRTL: PropTypes.bool.isRequired,
-        codeLanguage: PropTypes.string.isRequired,
-        fontSize: PropTypes.string.isRequired,
-        fontColor: PropTypes.string.isRequired,
-        bgColor: PropTypes.string.isRequired,
-        fontFamily: PropTypes.string.isRequired
-    }),
-    insertEquation: PropTypes.func.isRequired,
-    clearFormatting: PropTypes.func.isRequired,
-    toggleEquationModal: PropTypes.func.isRequired,
-    toggleBgColorModal: PropTypes.func.isRequired,
-    toggleFontColorModal: PropTypes.func.isRequired,
-    imageModalVisible: PropTypes.bool.isRequired,
-    toggleImageModal: PropTypes.func.isRequired,
-    tweetToolbarVisible: PropTypes.bool.isRequired,
-    toggleTweetToolbar: PropTypes.func.isRequired,
-    toggleExcalidrawModal: PropTypes.func.isRequired,
-    tableToolbarVisible: PropTypes.bool.isRequired,
-    toggleTableToolbar: PropTypes.func.isRequired,
-    videoToolbar: PropTypes.bool.isRequired,
-    toggleVideoToolbar: PropTypes.func.isRequired,
-    insertImage: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default Toolbar;

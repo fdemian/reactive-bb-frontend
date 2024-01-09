@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
 import { Input } from 'antd';
 import SearchUsersList from './SearchUsersList';
 import { useLazyQuery } from '@apollo/client';
 import { GET_MENTION_USERS } from '../../Editor/Queries';
+import { SearchUserTypes } from '../moderationPanelTypes';
 
-const SearchUsers = ({ setScreenType, setUserToBan, t }) => {
+const SearchUsers = ({ setScreenType, setUserToBan, t }:SearchUserTypes) => {
     const [getMentionCandidates, { data }] = useLazyQuery(GET_MENTION_USERS);
 
-    const changeInputFn = (evt) => {
+    const changeInputFn = (evt:any) => {
         const username = evt.target.value;
 
         if (username.length <= 3) {
@@ -41,12 +41,6 @@ const SearchUsers = ({ setScreenType, setUserToBan, t }) => {
             />
         </>
     );
-};
-
-SearchUsers.propTypes = {
-    setScreenType: PropTypes.func.isRequired,
-    setUserToBan: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default SearchUsers;

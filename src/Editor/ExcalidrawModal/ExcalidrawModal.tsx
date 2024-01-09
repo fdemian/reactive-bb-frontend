@@ -1,10 +1,22 @@
-import PropTypes from 'prop-types';
 import { Modal, Drawer, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { getIsMobile } from '../../App/utils';
 import './ExcalidrawModal.css';
 
-const ExcalidrawModal = (props) => {
+type ExcalidrawModalProps = {
+  excalidrawComponent: any;
+  excaliDrawApi: any;
+  discard: (e:any) => void;
+  save: (e:any) => void;
+  setExcalidrawAPI: (e:any) => void;
+  onChange: (e:any) => void;
+  initialElements: any[];
+  initialAppState: any;
+  initialFiles: any[];
+  isShown: boolean;
+};
+
+const ExcalidrawModal = (props:ExcalidrawModalProps) => {
 
     const {
         excalidrawComponent,
@@ -30,7 +42,6 @@ const ExcalidrawModal = (props) => {
             open={isShown}
             onOk={save}
             onCancel={discard}
-            tabIndex={-1}
             width={width}
             placement="left"
             footer={[
@@ -55,7 +66,7 @@ const ExcalidrawModal = (props) => {
             <div className="excalidraw-modal-row">
                 <Excalidraw
                     onChange={onChange}
-                    excalidrawAPI={(api) => setExcalidrawAPI(api)}
+                    excalidrawAPI={(api:any) => setExcalidrawAPI(api)}
                     initialData={{
                         appState: initialAppState || {isLoading: false},
                         elements: initialElements,
@@ -66,17 +77,5 @@ const ExcalidrawModal = (props) => {
         </ModalComponent>
     );
 }
-
-ExcalidrawModal.propTypes = {
-    excalidrawComponent: PropTypes.any.isRequired,
-    excaliDrawApi: PropTypes.any.isRequired,
-    discard: PropTypes.func.isRequired,
-    save: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    initialElements: PropTypes.array.isRequired,
-    initialAppState: PropTypes.any.isRequired,
-    initialFiles: PropTypes.array.isRequired,
-    isShown: PropTypes.bool.isRequired
-};
 
 export default ExcalidrawModal;

@@ -6,6 +6,7 @@ import Loading from '../Loading/LoadingIndicator';
 import BookrmarkList from './BookmarkPostList';
 import { GET_BOOKMARKS_BY_USER } from './Queries';
 import { REMOVE_BOOKMARK } from '../Posts/Mutations';
+import { BookmarkType } from './bookmarkTypes';
 import './Bookmarks.css';
 
 export const Component = () => {
@@ -26,7 +27,7 @@ export const Component = () => {
                         // Workarround checking for __ref prop.
                         // TODO: investigate why .filter(b => b.id !== id) is not working.
                         const { id } = removeBookmark;
-                        return bookmarksByUser.filter((b) => b.__ref !== 'Bookmark:' + id);
+                        return bookmarksByUser.filter((b:BookmarkType) => b.__ref !== 'Bookmark:' + id);
                     }
                 }
             });

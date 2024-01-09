@@ -5,7 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck} from '@fortawesome/free-solid-svg-icons';
 import './Toolbar.css';
 
-const TweetToolbar = ({ insertTweet, toggleToolbar, t }) => {
+type TweetToolbarProps = {
+    insertTweet:(t:string) => void;
+    toggleToolbar: (p:boolean) => void;
+    t:(key:string) => string;
+}
+
+const TweetToolbar = ({ insertTweet, toggleToolbar, t }:TweetToolbarProps) => {
     const [tweetURL, setTweetURL] = useState('');
 
     return (

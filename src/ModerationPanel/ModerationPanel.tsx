@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Menu } from 'antd';
 import { useTranslation } from 'react-i18next';
 import FlaggedMessages from './Flag/FlaggedMessages';
-import UserbanPanel from './Ban/UserbanPanel';
+import UserbanPanel from './Ban/UserBanPanel';
 import './ModerationPanel.css';
 
 export const Component = () => {
@@ -24,8 +24,8 @@ export const Component = () => {
     }));
 
     const menuItem = menuMap.find((k) => k.key === selectKey);
-    const title = menuItem.name;
-    const childComponent = menuItem.component;
+    const title = menuItem !== undefined ? menuItem.name : "";
+    const childComponent =  menuItem !== undefined ? menuItem.component: "";
 
     return (
         <div className="info-main">

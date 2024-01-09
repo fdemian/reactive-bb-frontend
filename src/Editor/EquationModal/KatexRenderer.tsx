@@ -11,9 +11,14 @@
 import katex from 'katex';
 import {useEffect, useRef} from 'react';
 import 'katex/dist/katex.css';
-import PropTypes from "prop-types";
 
-const KatexRenderer = ({ equation, inline, onClick}) => {
+type KatexRendererProps = {
+  equation: string;
+  inline: boolean;
+  onClick: () => void;
+};
+
+const KatexRenderer = ({ equation, inline, onClick}:KatexRendererProps) => {
     const katexElementRef = useRef(null);
 
     useEffect(() => {
@@ -35,11 +40,5 @@ const KatexRenderer = ({ equation, inline, onClick}) => {
         <span role="button" tabIndex={-1} onClick={onClick} ref={katexElementRef} />
     );
 }
-
-KatexRenderer.propTypes = {
-    equation: PropTypes.string.isRequired,
-    inline: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
-};
 
 export default KatexRenderer;

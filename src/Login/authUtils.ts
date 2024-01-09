@@ -4,13 +4,15 @@ const REFRESH_TIMEOUT = 'REFRESH_TIMEOUT';
 const TOKEN_TTL = 'TOKEN_TTL';
 const BANNED_USER = 'BANNED_USER';
 const BAN_REASON = 'BAN_REASON';
+const BAN_EXPIRES = 'BAN_EXPIRES';
 const USER_TYPE = 'USER_TYPE';
 
 type FailFnType = () => void;
 
 type BanStatusReturn = {
-    banned: boolean,
-    banReason: string | null
+    banned: boolean;
+    banReason: string | null;
+    banExpires: string | null;
 };
 
 export const getUserId = (): number | null => {
@@ -105,20 +107,25 @@ export const refreshToken = async (onFail?:FailFnType) => {
 export const getBanStatus = (): BanStatusReturn  => {
     const banned: string | null = localStorage.getItem(BANNED_USER);
     const banReason: string | null = localStorage.getItem(BAN_REASON);
+    const banExpires: string | null = localStorage.getItem(BAN_EXPIRES);
+
     return {
         banned: banned === 'true',
-        banReason: banReason
+        banReason: banReason,
+        banExpires: banExpires
     };
 };
 
-export const setBanStatus = (banned: boolean, banReason: string): void => {
+export const setBanStatus = (banned: boolean, banReason: string, banExpires:string): void => {
     localStorage.setItem(BANNED_USER, banned.toString());
     localStorage.setItem(BAN_REASON, banReason);
+    localStorage.setItem(BAN_EXPIRES, banExpires);
 };
 
 export const clearBanStatus = (): void => {
     localStorage.removeItem(BANNED_USER);
     localStorage.removeItem(BAN_REASON);
+    localStorage.removeItem(BAN_EXPIRES);
     localStorage.setItem(BANNED_USER, "false");
 };
 

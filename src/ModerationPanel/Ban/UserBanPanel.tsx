@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, lazy, Suspense } from 'react';
 import { Spin } from 'antd';
+import { UserType } from '../../User/userTypes';
 
 const SearchUsers = lazy(() => import('./SearchUsers'));
 const BanUser = lazy(() => import('./BanUser'));
@@ -8,7 +9,7 @@ const RemoveBan = lazy(() => import('./RemoveBan'));
 
 const UserBanPanel = ({ t }) => {
     const [screenType, setScreenType] = useState('search');
-    const [userToBan, setUserToBan] = useState(null);
+    const [userToBan, setUserToBan] = useState<UserType | null>(null);
 
     const goBack = () => setScreenType('search');
 

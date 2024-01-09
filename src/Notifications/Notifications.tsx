@@ -10,9 +10,24 @@ import { getDefaultPageItems } from '../App/utils';
 import { useNavigate } from 'react-router-dom';
 import './Notifications.css';
 
-const translationKeys = {
-    mention: 'mentionUser',
-    like: 'likedPost'
+const getTranslationKey = (key:string):string => {
+    if(key === 'mention')
+        return "mentionUser";
+    return 'likedPost';
+}
+
+type UserType ={
+  avatar: string;
+  username: string;
+};
+
+type NotificationType = {
+    id: number;
+    read: boolean;
+    link: string;
+    type: string;
+    user: UserType;
+    originator: UserType;
 };
 
 export const Component = () => {
@@ -36,7 +51,7 @@ export const Component = () => {
     const { data, loading, error } = useQuery(GET_ALL_NOTIFICATIONS, {
         variables: {
             user: id,
-            limit: parseInt(limit, 10),
+            limit: parseInt(limit ?? "5", 10),
             offset: 0
         }
     });
@@ -56,7 +71,7 @@ export const Component = () => {
                 bordered
                 header={<h1>{t("notifications")}</h1>}
                 dataSource={allNotifications}
-                renderItem={(notification) => (
+                renderItem={(notification:NotificationType) => (
                     <List.Item
                         actions={[
                             <Typography.Text key="read-indicator" mark>
@@ -73,7 +88,7 @@ export const Component = () => {
                                         notifications: [notification.id]
                                     },
                                     optimisticResponse: {
-                                        markAsRead: allNotifications.filter((n) => n.id !== notification.id)
+                                        markAsRead: allNotifications.filter((n:NotificationType) => n.id !== notification.id)
                                     }
                                 });
                                 navigate(notification.link);
@@ -84,13 +99,13 @@ export const Component = () => {
                             <UserAvatar
                                 avatar={notification.user.avatar}
                                 username={notification.user.username}
-                                size="20px"
+                                size={20}
                                 shape="square"
                             />
                             &nbsp; &nbsp;
                             <strong>{notification.originator.username}</strong>
                             &nbsp;
-                            {t(translationKeys[notification.type])}
+                            {t(getTranslationKey(notification.type))}
                         </div>
                     </List.Item>
                 )}

@@ -26,4 +26,5 @@ export type UserType = {
     type: string;
     banned: boolean;
     banReason: string;
+    banExpires: string;
 };

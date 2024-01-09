@@ -2,12 +2,17 @@ import PropTypes from 'prop-types';
 import { DatePicker } from 'antd';
 import { endOfDay } from 'date-fns';
 
-const disabledDate = (current) => {
+const disabledDate = (current:any) => {
   // Can not select days before today and today
   return current && current < endOfDay(new Date());
 };
 
-const BanDatePicker = ({ onChange, disabled }) => {
+type BanDatePickerProps = {
+  onChange: (v:any) => void;
+  disabled: boolean;
+};
+
+const BanDatePicker = ({ onChange, disabled }:BanDatePickerProps) => {
     return (
         <DatePicker
             disabled={disabled}

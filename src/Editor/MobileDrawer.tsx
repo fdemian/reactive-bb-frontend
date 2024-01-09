@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { Drawer } from 'antd';
-import PropTypes from "prop-types";
+import { MobileDrawerProps } from './editorTypes';
 
 const EquationModal = lazy(() => import('./EquationModal/EquationModal'));
 const TweetToolbar = lazy(() => import('./TweetToolbar'));
@@ -8,7 +8,7 @@ const TableToolbar = lazy(() => import('./TableToolbar'));
 const VideoToolbar = lazy(() => import('./VideoToolbar'));
 const InsertImageToolbar = lazy(() => import('./ImageModal/InsertImageToolbar'));
 
-const MobileDrawer = (props) => {
+const MobileDrawer = (props:MobileDrawerProps) => {
     const {
         isMobile,
         equationModalVisible,
@@ -33,16 +33,16 @@ const MobileDrawer = (props) => {
 
     if (!isMobile) return null;
 
-    const insertTweet = (url) => {
+    const insertTweet = (url:string) => {
         const tweetId = url.split('status/')?.[1]?.split('?')?.[0];
         editor.executeCommand('INSERT_TWEET', tweetId);
     };
 
-    const insertTable = ({columns, rows }) => {
+    const insertTable = ({columns, rows}:{ columns: number; rows:number;}) => {
         editor.executeCommand('INSERT_TABLE', { columns, rows });
     };
 
-    const insertVideo = (props) => {
+    const insertVideo = (props:string) => {
         editor.executeCommand('INSERT_VIDEO', props);
     };
 
@@ -100,28 +100,6 @@ const MobileDrawer = (props) => {
             ) : null}
         </Drawer>
     );
-};
-
-MobileDrawer.propTypes = {
-    isMobile: PropTypes.bool.isRequired,
-    equationModalVisible: PropTypes.bool.isRequired,
-    equation: PropTypes.string.isRequired,
-    setEquation: PropTypes.func.isRequired,
-    inline: PropTypes.bool.isRequired,
-    setInline: PropTypes.func.isRequired,
-    editor: PropTypes.any.isRequired,
-    insertEquation: PropTypes.func.isRequired,
-    toggleEquationModal: PropTypes.func.isRequired,
-    imageModalVisible: PropTypes.bool.isRequired,
-    toggleImageModal: PropTypes.func.isRequired,
-    tweetToolbarVisible: PropTypes.bool.isRequired,
-    toggleTweetToolbar: PropTypes.func.isRequired,
-    tableToolbarVisible: PropTypes.bool.isRequired,
-    toggleTableToolbar: PropTypes.func.isRequired,
-    videoToolbar: PropTypes.bool.isRequired,
-    toggleVideoToolbar: PropTypes.func.isRequired,
-    insertImage: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default MobileDrawer;

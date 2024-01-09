@@ -12,13 +12,16 @@ import EditorFooter from './Footer';
 import ExcalidrawModal from './ExcalidrawModal/ExcalidrawModal';
 //import { getDefaultLocale } from '../App/utils';
 import emojiData from 'emojibase-data/en/data.json';
+import { EditorProps } from './editorTypes';
+
 import './Editor.css';
+import { UserType } from "../User/userTypes";
 
 const MobileDrawer = lazy(() => import('./MobileDrawer'));
 const Toolbar = lazy(() => import('./Toolbar'));
 const ToolbarMobile = lazy(() => import('./ToolbarMobile'));
 
-const Editor = (props) => {
+const Editor = (props:EditorProps) => {
     //const locale = getDefaultLocale();
     const { initialState, containerRef, user, mentions, setMentions, isMobile } = props;
     const ToolbarComponent = isMobile ? ToolbarMobile : Toolbar;
@@ -213,7 +216,7 @@ const Editor = (props) => {
         },
         mentions: {
             onSearchChange: onSearchChange,
-            onAddMention: (mention) => {
+            onAddMention: (mention:UserType) => {
                 setMentions([...mentions, mention.name]);
             },
             onRemoveMention: ({ name }) => {
@@ -335,29 +338,5 @@ const Editor = (props) => {
         </>
     );
 };
-
-Editor.propTypes = {
- initialState: PropTypes.string.isRequired,
- containerRef: PropTypes.any.isRequired,
- user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    avatar: PropTypes.string,
-    username: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    banned: PropTypes.bool.isRequired,
-    banReason: PropTypes.string
- }),
- mentions: PropTypes.arrayOf(
-   PropTypes.shape({
-       id: PropTypes.number.isRequired,
-       avatar: PropTypes.string,
-       username: PropTypes.string.isRequired,
-       banned: PropTypes.bool.isRequired,
-       banReason: PropTypes.string
-   })
- ),
- setMentions: PropTypes.func.isRequired,
- isMobile: PropTypes.bool.isRequired
-}
 
 export default Editor;

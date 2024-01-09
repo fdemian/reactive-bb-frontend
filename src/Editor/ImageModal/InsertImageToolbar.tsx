@@ -2,12 +2,22 @@ import { useState } from 'react';
 import { Input, Form, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck} from '@fortawesome/free-solid-svg-icons';
-import PropTypes from "prop-types";
 
-const InsertImageToolbar = ({ okFn, cancelFn, t }) => {
+type OkFnProps = {
+    src: string; 
+    altText: string;
+};
+
+type InsertImageToolbarProps = {
+    okFn: (p:OkFnProps) => void;
+    cancelFn: () => void;
+    t:(key:string) => string;
+};
+
+const InsertImageToolbar = ({ okFn, cancelFn, t }:InsertImageToolbarProps) => {
     const [form] = Form.useForm();
-    const [imageURL, setImageURL] = useState('');
-    const [altText, setAltText] = useState('');
+    const [imageURL, setImageURL] = useState<string>('');
+    const [altText, setAltText] = useState<string>('');
 
     return (
     <Form
@@ -19,8 +29,6 @@ const InsertImageToolbar = ({ okFn, cancelFn, t }) => {
         onFinishFailed={() => {}}
         autoComplete="off"
         layout="inline"
-        onSubmit={() => {}}
-        hideRequiredMark
     >
         <Form.Item label="URL" name="url" rules={[]}>
             <Input
@@ -60,12 +68,6 @@ const InsertImageToolbar = ({ okFn, cancelFn, t }) => {
         </span>
     </Form>
     );
-};
-
-InsertImageToolbar.propTypes = {
-    okFn: PropTypes.func.isRequired,
-    cancelFn: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default InsertImageToolbar;
