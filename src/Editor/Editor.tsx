@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState /*, useEffect*/, lazy, Suspense } from 'react';
 import { Spin, notification } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,10 +11,8 @@ import EditorFooter from './Footer';
 import ExcalidrawModal from './ExcalidrawModal/ExcalidrawModal';
 //import { getDefaultLocale } from '../App/utils';
 import emojiData from 'emojibase-data/en/data.json';
-import { EditorProps } from './editorTypes';
-
+import { EditorProps, MentionType, EntryComponentTypes, InlineImageProps, ImageProps, InsertEquationProps} from './editorTypes';
 import './Editor.css';
-import { UserType } from "../User/userTypes";
 
 const MobileDrawer = lazy(() => import('./MobileDrawer'));
 const Toolbar = lazy(() => import('./Toolbar'));
@@ -56,13 +53,13 @@ const Editor = (props:EditorProps) => {
     const [inlineModalUpdateVisible, setInlineModalUpdateVisible] = useState(false);
 
     const [tweetToolbarVisible, setTweetToolbar] = useState(false);
-    const toggleTweetToolbar = (status) =>
+    const toggleTweetToolbar = (status:boolean) =>
         setTweetToolbar(status === false ? status : !tweetToolbarVisible);
     const [tableToolbarVisible, setTableToolbar] = useState(false);
-    const toggleTableToolbar = (status) =>
+    const toggleTableToolbar = (status:boolean) =>
         setTableToolbar(status === false ? status : !tableToolbarVisible);
     const [videoToolbar, setVideoToolbar] = useState(false);
-    const toggleVideoToolbar = (status) =>
+    const toggleVideoToolbar = (status:boolean) =>
         setVideoToolbar(status === false ? status : !videoToolbar);
 
     // TODO: reorder and name this.
@@ -70,13 +67,13 @@ const Editor = (props:EditorProps) => {
     const [inline, setInline] = useState(true);
 
     // Toggle functions (utility functions).
-    const toggleImageModal = (status) =>
+    const toggleImageModal = (status:boolean) =>
         setImageModal(status === false ? status : !imageModalVisible);
-    const toggleEquationModal = (status) =>
+    const toggleEquationModal = (status:boolean) =>
         setEquationModal(status === false ? status : !equationModalVisible);
-    const toggleBgColorModal = (status) =>
+    const toggleBgColorModal = (status:boolean) =>
         setBgColorModal(status === false ? status : !bgColorModalVisible);
-    const toggleFontColorModal = (status) =>
+    const toggleFontColorModal = (status:boolean) =>
         setFontColorModal(status === false ? status : !fontColorModalVisible);
     //const toggleExcalidrawModal = (status) => setExcalidrawModal(status === false ? status : !excalidrawModalVisible);
 
@@ -99,25 +96,26 @@ const Editor = (props:EditorProps) => {
     }, [locale]);
     */
 
-    const insertEquation = (props) => {
+    const insertEquation = (props:InsertEquationProps) => {
         containerRef.current.focus();
         containerRef.current.executeCommand('INSERT_EQUATION', props);
-        toggleEquationModal();
-    };
-    const insertImage = (props) => {
-        containerRef.current.focus();
-        containerRef.current.executeCommand('INSERT_IMAGE', props);
-        toggleImageModal();
+        toggleEquationModal(false);
     };
 
-    const insertInlineImage = (image) => {
+    const insertImage = (props:ImageProps) => {
+        containerRef.current.focus();
+        containerRef.current.executeCommand('INSERT_IMAGE', props);
+        toggleImageModal(false);
+    };
+
+    const insertInlineImage = (image:InlineImageProps) => {
         if(!containerRef.current)
             return;
         containerRef.current.focus();
         containerRef.current.executeCommand("INSERT_IMAGE_INLINE", image);
     }
 
-    const onSearchChange = (match) => {
+    const onSearchChange = (match:string) => {
         if (match.length < 3) return;
         getMentionCandidates({
             variables: {
@@ -138,7 +136,7 @@ const Editor = (props:EditorProps) => {
         const { mentionCandidates } = data;
 
         if (mentionCandidates !== null) {
-            const _suggestions = mentionCandidates.map((u) => ({
+            const _suggestions = mentionCandidates.map((u:any) => ({
                 id: u.id,
                 name: u.username,
                 link: `/users/${u.id}/${u.username}`,
@@ -165,7 +163,7 @@ const Editor = (props:EditorProps) => {
         initialState: initialState,
         isReadOnly: false,
         autoFocus: true,
-        onError: (error) => {
+        onError: (error:any) => {
             throw error;
         },
         plugins: [],
@@ -174,7 +172,7 @@ const Editor = (props:EditorProps) => {
             defaultCaptionText: t('internal.enterCaption'),
         },
         inlineImage: {
-            showModal: (modalProps) => {
+            showModal: (modalProps:any) => {
                 setInlineModalUpdateVisible(true);
                 setInlineImageModalProps(modalProps);
             }
@@ -183,7 +181,7 @@ const Editor = (props:EditorProps) => {
             modal: ExcalidrawModal
         },
         twitterConfig: {
-            loadingComponent: ({ tweetId }) => (
+            loadingComponent: ({ tweetId }:{tweetId: string}) => (
                 <p>
                     {t('internal.loadingTweet')}...(ID={tweetId})
                 </p>
@@ -193,7 +191,7 @@ const Editor = (props:EditorProps) => {
             open: true,
         },
         citation: {
-           sourceLinkComponent: ({ sourceLink }) => (
+           sourceLinkComponent: ({ sourceLink }:{sourceLink: string}) => (
            <a
                href={sourceLink}
                className="source-link-component"
@@ -216,16 +214,16 @@ const Editor = (props:EditorProps) => {
         },
         mentions: {
             onSearchChange: onSearchChange,
-            onAddMention: (mention:UserType) => {
-                setMentions([...mentions, mention.name]);
+            onAddMention: (mention:MentionType) => {
+                setMentions([...mentions, mention]);
             },
-            onRemoveMention: ({ name }) => {
-                const newMentions = mentions.filter((m) => m !== name);
+            onRemoveMention: ({ name }:{ name: string}) => {
+                const newMentions:MentionType[] = mentions.filter((m) => m.name !== name);
                 setMentions(newMentions);
             },
-            entryComponent: ({ option: { avatar, name } }) => (
+            entryComponent: ({ option: { avatar, name } }:EntryComponentTypes) => (
                 <>
-                    <AccountAvatar avatar={avatar} username={name} size="5px" shape="circle" />
+                    <AccountAvatar avatar={avatar} username={name} size={5} shape="circle" />
                     &nbsp; <strong className="user-name-mentions">{name}</strong>
                 </>
             ),
@@ -235,7 +233,7 @@ const Editor = (props:EditorProps) => {
             emojiData: emojiData,
         },
         dragAndDropImage: {
-            handleDroppedFile: async (file) => {
+            handleDroppedFile: async (file:any) => {
                 const uploadRet = await uploadImage({ variables: { image: file } });
                 if (uploadRet.data) {
                     const { src } = uploadRet.data.uploadImage;
@@ -261,7 +259,6 @@ const Editor = (props:EditorProps) => {
         <>
             <Suspense fallback={<Spin data-testid="toolbar-spin" />}>
                 <ToolbarComponent
-                    isMobile={isMobile}
                     clearFormatting={clearFormatting}
                     editor={containerRef.current}
                     formats={formats}

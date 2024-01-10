@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
 import {
     Input,
@@ -8,7 +7,14 @@ import {
 } from 'antd';
 import { $getNodeByKey } from "kalliope";
 
-const UpdateInlineImageDialog = ({ activeEditor, nodeKey, onClose, t }) => {
+type UpdateEditorProps = {
+    activeEditor:any;
+    nodeKey:any, 
+    onClose: () => void;
+    t:(key:string) => string;
+};
+
+const UpdateInlineImageDialog = ({ activeEditor, nodeKey, onClose, t }:UpdateEditorProps) => {
 
     const editorState = activeEditor.getEditorState();
     const node = editorState.read(
@@ -18,8 +24,8 @@ const UpdateInlineImageDialog = ({ activeEditor, nodeKey, onClose, t }) => {
     const [showCaption, setShowCaption] = useState(node.getShowCaption());
     const [position, setPosition] = useState(node.getPosition());
 
-    const handleShowCaptionChange = (e) => setShowCaption(e.target.checked);
-    const handlePositionChange = (e) => setPosition(e);
+    const handleShowCaptionChange = (e:any) => setShowCaption(e.target.checked);
+    const handlePositionChange = (e:any) => setPosition(e);
 
     const handleOnConfirm = () => {
         const payload = {altText, position, showCaption};
@@ -62,9 +68,8 @@ const UpdateInlineImageDialog = ({ activeEditor, nodeKey, onClose, t }) => {
         <br />
         <div>
             <Select
-                size="default"
-                label={t("imageModal.selectPosition")}
-                name="position"
+                size="middle"
+                aria-label={t("imageModal.selectPosition")}
                 id="position-select"
                 value={position}
                 placeholder={t("imageModal.selectPosition")}
@@ -92,13 +97,6 @@ const UpdateInlineImageDialog = ({ activeEditor, nodeKey, onClose, t }) => {
         </Button>
     </>
     )
-};
-
-UpdateInlineImageDialog.propTypes = {
-  activeEditor: PropTypes.any.isRequired,
-  nodeKey: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
 };
 
 export default UpdateInlineImageDialog;

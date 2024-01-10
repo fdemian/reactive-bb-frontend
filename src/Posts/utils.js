@@ -1,4 +1,4 @@
-import format_title_string from '../utils/formats.js';
+import format_title_string from '../utils/formats';
 import { format, formatDistance, parseISO } from 'date-fns';
 
 const REPLYING_POST_CONTENT = 'REPLYING_POST_CONTENT';

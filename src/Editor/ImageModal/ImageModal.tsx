@@ -11,7 +11,7 @@ const { Dragger } = Upload;
 const SIZE_P = '120px';
 
 type ImageModalProps = { 
-  imageURL: string;
+  imageURL: string | null;
   setImageURL: (p:string | null) => void;
   altText: string;
   setAltText: (p:string) => void;
@@ -20,17 +20,6 @@ type ImageModalProps = {
 
 type OptionType = {
   file: any;
-};
-
-type FileType =  {
-  status: string;
-  name: string;
-};
-
-type DroppedFileType = {
-    dataTransfer: {
-        files:FileType[];
-    }
 };
 
 const ImageModal = (props:ImageModalProps) => {
@@ -82,7 +71,7 @@ const ImageModal = (props:ImageModalProps) => {
                 message.error(`${info.file.name} file upload failed.`);
             }
         },
-        onDrop(e:DroppedFileType) {
+        onDrop(e:any) {
             console.log('Dropped files', e.dataTransfer.files);
         },
     };

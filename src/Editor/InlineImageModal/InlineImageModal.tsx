@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
 import {
     Input,
@@ -20,7 +19,19 @@ const { Dragger } = Upload;
 
 const SIZE_P = '120px';
 
-const InlineImageModal = (props) => {
+type InlineImageModalProps = {
+    imageURL: string;
+    setImageURL: (p:string | null) => void;
+    altText: string;
+    setAltText: (altText:string) => void;
+    position:  string;
+    setPosition: (position:string) => void;
+    showCaption: boolean;
+    setShowCaption: (p:boolean) => void;
+    t: (key:string) => string;
+};
+
+const InlineImageModal = (props:InlineImageModalProps) => {
 
     const {
         imageURL,
@@ -35,9 +46,9 @@ const InlineImageModal = (props) => {
     const [uploadImage] = useMutation(UPLOAD_IMAGE);
     const [uploading, setUploading] = useState(false);
 
-    const onCheckedChange = (e) => setShowCaption(e.target.checked);
+    const onCheckedChange = (e:any) => setShowCaption(e.target.checked);
 
-    const uploadImageToServer = async (options) => {
+    const uploadImageToServer = async (options:any) => {
         const { file } = options;
 
         setUploading(true);
@@ -69,7 +80,7 @@ const InlineImageModal = (props) => {
         action: '',
         customRequest: uploadImageToServer,
         beforeUpload: () => true,
-        onChange(info) {
+        onChange(info:any) {
             const { status } = info.file;
             if (status !== 'uploading') {
                 console.log(info.file, info.fileList);
@@ -80,7 +91,7 @@ const InlineImageModal = (props) => {
                 message.error(`${info.file.name} file upload failed.`);
             }
         },
-        onDrop(e) {
+        onDrop(e:any) {
             console.log('Dropped files', e.dataTransfer.files);
         },
     };
@@ -158,9 +169,9 @@ const InlineImageModal = (props) => {
             </Form>
             <div>
                 <Select
-                    size="default"
+                    size="middle"
                     placeholder={t("imageModal.selectPosition")}
-                    onChange={null}
+                    onChange={undefined}
                     style={{ width: '100%' }}
                     options={options}
                 />
@@ -171,20 +182,6 @@ const InlineImageModal = (props) => {
             </div>
         </div>
     );
-
-}
-
-
-InlineImageModal.propTypes = {
-    imageURL: PropTypes.string.isRequired,
-    setImageURL: PropTypes.func.isRequired,
-    altText: PropTypes.string.isRequired,
-    setAltText: PropTypes.func.isRequired,
-    position: PropTypes.string.isRequired,
-    setPosition: PropTypes.func.isRequired,
-    showCaption: PropTypes.bool.isRequired,
-    setShowCaption: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default InlineImageModal;

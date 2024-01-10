@@ -12,12 +12,24 @@ type InsertImageInlineProps = {
    src: string;
 };
 
+export type EntryComponentTypes = {
+  option: { 
+    avatar:string; 
+    name:string;
+  }
+};
+
+export type MentionType = {
+  name: string;
+  link: string;
+};
+
 export type EditorProps = {
   initialState: string;
   containerRef: any;
   user: UserType;
-  mentions: UserType[];
-  setMentions: (mentions:UserType[]) => void;
+  mentions: MentionType[];
+  setMentions: (mentions:MentionType[]) => void;
   isMobile: boolean;
 };
 
@@ -27,7 +39,7 @@ export type FooterProps = {
   inlineImagemodalProps: {
      activeEditor: any;
      nodeKey: string;
-  };
+  } | {};
   insertImage: (p:InsertImageProps) => void;
   insertInlineImage: (p:InsertImageInlineProps) => void;
   inlineImageModalVisible: boolean;
@@ -38,7 +50,7 @@ export type FooterProps = {
   t:(key:string) => string;
 };
 
-type InsertEquationProps = {   
+export type InsertEquationProps = {   
  equation: string;
  inline: boolean;
 }
@@ -51,6 +63,7 @@ export type MobileDrawerProps = {
     inline: boolean;
     setInline: (val:boolean) => void;
     editor: any;
+    formats: FormatsType | {};
     insertEquation: (val:InsertEquationProps) => void;
     toggleEquationModal: (val:boolean) => void;
     imageModalVisible: boolean;
@@ -61,40 +74,62 @@ export type MobileDrawerProps = {
     toggleTableToolbar: (val:boolean) => void;
     videoToolbar: boolean;
     toggleVideoToolbar: (val:boolean) => void;
-    insertImage: (val:string) => void;
+    insertImage: (val:InsertImageProps) => void;
     t:(key:string) => string;
 };
 
+type FormatsType = {
+    blockType: string;
+    selectedElementKey: string;
+    isLink: boolean;
+    isBold: boolean;
+    isSpoiler: boolean;
+    isKeyboard: boolean;
+    isItalic: boolean;
+    isUnderline: boolean;
+    isStrikethrough: boolean;
+    isSubscript: boolean;
+    isSuperscript: boolean;
+    isCode: boolean;
+    canUndo: boolean;
+    canRedo: boolean;
+    isRTL: boolean;
+    codeLanguage: string;
+    fontSize: string;
+    fontColor: string;
+    bgColor: string;
+    fontFamily: string;
+};
 
+export type InlineImageProps = {
+  altText: string;
+  position: string;
+  showCaption: boolean;
+  src: string;
+ };
+ 
+ export type ImageProps = {
+   altText: string;
+   caption?: any;
+   height?: number;
+   key?: any;
+   maxWidth?: number;
+   showCaption?: boolean;
+   src: string;
+   width?: number;
+   captionsEnabled?: boolean;
+ };
+ 
 export type ToolbarProps = {
     equationModalVisible: boolean;
     equation: string;
     setEquation: (val:string) => void;
     inline: boolean;
-    setInline: (val:string) => void;
+    setInline: (val:boolean) => void;
     editor: any;
-    formats: {
-        blockType: string;
-        selectedElementKey: string;
-        isLink: boolean;
-        isBold: boolean;
-        isSpoiler: boolean;
-        isKeyboard: boolean;
-        isItalic: boolean;
-        isUnderline: boolean;
-        isStrikethrough: boolean;
-        isSubscript: boolean;
-        isSuperscript: boolean;
-        isCode: boolean;
-        canUndo: boolean;
-        canRedo: boolean;
-        isRTL: boolean;
-        codeLanguage: string;
-        fontSize: string;
-        fontColor: string;
-        bgColor: string;
-        fontFamily: string;
-    };
+    formats: FormatsType | {};
+    bgColorModalVisible: boolean;
+    fontColorModalVisible: boolean;
     insertEquation: (val:InsertEquationProps) => void;
     clearFormatting: () => void;
     toggleEquationModal: (val:boolean) => void;
@@ -109,14 +144,6 @@ export type ToolbarProps = {
     toggleTableToolbar: (val:boolean) => void;
     videoToolbar: boolean;
     toggleVideoToolbar:  (val:boolean) => void;
-    insertImage: (val:string) => void;
+    insertImage: (val:InsertImageProps) => void;
     t:(key:string) => string;
 };
-
-/*
-export type ToolbarProps = {
-
-Toolbar.propTypes = {
-  
-};
-}*/

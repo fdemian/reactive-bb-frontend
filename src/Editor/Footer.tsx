@@ -26,7 +26,7 @@ const EditorFooter = (props:FooterProps) => {
     } = props;
 
     const [isSpeechToText, setIsSpeechToText] = useState(false);
-    const [imageURL, setImageURL] = useState('');
+    const [imageURL, setImageURL] = useState<string | null>('');
     const [altText, setAltText] = useState('');
     const [position, setPostion] = useState('left');
     const [showCaption, setShowCaption] = useState(false);
@@ -46,11 +46,13 @@ const EditorFooter = (props:FooterProps) => {
             title: t('toolbar.uploadImage'),
             open: uploadModalVisible,
             onOk: () => {
-                insertImage({ src: imageURL, altText: altText });
+                if(imageURL)
+                    insertImage({ src: imageURL, altText: altText });
+
                 toggleModalVisible();
                 setImageURL('');
             },
-            okButtonProps: { disabled: imageURL.trim() === '' || altText.trim() === '' },
+            okButtonProps: { disabled: (imageURL ?? "").trim() === '' || altText.trim() === '' },
             onCancel: () => {
                 toggleModalVisible();
                 setImageURL('');
@@ -68,12 +70,14 @@ const EditorFooter = (props:FooterProps) => {
             title: t("imageModal.inlineImageModalTitle"),
             open: inlineImageModalVisible,
             onOk: () => {
-                const payload = {altText, position, showCaption, src: imageURL};
-                insertInlineImage(payload);
+                const payload = {altText, position, showCaption, src: imageURL ?? ""};
+                if(imageURL){
+                   insertInlineImage(payload);
+                }
                 setInlineImageModalVisible(false);
                 setImageURL('');
             },
-            okButtonProps: { disabled: imageURL.trim() === '' || altText.trim() === '' },
+            okButtonProps: { disabled: (imageURL ?? "").trim() === '' || altText.trim() === '' },
             onCancel: () => {
                 setInlineImageModalVisible(false);
                 setImageURL('');
@@ -209,7 +213,7 @@ const EditorFooter = (props:FooterProps) => {
                 <Suspense fallback={<Spin/>}>
                     <InlineImageModal
                         saveImage={insertInlineImage}
-                        imageURL={imageURL}
+                        imageURL={imageURL ?? ""}
                         setImageURL={setImageURL}
                         altText={altText}
                         setAltText={setAltText}

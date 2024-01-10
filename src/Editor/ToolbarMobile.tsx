@@ -49,6 +49,9 @@ import './Toolbar.css';
 
 const { Option } = Select;
 
+const hasProperty = (property:string, object:Object) =>  property in object;
+const getProperty = (property:string, object:Object): any =>  hasProperty(property, object) ? object[property as keyof Object] : false;
+
 const Toolbar = (props:ToolbarProps) => {
     const {
         editor,
@@ -101,7 +104,7 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'FORMAT',
             props: 'bold',
             icon: faBold,
-            isActive: formats.isBold,
+            isActive: getProperty('isBold', formats)
         },
         {
             name: t('toolbar.italic'),
@@ -109,7 +112,7 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'FORMAT',
             props: 'italic',
             icon: faItalic,
-            isActive: formats.isItalic,
+            isActive: getProperty('isItalic', formats),
         },
         {
             name: t('toolbar.underline'),
@@ -117,7 +120,7 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'FORMAT',
             props: 'underline',
             icon: faUnderline,
-            isActive: formats.isUnderline,
+            isActive: getProperty('isUnderline', formats)
         },
         {
             name: t('toolbar.strikethrough'),
@@ -125,7 +128,7 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'FORMAT',
             props: 'strikethrough',
             icon: faStrikethrough,
-            isActive: formats.isStrikethrough,
+            isActive: getProperty('isStrikethrough', formats)
         },
         {
             name: t('toolbar.superscript'),
@@ -133,7 +136,7 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'FORMAT',
             props: 'superscript',
             icon: faSuperscript,
-            isActive: formats.isSuperscript,
+            isActive: getProperty('isSuperscript', formats),
         },
         {
             name: t('toolbar.subscript'),
@@ -141,7 +144,7 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'FORMAT',
             props: 'subscript',
             icon: faSubscript,
-            isActive: formats.isSubscript,
+            isActive: getProperty('isSubscript', formats)
         },
         {
             name: t('toolbar.code'),
@@ -149,7 +152,7 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'FORMAT',
             props: 'code',
             icon: faCode,
-            isActive: formats.isCode,
+            isActive: getProperty('isCode', formats)
         },
         {
             name: t('toolbar.spoiler'),
@@ -157,7 +160,7 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'SPOILER',
             props: null,
             icon: faEye,
-            isActive: formats.isSpoiler,
+            isActive: getProperty('isSpoiler', formats)
         },
         {
             name: t('toolbar.keyboard'),
@@ -165,15 +168,15 @@ const Toolbar = (props:ToolbarProps) => {
             command: 'KEYBOARD',
             props: null,
             icon: faKeyboard,
-            isActive: formats.isKeyboard,
+            isActive: getProperty('isKeyboard', formats)
         },
         {
-            name: formats.isLink ? t('toolbar.removeLink') : t('toolbar.addLink'),
-            text: formats.isLink ? t('toolbar.removeLink') : t('toolbar.addLink'),
+            name: getProperty('isLink', formats) ? t('toolbar.removeLink') : t('toolbar.addLink'),
+            text:  getProperty('isLink', formats) ? t('toolbar.removeLink') : t('toolbar.addLink'),
             command: 'LINK',
-            icon: getLinkIcon(formats.isLink),
-            props: formats.isLink ? null : 'https://',
-            isActive: formats.isLink,
+            icon: getLinkIcon(getProperty('isLink', formats) as boolean),
+            props: getProperty('isLink', formats) ? null : 'https://',
+            isActive: getProperty('isLink', formats)
         }
     ];
 
@@ -332,7 +335,7 @@ const Toolbar = (props:ToolbarProps) => {
         }
     ];
 
-    const selectedBlock = DROPDOWN_FORMATS.find((b) => b.blockType === formats.blockType);
+    const selectedBlock = DROPDOWN_FORMATS.find((b) => b.blockType ===  (getProperty('blockType', formats) as string));
     const currentBlock = selectedBlock === undefined ? DROPDOWN_FORMATS[0] : selectedBlock;
 
     const formatItemsForMenu = DROPDOWN_FORMATS.map((s) => ({
@@ -356,7 +359,7 @@ const Toolbar = (props:ToolbarProps) => {
         label: <span onClick={() => onFontFamilyChange(ff)}>{ff}</span>,
     }));
 
-    if (formats.blockType === 'code') {
+    if (getProperty('blockType', formats) === 'code') {
         return (
             <div className="toolbar-code" aria-label="TOOLBAR">
                 <div className="toolbar-single"></div>
@@ -386,7 +389,7 @@ const Toolbar = (props:ToolbarProps) => {
                     key="code-language-select"
                     className="code-language-select"
                     onChange={onCodeLanguageSelect}
-                    value={formats.codeLanguage}
+                    value={getProperty('codeLanguage', formats)}
                 >
                     {CODE_LANGUAGE_OPTIONS.map(([value, name]) => (
                         <Option key={value} value={value}>{name}</Option>
@@ -428,7 +431,7 @@ const Toolbar = (props:ToolbarProps) => {
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
-                        {formats.fontFamily ? formats.fontFamily : FONT_FAMILIES[0]} &nbsp;
+                        {getProperty('fontFamily', formats) ? getProperty('fontFamily', formats) : FONT_FAMILIES[0]} &nbsp;
                         <FontAwesomeIcon icon={faCaretDown} size="lg" />
                     </Button>
                 </Dropdown>
@@ -447,14 +450,14 @@ const Toolbar = (props:ToolbarProps) => {
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
-                        {formats.fontSize ? formats.fontSize : FONT_SIZES[0]} &nbsp;
+                        { getProperty('fontSize', formats) ? getProperty('fontSize', formats) : FONT_SIZES[0]} &nbsp;
                         <FontAwesomeIcon icon={faCaretDown} />
                     </Button>
                 </Dropdown>
                 &nbsp;
                 <Tooltip title={t('toolbar.fontColor')} placement="bottom">
                     <ColorPicker
-                        value={formats.fontColor}
+                        value={getProperty('fontColor', formats)}
                         onChange={onFontColorChange}
                     >
                         <Button
@@ -472,7 +475,7 @@ const Toolbar = (props:ToolbarProps) => {
                 &nbsp;
                 <Tooltip title={t('toolbar.bgColor')} placement="bottom">
                     <ColorPicker
-                        value={formats.bgColor}
+                        value={getProperty('bgColor', formats)}
                         onChange={onBGColorChange}
                     >
                         <Button

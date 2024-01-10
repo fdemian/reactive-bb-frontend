@@ -18,3 +18,6 @@ export const getLinkIcon = (isLink:boolean) => {
 export type ColorVal = {
     toHexString: () => string;
 };
+
+export const hasProperty = (property:string, object:Object) =>  property in object;
+export const getProperty = (property:string, object:Object): any =>  hasProperty(property, object) ? object[property as keyof Object] : false;
