@@ -44,13 +44,10 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { ToolbarProps } from "./editorTypes";
 import { getCodeLanguageOptions } from "kalliope";
 import { SIGN, getLinkIcon } from './utils';
-import type { ColorVal } from './utils';
+import type { ColorVal, getProperty } from './utils';
 import './Toolbar.css';
 
 const { Option } = Select;
-
-const hasProperty = (property:string, object:Object) =>  property in object;
-const getProperty = (property:string, object:Object): any =>  hasProperty(property, object) ? object[property as keyof Object] : false;
 
 const Toolbar = (props:ToolbarProps) => {
     const {

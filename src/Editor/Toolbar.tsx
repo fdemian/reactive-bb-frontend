@@ -45,7 +45,7 @@ import {
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Toolbar.css';
 import { ToolbarProps } from './editorTypes';
-import { SIGN, getLinkIcon } from './utils';
+import { SIGN, getLinkIcon, getProperty } from './utils';
 import { getCodeLanguageOptions } from "kalliope";
 
 const recomendedColors = [
@@ -269,7 +269,7 @@ const Toolbar = (props:ToolbarProps) => {
             icon: faAlignJustify,
             props: 'justify',
             directCommand: true,
-        },
+        }
     ];
 
     const DROPDOWN_FORMATS = [

@@ -116,7 +116,7 @@ const Editor = (props:EditorProps) => {
     }
 
     const onSearchChange = (match:string) => {
-        if (match.length < 3) return;
+        if (match === null || match.length < 3) return;
         getMentionCandidates({
             variables: {
                 search: match,
