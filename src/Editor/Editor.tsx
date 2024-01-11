@@ -1,4 +1,4 @@
-import { useState /*, useEffect*/, lazy, Suspense } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { Spin, notification } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +9,6 @@ import { GET_MENTION_USERS, UPLOAD_IMAGE } from './Queries';
 import AccountAvatar from '../UserAvatar/UserAvatar';
 import EditorFooter from './Footer';
 import ExcalidrawModal from './ExcalidrawModal/ExcalidrawModal';
-//import { getDefaultLocale } from '../App/utils';
 import emojiData from 'emojibase-data/en/data.json';
 import { EditorProps, MentionType, EntryComponentTypes, InlineImageProps, ImageProps, InsertEquationProps} from './editorTypes';
 import './Editor.css';

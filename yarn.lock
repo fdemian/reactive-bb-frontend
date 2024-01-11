@@ -2257,6 +2257,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-typescript@npm:^11.1.6":
+  version: 11.1.6
+  resolution: "@rollup/plugin-typescript@npm:11.1.6"
+  dependencies:
+    "@rollup/pluginutils": ^5.1.0
+    resolve: ^1.22.1
+  peerDependencies:
+    rollup: ^2.14.0||^3.0.0||^4.0.0
+    tslib: "*"
+    typescript: ">=3.7.0"
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+    tslib:
+      optional: true
+  checksum: 3f5b981f4d9c9501be1f16396f7b6d4ae584cb1b61e9f0bed66f98245fb77f249caea2b9b5f222f933b46fd9043c1f2664a7445aefa386c1ffbb4f0b80fc6004
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "@rollup/pluginutils@npm:5.1.0"
+  dependencies:
+    "@types/estree": ^1.0.0
+    estree-walker: ^2.0.2
+    picomatch: ^2.3.1
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: 3cc5a6d91452a6eabbfd1ae79b4dd1f1e809d2eecda6e175deb784e75b0911f47e9ecce73f8dd315d6a8b3f362582c91d3c0f66908b6ced69345b3cbe28f8ce8
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-android-arm-eabi@npm:4.9.2":
   version: 4.9.2
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.9.2"
@@ -4669,6 +4704,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"estree-walker@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "estree-walker@npm:2.0.2"
+  checksum: 6151e6f9828abe2259e57f5fd3761335bb0d2ebd76dc1a01048ccee22fabcfef3c0859300f6d83ff0d1927849368775ec5a6d265dde2f6de5a1be1721cd94efc
+  languageName: node
+  linkType: hard
+
 "estree-walker@npm:^3.0.3":
   version: 3.0.3
   resolution: "estree-walker@npm:3.0.3"
@@ -6087,9 +6129,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kalliope@npm:^0.6.5":
-  version: 0.6.5
-  resolution: "kalliope@npm:0.6.5"
+"kalliope@npm:^0.7.4":
+  version: 0.7.4
+  resolution: "kalliope@npm:0.7.4"
   dependencies:
     "@excalidraw/excalidraw": ^0.17.2
     "@excalidraw/utils": ^0.1.2
@@ -6106,6 +6148,7 @@ __metadata:
     "@lexical/selection": 0.12.6
     "@lexical/table": 0.12.6
     "@lexical/utils": 0.12.6
+    "@rollup/plugin-typescript": ^11.1.6
     emoji-toolkit: ^8.0.0
     emojibase: 15.3.0
     emojibase-data: 15.3.0
@@ -6115,7 +6158,7 @@ __metadata:
     react-color: ^2.19.3
     react-dom: ^18.2.0
     react-player: ^2.14.1
-  checksum: 2dfc82523dedb8df441ef65e8bd9a4c66da39afe9da7d592905ccc1808b979ef5307d363438ef5627ebb3d9c823e1f42a2822df5372a6bb8a5ac090cdb654611
+  checksum: f04c18114acb6fdaa61432e80d20cd690204733893315ad09732ffcf4ec1204d477cb7312b948efdd1fa48653ada8a7b89e27b766ab07d23bc66a3ac6d0afc45
   languageName: node
   linkType: hard
 
@@ -8029,7 +8072,7 @@ __metadata:
     i18next-browser-languagedetector: ^7.2.0
     i18next-http-backend: ^2.4.2
     jsdom: ^23.2.0
-    kalliope: ^0.6.5
+    kalliope: ^0.7.4
     katex: ^0.16.9
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -8178,6 +8221,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"resolve@npm:^1.22.1":
+  version: 1.22.8
+  resolution: "resolve@npm:1.22.8"
+  dependencies:
+    is-core-module: ^2.13.0
+    path-parse: ^1.0.7
+    supports-preserve-symlinks-flag: ^1.0.0
+  bin:
+    resolve: bin/resolve
+  checksum: f8a26958aa572c9b064562750b52131a37c29d072478ea32e129063e2da7f83e31f7f11e7087a18225a8561cfe8d2f0df9dbea7c9d331a897571c0a2527dbb4c
+  languageName: node
+  linkType: hard
+
 "resolve@npm:^2.0.0-next.4":
   version: 2.0.0-next.5
   resolution: "resolve@npm:2.0.0-next.5"
@@ -8188,6 +8244,19 @@ __metadata:
   bin:
     resolve: bin/resolve
   checksum: a73ac69a1c4bd34c56b213d91f5b17ce390688fdb4a1a96ed3025cc7e08e7bfb90b3a06fcce461780cb0b589c958afcb0080ab802c71c01a7ecc8c64feafc89f
+  languageName: node
+  linkType: hard
+
+"resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
+  version: 1.22.8
+  resolution: "resolve@patch:resolve@npm%3A1.22.8#~builtin<compat/resolve>::version=1.22.8&hash=c3c19d"
+  dependencies:
+    is-core-module: ^2.13.0
+    path-parse: ^1.0.7
+    supports-preserve-symlinks-flag: ^1.0.0
+  bin:
+    resolve: bin/resolve
+  checksum: 5479b7d431cacd5185f8db64bfcb7286ae5e31eb299f4c4f404ad8aa6098b77599563ac4257cb2c37a42f59dfc06a1bec2bcf283bb448f319e37f0feb9a09847
   languageName: node
   linkType: hard
 
