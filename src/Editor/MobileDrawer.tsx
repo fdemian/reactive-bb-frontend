@@ -49,9 +49,9 @@ const MobileDrawer = (props:MobileDrawerProps) => {
     const closeFn = () => {
         toggleEquationModal(false);
         toggleImageModal();
-        toggleTweetToolbar(false);
+        toggleTweetToolbar();
         toggleTableToolbar();
-        toggleVideoToolbar(false);
+        toggleVideoToolbar();
     };
 
     const open =

@@ -8,16 +8,7 @@ import {
 } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faBold, 
     faTrash,
-    faItalic, 
-    faUnderline, 
-    faStrikethrough, 
-    faSuperscript, 
-    faSubscript, 
-    faCode,
-    faEye,
-    faKeyboard,
     faAlignCenter,
     faAlignLeft,
     faAlignRight,
@@ -31,21 +22,15 @@ import {
     faVideo,
     faCaretDown,
     faPlus,
-    faParagraph,
-    faHeading,
-    faListUl,
-    faListOl,
-    faQuoteLeft,
-    faSquareCheck,
     faFill,
     faTextHeight
 } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { ToolbarProps } from "./editorTypes";
 import { getCodeLanguageOptions } from "kalliope";
-import { SIGN, getLinkIcon } from './utils';
 import type { ColorVal } from './utils';
-import { getButtonElementsToolbarMobile } from './toolbarUtils';
+import { getProperty } from './utils';
+import { getButtonElementsToolbarMobile, getToolbarDropdownDesktop, FONT_FAMILIES, FONT_SIZES } from './toolbarUtils';
 
 import './Toolbar.css';
 
@@ -97,87 +82,7 @@ const Toolbar = (props:ToolbarProps) => {
 
     //
     const BUTTON_ELEMENTS = getButtonElementsToolbarMobile(t, formats);
-
-    const DROPDOWN_FORMATS = [
-        {
-            name: t('toolbar.normal'),
-            icon: faParagraph,
-            blockType: 'paragraph',
-            value: 'PARAGRAPH',
-        },
-        {
-            name: t('toolbar.heading1'),
-            icon: faHeading,
-            blockType: 'h1',
-            value: 'H1',
-        },
-        {
-            name: t('toolbar.heading2'),
-            icon: faHeading,
-            blockType: 'h2',
-            value: 'H2',
-        },
-        {
-            name: t('toolbar.heading3'),
-            icon: faHeading,
-            blockType: 'h3',
-            value: 'H3',
-        },
-        {
-            name: t('toolbar.bulletList'),
-            icon: faListUl,
-            blockType: 'bullet',
-            value: 'BULLET_LIST',
-        },
-        {
-            name: t('toolbar.numberedList'),
-            icon: faListOl,
-            blockType: 'number',
-            value: 'NUMBERED_LIST',
-        },
-        {
-            name: t('toolbar.checkList'),
-            icon: faSquareCheck,
-            blockType: 'check',
-            value: 'CHECK',
-        },
-        {
-            name: t('toolbar.quote'),
-            icon: faQuoteLeft,
-            blockType: 'quote',
-            value: 'QUOTE',
-        },
-        {
-            name: t('toolbar.codeBlock'),
-            icon: faCode,
-            blockType: 'code',
-            value: 'CODE_BLOCK',
-        },
-    ];
-
-    const FONT_FAMILIES = [
-        'Arial',
-        'Courier New',
-        'Georgia',
-        'Times New Roman',
-        'Trebuchet MS',
-        'Verdana',
-    ];
-
-    const FONT_SIZES = [
-        '10px',
-        '11px',
-        '12px',
-        '13px',
-        '14px',
-        '15px',
-        '16px',
-        '17px',
-        '18px',
-        '19px',
-        '20px',
-    ];
-
+    const DROPDOWN_FORMATS = getToolbarDropdownDesktop(t);
     const INSERT_ELEMENTS = [
         {
             text: t('toolbar.rule'),

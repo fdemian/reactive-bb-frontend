@@ -52,13 +52,11 @@ const Editor = (props:EditorProps) => {
     const [inlineModalUpdateVisible, setInlineModalUpdateVisible] = useState(false);
 
     const [tweetToolbarVisible, setTweetToolbar] = useState(false);
-    const toggleTweetToolbar = (status:boolean) =>
-        setTweetToolbar(status === false ? status : !tweetToolbarVisible);
+    const toggleTweetToolbar = () => setTweetToolbar(!tweetToolbarVisible);
     const [tableToolbarVisible, setTableToolbar] = useState(false);
     const toggleTableToolbar = () => setTableToolbar(!tableToolbarVisible);
     const [videoToolbar, setVideoToolbar] = useState(false);
-    const toggleVideoToolbar = (status:boolean) =>
-        setVideoToolbar(status === false ? status : !videoToolbar);
+    const toggleVideoToolbar = () => setVideoToolbar(!videoToolbar);
 
     // TODO: reorder and name this.
     const [equation, setEquation] = useState('f(x)');
@@ -66,12 +64,9 @@ const Editor = (props:EditorProps) => {
 
     // Toggle functions (utility functions).
     const toggleImageModal = () => setImageModal(!imageModalVisible);
-    const toggleEquationModal = (status:boolean) =>
-        setEquationModal(status === false ? status : !equationModalVisible);
-    const toggleBgColorModal = (status:boolean) =>
-        setBgColorModal(status === false ? status : !bgColorModalVisible);
-    const toggleFontColorModal = (status:boolean) =>
-        setFontColorModal(status === false ? status : !fontColorModalVisible);
+    const toggleEquationModal = () => setEquationModal(!equationModalVisible);
+    const toggleBgColorModal = () => setBgColorModal(!bgColorModalVisible);
+    const toggleFontColorModal = () => setFontColorModal(!fontColorModalVisible);
     //const toggleExcalidrawModal = (status) => setExcalidrawModal(status === false ? status : !excalidrawModalVisible);
 
     const toggleExcalidrawModal = () => {
@@ -96,7 +91,7 @@ const Editor = (props:EditorProps) => {
     const insertEquation = (props:InsertEquationProps) => {
         containerRef.current.focus();
         containerRef.current.executeCommand('INSERT_EQUATION', props);
-        toggleEquationModal(false);
+        toggleEquationModal();
     };
 
     const insertImage = (props:ImageProps) => {

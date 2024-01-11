@@ -10,25 +10,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faTrash,
-    faBold, 
-    faItalic, 
-    faUnderline, 
-    faStrikethrough, 
-    faSuperscript, 
-    faSubscript,
-    faEye,
-    faKeyboard,
-    faAlignLeft,
-    faAlignRight,
-    faAlignCenter,
-    faAlignJustify,
-    faParagraph,
-    faHeading,
-    faListUl,
-    faListOl,
-    faSquareCheck,
-    faQuoteLeft,
-    faCode,
     faRulerHorizontal,
     faCaretRight,
     faCaretDown,
@@ -47,7 +28,20 @@ import './Toolbar.css';
 import { ToolbarProps } from './editorTypes';
 import { recomendedColors } from './toolbarUtils';
 import { getCodeLanguageOptions } from "kalliope";
-import { getButtonElementsToolbarDesktop, FONT_FAMILIES, FONT_SIZES } from './toolbarUtils';
+import { getButtonElementsToolbarDesktop, getToolbarDropdownDesktop, FONT_FAMILIES, FONT_SIZES } from './toolbarUtils';
+import { getProperty } from './utils';
+
+import {
+   blockFormatChangeFn,
+   onCodeLanguageSelect, 
+   insertTweet,
+   insertTable,
+   insertVideo,
+   onFontSizeChange,
+   onFontFamilyChange,
+   onFontColorChange,
+   onBGColorChange
+} from './toolbarUtils';
 
 const { Option } = Select;
 
@@ -84,105 +78,11 @@ const Toolbar = (props:ToolbarProps) => {
         t,
     } = props;
 
-    //
-    const blockFormatChangeFn = (val) => {
-        editor.executeCommand(val);
-    };
-
-    const onCodeLanguageSelect = (val) => {
-        editor.executeCommand('CODE_LANGUAGE_CHANGE', val);
-    };
-
-    const insertTweet = (url) => {
-        const tweetId = url.split('status/')?.[1]?.split('?')?.[0];
-        editor.executeCommand('INSERT_TWEET', tweetId);
-    };
-
-    const insertTable = ({ columns, rows } ) => {
-        editor.executeCommand('INSERT_TABLE', { columns, rows });
-    };
-
-    const insertVideo = (props) => {
-        editor.executeCommand('INSERT_VIDEO', props);
-    };
-
-    const onFontSizeChange = (fs) => {
-        editor.executeCommand('CHANGE_FONT_SIZE', fs);
-    };
-
-    const onFontFamilyChange = (ff) => {
-        editor.executeCommand('CHANGE_FONT', ff);
-    };
-
-    const onFontColorChange = (val) => {
-        editor.executeCommand('CHANGE_FONT_COLOR', val.toHexString());
-    };
-
-    const onBGColorChange = (val) => {
-        editor.executeCommand('CHANGE_FONT_BG_COLOR', val.toHexString());
-    };
-
     const CODE_LANGUAGE_OPTIONS:[string, string][] = getCodeLanguageOptions();
     
     //
     const BUTTON_ELEMENTS = getButtonElementsToolbarDesktop(t, formats);
-
-    const DROPDOWN_FORMATS = [
-        {
-            name: t('toolbar.normal'),
-            icon: faParagraph,
-            blockType: 'paragraph',
-            value: 'PARAGRAPH',
-        },
-        {
-            name: t('toolbar.heading1'),
-            icon: faHeading,
-            blockType: 'h1',
-            value: 'H1',
-        },
-        {
-            name: t('toolbar.heading2'),
-            icon: faHeading,
-            blockType: 'h2',
-            value: 'H2',
-        },
-        {
-            name: t('toolbar.heading3'),
-            icon: faHeading,
-            blockType: 'h3',
-            value: 'H3',
-        },
-        {
-            name: t('toolbar.bulletList'),
-            icon: faListUl,
-            blockType: 'bullet',
-            value: 'BULLET_LIST',
-        },
-        {
-            name: t('toolbar.numberedList'),
-            icon: faListOl,
-            blockType: 'number',
-            value: 'NUMBERED_LIST',
-        },
-        {
-            name: t('toolbar.checkList'),
-            icon: faSquareCheck,
-            blockType: 'check',
-            value: 'CHECK',
-        },
-        {
-            name: t('toolbar.quote'),
-            icon: faQuoteLeft,
-            blockType: 'quote',
-            value: 'QUOTE',
-        },
-        {
-            name: t('toolbar.codeBlock'),
-            icon: faCode,
-            blockType: 'code',
-            value: 'CODE_BLOCK',
-        },
-    ];
+    const DROPDOWN_FORMATS = getToolbarDropdownDesktop(t);
 
     const INSERT_ELEMENTS = [
         {
@@ -227,13 +127,13 @@ const Toolbar = (props:ToolbarProps) => {
         },
     ];
 
-    const selectedBlock = DROPDOWN_FORMATS.find((b) => b.blockType === formats.blockType);
+    const selectedBlock = DROPDOWN_FORMATS.find((b) => b.blockType ===  (getProperty('blockType', formats) as string));
     const currentBlock = selectedBlock === undefined ? DROPDOWN_FORMATS[0] : selectedBlock;
 
     const formatItemsForMenu = DROPDOWN_FORMATS.map((s) => ({
         key: s.name,
         label: (
-            <span onClick={() => blockFormatChangeFn(s.value)}>
+            <span onClick={() => blockFormatChangeFn(s.value, editor)}>
         <FontAwesomeIcon icon={s.icon} size="lg" />
                 {'  '}
                 &nbsp; {s.name}
@@ -243,19 +143,19 @@ const Toolbar = (props:ToolbarProps) => {
 
     const fontSizeMenuItems = FONT_SIZES.map((fs) => ({
         key: fs,
-        label: <span onClick={() => onFontSizeChange(fs)}>{fs}</span>,
+        label: <span onClick={() => onFontSizeChange(fs, editor)}>{fs}</span>,
     }));
 
     const fontFamilyItems = FONT_FAMILIES.map((ff) => ({
         key: ff,
-        label: <span onClick={() => onFontFamilyChange(ff)}>{ff}</span>,
+        label: <span onClick={() => onFontFamilyChange(ff, editor)}>{ff}</span>,
     }));
 
     if (tweetToolbarVisible) {
         return (
             <Suspense fallback={<Spin />}>
                 <TweetToolbar
-                    insertTweet={insertTweet}
+                    insertTweet={(t) => insertTweet(t, editor)}
                     toggleToolbar={toggleTweetToolbar}
                     t={t}
                 />
@@ -267,7 +167,7 @@ const Toolbar = (props:ToolbarProps) => {
         return (
             <Suspense fallback={<Spin />}>
                 <TableToolbar
-                    insertTable={insertTable}
+                    insertTable={(t) => insertTable(t, editor)}
                     toggleToolbar={toggleTableToolbar}
                     t={t}
                 />
@@ -279,7 +179,7 @@ const Toolbar = (props:ToolbarProps) => {
         return (
             <Suspense fallback={<Spin />}>
                 <VideoToolbar
-                    insertVideo={insertVideo}
+                    insertVideo={(val) => insertVideo(val, editor)}
                     toggleToolbar={toggleVideoToolbar}
                     t={t}
                 />
@@ -311,7 +211,7 @@ const Toolbar = (props:ToolbarProps) => {
         );
     }
 
-    if (formats.blockType === 'code') {
+    if(getProperty('blockType', formats) === 'code'){
         return (
             <div className="toolbar-code" role="presentation" aria-label="TOOLBAR-CODE">
                 <div className="toolbar-single"></div>
@@ -338,8 +238,8 @@ const Toolbar = (props:ToolbarProps) => {
                 <Select
                     key="code-language-select"
                     className="code-language-select"
-                    onChange={onCodeLanguageSelect}
-                    value={formats.codeLanguage}
+                    onChange={(val) => onCodeLanguageSelect(val, editor)}
+                    value={getProperty('codeLanguage', formats)}
                 >
                     {CODE_LANGUAGE_OPTIONS.map(([value, name]) => (
                         <Option key={value} value={value}>{name}</Option>
@@ -410,7 +310,7 @@ const Toolbar = (props:ToolbarProps) => {
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
-                        {formats.fontFamily ? formats.fontFamily : FONT_FAMILIES[0]} &nbsp;
+                        { getProperty('fontFamily', formats) ? getProperty('fontFamily', formats) : FONT_FAMILIES[0]} &nbsp;
                         <FontAwesomeIcon icon={faCaretDown} size="lg" />
                     </Button>
                 </Dropdown>
@@ -428,7 +328,7 @@ const Toolbar = (props:ToolbarProps) => {
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
-                        {formats.fontSize ? formats.fontSize : FONT_SIZES[0]} &nbsp;
+                        { getProperty('fontSize', formats) ? getProperty('fontSize', formats) : FONT_SIZES[0]} &nbsp;
                         <FontAwesomeIcon icon={faCaretDown} />
                     </Button>
                 </Dropdown>
@@ -439,8 +339,8 @@ const Toolbar = (props:ToolbarProps) => {
                             label: 'Recommended',
                             colors: recomendedColors
                         }]}
-                        value={formats.fontColor}
-                        onChange={onFontColorChange}
+                        value={getProperty('fontColor', formats)}
+                        onChange={(val) => onFontColorChange(val, editor)}
                     >
                         <Button
                             role="button"
@@ -463,8 +363,8 @@ const Toolbar = (props:ToolbarProps) => {
                             label: 'Recommended',
                             colors: recomendedColors
                         }]}
-                        value={formats.bgColor}
-                        onChange={onBGColorChange}
+                        value={getProperty('bgColor', formats)}
+                        onChange={(val) => onBGColorChange(val, editor)}
                     >
                         <Button
                             role="button"
