@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
 import { Button, InputNumber } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +10,7 @@ type TableSizeProps = {
 };
 
 type TableToolbarProps = {
-    toggleToolbar: (p:boolean) => void;
+    toggleToolbar: () => void;
     insertTable: (t:TableSizeProps) => void;
     t: (key:string) => string;
 };
@@ -75,13 +74,6 @@ const TableToolbar = ({ toggleToolbar, insertTable, t }:TableToolbarProps) => {
         </div>
     </div>
     );
-};
-
-
-TableToolbar.propTypes = {
-    insertTable: PropTypes.func.isRequired,
-    toggleToolbar: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default TableToolbar;

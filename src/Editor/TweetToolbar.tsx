@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
 import { Input, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +6,7 @@ import './Toolbar.css';
 
 type TweetToolbarProps = {
     insertTweet:(t:string) => void;
-    toggleToolbar: (p:boolean) => void;
+    toggleToolbar: () => void;
     t:(key:string) => string;
 }
 
@@ -51,12 +50,6 @@ const TweetToolbar = ({ insertTweet, toggleToolbar, t }:TweetToolbarProps) => {
             </div>
         </div>
     );
-};
-
-TweetToolbar.propTypes = {
-  insertTweet: PropTypes.func.isRequired,
-  toggleToolbar: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
 };
 
 export default TweetToolbar;

@@ -45,9 +45,9 @@ import {
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Toolbar.css';
 import { ToolbarProps } from './editorTypes';
-import { SIGN, getLinkIcon } from './utils';
 import { recomendedColors } from './toolbarUtils';
 import { getCodeLanguageOptions } from "kalliope";
+import { getButtonElementsToolbarDesktop, FONT_FAMILIES, FONT_SIZES } from './toolbarUtils';
 
 const { Option } = Select;
 
@@ -122,123 +122,10 @@ const Toolbar = (props:ToolbarProps) => {
         editor.executeCommand('CHANGE_FONT_BG_COLOR', val.toHexString());
     };
 
-    const CODE_LANGUAGE_OPTIONS:[[number, number]] = getCodeLanguageOptions();
+    const CODE_LANGUAGE_OPTIONS:[string, string][] = getCodeLanguageOptions();
     
     //
-    const BUTTON_ELEMENTS = [
-        {
-            name: t('toolbar.bold'),
-            text: `${t('toolbar.bold')} (${SIGN} + B)`,
-            command: 'FORMAT',
-            props: 'bold',
-            icon:  faBold,
-            isActive: formats.isBold,
-        },
-        {
-            name: t('toolbar.italic'),
-            text: `${t('toolbar.italic')} (${SIGN} + I)`,
-            command: 'FORMAT',
-            props: 'italic',
-            icon: faItalic,
-            isActive: formats.isItalic,
-        },
-        {
-            name: t('toolbar.underline'),
-            text: `${t('toolbar.underline')} (${SIGN} + U)`,
-            command: 'FORMAT',
-            props: 'underline',
-            icon: faUnderline,
-            isActive: formats.isUnderline,
-        },
-        {
-            name: t('toolbar.strikethrough'),
-            text: t('toolbar.strikethrough'),
-            command: 'FORMAT',
-            props: 'strikethrough',
-            icon: faStrikethrough ,
-            isActive: formats.isStrikethrough,
-        },
-        {
-            name: t('toolbar.superscript'),
-            text: t('toolbar.superscript'),
-            command: 'FORMAT',
-            props: 'superscript',
-            icon: faSuperscript,
-            isActive: formats.isSuperscript,
-        },
-        {
-            name: t('toolbar.subscript'),
-            text: t('toolbar.subscript'),
-            command: 'FORMAT',
-            props: 'subscript',
-            icon: faSubscript,
-            isActive: formats.isSubscript,
-        },
-        {
-            name: t('toolbar.code'),
-            text: t('toolbar.code'),
-            command: 'FORMAT',
-            props: 'code',
-            icon: faCode,
-            isActive: formats.isCode,
-        },
-        {
-            name: t('toolbar.spoiler'),
-            text: t('toolbar.spoiler'),
-            command: 'SPOILER',
-            props: null,
-            icon: faEye,
-            isActive: formats.isSpoiler,
-        },
-        {
-            name: t('toolbar.keyboard'),
-            text: t('toolbar.keyboard'),
-            command: 'KEYBOARD',
-            props: null,
-            icon: faKeyboard,
-            isActive: formats.isKeyboard,
-        },
-        {
-            name: formats.isLink ? t('toolbar.removeLink') : t('toolbar.addLink'),
-            text: formats.isLink ? t('toolbar.removeLink') : t('toolbar.addLink'),
-            command: 'LINK',
-            icon: getLinkIcon(formats.isLink),
-            props: formats.isLink ? null : 'https://',
-            isActive: formats.isLink,
-        },
-        {
-            name: t('toolbar.alignLeft'),
-            text: t('toolbar.alignLeft'),
-            command: 'ALIGN',
-            icon: faAlignLeft,
-            props: 'left',
-            directCommand: true,
-        },
-        {
-            name: t('toolbar.alignRight'),
-            text: t('toolbar.alignRight'),
-            command: 'ALIGN',
-            icon: faAlignRight,
-            props: 'right',
-            directCommand: true,
-        },
-        {
-            name: t('toolbar.alignCenter'),
-            text: t('toolbar.alignCenter'),
-            command: 'ALIGN',
-            icon: faAlignCenter,
-            props: 'center',
-            directCommand: true,
-        },
-        {
-            name: t('toolbar.alignJustify'),
-            text: t('toolbar.alignJustify'),
-            command: 'ALIGN',
-            icon: faAlignJustify,
-            props: 'justify',
-            directCommand: true,
-        }
-    ];
+    const BUTTON_ELEMENTS = getButtonElementsToolbarDesktop(t, formats);
 
     const DROPDOWN_FORMATS = [
         {
@@ -295,29 +182,6 @@ const Toolbar = (props:ToolbarProps) => {
             blockType: 'code',
             value: 'CODE_BLOCK',
         },
-    ];
-
-    const FONT_FAMILIES = [
-        'Arial',
-        'Courier New',
-        'Georgia',
-        'Times New Roman',
-        'Trebuchet MS',
-        'Verdana',
-    ];
-
-    const FONT_SIZES = [
-        '10px',
-        '11px',
-        '12px',
-        '13px',
-        '14px',
-        '15px',
-        '16px',
-        '17px',
-        '18px',
-        '19px',
-        '20px',
     ];
 
     const INSERT_ELEMENTS = [

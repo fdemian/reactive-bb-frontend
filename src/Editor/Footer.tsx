@@ -212,7 +212,6 @@ const EditorFooter = (props:FooterProps) => {
             >
                 <Suspense fallback={<Spin/>}>
                     <InlineImageModal
-                        saveImage={insertInlineImage}
                         imageURL={imageURL ?? ""}
                         setImageURL={setImageURL}
                         altText={altText}

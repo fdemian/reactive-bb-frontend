@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import { useRef } from "react";
 import { useTranslation } from 'react-i18next';
 import CalliopeEditor from 'kalliope';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,8 @@ import './Editor.css';
 type RendererParse = { content: string | null; };
 
 const Renderer = ({ content }:RendererParse) => {
+    const containerRef = useRef(null);
+
     let parsedContent;
     const { t } = useTranslation('editor', { keyPrefix: 'editor' });
 
@@ -19,8 +21,15 @@ const Renderer = ({ content }:RendererParse) => {
 
     const config = {
         placeholderText: '',
-        initialState: parsedContent,
+        initialState: parsedContent ?? undefined,
         readOnly: true,
+        autoFocus: false,
+        excalidrawConfig: {
+            modal: () => <div></div>
+        }, 
+        inlineImage: {
+          showModal: () => {}
+        },
         onError: (error: Error) => {
             throw error;
         },
@@ -47,6 +56,7 @@ const Renderer = ({ content }:RendererParse) => {
                     <FontAwesomeIcon icon={faArrowUp} size="lg" />
                 </a>
             ),
+            authorComponent: null,
         },
         plugins: [],
         mentions: {
@@ -57,23 +67,20 @@ const Renderer = ({ content }:RendererParse) => {
         },
         dragAndDropImage: {
             handleDroppedFile: () => {},
-        },
+        }
     };
 
     return (
         <div className="renderer-readonly">
             <CalliopeEditor
-                readOnly={config.readOnly}
-                containerRef={null}
-                setFormats={null}
+                containerRef={containerRef}
+                setFormats={() => {}}
                 config={config}
+                setCanUndo={() => {}}
+                setCanRedo={() => {}}
             />
         </div>
     );
-};
-
-Renderer.propTypes = {
-    content: PropTypes.string.isRequired
 };
 
 export default Renderer;

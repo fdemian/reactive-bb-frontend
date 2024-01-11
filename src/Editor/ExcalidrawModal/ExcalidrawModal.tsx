@@ -4,17 +4,20 @@ import { getIsMobile } from '../../App/utils';
 import './ExcalidrawModal.css';
 
 type ExcalidrawModalProps = {
-  excalidrawComponent: any;
-  excaliDrawApi: any;
-  discard: (e:any) => void;
-  save: (e:any) => void;
-  setExcalidrawAPI: (e:any) => void;
-  onChange: (e:any) => void;
-  initialElements: any[];
-  initialAppState: any;
-  initialFiles: any[];
-  isShown: boolean;
-};
+    excalidrawComponent: JSX.Element;
+    setExcalidrawAPI: (api: any) => void;
+    discard: () => void;
+    save: () => void;
+    onChange: () => void;
+    closeOnClickOutside?: boolean | undefined;
+    initialElements: ReadonlyArray<any>;
+    initialAppState: any;
+    initialFiles: any;
+    isShown?: boolean | undefined;
+    onClose: () => void;
+    onDelete: () => void;
+    onSave: (elements: ReadonlyArray<any>, appState: Partial<any>, files: any) => void;
+}
 
 const ExcalidrawModal = (props:ExcalidrawModalProps) => {
 
@@ -63,8 +66,8 @@ const ExcalidrawModal = (props:ExcalidrawModalProps) => {
                 </Button>
             ]}
         >
-            <div className="excalidraw-modal-row">
-                <Excalidraw
+            <div className="excalidraw-modal-row"> {/* @ts-ignore */}
+                <Excalidraw 
                     onChange={onChange}
                     excalidrawAPI={(api:any) => setExcalidrawAPI(api)}
                     initialData={{

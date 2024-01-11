@@ -30,7 +30,7 @@
     "i18next": "^23.7.16",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-http-backend": "^2.4.2",
-    "kalliope": "^0.7.4",
+    "kalliope": "^0.7.5",
     "katex": "^0.16.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -41,8 +41,8 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.1",
-    "@graphql-codegen/client-preset": "^4.2.0",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^6.2.0",

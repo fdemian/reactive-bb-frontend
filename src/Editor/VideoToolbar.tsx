@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
 import { Input, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +7,7 @@ import './Toolbar.css';
 
 type VideoToolbarProps = {
     insertVideo:(t:string) => void;
-    toggleToolbar: (p:boolean) => void;
+    toggleToolbar: () => void;
     t:(key:string) => string;
 }
 
@@ -55,12 +54,5 @@ const VideoToolbar = ({ insertVideo, toggleToolbar, t }:VideoToolbarProps) => {
         </div>
     );
 };
-
-VideoToolbar.propTypes = {
-    insertVideo: PropTypes.func.isRequired,
-    toggleToolbar: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
-};
-
 
 export default VideoToolbar;

@@ -8,8 +8,8 @@ import {
 import { $getNodeByKey } from "kalliope";
 
 type UpdateEditorProps = {
-    activeEditor:any;
-    nodeKey:any, 
+    activeEditor?:any;
+    nodeKey?:any, 
     onClose: () => void;
     t:(key:string) => string;
 };

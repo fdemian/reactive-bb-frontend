@@ -44,7 +44,9 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { ToolbarProps } from "./editorTypes";
 import { getCodeLanguageOptions } from "kalliope";
 import { SIGN, getLinkIcon } from './utils';
-import type { ColorVal, getProperty } from './utils';
+import type { ColorVal } from './utils';
+import { getButtonElementsToolbarMobile } from './toolbarUtils';
+
 import './Toolbar.css';
 
 const { Option } = Select;
@@ -91,91 +93,10 @@ const Toolbar = (props:ToolbarProps) => {
         editor.executeCommand('CHANGE_FONT_BG_COLOR', val.toHexString());
     };
 
-    const CODE_LANGUAGE_OPTIONS:[[number, number]] = getCodeLanguageOptions();
+    const CODE_LANGUAGE_OPTIONS:[string, string][] = getCodeLanguageOptions();
 
     //
-    const BUTTON_ELEMENTS = [
-        {
-            name: t('toolbar.bold'),
-            text: `${t('toolbar.bold')} (${SIGN} + B)`,
-            command: 'FORMAT',
-            props: 'bold',
-            icon: faBold,
-            isActive: getProperty('isBold', formats)
-        },
-        {
-            name: t('toolbar.italic'),
-            text: `${t('toolbar.italic')} (${SIGN} + I)`,
-            command: 'FORMAT',
-            props: 'italic',
-            icon: faItalic,
-            isActive: getProperty('isItalic', formats),
-        },
-        {
-            name: t('toolbar.underline'),
-            text: `${t('toolbar.underline')} (${SIGN} + U)`,
-            command: 'FORMAT',
-            props: 'underline',
-            icon: faUnderline,
-            isActive: getProperty('isUnderline', formats)
-        },
-        {
-            name: t('toolbar.strikethrough'),
-            text: t('toolbar.strikethrough'),
-            command: 'FORMAT',
-            props: 'strikethrough',
-            icon: faStrikethrough,
-            isActive: getProperty('isStrikethrough', formats)
-        },
-        {
-            name: t('toolbar.superscript'),
-            text: t('toolbar.superscript'),
-            command: 'FORMAT',
-            props: 'superscript',
-            icon: faSuperscript,
-            isActive: getProperty('isSuperscript', formats),
-        },
-        {
-            name: t('toolbar.subscript'),
-            text: t('toolbar.subscript'),
-            command: 'FORMAT',
-            props: 'subscript',
-            icon: faSubscript,
-            isActive: getProperty('isSubscript', formats)
-        },
-        {
-            name: t('toolbar.code'),
-            text: t('toolbar.code'),
-            command: 'FORMAT',
-            props: 'code',
-            icon: faCode,
-            isActive: getProperty('isCode', formats)
-        },
-        {
-            name: t('toolbar.spoiler'),
-            text: t('toolbar.spoiler'),
-            command: 'SPOILER',
-            props: null,
-            icon: faEye,
-            isActive: getProperty('isSpoiler', formats)
-        },
-        {
-            name: t('toolbar.keyboard'),
-            text: t('toolbar.keyboard'),
-            command: 'KEYBOARD',
-            props: null,
-            icon: faKeyboard,
-            isActive: getProperty('isKeyboard', formats)
-        },
-        {
-            name: getProperty('isLink', formats) ? t('toolbar.removeLink') : t('toolbar.addLink'),
-            text:  getProperty('isLink', formats) ? t('toolbar.removeLink') : t('toolbar.addLink'),
-            command: 'LINK',
-            icon: getLinkIcon(getProperty('isLink', formats) as boolean),
-            props: getProperty('isLink', formats) ? null : 'https://',
-            isActive: getProperty('isLink', formats)
-        }
-    ];
+    const BUTTON_ELEMENTS = getButtonElementsToolbarMobile(t, formats);
 
     const DROPDOWN_FORMATS = [
         {

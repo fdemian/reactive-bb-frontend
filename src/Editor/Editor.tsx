@@ -55,8 +55,7 @@ const Editor = (props:EditorProps) => {
     const toggleTweetToolbar = (status:boolean) =>
         setTweetToolbar(status === false ? status : !tweetToolbarVisible);
     const [tableToolbarVisible, setTableToolbar] = useState(false);
-    const toggleTableToolbar = (status:boolean) =>
-        setTableToolbar(status === false ? status : !tableToolbarVisible);
+    const toggleTableToolbar = () => setTableToolbar(!tableToolbarVisible);
     const [videoToolbar, setVideoToolbar] = useState(false);
     const toggleVideoToolbar = (status:boolean) =>
         setVideoToolbar(status === false ? status : !videoToolbar);
@@ -66,8 +65,7 @@ const Editor = (props:EditorProps) => {
     const [inline, setInline] = useState(true);
 
     // Toggle functions (utility functions).
-    const toggleImageModal = (status:boolean) =>
-        setImageModal(status === false ? status : !imageModalVisible);
+    const toggleImageModal = () => setImageModal(!imageModalVisible);
     const toggleEquationModal = (status:boolean) =>
         setEquationModal(status === false ? status : !equationModalVisible);
     const toggleBgColorModal = (status:boolean) =>
@@ -104,7 +102,7 @@ const Editor = (props:EditorProps) => {
     const insertImage = (props:ImageProps) => {
         containerRef.current.focus();
         containerRef.current.executeCommand('INSERT_IMAGE', props);
-        toggleImageModal(false);
+        toggleImageModal();
     };
 
     const insertInlineImage = (image:InlineImageProps) => {
@@ -160,7 +158,7 @@ const Editor = (props:EditorProps) => {
     const config = {
         placeholderText: t('toolbar.placeholderText'),
         initialState: initialState,
-        isReadOnly: false,
+        readOnly: false,
         autoFocus: true,
         onError: (error:any) => {
             throw error;
@@ -197,9 +195,8 @@ const Editor = (props:EditorProps) => {
            >
               <FontAwesomeIcon icon={faArrowUp} size="lg" />
            </a>
-           )
-            /*
-            authorComponent: ({ author }) => (
+           ),
+            authorComponent: null /*({ author }) => (
              <a href={author.link} className="author-link-container">
                <AccountAvatar
                  avatar={author.avatar}
@@ -222,7 +219,7 @@ const Editor = (props:EditorProps) => {
             },
             entryComponent: ({ option: { avatar, name } }:EntryComponentTypes) => (
                 <>
-                    <AccountAvatar avatar={avatar} username={name} size={5} shape="circle" />
+                    <AccountAvatar avatar={avatar ?? ""} username={name} size={5} shape="circle" />
                     &nbsp; <strong className="user-name-mentions">{name}</strong>
                 </>
             ),

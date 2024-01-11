@@ -14,12 +14,14 @@ type InsertImageInlineProps = {
 
 export type EntryComponentTypes = {
   option: { 
-    avatar:string; 
+    id: number;
+    avatar?:string | null | undefined; 
     name:string;
   }
 };
 
 export type MentionType = {
+  id: number;
   name: string;
   link: string;
 };
@@ -67,11 +69,11 @@ export type MobileDrawerProps = {
     insertEquation: (val:InsertEquationProps) => void;
     toggleEquationModal: (val:boolean) => void;
     imageModalVisible: boolean;
-    toggleImageModal: (val:boolean) => void;
+    toggleImageModal: () => void;
     tweetToolbarVisible: boolean;
     toggleTweetToolbar: (val:boolean) => void;
     tableToolbarVisible: boolean;
-    toggleTableToolbar: (val:boolean) => void;
+    toggleTableToolbar: () => void;
     videoToolbar: boolean;
     toggleVideoToolbar: (val:boolean) => void;
     insertImage: (val:InsertImageProps) => void;
