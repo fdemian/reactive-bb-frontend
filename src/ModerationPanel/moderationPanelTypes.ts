@@ -32,3 +32,10 @@ export type SearchUserListProps = {
     setUserToBan: (u:UserType) => void;
     t:TranslationFn;
 };
+
+export type FlaggedPost = {
+    postId: number;
+    userId: number;
+    reasonId: number;
+    reasonText: string;
+};

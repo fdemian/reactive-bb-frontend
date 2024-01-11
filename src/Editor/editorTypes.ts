@@ -27,7 +27,7 @@ export type MentionType = {
 };
 
 export type EditorProps = {
-  initialState: string;
+  initialState: string | undefined;
   containerRef: any;
   user: UserType;
   mentions: MentionType[];

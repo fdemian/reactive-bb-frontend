@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GET_FLAGGED_POSTS, REMOVE_FLAG } from './Queries';
 import { useQuery, useMutation } from '@apollo/client';
-import { FlaggedDataType, TranslationFn,  FlaggedMessagesProps } from '../moderationPanelTypes';
+import { FlaggedDataType, TranslationFn,  FlaggedMessagesProps, FlaggedPost } from '../moderationPanelTypes';
 import '../ModerationPanel.css';
 
 const getReasonText = (reasonId:number, flaggedData:FlaggedDataType, t:TranslationFn) => {
@@ -30,7 +30,7 @@ const FlaggedMessages = ({ t }:FlaggedMessagesProps) => {
                 fields: {
                     flaggedPosts(flaggedPosts = []) {
                         const { postId, userId } = removeFlag;
-                        return flaggedPosts.filter((f) => f.postId !== postId && f.userId !== userId);
+                        return flaggedPosts.filter((f:FlaggedPost) => f.postId !== postId && f.userId !== userId);
                     },
                 },
             });
