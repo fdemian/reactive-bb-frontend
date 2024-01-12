@@ -39,6 +39,6 @@ export const getCategoryURL = (category:CategoryType) => {
 
 export const getCategoryName = (category:CategoryType) => (category ? category.name : 'Uncategorized');
 
-export const getDate = (date:Date) => format(new Date(date), 'MMM d yyyy, h:mm');
+export const getDate = (date:string) => format(new Date(date), 'MMM d yyyy, h:mm');
 export const getDateRelative = (date:string) =>
     formatDistance(parseISO(date), new Date(), { addSuffix: true });

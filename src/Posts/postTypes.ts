@@ -43,7 +43,7 @@ export type PostType = {
     id: number;
     content: string;
     edited: boolean;
-    created: Date;
+    created: string;
     likes: LikeType[];
     user: UserType;
     __ref?: string | undefined;

@@ -107,7 +107,7 @@ const PostsFile = (props:TopicRepliesProps) => {
                                         <div className="post-user-status">{item.user.status}</div>
                                         <div className="post-date">
                                             <Tooltip title={getDate(item.created)}>
-                                                {getDateRelative(item.created.toISOString())}
+                                                {getDateRelative(item.created)}
                                             </Tooltip>
                                         </div>
                                     </>
