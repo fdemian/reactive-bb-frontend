@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState, useEffect } from 'react';
 import { Menu, Divider, Button, Modal } from 'antd';
 import { useSearchParams } from 'react-router-dom';
@@ -10,8 +9,18 @@ import MessagesEditor from './MessagesEditor';
 import CreateMessage from './CreateMessage';
 import '../AccountSettings/Settings.css';
 import './Messages.css';
+import { UserType } from "../User/userTypes";
 
-const ChatsList = (props) => {
+type MessagesEditorProps = {
+    containerRef: any;
+    sendMessage: (user:number, p:boolean) => void;
+    clearMessage: () => void;
+    users: UserType[];
+    userId: number;
+    t: (key:string) => string;
+};
+
+const ChatsList = (props:MessagesEditorProps) => {
     const { containerRef, sendMessage, clearMessage, users, userId, t } = props;
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -22,14 +31,14 @@ const ChatsList = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const closeModal = () => setIsModalOpen(false);
     const openModal = () => setIsModalOpen(true);
-    const sendAndCloseModal = (user, newchat) => {
+    const sendAndCloseModal = (user:number, newchat:boolean) => {
         sendMessage(user, newchat);
         closeModal();
     };
 
     useEffect(() => {
         if (!paramsUser) {
-            setSearchParams({ user: initialSelectedUser });
+            setSearchParams({ user: initialSelectedUser.toString() });
         }
     }, [paramsUser, setSearchParams, initialSelectedUser]);
 
@@ -43,7 +52,7 @@ const ChatsList = (props) => {
         )
     }));
 
-    const onMenuItemSelect = ({ key }) => {
+    const onMenuItemSelect = ({ key }:{key:string;}) => {
         setSearchParams({ user: key });
         setSelectedUser(parseInt(key, 10));
     };
@@ -89,27 +98,11 @@ const ChatsList = (props) => {
                 <CreateMessage
                     sendMessage={sendAndCloseModal}
                     containerRef={containerRef}
-                    userId={userId}
                     t={t}
                 />
             </Modal>
         </>
     );
-};
-
-ChatsList.propTypes = {
-    containerRef: PropTypes.any.isRequired,
-    sendMessage: PropTypes.func.isRequired,
-    clearMessage: PropTypes.func.isRequired,
-    users: PropTypes.arrayOf(
-       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        avatar: PropTypes.string,
-        username: PropTypes.string.isRequired
-       })
-    ),
-    userId: PropTypes.number.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default ChatsList;

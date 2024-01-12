@@ -37,6 +37,10 @@ export const Component = () => {
     );
 
     const menuItem = menuMap.find((k) => k.key === selectKey);
+
+    if(!menuItem)
+        return null;
+
     const title = menuItem.name;
     const childComponent = menuItem.component;
 

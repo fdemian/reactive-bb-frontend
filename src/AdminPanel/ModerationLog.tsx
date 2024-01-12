@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import {
     Suspense,
     lazy,
@@ -15,12 +14,25 @@ import {
 } from 'antd';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import { GET_POST_EDITS } from './Queries';
+import { UserType } from "../User/userTypes";
 
 const Renderer = lazy(() => import('../Editor/Renderer'));
 const PaginationFooter = lazy(() => import('../PaginationFooter/PaginationFooter'));
 
-const ModerationLog = ({ t }) => {
-    const PAGE_LIMIT = parseInt(getDefaultPageItems(), 10);
+type ModerationLogProps = {
+    t:(key:string) => string;
+};
+
+type PostEditType = {
+    user:UserType;
+    date: Date;
+    previous: string;
+    current: string;
+    editsCount: number;
+};
+
+const ModerationLog = ({ t }:ModerationLogProps) => {
+    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? "0", 10);
     const [currentPage, setCurrentPage] = useState(1);
     const PAGE_OFFSET = 0;
     //const PAGE_OFFSET = (initialPage - 1) * PAGE_LIMIT;
@@ -31,7 +43,7 @@ const ModerationLog = ({ t }) => {
         }
     });
 
-    const onChangePage = (page) => {
+    const onChangePage = (page:number) => {
         const _offset = (currentPage - 1) * PAGE_LIMIT;
         const _limit = (currentPage - 1) * PAGE_LIMIT + PAGE_LIMIT;
 
@@ -62,7 +74,7 @@ const ModerationLog = ({ t }) => {
 
     return (
         <div>
-            {postEdits.map(postEdit => (
+            {postEdits.map((postEdit:PostEditType) => (
                 <>
                     <Collapse
                         bordered={false}
@@ -70,7 +82,7 @@ const ModerationLog = ({ t }) => {
                             <UserAvatar
                                 avatar={postEdit.user.avatar}
                                 username={postEdit.user.username}
-                                size="big"
+                                size="large"
                                 shape="circle"
                             />}
                         items={[
@@ -116,9 +128,5 @@ const ModerationLog = ({ t }) => {
         </div>
     );
 }
-
-ModerationLog.propTypes = {
-  t: PropTypes.func.isRequired,
-};
 
 export default ModerationLog;

@@ -1,10 +1,16 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
 import { Button, Empty } from 'antd';
 import CreateMessage from './CreateMessage';
 import './Messages.css';
 
-const NoMessages = ({ userId, sendMessage, containerRef, t }) => {
+type NoMessageProps = {
+    userId:number; 
+    sendMessage:(user: number, p: boolean) => void;
+    containerRef:any; 
+    t:(key:string) => string;
+};
+
+const NoMessages = ({ sendMessage, containerRef, t }:NoMessageProps) => {
     const [converstationVisible, setConverstationVisible] = useState(false);
     return (
         <>
@@ -15,7 +21,6 @@ const NoMessages = ({ userId, sendMessage, containerRef, t }) => {
             />
             {converstationVisible ? (
                 <CreateMessage
-                    userId={userId}
                     sendMessage={sendMessage}
                     containerRef={containerRef}
                     t={t}
@@ -32,17 +37,6 @@ const NoMessages = ({ userId, sendMessage, containerRef, t }) => {
             )}
         </>
     );
-};
-
-NoMessages.propTypes = {
-    userId: PropTypes.number.isRequired,
-    sendMessage: PropTypes.func.isRequired,
-    containerRef: PropTypes.shape({
-        current: PropTypes.shape({
-            executeCommand: PropTypes.func.isRequired
-        })
-    }),
-    t: PropTypes.func.isRequired
 };
 
 export default NoMessages;

@@ -11,12 +11,13 @@ import './Messages.css';
 
 export const Component = () => {
     const containerRef = useRef(null);
-    const userId = parseInt(getUserId(), 10);
+    const userId = getUserId();
     const [sendPm] = useMutation(SEND_PM);
     const { t } = useTranslation('chats', { keyPrefix: 'chats' });
 
-    const sendMessage = (user, newchat) => {
-        const message = containerRef.current.getContent();
+    const sendMessage = (user:number, newchat:boolean) => {
+        const editor:any = containerRef.current;
+        const message = editor.getContent();
         sendPm({
             variables: {
                 author: userId,
@@ -25,10 +26,13 @@ export const Component = () => {
                 newchat: newchat
             }
         });
-        containerRef.current.clear();
+        editor.clear();
     };
 
-    const clearMessage = () => containerRef.current.clear();
+    const clearMessage = () => {
+        const editor:any = containerRef.current;
+        editor.clear();
+    }
 
     const { data, loading, error } = useQuery(GET_ALL_CHATS, {
         variables: {
@@ -46,7 +50,7 @@ export const Component = () => {
     if (chatsByUser.length === 0)
         return (
             <NoMessages
-                userId={userId}
+                userId={userId ?? 0}
                 sendMessage={sendMessage}
                 containerRef={containerRef}
                 t={t}
@@ -59,7 +63,7 @@ export const Component = () => {
             sendMessage={sendMessage}
             clearMessage={clearMessage}
             users={chatsByUser}
-            userId={userId}
+            userId={userId ?? 0}
             t={t}
         />
     );

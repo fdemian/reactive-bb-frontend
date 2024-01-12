@@ -1,27 +1,42 @@
-import PropTypes from "prop-types";
 import { useRef, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { GET_MENTION_USERS } from '../Editor/Queries';
-import CalliopeEditor from 'kalliope';
+import Editor from '../Editor/Editor';
 import { Button, Form, Mentions } from 'antd';
 import UserAvatar from '../UserAvatar/UserAvatar';
-import editorConfig from './editorConfig';
+import { getIsMobile } from '../App/utils';
 import './Messages.css';
+import { UserType } from '../User/userTypes';
 
 const { getMentions } = Mentions;
 
-const CreateMessage = ({ sendMessage, containerRef, t }) => {
-    const [updatedList, setUpdatedList] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
+type CreateMessageProps = {
+    sendMessage: (user:number, p:boolean) => void;
+    containerRef: any;
+    t:(key:string) => string;
+};
+
+type UserMessageType = {
+    id:number;
+    name: string;
+}
+
+const CreateMessage = ({ sendMessage, containerRef, t }:CreateMessageProps) => {
+    const [updatedList, setUpdatedList] = useState<boolean>(false);
+    const [selectedUser, setSelectedUser] = useState<number | null>(null);
     const [users, setUsers] = useState([]);
     const ref = useRef();
+    const isMobile = getIsMobile();
 
-    const mentionSelectChange = ({ value }) => {
-        const userId = users.filter((u) => u.name === value)[0].id;
-        setSelectedUser(userId);
+    const mentionSelectChange = ({ value }:{ value: string; }) => {
+        const user:UserMessageType = users.filter((u:UserMessageType) => u.name === value)[0];
+        if(!user)
+            return;
+        const userIdCurrent = user.id;
+        setSelectedUser(userIdCurrent);
     };
 
-    const checkMention = async (_, value) => {
+    const checkMention = async (_:any, value:string) => {
         const mentions = getMentions(value);
 
         if (mentions.length > 1) {
@@ -30,16 +45,18 @@ const CreateMessage = ({ sendMessage, containerRef, t }) => {
     };
 
     const onFinish = () => {
+        if(!selectedUser)
+            return;
         sendMessage(selectedUser, true);
     };
 
-    const onFinishFailed = (errorInfo) => {
+    const onFinishFailed = (errorInfo:any) => {
         console.log('Failed:', errorInfo);
     };
 
     const [getMentionCandidates, { data, loading }] = useLazyQuery(GET_MENTION_USERS);
 
-    const onSearch = (value) => {
+    const onSearch = (value:any) => {
         ref.current = value;
         setUsers([]);
 
@@ -54,7 +71,7 @@ const CreateMessage = ({ sendMessage, containerRef, t }) => {
     if (data && !loading && updatedList) {
         const { mentionCandidates } = data;
         if (mentionCandidates !== null) {
-            const _suggestions = mentionCandidates.map((u) => ({
+            const _suggestions = mentionCandidates.map((u:UserType) => ({
                 id: u.id,
                 name: u.username,
                 link: `/users/${u.id}/${u.username}`,
@@ -104,7 +121,7 @@ const CreateMessage = ({ sendMessage, containerRef, t }) => {
                 <Mentions
                     data-testid="mention-user-select"
                     rows={1}
-                    onSelect={mentionSelectChange}
+                    onSelect={(val:any) => mentionSelectChange(val)}
                     placeholder={t('userMentionPlaceholder')}
                     style={{ width: '400px' }}
                     loading={loading}
@@ -114,10 +131,13 @@ const CreateMessage = ({ sendMessage, containerRef, t }) => {
             </Form.Item>
 
             <Form.Item label={t('message')} name="message" rules={[]}>
-                <CalliopeEditor
-                    config={editorConfig}
+                <Editor
                     containerRef={containerRef}
-                    setFormats={() => {}}
+                    setMentions={() => {}}
+                    mentions={[]}
+                    user={null}
+                    initialState={undefined}
+                    isMobile={isMobile}
                 />
             </Form.Item>
 
@@ -133,12 +153,6 @@ const CreateMessage = ({ sendMessage, containerRef, t }) => {
             </Form.Item>
         </Form>
     );
-};
-
-CreateMessage.propTypes = {
-  sendMessage: PropTypes.func.isRequired,
-  containerRef: PropTypes.any.isRequest,
-  t: PropTypes.func.isRequired
 };
 
 export default CreateMessage;

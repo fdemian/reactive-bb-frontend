@@ -29,7 +29,7 @@ export type MentionType = {
 export type EditorProps = {
   initialState: string | undefined;
   containerRef: any;
-  user: UserType;
+  user: UserType | null;
   mentions: MentionType[];
   setMentions: (mentions:MentionType[]) => void;
   isMobile: boolean;

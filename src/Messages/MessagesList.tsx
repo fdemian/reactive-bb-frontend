@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useEffect } from 'react';
 import { GET_CHAT, CHATS_SUBSCRIPTION } from './Queries';
 import { useQuery } from '@apollo/client';
@@ -8,12 +7,19 @@ import UserAvatar from '../UserAvatar/UserAvatar';
 import Renderer from '../Editor/Renderer';
 import { formatDistance, format, parseISO } from 'date-fns';
 import './Messages.css';
+import { UserType } from '../User/userTypes';
 
-const getDate = (date) => format(new Date(date), 'MMM d yyyy h:mm');
-const getDateRelative = (date) =>
+type ChatType = {
+ date: Date;
+ content:string;
+ author: UserType;
+};
+
+const getDate = (date:Date) => format(new Date(date), 'MMM d yyyy h:mm');
+const getDateRelative = (date:string) =>
     formatDistance(parseISO(date), new Date(), { addSuffix: true });
 
-const MessagesList = ({ currentUser, otherUser }) => {
+const MessagesList = ({ currentUser, otherUser }: {currentUser:number; otherUser:number;}) => {
     const { data, loading, error, subscribeToMore } = useQuery(GET_CHAT, {
         variables: {
             userA: currentUser,
@@ -55,7 +61,7 @@ const MessagesList = ({ currentUser, otherUser }) => {
             className="comment-list"
             itemLayout="vertical"
             dataSource={chat}
-            renderItem={(item) => (
+            renderItem={(item:ChatType) => (
                 <List.Item>
                     <List.Item.Meta
                         avatar={
@@ -77,7 +83,7 @@ const MessagesList = ({ currentUser, otherUser }) => {
                         }
                         description={
                             <span className="chat-post-date">
-                <Tooltip title={getDate(item.date)}>{getDateRelative(item.date)}</Tooltip>
+                     <Tooltip title={getDate(item.date)}>{getDateRelative(item.date.toISOString())}</Tooltip>
               </span>
                         }
                     />
@@ -86,11 +92,6 @@ const MessagesList = ({ currentUser, otherUser }) => {
             )}
         />
     );
-};
-
-MessagesList.propTypes = {
-  currentUser: PropTypes.number.isRequired,
-  otherUser: PropTypes.number.isRequired
 };
 
 export default MessagesList;
