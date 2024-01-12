@@ -1,11 +1,16 @@
-import PropTypes from "prop-types";
 import { useState, useRef } from 'react';
 import { Tag, Input, Tooltip, Button } from 'antd';
 import './Composer.css';
 
-const initialTags = (initialState) => (initialState === null ? [] : initialState);
+type EditableTagGroupProps = {
+    initialState:string[]; 
+    t:(key:string) => string; 
+    updateFn:(tags:string[]) => void;
+};
 
-const EditableTagGroup = (props) => {
+const initialTags = (initialState: null | string[]) => (initialState === null ? [] : initialState);
+
+const EditableTagGroup = (props:EditableTagGroupProps) => {
     const { initialState, t, updateFn } = props;
     const [tags, setTags] = useState(initialTags(initialState));
     const [inputVisible, setInputVisible] = useState(false);
@@ -13,8 +18,8 @@ const EditableTagGroup = (props) => {
 
     const input = useRef(null);
 
-    const handleClose = (removedTag) => {
-        const newTags = tags.filter((tag) => tag !== removedTag);
+    const handleClose = (removedTag:string) => {
+        const newTags = tags.filter((tag:string) => tag !== removedTag);
         setTags(newTags);
         updateFn(tags);
     };
@@ -23,7 +28,7 @@ const EditableTagGroup = (props) => {
         setInputVisible(true);
     };
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e:any) => {
         setInputValue(e.target.value);
     };
 
@@ -35,9 +40,12 @@ const EditableTagGroup = (props) => {
             setTags(newTags);
             setInputValue('');
         }
-
+        
         setInputVisible(false);
-        props.updateFn(newTags);
+        
+        if(newTags !== undefined){
+            props.updateFn(newTags);
+        }
     };
 
     return (
@@ -84,12 +92,6 @@ const EditableTagGroup = (props) => {
             )}
         </div>
     );
-};
-
-EditableTagGroup.propTypes = {
-  initialState: PropTypes.string.isRequired,
-  updateFn: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
 };
 
 export default EditableTagGroup;

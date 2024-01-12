@@ -1,7 +1,13 @@
 import { Alert } from 'antd';
-import PropTypes from "prop-types";
 
-const ErrorLayout = ({ tr, isError, message, onClose }) => {
+type ErrorLayoutProps = {
+    tr: (key:string) => string;
+    isError: boolean;
+    message: string;
+    onClose: () => void;
+};
+
+const ErrorLayout = ({ tr, isError, message, onClose }:ErrorLayoutProps) => {
     if (!isError) return null;
 
     return (
@@ -13,13 +19,6 @@ const ErrorLayout = ({ tr, isError, message, onClose }) => {
             closable
         />
     );
-};
-
-ErrorLayout.propTypes = {
-  tr: PropTypes.func.isRequired,
-  isError: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired
 };
 
 export default ErrorLayout;

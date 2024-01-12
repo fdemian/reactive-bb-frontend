@@ -8,8 +8,14 @@ import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import ErrorLayer from './ErrorLayer';
 import { UPDATE_EMAIL } from './Mutations';
 import { useMutation } from '@apollo/client';
+import { UserType } from "../../User/userTypes";
 
-const ModifyEmailModal = ({ user, t }) => {
+type ModifyEmailModalProps = {
+    user: UserType;
+    t:(key:string) => string;
+}
+
+const ModifyEmailModal = ({ user, t }:ModifyEmailModalProps) => {
     const { email } = user;
     const [userEmail, setUserEmail] = useState(email);
     const [updateEmail, mutationData] = useMutation(UPDATE_EMAIL);

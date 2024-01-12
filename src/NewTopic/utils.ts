@@ -1,7 +1,14 @@
-export const getQuoteStateFromProps = (props) => {
+type QuoteStateProps = {
+    content: string | undefined;
+    user: string | null;
+    userId: string | null;
+    comment: string | null;
+};
+
+export const getQuoteStateFromProps = (props:QuoteStateProps):string | undefined => {
     const { content, user, userId, comment } = props;
 
-    if (content === null || content === undefined) return null;
+    if (content === null || content === undefined) return undefined;
 
     const quotedContent = {
         root: {

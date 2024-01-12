@@ -13,15 +13,14 @@ import './ProfileView.css';
 const FormItem = Form.Item;
 
 const UserProfile = () => {
+    
     const { t } = useTranslation('accountSettings', { keyPrefix: 'settings.profile' });
-
-    const handleSubmit = () => {};
     const userId = getUserId();
     const [modalProps, setModalProps] = useState({ avatar: '', status: '', about: '' });
     const [updateProfile, mutationData] = useMutation(UPDATE_PROFILE);
     const { loading, error, data } = useQuery(GET_PROFILE, {
         variables: {
-            id: parseInt(userId, 10),
+            id: userId
         },
         skip: !userId,
     });
@@ -53,13 +52,13 @@ const UserProfile = () => {
         });
     };
 
-    const setStatus = (e) =>
+    const setStatus = (e:any) =>
         setModalProps({
             ...modalProps,
             status: e.target.value,
         });
 
-    const setAbout = (e) =>
+    const setAbout = (e:any) =>
         setModalProps({
             ...modalProps,
             about: e.target.value,
@@ -77,8 +76,6 @@ const UserProfile = () => {
                     role="form"
                     form={form}
                     layout="vertical"
-                    onSubmit={handleSubmit}
-                    hideRequiredMark
                 >
                     <FormItem label={t('status')}>
                         <Input

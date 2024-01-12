@@ -10,13 +10,13 @@ import Loading from '../../Loading/LoadingIndicator';
 import PasswordStrengthBar from '../../PasswordStrength/PasswordStrengthBar';
 import { getUserId } from '../../Login/authUtils';
 
-const ModifyPasswordModal = ({ t }) => {
+const ModifyPasswordModal = ({ t }:{t:(key:string) => string;}) => {
     const [updatePassword, mutationData] = useMutation(UPDATE_PASSWORD);
-    const modifyPassword = (currentPass, newPass) => {
+    const modifyPassword = (currentPass:string, newPass:string) => {
         const userId = getUserId();
         updatePassword({
             variables: {
-                id: parseInt(userId, 10),
+                id: userId,
                 currentPass: currentPass,
                 newPass: newPass,
             },
@@ -69,7 +69,7 @@ const ModifyPasswordModal = ({ t }) => {
         }
     }
 
-    const newPasswordInputChangeFn = (e) => setNewPass(e.target.value);
+    const newPasswordInputChangeFn = (e:any) => setNewPass(e.target.value);
 
     if (loading) return <Loading />;
 
@@ -87,7 +87,6 @@ const ModifyPasswordModal = ({ t }) => {
             id="modify-password-form"
             name="modify-password-form"
             role="form"
-            onSubmit={null}
             className="modify-password-form"
         >
             <Form.Item name="password-current" rules={[]}>

@@ -1,8 +1,13 @@
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ApolloError } from '@apollo/client';
 
-const ErrorLayer = ({ error, tr }) => {
+type ErrorLayerProps = {
+    error: ApolloError | undefined;
+    tr: (key:string) => string;
+};
+
+const ErrorLayer = ({ error, tr }:ErrorLayerProps) => {
     if (!error) return null;
 
     return (
@@ -18,8 +23,4 @@ const ErrorLayer = ({ error, tr }) => {
     );
 };
 
-ErrorLayer.propTypes = {
-    error: PropTypes.bool.isRequired,
-    tr: PropTypes.func.isRequired,
-};
 export default ErrorLayer;

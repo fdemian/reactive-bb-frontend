@@ -26,7 +26,7 @@ export const Settings = () => {
         label: <div onClick={() => setSelectKey(item.key)}>{item.name}</div>,
     }));
 
-    const menuItem = menuMap.find((k) => k.key === selectKey);
+    const menuItem:any = menuMap.find((k) => k.key === selectKey);
     const title = menuItem.name;
     const childComponent = menuItem.component;
 

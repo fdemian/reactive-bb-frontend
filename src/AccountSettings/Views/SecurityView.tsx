@@ -12,7 +12,7 @@ const SecurityView = () => {
     const { t } = useTranslation('accountSettings', { keyPrefix: 'settings.security' });
 
     const userId = getUserId();
-    const queryOpts = { variables: { id: parseInt(userId, 10) }, skip: !userId };
+    const queryOpts = { variables: { id: userId }, skip: !userId };
     const { loading, error, data } = useQuery(GET_PROFILE, queryOpts);
 
     const [showPasswordModal, setShowPasswordModal] = useState(false);

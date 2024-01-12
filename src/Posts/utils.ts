@@ -10,7 +10,7 @@ const REPLYING_POST_USER_ID = 'REPLYING_POST_USER_ID';
 
 export const getPostReplyContent = () => {
     return {
-        content: localStorage.getItem(REPLYING_POST_CONTENT),
+        content: localStorage.getItem(REPLYING_POST_CONTENT) ?? undefined,
         user: localStorage.getItem(REPLYING_POST_USER),
         userId: localStorage.getItem(REPLYING_POST_USER_ID),
         comment: localStorage.getItem(REPLYING_POST_COMMENT_LINK),

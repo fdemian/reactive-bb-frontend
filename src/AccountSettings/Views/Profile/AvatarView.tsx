@@ -1,5 +1,4 @@
 import { Upload, Button } from 'antd';
-import PropTypes from 'prop-types';
 import AccountAvatar from '../../../UserAvatar/UserAvatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -8,9 +7,16 @@ import { GET_PROFILE } from '../../Queries';
 import { useMutation } from '@apollo/client';
 import './ProfileView.css';
 
+type AvatarViewProps = {
+    id: number;
+    avatar: string;
+    username: string;
+    t: (key:string) => string;
+};
+
 const uploadURL = '';
 
-const AvatarView = ({ avatar, username, id, t }) => {
+const AvatarView = ({ avatar, username, id, t }:AvatarViewProps) => {
     const [uploadAvatar] = useMutation(UPLOAD_AVATAR, {
         refetchQueries: [GET_PROFILE, 'GetUser'],
     });
@@ -19,7 +25,7 @@ const AvatarView = ({ avatar, username, id, t }) => {
         refetchQueries: [GET_PROFILE, 'GetUser'],
     });
 
-    const uploadImage = async (options) => {
+    const uploadImage = async (options:any) => {
         const { file } = options;
         const fmData = new FormData();
         fmData.append('image', file);
@@ -73,13 +79,6 @@ const AvatarView = ({ avatar, username, id, t }) => {
             </Upload>
         </>
     );
-};
-
-AvatarView.propTypes = {
-    id: PropTypes.number,
-    avatar: PropTypes.string,
-    username: PropTypes.string.isRequired,
-    t: PropTypes.func.isRequired,
 };
 
 export default AvatarView;

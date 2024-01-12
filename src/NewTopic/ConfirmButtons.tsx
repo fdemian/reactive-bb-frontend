@@ -1,11 +1,18 @@
-import PropTypes from "prop-types";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faPlus, faClose, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import './Composer.css';
 
-const ConfirmButtons = (props) => {
+type ConfirmButtonProps = {
+    isDraft: boolean;
+    editing: boolean;
+    postStoryContent: () => void;
+    postAsDraftFn: () => void;
+    t:(key:string) => string;
+};
+
+const ConfirmButtons = (props:ConfirmButtonProps) => {
     const {
         isDraft,
         editing,
@@ -121,13 +128,6 @@ const ConfirmButtons = (props) => {
             </Button>
         </Button.Group>
     );
-};
-
-ConfirmButtons.propTypes = {
-  isDraft: PropTypes.bool.isRequired,
-  editing: PropTypes.bool.isRequired,
-  postStoryContent: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
 };
 
 export default ConfirmButtons;
