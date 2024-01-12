@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Form, Button, Input } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +6,17 @@ import { useMutation } from '@apollo/client';
 import { CREATE_CATEGORY } from './Mutations';
 import './Categories.css';
 
-const NewCategoryForm = ({ isLoggedIn, t }) => {
+type NewCategoryFormProps = {
+    isLoggedIn: boolean; 
+    t:(key:string) => string;
+};
+
+type ValuesType = {
+    name: string;
+    description: string;
+};
+
+const NewCategoryForm = ({ isLoggedIn, t }:NewCategoryFormProps) => {
     const [editing, setIsEditing] = useState(false);
     const [form] = Form.useForm();
     const [createCategory] = useMutation(CREATE_CATEGORY, {
@@ -23,7 +32,7 @@ const NewCategoryForm = ({ isLoggedIn, t }) => {
     });
 
     // Finished checking login values.
-    const onFinish = (values) => {
+    const onFinish = (values:ValuesType) => {
         form.resetFields();
         setIsEditing(false);
 
@@ -135,11 +144,6 @@ const NewCategoryForm = ({ isLoggedIn, t }) => {
             </Form>
         </div>
     );
-};
-
-NewCategoryForm.propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default NewCategoryForm;
