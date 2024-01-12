@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
 import { Suspense } from 'react';
 import { Button, Drawer, Skeleton } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faReply, faCheck } from '@fortawesome/free-solid-svg-icons';
 import Editor from '../Editor/Editor';
+import { ReplyTitleProps, ReplyDrawerProps } from './postTypes';
 import './Posts.css';
 
-const ReplyTitle = ({  topic, isMobile }) => {
+const ReplyTitle = ({  topic, isMobile }:ReplyTitleProps) => {
     if (isMobile) return null;
 
     return (
@@ -19,29 +19,7 @@ const ReplyTitle = ({  topic, isMobile }) => {
     );
 };
 
-ReplyTitle.propTypes = {
-    topic: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        views: PropTypes.number.isRequired,
-        replies: PropTypes.number.isRequired,
-        created: PropTypes.instanceOf(Date).isRequired,
-        closed: PropTypes.bool.isRequired,
-        tags: PropTypes.string.isRequired,
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string.isRequired,
-            username: PropTypes.string.isRequired,
-        }),
-        category: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    }),
-    isMobile: PropTypes.bool.isRequired
-};
-
-const ReplyDrawer = (props) => {
+const ReplyDrawer = (props:ReplyDrawerProps) => {
     const {
         topic,
         user,
@@ -68,7 +46,7 @@ const ReplyDrawer = (props) => {
                 type="primary"
                 className="reply-cancel-btn"
                 onClick={onClose}
-                size={isMobile ? 'default' : 'large'}
+                size={isMobile ? 'middle' : 'large'}
                 style={{ marginLeft: isMobile ? '0%' : '50px' }}
             >
               &nbsp;
@@ -79,7 +57,7 @@ const ReplyDrawer = (props) => {
                         <Button
                             onClick={createPost}
                             type="primary"
-                            size={isMobile ? 'default' : 'large'}
+                            size={isMobile ? 'middle' : 'large'}
                         >
               Post &nbsp;
                             <FontAwesomeIcon icon={faCheck} />
@@ -106,44 +84,6 @@ const ReplyDrawer = (props) => {
           </Suspense>
         </Drawer>
     );
-};
-
-
-ReplyDrawer.propTypes = {
-    createPost: PropTypes.func,
-    onClose: PropTypes.func,
-    open: PropTypes.bool,
-    user: PropTypes.any,
-    topic: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        views: PropTypes.number.isRequired,
-        replies: PropTypes.number.isRequired,
-        created: PropTypes.instanceOf(Date).isRequired,
-        closed: PropTypes.bool.isRequired,
-        tags: PropTypes.string.isRequired,
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string.isRequired,
-            username: PropTypes.string.isRequired,
-        }),
-        category: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    }),
-    containerRef: PropTypes.any.isRequired,
-    isMobile: PropTypes.bool.isRequired,
-    mentions: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string,
-            username: PropTypes.string.isRequired,
-            banned: PropTypes.bool.isRequired,
-            banReason: PropTypes.string
-        })
-    ),
-    setMentions: PropTypes.func.isRequired
 };
 
 export default ReplyDrawer;

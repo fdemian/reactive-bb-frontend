@@ -48,7 +48,9 @@ import { getPageNumber } from '../utils/pageUtils';
 import format_title_string from '../utils/formats';
 import TopicModifyButtons from './TopicModifyButtons';
 import FlagPostModal from './FlagPostModal';
+import { PostToQuote, PostType } from './postTypes';
 import './Posts.css';
+import { MentionType } from '../Editor/editorTypes';
 
 const TopicReplies = lazy(() => import('./TopicReplies'));
 const ReplyDrawer = lazy(() => import('./ReplyDrawer'));
@@ -63,20 +65,21 @@ export const Component = () => {
     const banStatus = getBanStatus();
     const config = getConfig();
     const userType = getUserType();
-    const [mentions, setMentions] = useState([]);
+    const [mentions, setMentions] = useState<MentionType[]>([]);
     const [flagPostDialog, setFlagPostDialog] = useState(false);
     const [flagReasonValue, setFlagReasonValue] = useState(1);
-    const [flaggedPostId, setFlaggedPostId] = useState(null);
+    const [flaggedPostId, setFlaggedPostId] = useState<number | null>(null);
     const [flagTextValue, setFlagTextValue] = useState(null);
-    const [editablePost, setEditablePost] = useState(null);
+    const [editablePost, setEditablePost] = useState<number | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const initialPage = searchParams.get('page');
-    const openFlagPostDialog = (flagPostId) => {
+    
+    const openFlagPostDialog = (flagPostId:number) => {
         setFlaggedPostId(flagPostId);
         setFlagPostDialog(true);
     };
 
-    const PAGE_LIMIT = parseInt(getDefaultPageItems(), 10);
+    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? "5", 10);
     const [currentPage, setCurrentPage] = useState(getPageNumber(initialPage));
     const PAGE_OFFSET = (currentPage - 1) * PAGE_LIMIT;
     const [closeTopicMut] = useMutation(CLOSE_TOPIC);
@@ -100,7 +103,7 @@ export const Component = () => {
                 fields: {
                     posts(existingPosts = []) {
                         const { id } = deletePost;
-                        return existingPosts.filter((p) => p.__ref !== 'Post:' + id);
+                        return existingPosts.filter((p:PostType) => p.__ref !== 'Post:' + id);
                     },
                 },
             });
@@ -113,7 +116,7 @@ export const Component = () => {
                 fields: {
                     posts(existingPosts = []) {
                         const { id, content } = editPost;
-                        return existingPosts.map((p) => {
+                        return existingPosts.map((p:PostType) => {
                             if (p.__ref !== 'Post:' + id) {
                                 return {
                                     ...p,
@@ -137,7 +140,7 @@ export const Component = () => {
 
     const handleFlagPost = () => {
         setFlagPostDialog(false);
-        const userId = parseInt(getUserId(), 10);
+        const userId = getUserId();
 
         flagPost({
             variables: {
@@ -152,7 +155,7 @@ export const Component = () => {
     const closeTopic = () =>
         closeTopicMut({
             variables: {
-                topic: parseInt(id, 10),
+                topic: parseInt(id ?? "0", 10),
             },
             refetchQueries: [GET_TOPIC, 'GetTopic'],
         });
@@ -160,7 +163,7 @@ export const Component = () => {
     const deleteTopic = () => {
         deleteTopicMut({
             variables: {
-                topic: parseInt(id, 10),
+                topic: parseInt(id ?? "0", 10),
             },
         });
 
@@ -170,7 +173,7 @@ export const Component = () => {
     const reopenTopic = () =>
         reopenTopicMut({
             variables: {
-                topic: parseInt(id, 10),
+                topic: parseInt(id ?? "0", 10),
             },
             refetchQueries: [GET_TOPIC, 'GetTopic'],
         });
@@ -180,7 +183,7 @@ export const Component = () => {
             // TODO: send the user id, so that a user cannot actually 'see' a thread more than once.
             increaseViewCount({
                 variables: {
-                    topic: parseInt(id, 10),
+                    topic: parseInt(id ?? "0", 10),
                 },
             });
         }
@@ -192,11 +195,13 @@ export const Component = () => {
     const showDrawer = () => setVisible(true);
     const onClose = () => {
         setVisible(false);
-        containerRef.current.clear();
+        const editor:any = containerRef.current;
+        editor.clear();
     };
-    const userId = parseInt(getUserId(), 10);
+    const userId = getUserId();
 
-    const quotePost = (postToQuote) => {
+    const quotePost = (postToQuote:PostToQuote) => {
+
         // TODO: workaround.
         /*
          * The first time the user quotes a post and
@@ -213,7 +218,8 @@ export const Component = () => {
         }
 
         const { content, user } = postToQuote;
-        const editor = containerRef.current;
+        const editor:any = containerRef.current;
+        
         const quoteProps = {
             author: {
                 name: `@${user.username}`,
@@ -229,13 +235,13 @@ export const Component = () => {
 
     const { loading, error, data } = useQuery(GET_TOPIC, {
         variables: {
-            id: parseInt(id, 10),
+            id: parseInt(id ?? "0", 10),
         },
     });
 
     const postsQuery = useQuery(GET_POSTS, {
         variables: {
-            topicId: parseInt(id, 10),
+            topicId: parseInt(id ?? "0", 10),
             limit: PAGE_LIMIT,
             offset: PAGE_OFFSET,
         },
@@ -243,7 +249,7 @@ export const Component = () => {
 
     const userQuery = useQuery(GET_USER, {
         variables: { id: userId },
-        skip: isNaN(userId),
+        skip: userId === null || isNaN(userId),
     });
 
     if (error || postsQuery.error) return <p>Error :(</p>;
@@ -255,13 +261,13 @@ export const Component = () => {
     // Number of pages calculation.
     const numberOfPages = Math.ceil(topic.replies / PAGE_LIMIT);
 
-    const onChangePage = (page) => {
+    const onChangePage = (page:number) => {
         const { fetchMore } = postsQuery;
         const _offset = (currentPage - 1) * PAGE_LIMIT;
         const _limit = (currentPage - 1) * PAGE_LIMIT + PAGE_LIMIT;
 
         setCurrentPage(page);
-        setSearchParams({ page: page });
+        setSearchParams({ page: page.toString() });
         fetchMore({
             variables: {
                 offset: _offset,
@@ -273,8 +279,8 @@ export const Component = () => {
         window.scroll(0, 0);
     };
 
-    const removePost = (postId) => {
-        const userId = parseInt(getUserId(), 10);
+    const removePost = (postId:number) => {
+        const userId = getUserId();
 
         deletePost({
             variables: {
@@ -291,8 +297,9 @@ export const Component = () => {
     };
 
     const editUserPost = () => {
-        const userId = parseInt(getUserId(), 10);
-        const editorContent = containerRef.current.getContent();
+        const userId = getUserId();
+        const editor:any = containerRef.current;
+        const editorContent = editor.getContent();
         const newPostContent = JSON.stringify(editorContent);
         const postId = editablePost;
 
@@ -317,10 +324,11 @@ export const Component = () => {
     };
 
     const createPost = () => {
-        const postContent = containerRef.current.getContent();
+        const editor:any = containerRef.current;
+        const postContent = editor.getContent();
         const jsonContent = JSON.stringify(postContent);
-        const topicId = parseInt(id, 10);
-        const userId = parseInt(getUserId(), 10);
+        const topicId = parseInt(id ?? "0", 10);
+        const userId = getUserId();
         const userName = getUserName();
 
         addPost({
@@ -379,7 +387,7 @@ export const Component = () => {
                 reopenTopic={reopenTopic}
                 closeTopic={closeTopic}
                 deleteTopic={deleteTopic}
-                userType={userType}
+                userType={userType ?? ""}
                 t={t}
             />
         </div>
@@ -453,17 +461,17 @@ export const Component = () => {
                         quotePost={quotePost}
                         removePost={removePost}
                         replies={posts}
-                        userId={userId}
+                        userId={userId ?? -1}
                         isLoggedIn={isLoggedIn}
                         topic={topic}
-                        selectedPost={selectedPost}
+                        selectedPost={selectedPost?? "-1"}
                         editablePost={editablePost}
                         setEditablePost={setEditablePost}
                         editUserPost={editUserPost}
                         t={t}
                         isMobile={isMobile}
                         banStatus={banStatus}
-                        userType={userType}
+                        userType={userType ?? ""}
                         openFlagPostDialog={openFlagPostDialog}
                     />
                 </div>

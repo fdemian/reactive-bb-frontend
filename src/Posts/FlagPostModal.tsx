@@ -1,17 +1,22 @@
 import { Input, Radio, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
 
 const { TextArea } = Input;
 
-const FlagPostModal = ({ flagReasonValue, setFlagReasonValue, setFlagTextValue }) => {
+type FlagPostProps = {
+    flagReasonValue:number;
+    setFlagReasonValue:(p:number)=> void; 
+    setFlagTextValue:(p:any)=> void;
+};
+
+const FlagPostModal = ({ flagReasonValue, setFlagReasonValue, setFlagTextValue }:FlagPostProps) => {
     const { t } = useTranslation('modcp', { keyPrefix: 'modcp' });
 
-    const onChange = (e) => {
+    const onChange = (e:any) => {
         setFlagReasonValue(e.target.value);
     };
 
-    const onReasonTextChange = (e) => {
+    const onReasonTextChange = (e:any) => {
         const val = e.target.value;
         if (val.trim() === '') return;
         setFlagTextValue(e.target.value);
@@ -34,12 +39,6 @@ const FlagPostModal = ({ flagReasonValue, setFlagReasonValue, setFlagTextValue }
             {flagReasonValue === 4 ? <TextArea rows={4} onChange={onReasonTextChange} /> : null}
         </>
     );
-};
-
-FlagPostModal.propTypes = {
-    flagReasonValue: PropTypes.number.isRequired,
-    setFlagReasonValue: PropTypes.func.isRequired,
-    setFlagTextValue: PropTypes.func.isRequired,
 };
 
 export default FlagPostModal;

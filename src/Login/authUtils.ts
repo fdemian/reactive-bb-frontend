@@ -9,7 +9,7 @@ const USER_TYPE = 'USER_TYPE';
 
 type FailFnType = () => void;
 
-type BanStatusReturn = {
+export type BanStatusReturn = {
     banned: boolean;
     banReason: string | null;
     banExpires: string | null;

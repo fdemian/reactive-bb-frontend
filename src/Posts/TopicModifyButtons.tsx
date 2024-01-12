@@ -1,10 +1,10 @@
 import { Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faLock } from '@fortawesome/free-solid-svg-icons';
-import PropTypes from 'prop-types';
+import { TopicModifyButtonsProps } from './postTypes';
 import './Posts.css';
 
-const TopicModifyButtons = (props) => {
+const TopicModifyButtons = (props:TopicModifyButtonsProps) => {
     const { closed, reopenTopic, closeTopic, deleteTopic, userType, t } = props;
 
     if (userType === 'U') return null;
@@ -19,7 +19,7 @@ const TopicModifyButtons = (props) => {
                     key="closeTopicButton"
                     type="primary"
                     size="large"
-                    onClick={reopenTopic}
+                    onClick={() => reopenTopic()}
                     style={{ marginLeft: 15 }}
                 >
                     <FontAwesomeIcon icon={faLock} />
@@ -34,7 +34,7 @@ const TopicModifyButtons = (props) => {
                     key="closeTopicButton"
                     type="primary"
                     size="large"
-                    onClick={closeTopic}
+                    onClick={() => closeTopic()}
                     style={{ marginLeft: 15 }}
                 >
                     <FontAwesomeIcon icon={faTimes} />
@@ -49,7 +49,7 @@ const TopicModifyButtons = (props) => {
                 key="deleteTopicButton"
                 type="primary"
                 size="large"
-                onClick={deleteTopic}
+                onClick={() => deleteTopic()}
                 style={{ marginLeft: 15 }}
             >
                 <FontAwesomeIcon icon={faTimes} />
@@ -57,15 +57,6 @@ const TopicModifyButtons = (props) => {
             </Button>
         </>
     );
-};
-
-TopicModifyButtons.propTypes = {
-    closed: PropTypes.bool.isRequired,
-    reopenTopic: PropTypes.func.isRequired,
-    closeTopic: PropTypes.func.isRequired,
-    deleteTopic: PropTypes.func.isRequired,
-    userType: PropTypes.string.isRequired,
-    t: PropTypes.func.isRequired,
 };
 
 export default TopicModifyButtons;

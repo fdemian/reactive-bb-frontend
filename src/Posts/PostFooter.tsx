@@ -11,9 +11,9 @@ import {
 import { LIKE_POST, REMOVE_LIKE, BOOKMARK_POST, REMOVE_BOOKMARK } from './Mutations';
 import { useMutation } from '@apollo/client';
 import Loading from '../Loading/LoadingIndicator';
-import PropTypes from 'prop-types';
+import { BookmarkType, LikeType, PostFooterProps, PostType } from './postTypes';
 
-const PostFooter = (props) => {
+const PostFooter = (props:PostFooterProps) => {
     const {
         item,
         userId,
@@ -28,7 +28,7 @@ const PostFooter = (props) => {
         t,
     } = props;
 
-    const [postLikes, setPostLikes] = useState(item.likes);
+    const [postLikes, setPostLikes] = useState<LikeType[]>(item.likes);
     const [addBookmark] = useMutation(BOOKMARK_POST, {
         update(cache, { data: { bookmarkPost } }) {
             cache.modify({
@@ -53,7 +53,7 @@ const PostFooter = (props) => {
                     bookmarksByPostList(existingBookmarks = []) {
                         const { postId, userId } = removeBookmark;
                         return existingBookmarks.filter(
-                            (b) => b.postId !== postId && b.userId !== userId
+                            (b:BookmarkType) => b.postId !== postId && b.userId !== userId
                         );
                     },
                 },
@@ -61,7 +61,7 @@ const PostFooter = (props) => {
         },
     });
 
-    const bookmarkPost = (post) => {
+    const bookmarkPost = (post:PostType) => {
         const bookmarkExists =
             bookmarksByPostList.find((l) => l.postId === post.id && l.userId === userId) !==
             undefined;
@@ -102,7 +102,7 @@ const PostFooter = (props) => {
     const [removeLike] = useMutation(REMOVE_LIKE);
     const [addLike] = useMutation(LIKE_POST);
 
-    const bumpLikes = (post) => {
+    const bumpLikes = (post:PostType) => {
         if (
             postLikes.find((l) => l.postId === post.id && l.userId === userId) !== undefined
         ) {
@@ -114,7 +114,7 @@ const PostFooter = (props) => {
                 },
             });
 
-            setPostLikes(postLikes.filter((l) => l.postId !== post.id && l.userId !== userId));
+            setPostLikes(postLikes.filter((l:LikeType) => l.postId !== post.id && l.userId !== userId));
         } else {
             addLike({
                 variables: {
@@ -125,7 +125,7 @@ const PostFooter = (props) => {
                 },
             });
 
-            const newLike = {
+            const newLike:LikeType = {
                 id: 0,
                 postId: post.id,
                 userId: post.user.id,
@@ -188,7 +188,6 @@ const PostFooter = (props) => {
                 <Badge
                     count={postLikes.length}
                     overflowCount={99}
-                    onClick={() => bumpLikes(item)}
                 >
                     <FontAwesomeIcon
                         data-testid="like-icon-mobile"
@@ -196,6 +195,7 @@ const PostFooter = (props) => {
                         icon={faHeart}
                         size="2x"
                         className="like-post-mobile"
+                        onClick={() => bumpLikes(item)}
                         style={{ marginTop: '10px' }}
                     />
                 </Badge>
@@ -251,7 +251,7 @@ const PostFooter = (props) => {
                 data-testid="like-badge"
                 overflowCount={99}
                 offset={[0, -10]}
-                onClick={() => bumpLikes(item)}
+
             >
                 <Tooltip
                     placement="bottom"
@@ -268,6 +268,7 @@ const PostFooter = (props) => {
                 icon={faHeart}
                 size="2x"
                 className="like-post-icon"
+                onClick={() => bumpLikes(item)}
             />
           </span>
             </Tooltip>
@@ -286,60 +287,6 @@ const PostFooter = (props) => {
         </Tooltip>
     </div>
     );
-};
-
-
-PostFooter.propTypes = {
-    item: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        content: PropTypes.any.isRequired,
-        edited: PropTypes.bool.isRequired,
-        created: PropTypes.instanceOf(Date),
-        likes: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            userId: PropTypes.number.isRequired,
-            postId: PropTypes.number.isRequired,
-        }),
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string.isRequired,
-            username: PropTypes.string.isRequired,
-            status: PropTypes.string.isRequired
-        })
-    }),
-    userId: PropTypes.number.isRequired,
-    topic: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        views: PropTypes.number.isRequired,
-        replies: PropTypes.number.isRequired,
-        created: PropTypes.instanceOf(Date).isRequired,
-        closed: PropTypes.bool.isRequired,
-        tags: PropTypes.string.isRequired,
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string.isRequired,
-            username: PropTypes.string.isRequired,
-        }),
-        category: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    }),
-    banStatus: PropTypes.string.isRequired,
-    bookmarksByPostList: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            userId: PropTypes.number.isRequired,
-            postId: PropTypes.number.isRequired
-        })
-    ),
-    isLoggedIn: PropTypes.bool.isRequired,
-    isMobile: PropTypes.bool.isRequired,
-    quotePost: PropTypes.func.isRequired,
-    replyAsNewPost: PropTypes.func.isRequired,
-    openFlagPostDialog: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
 };
 
 export default PostFooter;

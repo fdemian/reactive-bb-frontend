@@ -1,7 +1,10 @@
-import PropTypes from "prop-types";
 import Tag from 'antd/es/tag';
 
-const TagList = ({ tags }) => {
+type TagListProps = {
+    tags: string;
+};
+
+const TagList = ({ tags }:TagListProps) => {
     if (!tags) return null;
 
     return (
@@ -13,10 +16,6 @@ const TagList = ({ tags }) => {
       ))}
     </span>
     );
-};
-
-TagList.propTypes = {
-    tags: PropTypes.arrayOf(PropTypes.string.isRequired)
 };
 
 export default TagList;

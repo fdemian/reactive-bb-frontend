@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Suspense, lazy } from 'react';
 import { List, Skeleton, Tooltip, Spin, Typography, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,16 +11,18 @@ import { GET_BOOKMARKS_BY_POSTS } from './Queries';
 import { useQuery } from '@apollo/client';
 import { getDate, getDateRelative, savePostReplyContent } from './utils';
 import { useNavigate } from 'react-router-dom';
+import { TopicRepliesProps, PostType } from './postTypes';
+
 import './Posts.css';
 
 const Renderer = lazy(() => import('../Editor/Renderer'));
 const Editor = lazy(() => import('../Editor/Editor'));
 
-const getPostsIdsMapped = (replies) => replies.map((p) => p.id);
+const getPostsIdsMapped = (replies:PostType[]) => replies.map((p) => p.id);
 
 const { Text } = Typography;
 
-const PostsFile = (props) => {
+const PostsFile = (props:TopicRepliesProps) => {
     const {
         userType,
         banStatus,
@@ -53,7 +54,7 @@ const PostsFile = (props) => {
         skip: isNaN(userId) || userId === null,
     });
 
-    const replyAsNewPost = (item) => {
+    const replyAsNewPost = (item:PostType) => {
         const commentLink = `/postlink/${item.id}`;
         savePostReplyContent(item.content, item.user, commentLink);
         navigate('/topics/new');
@@ -106,7 +107,7 @@ const PostsFile = (props) => {
                                         <div className="post-user-status">{item.user.status}</div>
                                         <div className="post-date">
                                             <Tooltip title={getDate(item.created)}>
-                                                {getDateRelative(item.created)}
+                                                {getDateRelative(item.created.toISOString())}
                                             </Tooltip>
                                         </div>
                                     </>
@@ -183,7 +184,7 @@ const PostsFile = (props) => {
                                         key="confirmEditBtn"
                                         type="primary"
                                         size="large"
-                                        onClick={editUserPost}
+                                        onClick={(val:any) => editUserPost(val)}
                                     >
                                         {t('posts.mod.confirmEdit')}
                                         &nbsp; <FontAwesomeIcon icon={faCheck} />
@@ -196,69 +197,6 @@ const PostsFile = (props) => {
             />
         </>
     );
-};
-
-PostsFile.propTypes = {
-    userType: PropTypes.string.isRequired,
-    banStatus: PropTypes.string.isRequired,
-    quotePost: PropTypes.func.isRequired,
-    removePost: PropTypes.func.isRequired,
-    topic: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        views: PropTypes.number.isRequired,
-        replies: PropTypes.number.isRequired,
-        created: PropTypes.instanceOf(Date).isRequired,
-        closed: PropTypes.bool.isRequired,
-        tags: PropTypes.string.isRequired,
-        user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string.isRequired,
-            username: PropTypes.string.isRequired,
-        }),
-        category: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    }),
-    replies: PropTypes.arrayOf(
-      PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          content: PropTypes.any.isRequired,
-          edited: PropTypes.bool.isRequired,
-          created: PropTypes.instanceOf(Date),
-          likes: PropTypes.shape({
-              id: PropTypes.number.isRequired,
-              userId: PropTypes.number.isRequired,
-              postId: PropTypes.number.isRequired,
-          }),
-          user: PropTypes.shape({
-              id: PropTypes.number.isRequired,
-              avatar: PropTypes.string.isRequired,
-              username: PropTypes.string.isRequired,
-              status: PropTypes.string.isRequired
-          })
-      })
-    ),
-    isLoggedIn: PropTypes.bool.isRequired,
-    userId: PropTypes.number.isRequired,
-    selectedPost: PropTypes.string.isRequired,
-    isMobile: PropTypes.bool.isRequired,
-    isClosed: PropTypes.bool.isRequired,
-    openFlagPostDialog: PropTypes.func.isRequired,
-    editablePost: PropTypes.bool.isRequired,
-    setEditablePost: PropTypes.func.isRequired,
-    editUserPost: PropTypes.func.isRequired,
-    containerRef: PropTypes.any.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        username: PropTypes.string.isRequired,
-        avatar: PropTypes.string,
-        type: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired,
-        banReason: PropTypes.string.isRequired
-    }),
-    t: PropTypes.func.isRequired
 };
 
 export default PostsFile;
