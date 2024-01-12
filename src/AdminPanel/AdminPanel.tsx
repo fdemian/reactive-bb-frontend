@@ -9,7 +9,7 @@ import './AdminPanel.css';
  { key: 'socialSites', name: t('socialSites'), component: <p>Social Sites</p> }
 */
 
-export const Component = () => {
+export const Component = ():React.ReactElement => {
     const { t } = useTranslation('modcp', { keyPrefix: 'admincp' });
 
     const menuMap = [
@@ -36,12 +36,11 @@ export const Component = () => {
         })
     );
 
-    const menuItem = menuMap.find((k) => k.key === selectKey);
+    let menuItem = menuMap.find((k) => k.key === selectKey);
+    if(menuItem === undefined)
+        menuItem = menuMap[0];
 
-    if(!menuItem)
-        return null;
-
-    const title = menuItem.name;
+    const title = menuItem.name; 
     const childComponent = menuItem.component;
 
     return (
