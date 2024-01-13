@@ -5,64 +5,64 @@ import { clearUser } from '../Login/authUtils';
 import { getBanStatus, getUserType } from '../Login/authUtils';
 
 type PrivateRouteProps = {
-    component: () => React.ReactElement;
-    requiresActiveUser: boolean;
-    modRoute: boolean;
-    adminRoute: boolean;
+  component: () => React.ReactElement;
+  requiresActiveUser: boolean;
+  modRoute: boolean;
+  adminRoute: boolean;
 };
 
 const PrivateRoute = ({
-    component: Component,
-    ...rest
+  component: Component,
+  ...rest
 }: PrivateRouteProps): React.ReactElement | null => {
-    const navigate = useNavigate();
-    const { requiresActiveUser, modRoute, adminRoute } = rest;
-    const loginQuery = useQuery(GET_IS_LOGGED_IN);
-    const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn === true;
-    const client = useApolloClient();
-    const location = useLocation();
-    const banStatus = getBanStatus();
-    const userType = getUserType();
+  const navigate = useNavigate();
+  const { requiresActiveUser, modRoute, adminRoute } = rest;
+  const loginQuery = useQuery(GET_IS_LOGGED_IN);
+  const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn === true;
+  const client = useApolloClient();
+  const location = useLocation();
+  const banStatus = getBanStatus();
+  const userType = getUserType();
 
-    const logoutFn = async () => {
-        clearUser();
-        await client.resetStore();
-        await client.writeQuery({
-            query: SET_LOGIN,
-            data: {
-                loggedIn: false,
-            },
-            variables: {
-                status: false,
-            },
-        });
+  const logoutFn = async () => {
+    clearUser();
+    await client.resetStore();
+    await client.writeQuery({
+      query: SET_LOGIN,
+      data: {
+        loggedIn: false,
+      },
+      variables: {
+        status: false,
+      },
+    });
+  };
+
+  if (!isLoggedIn) {
+    logoutFn();
+    const navigateProps = {
+      to: '/login',
+      state: { from: location },
     };
+    return <Navigate {...navigateProps} />;
+  }
 
-    if (!isLoggedIn) {
-        logoutFn();
-        const navigateProps = {
-            to: '/login',
-            state: { from: location },
-        };
-        return <Navigate {...navigateProps} />;
-    }
+  if (adminRoute && userType !== 'A') {
+    navigate('/');
+    return null;
+  }
 
-    if (adminRoute && userType !== 'A') {
-        navigate('/');
-        return null;
-    }
+  if (modRoute && userType === 'U') {
+    navigate('/');
+    return null;
+  }
 
-    if (modRoute && userType === 'U') {
-        navigate('/');
-        return null;
-    }
+  if (isLoggedIn && requiresActiveUser && banStatus.banned) {
+    navigate('/banned');
+    return null;
+  }
 
-    if (isLoggedIn && requiresActiveUser && banStatus.banned) {
-        navigate('/banned');
-        return null;
-    }
-
-    return <Component />;
+  return <Component />;
 };
 
 export default PrivateRoute;

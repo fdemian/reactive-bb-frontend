@@ -1,71 +1,71 @@
 .user-container-wrapper {
-    /*border: 1px dotted;*/
-    margin-top: 0px;
-    padding-top: 10px;
+  /*border: 1px dotted;*/
+  margin-top: 0px;
+  padding-top: 10px;
 }
 
 .ban-tag {
-    font-size: 21px;
-    height: 37px;
-    padding-top: 6px;
+  font-size: 21px;
+  height: 37px;
+  padding-top: 6px;
 }
 
 .user-title {
-    text-align: center;
-    font-size: 40px;
+  text-align: center;
+  font-size: 40px;
 }
 
 .user-name {
-    text-align: center;
-    height: 7px;
+  text-align: center;
+  height: 7px;
 }
 
 .user-status {
-    color: darkgray;
-    font-size: 30px;
+  color: darkgray;
+  font-size: 30px;
 }
 
 .user-about {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 /* SETTNG STYLES */
 
 .info-main {
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    display: flex;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    overflow: auto;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  overflow: auto;
 }
 
 .info-main .right {
-    flex: 1;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding: 40px;
+  flex: 1;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding: 40px;
 }
 
 .info-main .title {
-    font-size: 30px;
-    line-height: 28px;
-    font-weight: 500;
-    margin-bottom: 12px;
+  font-size: 30px;
+  line-height: 28px;
+  font-weight: 500;
+  margin-bottom: 12px;
 }
 
 .info-main .leftmenu {
-    width: 224px;
-    border-right: 1px solid #e8e8e8;
+  width: 224px;
+  border-right: 1px solid #e8e8e8;
 }
 
 .info-main .leftmenu ul {
-    border: none;
+  border: none;
 }
 
 .ant-list-item-meta {
-    font-size: 33px !important;
+  font-size: 33px !important;
 }

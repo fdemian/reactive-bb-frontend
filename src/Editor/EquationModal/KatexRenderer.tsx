@@ -13,37 +13,32 @@ import { useEffect, useRef } from 'react';
 import 'katex/dist/katex.css';
 
 type KatexRendererProps = {
-    equation: string;
-    inline: boolean;
-    onClick: () => void;
+  equation: string;
+  inline: boolean;
+  onClick: () => void;
 };
 
 const KatexRenderer = ({ equation, inline, onClick }: KatexRendererProps) => {
-    const katexElementRef = useRef(null);
+  const katexElementRef = useRef(null);
 
-    useEffect(() => {
-        const katexElement = katexElementRef.current;
+  useEffect(() => {
+    const katexElement = katexElementRef.current;
 
-        if (katexElement !== null) {
-            katex.render(equation, katexElement, {
-                displayMode: !inline, // true === block display //
-                errorColor: '#cc0000',
-                output: 'html',
-                strict: 'warn',
-                throwOnError: false,
-                trust: false,
-            });
-        }
-    }, [equation, inline]);
+    if (katexElement !== null) {
+      katex.render(equation, katexElement, {
+        displayMode: !inline, // true === block display //
+        errorColor: '#cc0000',
+        output: 'html',
+        strict: 'warn',
+        throwOnError: false,
+        trust: false,
+      });
+    }
+  }, [equation, inline]);
 
-    return (
-        <span
-            role="button"
-            tabIndex={-1}
-            onClick={onClick}
-            ref={katexElementRef}
-        />
-    );
+  return (
+    <span role="button" tabIndex={-1} onClick={onClick} ref={katexElementRef} />
+  );
 };
 
 export default KatexRenderer;

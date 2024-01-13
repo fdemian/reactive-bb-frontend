@@ -1,45 +1,45 @@
 .messages-editor {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .messages-container {
-    background-color: white;
+  background-color: white;
 }
 
 .comment-list {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .chats-clear-button {
-    margin-left: 83.5%;
+  margin-left: 83.5%;
 }
 
 .chats-send-button {
-    margin-top: 10px;
-    margin-left: 5px;
+  margin-top: 10px;
+  margin-left: 5px;
 }
 
 .chat-history-title {
-    margin-left: 50px !important;
+  margin-left: 50px !important;
 }
 
 .editor-shell {
-    width: 1100px;
-    text-align: left;
+  width: 1100px;
+  text-align: left;
 }
 
 .chat-username {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .chat-post-date {
-    color: gainsboro;
+  color: gainsboro;
 }
 
 .messages-create-conversation {
-    margin-left: 44%;
+  margin-left: 44%;
 }
 
 .chat-list-title {
-    text-align: center;
+  text-align: center;
 }

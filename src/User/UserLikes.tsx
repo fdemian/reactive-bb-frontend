@@ -8,53 +8,49 @@ import { UserType, LikeType } from './userTypes';
 import { useQuery } from '@apollo/client';
 
 type UserLikesProps = {
-    id: number;
-    user: UserType;
+  id: number;
+  user: UserType;
 };
 
 const UserLikes = ({ id, user }: UserLikesProps) => {
-    const { loading, error, data } = useQuery(GET_LIKES_BY_USER, {
-        variables: { id: id },
-    });
+  const { loading, error, data } = useQuery(GET_LIKES_BY_USER, {
+    variables: { id: id },
+  });
 
-    if (error) return <p>Error</p>;
+  if (error) return <p>Error</p>;
 
-    if (loading) return <Loading />;
+  if (loading) return <Loading />;
 
-    const likes = data.likesByUser;
+  const likes = data.likesByUser;
 
-    return (
-        <List
-            itemLayout="vertical"
-            size="large"
-            data-testid="user-likes"
-            dataSource={likes}
-            renderItem={(item: LikeType) => (
-                <List.Item id={`post-${item.id}`} key={item.id}>
-                    <List.Item.Meta
-                        avatar={
-                            <Avatar
-                                avatar={user.avatar}
-                                username={user.username}
-                                shape="square"
-                                size={60}
-                            />
-                        }
-                        title={
-                            <Link
-                                to={`/posts/${item.post.id}/${item.post.topicId}`}
-                            >
-                                <span className="user-name">
-                                    {user.username}
-                                </span>
-                            </Link>
-                        }
-                    />
-                    <Renderer content={item.post.content} />
-                </List.Item>
-            )}
-        />
-    );
+  return (
+    <List
+      itemLayout="vertical"
+      size="large"
+      data-testid="user-likes"
+      dataSource={likes}
+      renderItem={(item: LikeType) => (
+        <List.Item id={`post-${item.id}`} key={item.id}>
+          <List.Item.Meta
+            avatar={
+              <Avatar
+                avatar={user.avatar}
+                username={user.username}
+                shape="square"
+                size={60}
+              />
+            }
+            title={
+              <Link to={`/posts/${item.post.id}/${item.post.topicId}`}>
+                <span className="user-name">{user.username}</span>
+              </Link>
+            }
+          />
+          <Renderer content={item.post.content} />
+        </List.Item>
+      )}
+    />
+  );
 };
 
 export default UserLikes;

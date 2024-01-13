@@ -1,133 +1,133 @@
 .toolbar {
-    height: 80px;
+  height: 80px;
 }
 
 .toolbar-single {
-    padding-top: 45px;
+  padding-top: 45px;
 }
 
 .toolbar-color {
-    margin-left: 0px;
-    display: flex;
+  margin-left: 0px;
+  display: flex;
 }
 
 .toolbar-footer {
-    margin-left: 0px;
+  margin-left: 0px;
 }
 
 .table-input-text {
-    vertical-align: sub;
-    margin-left: 15px;
+  vertical-align: sub;
+  margin-left: 15px;
 }
 
 .table-toolbar-buttons {
-    vertical-align: sub;
-    margin-left: 50%;
+  vertical-align: sub;
+  margin-left: 50%;
 }
 
 .editor-table-input {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .cancel-darkred-btn {
-    background-color: darkred !important;
+  background-color: darkred !important;
 }
 
 .toolbar-style-button {
-    border: 10px;
-    box-sizing: border-box;
-    display: inline-block;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    cursor: pointer;
-    text-decoration: none;
-    margin: 0px;
-    padding: 12px;
-    outline: none;
-    font-weight: inherit;
-    position: relative;
-    z-index: 1;
-    overflow: visible;
-    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-    width: 48px;
-    height: 48px;
-    background: none;
+  border: 10px;
+  box-sizing: border-box;
+  display: inline-block;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  text-decoration: none;
+  margin: 0px;
+  padding: 12px;
+  outline: none;
+  font-weight: inherit;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  width: 48px;
+  height: 48px;
+  background: none;
 }
 
 .tweet-toolbar-url-input {
-    width: 500px;
+  width: 500px;
 }
 
 .video-url-input {
-    width: 500px;
+  width: 500px;
 }
 
 .code-language-select {
-    width: 200px;
-    margin-top: 8px;
-    margin-left: 10px;
-    margin-right: 4px;
+  width: 200px;
+  margin-top: 8px;
+  margin-left: 10px;
+  margin-right: 4px;
 }
 
 @media screen and (max-width: 720px) {
-    .editor-shell {
-        margin-top: 10px;
-        width: 100%;
-    }
+  .editor-shell {
+    margin-top: 10px;
+    width: 100%;
+  }
 
-    .code-language-select {
-        width: 250px;
-        margin-left: 0px;
-    }
+  .code-language-select {
+    width: 250px;
+    margin-left: 0px;
+  }
 
-    .PostEditorContainer .toolbar {
-        height: 238px;
-        margin-bottom: 20px;
-    }
+  .PostEditorContainer .toolbar {
+    height: 238px;
+    margin-bottom: 20px;
+  }
 
-    .toolbar {
-        height: 150px;
-        margin-bottom: 20px;
-        margin-top: -15px;
-    }
+  .toolbar {
+    height: 150px;
+    margin-bottom: 20px;
+    margin-top: -15px;
+  }
 
-    .font-format-menues {
-        margin-bottom: 2px;
-    }
+  .font-format-menues {
+    margin-bottom: 2px;
+  }
 
-    .toolbar-code {
-        height: 120px;
-    }
+  .toolbar-code {
+    height: 120px;
+  }
 
-    .toolbar-footer {
-        margin-left: 6%;
-    }
+  .toolbar-footer {
+    margin-left: 6%;
+  }
 
-    .tweet-toolbar-confirm-buttons {
-        margin-top: 4px;
-        display: block;
-    }
+  .tweet-toolbar-confirm-buttons {
+    margin-top: 4px;
+    display: block;
+  }
 
-    .tweet-toolbar-url-input {
-        width: 300px;
-    }
+  .tweet-toolbar-url-input {
+    width: 300px;
+  }
 
-    .table-toolbar-buttons {
-        display: block;
-        margin-top: 10px;
-    }
+  .table-toolbar-buttons {
+    display: block;
+    margin-top: 10px;
+  }
 
-    .video-url-input {
-        width: 300px;
-    }
+  .video-url-input {
+    width: 300px;
+  }
 
-    .video-toolbar-buttons {
-        display: block;
-        margin-top: 10px;
-    }
+  .video-toolbar-buttons {
+    display: block;
+    margin-top: 10px;
+  }
 }
 
 @media screen and (min-width: 1920px) {
-    .toolbar-footer {
-        margin-left: 34%;
-    }
+  .toolbar-footer {
+    margin-left: 34%;
+  }
 }

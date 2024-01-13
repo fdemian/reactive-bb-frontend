@@ -7,48 +7,48 @@ const BanUser = lazy(() => import('./BanUser'));
 const RemoveBan = lazy(() => import('./RemoveBan'));
 
 type UserBanPanelProps = {
-    t: (key: string) => string;
+  t: (key: string) => string;
 };
 
 const UserBanPanel = ({ t }: UserBanPanelProps) => {
-    const [screenType, setScreenType] = useState('search');
-    const [userToBan, setUserToBan] = useState<UserType | null>(null);
+  const [screenType, setScreenType] = useState('search');
+  const [userToBan, setUserToBan] = useState<UserType | null>(null);
 
-    const goBack = () => setScreenType('search');
+  const goBack = () => setScreenType('search');
 
-    if (screenType === 'search') {
-        return (
-            <Suspense fallback={<Spin />}>
-                <SearchUsers
-                    setUserToBan={setUserToBan}
-                    setScreenType={setScreenType}
-                    t={t}
-                />
-            </Suspense>
-        );
-    }
-
-    if (screenType === 'removeban') {
-        return (
-            <Suspense fallback={<Spin />}>
-                <RemoveBan
-                    user={userToBan}
-                    setScreenType={setScreenType}
-                    t={t}
-                    goBack={goBack}
-                />
-            </Suspense>
-        );
-    }
-
+  if (screenType === 'search') {
     return (
-        <BanUser
-            user={userToBan}
-            setScreenType={setScreenType}
-            t={t}
-            goBack={goBack}
+      <Suspense fallback={<Spin />}>
+        <SearchUsers
+          setUserToBan={setUserToBan}
+          setScreenType={setScreenType}
+          t={t}
         />
+      </Suspense>
     );
+  }
+
+  if (screenType === 'removeban') {
+    return (
+      <Suspense fallback={<Spin />}>
+        <RemoveBan
+          user={userToBan}
+          setScreenType={setScreenType}
+          t={t}
+          goBack={goBack}
+        />
+      </Suspense>
+    );
+  }
+
+  return (
+    <BanUser
+      user={userToBan}
+      setScreenType={setScreenType}
+      t={t}
+      goBack={goBack}
+    />
+  );
 };
 
 export default UserBanPanel;

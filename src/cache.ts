@@ -5,17 +5,17 @@ const isLoggedIn = () => getUserId() !== null;
 
 /// CACHE
 export const cache = new InMemoryCache({
-    typePolicies: {
-        Query: {
-            fields: {
-                loggedIn: {
-                    read() {
-                        return isLoggedIn();
-                    },
-                },
-            },
+  typePolicies: {
+    Query: {
+      fields: {
+        loggedIn: {
+          read() {
+            return isLoggedIn();
+          },
         },
+      },
     },
+  },
 });
 
 export const loggedInVar = makeVar(isLoggedIn());

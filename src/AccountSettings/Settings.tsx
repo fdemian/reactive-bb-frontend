@@ -8,43 +8,43 @@ import SecurityView from './Views/SecurityView';
 import './Settings.css';
 
 export const Settings = () => {
-    const { t } = useTranslation('accountSettings', {
-        keyPrefix: 'settings.options',
-    });
+  const { t } = useTranslation('accountSettings', {
+    keyPrefix: 'settings.options',
+  });
 
-    const menuMap = [
-        { key: 'profile', name: t('profile'), component: <ProfileView /> },
-        {
-            key: 'securityView',
-            name: t('securityView'),
-            component: <SecurityView />,
-        },
-    ];
+  const menuMap = [
+    { key: 'profile', name: t('profile'), component: <ProfileView /> },
+    {
+      key: 'securityView',
+      name: t('securityView'),
+      component: <SecurityView />,
+    },
+  ];
 
-    /*,
-     * binding: { name:"Binding Accounts", component:  <BindingView /> },
-     *notification: { name: "Notification View", component:  <NotificationView /> },
-     */
+  /*,
+   * binding: { name:"Binding Accounts", component:  <BindingView /> },
+   *notification: { name: "Notification View", component:  <NotificationView /> },
+   */
 
-    const [selectKey, setSelectKey] = useState('profile');
-    const items = menuMap.map((item) => ({
-        key: item.key,
-        label: <div onClick={() => setSelectKey(item.key)}>{item.name}</div>,
-    }));
+  const [selectKey, setSelectKey] = useState('profile');
+  const items = menuMap.map((item) => ({
+    key: item.key,
+    label: <div onClick={() => setSelectKey(item.key)}>{item.name}</div>,
+  }));
 
-    const menuItem: any = menuMap.find((k) => k.key === selectKey);
-    const title = menuItem.name;
-    const childComponent = menuItem.component;
+  const menuItem: any = menuMap.find((k) => k.key === selectKey);
+  const title = menuItem.name;
+  const childComponent = menuItem.component;
 
-    return (
-        <div className="info-main">
-            <div className="leftmenu">
-                <Menu mode="inline" selectedKeys={[selectKey]} items={items} />
-            </div>
-            <div className="right">
-                <div className="title">{title}</div>
-                {childComponent}
-            </div>
-        </div>
-    );
+  return (
+    <div className="info-main">
+      <div className="leftmenu">
+        <Menu mode="inline" selectedKeys={[selectKey]} items={items} />
+      </div>
+      <div className="right">
+        <div className="title">{title}</div>
+        {childComponent}
+      </div>
+    </div>
+  );
 };

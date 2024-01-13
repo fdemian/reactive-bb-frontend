@@ -7,11 +7,11 @@ import { Outlet } from 'react-router-dom';
 import { GET_CONFIG } from './Queries';
 import { GET_IS_LOGGED_IN } from '../Login/queries';
 import {
-    setIsMobile,
-    setDefaultPageItems,
-    setDefaultLocale,
-    setOauthConfig,
-    setConfig,
+  setIsMobile,
+  setDefaultPageItems,
+  setDefaultLocale,
+  setOauthConfig,
+  setConfig,
 } from './utils';
 import { useTranslation } from 'react-i18next';
 import { getBanStatus } from '../Login/authUtils';
@@ -25,106 +25,100 @@ const AppError = lazy(() => import('./AppError'));
 const BanStatusBanner = lazy(() => import('./BanStatusBanner'));
 
 const App = () => {
-    const { data, loading, error } = useQuery(GET_CONFIG);
-    const { i18n, ready } = useTranslation('', { useSuspense: false });
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-    const loginQuery = useQuery(GET_IS_LOGGED_IN);
-    const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn;
+  const { data, loading, error } = useQuery(GET_CONFIG);
+  const { i18n, ready } = useTranslation('', { useSuspense: false });
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const loginQuery = useQuery(GET_IS_LOGGED_IN);
+  const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn;
 
-    const banStatus = getBanStatus();
-    const { banned } = banStatus;
-    const { config, oauth } =
-        data && data.config ? data.config : { config: {}, oauth: {} };
-    const {
-        description,
-        name,
-        items_per_page,
-        logoURL,
-        faviconURL,
-        faviconType,
-    } = config;
+  const banStatus = getBanStatus();
+  const { banned } = banStatus;
+  const { config, oauth } =
+    data && data.config ? data.config : { config: {}, oauth: {} };
+  const {
+    description,
+    name,
+    items_per_page,
+    logoURL,
+    faviconURL,
+    faviconType,
+  } = config;
 
-    // Set paramaters.
-    setConfig(config);
-    setDefaultPageItems(items_per_page);
-    setIsMobile(isMobile);
-    setOauthConfig(oauth);
+  // Set paramaters.
+  setConfig(config);
+  setDefaultPageItems(items_per_page);
+  setIsMobile(isMobile);
+  setOauthConfig(oauth);
 
-    const { language } = i18n;
+  const { language } = i18n;
 
-    if (ready) {
-        setDefaultLocale(language);
-    }
+  if (ready) {
+    setDefaultLocale(language);
+  }
 
-    // In order to change the background color, override colorBgBase
-    const appConfigProps = {
-        direction: CONTENT_DIRECTION,
-        theme: {
-            token: {
-                colorBgBase: 'FFFFFF',
-                colorPrimary: '0618EC',
-            },
-        },
-        locale: enUS,
-    };
+  // In order to change the background color, override colorBgBase
+  const appConfigProps = {
+    direction: CONTENT_DIRECTION,
+    theme: {
+      token: {
+        colorBgBase: 'FFFFFF',
+        colorPrimary: '0618EC',
+      },
+    },
+    locale: enUS,
+  };
 
-    return (
-        <HelmetProvider>
-            <ConfigProvider {...appConfigProps}>
-                <Helmet>
-                    <link
-                        rel="icon"
-                        type={faviconType}
-                        href={faviconURL}
-                        data-rh="true"
-                    />
-                    <meta
-                        name="content-type"
-                        content="text/html; charset=UTF-8"
-                    />
-                    <meta name="description" content={description} />
-                    <title>{name}</title>
-                </Helmet>
+  return (
+    <HelmetProvider>
+      <ConfigProvider {...appConfigProps}>
+        <Helmet>
+          <link
+            rel="icon"
+            type={faviconType}
+            href={faviconURL}
+            data-rh="true"
+          />
+          <meta name="content-type" content="text/html; charset=UTF-8" />
+          <meta name="description" content={description} />
+          <title>{name}</title>
+        </Helmet>
 
-                <main role="main">
+        <main role="main">
+          <Suspense fallback={<Spin />}>
+            <Layout data-testid="app-layout">
+              <Affix offsetTop={0}>
+                <header role="banner">
+                  <Navbar
+                    isLoading={loading}
+                    isError={error !== null && error !== undefined}
+                    mobile={isMobile}
+                    name={name}
+                    logoURL={logoURL}
+                  />
+                </header>
+              </Affix>
+              {error ? (
+                <AppError error={error} />
+              ) : (
+                <div data-testid="content-container">
+                  <Card bordered={false}>
+                    {isLoggedIn && banStatus && banned && (
+                      <Suspense fallback={<Spin />}>
+                        <BanStatusBanner />
+                      </Suspense>
+                    )}
+                    <br />
                     <Suspense fallback={<Spin />}>
-                        <Layout data-testid="app-layout">
-                            <Affix offsetTop={0}>
-                                <header role="banner">
-                                    <Navbar
-                                        isLoading={loading}
-                                        isError={
-                                            error !== null &&
-                                            error !== undefined
-                                        }
-                                        mobile={isMobile}
-                                        name={name}
-                                        logoURL={logoURL}
-                                    />
-                                </header>
-                            </Affix>
-                            {error ? (
-                                <AppError error={error} />
-                            ) : (
-                                <div data-testid="content-container">
-                                    <Card bordered={false}>
-                                        {isLoggedIn && banStatus && banned && (
-                                            <Suspense fallback={<Spin />}>
-                                                <BanStatusBanner />
-                                            </Suspense>
-                                        )}
-                                        <br />
-                                        <Suspense fallback={<Spin />}>
-                                            <Outlet />
-                                        </Suspense>
-                                    </Card>
-                                </div>
-                            )}
-                        </Layout>
+                      <Outlet />
                     </Suspense>
-                </main>
-            </ConfigProvider>
-        </HelmetProvider>
-    );
+                  </Card>
+                </div>
+              )}
+            </Layout>
+          </Suspense>
+        </main>
+      </ConfigProvider>
+    </HelmetProvider>
+  );
 };
 export default App;

@@ -8,79 +8,79 @@ import './Editor.css';
 type RendererParse = { content: string | null };
 
 const Renderer = ({ content }: RendererParse) => {
-    const containerRef = useRef(null);
+  const containerRef = useRef(null);
 
-    let parsedContent;
-    const { t } = useTranslation('editor', { keyPrefix: 'editor' });
+  let parsedContent;
+  const { t } = useTranslation('editor', { keyPrefix: 'editor' });
 
-    try {
-        parsedContent = content;
-    } catch {
-        parsedContent = undefined;
-    }
+  try {
+    parsedContent = content;
+  } catch {
+    parsedContent = undefined;
+  }
 
-    const config = {
-        placeholderText: '',
-        initialState: parsedContent ?? undefined,
-        readOnly: true,
-        autoFocus: false,
-        excalidrawConfig: {
-            modal: () => <div></div>,
-        },
-        inlineImage: {
-            showModal: () => {},
-        },
-        onError: (error: Error) => {
-            throw error;
-        },
-        imageConfig: {
-            addCaptionText: '',
-            defaultCaptionText: '',
-        },
-        twitterConfig: {
-            loadingComponent: ({ tweetId }: { tweetId: string }) => (
-                <p>
-                    {t('internal.loadingTweet')}...(ID={tweetId})
-                </p>
-            ),
-        },
-        collapsibleConfig: {
-            open: false,
-        },
-        emojiConfig: {
-            emojiData: null,
-        },
-        citation: {
-            sourceLinkComponent: ({ sourceLink }: { sourceLink: string }) => (
-                <a href={sourceLink} className="source-link-component">
-                    <FontAwesomeIcon icon={faArrowUp} size="lg" />
-                </a>
-            ),
-            authorComponent: null,
-        },
-        plugins: [],
-        mentions: {
-            onSearchChange: () => {},
-            onAddMention: () => {},
-            entryComponent: () => {},
-            mentionsData: [],
-        },
-        dragAndDropImage: {
-            handleDroppedFile: () => {},
-        },
-    };
+  const config = {
+    placeholderText: '',
+    initialState: parsedContent ?? undefined,
+    readOnly: true,
+    autoFocus: false,
+    excalidrawConfig: {
+      modal: () => <div></div>,
+    },
+    inlineImage: {
+      showModal: () => {},
+    },
+    onError: (error: Error) => {
+      throw error;
+    },
+    imageConfig: {
+      addCaptionText: '',
+      defaultCaptionText: '',
+    },
+    twitterConfig: {
+      loadingComponent: ({ tweetId }: { tweetId: string }) => (
+        <p>
+          {t('internal.loadingTweet')}...(ID={tweetId})
+        </p>
+      ),
+    },
+    collapsibleConfig: {
+      open: false,
+    },
+    emojiConfig: {
+      emojiData: null,
+    },
+    citation: {
+      sourceLinkComponent: ({ sourceLink }: { sourceLink: string }) => (
+        <a href={sourceLink} className="source-link-component">
+          <FontAwesomeIcon icon={faArrowUp} size="lg" />
+        </a>
+      ),
+      authorComponent: null,
+    },
+    plugins: [],
+    mentions: {
+      onSearchChange: () => {},
+      onAddMention: () => {},
+      entryComponent: () => {},
+      mentionsData: [],
+    },
+    dragAndDropImage: {
+      handleDroppedFile: () => {},
+    },
+  };
 
-    return (
-        <div className="renderer-readonly">
-            <CalliopeEditor
-                containerRef={containerRef}
-                setFormats={() => {}}
-                config={config}
-                setCanUndo={() => {}}
-                setCanRedo={() => {}}
-            />
-        </div>
-    );
+  return (
+    <div className="renderer-readonly">
+      <CalliopeEditor
+        containerRef={containerRef}
+        setFormats={() => {}}
+        config={config}
+        setCanUndo={() => {}}
+        setCanRedo={() => {}}
+      />
+    </div>
+  );
 };
 
 export default Renderer;

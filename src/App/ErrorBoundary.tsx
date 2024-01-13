@@ -3,31 +3,22 @@ import { useRouteError } from 'react-router-dom';
 const { Paragraph, Text } = Typography;
 
 const ErrorBoundary = () => {
-    const error: any = useRouteError();
-    const stackStr = error.stack.split('\n');
+  const error: any = useRouteError();
+  const stackStr = error.stack.split('\n');
 
-    return (
-        <Result
-            status="error"
-            title="Error"
-            subTitle={error.message}
-            extra={[]}
-        >
-            <div className="desc" key="error-desc">
-                <Paragraph key="error-desc-paragraph">
-                    <Text
-                        strong
-                        style={{ fontSize: 16 }}
-                        key="error-desc-paragraph-text"
-                    >
-                        {stackStr.map((s: string) => (
-                            <p key={s}>{s}</p>
-                        ))}
-                    </Text>
-                </Paragraph>
-            </div>
-        </Result>
-    );
+  return (
+    <Result status="error" title="Error" subTitle={error.message} extra={[]}>
+      <div className="desc" key="error-desc">
+        <Paragraph key="error-desc-paragraph">
+          <Text strong style={{ fontSize: 16 }} key="error-desc-paragraph-text">
+            {stackStr.map((s: string) => (
+              <p key={s}>{s}</p>
+            ))}
+          </Text>
+        </Paragraph>
+      </div>
+    </Result>
+  );
 };
 
 export default ErrorBoundary;

@@ -9,64 +9,62 @@ import { useQuery } from '@apollo/client';
 import { UserType, PostType } from './userTypes';
 
 type UserPostsParams = {
-    id: number;
-    user: UserType;
+  id: number;
+  user: UserType;
 };
 
 const UserPosts = ({ id, user }: UserPostsParams) => {
-    const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {
-        variables: { id: id },
-    });
+  const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {
+    variables: { id: id },
+  });
 
-    if (error) return <p>Error</p>;
+  if (error) return <p>Error</p>;
 
-    if (loading) return <Loading />;
+  if (loading) return <Loading />;
 
-    const posts: PostType[] = data.postsByUser;
-    return (
-        <List
-            itemLayout="vertical"
-            size="large"
-            data-testid="user-posts"
-            dataSource={posts}
-            renderItem={(item: PostType) => (
-                <List.Item id={`post-${item.id}`} key={item.id}>
-                    <List.Item.Meta
-                        avatar={
-                            <Avatar
-                                avatar={user.avatar}
-                                username={user.username}
-                                shape="square"
-                                size={60}
-                            />
-                        }
-                        title={
-                            <Link to={`/posts/${item.id}/${item.topicId}`}>
-                                <span className="user-name">
-                                    {user.username}
-                                </span>
-                            </Link>
-                        }
-                    />
-                    <Renderer content={item.content} />
-                </List.Item>
-            )}
-        />
-    );
+  const posts: PostType[] = data.postsByUser;
+  return (
+    <List
+      itemLayout="vertical"
+      size="large"
+      data-testid="user-posts"
+      dataSource={posts}
+      renderItem={(item: PostType) => (
+        <List.Item id={`post-${item.id}`} key={item.id}>
+          <List.Item.Meta
+            avatar={
+              <Avatar
+                avatar={user.avatar}
+                username={user.username}
+                shape="square"
+                size={60}
+              />
+            }
+            title={
+              <Link to={`/posts/${item.id}/${item.topicId}`}>
+                <span className="user-name">{user.username}</span>
+              </Link>
+            }
+          />
+          <Renderer content={item.content} />
+        </List.Item>
+      )}
+    />
+  );
 };
 
 UserPosts.propTypes = {
+  id: PropTypes.number.isRequired,
+  user: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        username: PropTypes.string.isRequired,
-        avatar: PropTypes.string.isRequired,
-        fullname: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired,
-        about: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired,
-    }),
+    username: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    fullname: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    about: PropTypes.string.isRequired,
+    banned: PropTypes.bool.isRequired,
+  }),
 };
 
 export default UserPosts;

@@ -1,58 +1,58 @@
 .register-grid-container {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .register-form {
-    margin-left: 34%;
+  margin-left: 34%;
 }
 
 .register-alert-error {
-    margin-top: 24px;
-    width: 410px;
-    margin-left: 38%;
+  margin-top: 24px;
+  width: 410px;
+  margin-left: 38%;
 }
 
 .oauth-icons {
-    margin-left: 39%;
+  margin-left: 39%;
 }
 
 .oauth-logins-text {
-    margin-left: 42%;
+  margin-left: 42%;
 }
 
 .oauth-login-icon {
-    margin-right: 10px;
-    color: gainsboro;
+  margin-right: 10px;
+  color: gainsboro;
 }
 
 .oauth-google:hover {
-    color: red;
+  color: red;
 }
 
 .oauth-twitter:hover {
-    color: rgb(29, 155, 240);
+  color: rgb(29, 155, 240);
 }
 
 .oauth-github:hover {
-    color: black;
+  color: black;
 }
 
 .oauth-facebook:hover {
-    color: blue;
+  color: blue;
 }
 
 @media screen and (min-width: 768px) {
-    .register-button {
-        width: 500px !important;
-    }
+  .register-button {
+    width: 500px !important;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .register-form {
-        margin-left: 8%;
-    }
+  .register-form {
+    margin-left: 8%;
+  }
 
-    .register-button {
-        width: 300px !important;
-    }
+  .register-button {
+    width: 300px !important;
+  }
 }

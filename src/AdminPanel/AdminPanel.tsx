@@ -10,45 +10,45 @@ import './AdminPanel.css';
 */
 
 export const Component = (): React.ReactElement => {
-    const { t } = useTranslation('modcp', { keyPrefix: 'admincp' });
+  const { t } = useTranslation('modcp', { keyPrefix: 'admincp' });
 
-    const menuMap = [
-        {
-            key: 'editedPosts',
-            name: t('editedPosts'),
-            component: <ModerationLog t={t} />,
-        },
-    ];
+  const menuMap = [
+    {
+      key: 'editedPosts',
+      name: t('editedPosts'),
+      component: <ModerationLog t={t} />,
+    },
+  ];
 
-    const [selectKey, setSelectKey] = useState('editedPosts');
-    const items = menuMap.map((item) => ({
-        key: item.key,
-        label: (
-            <div
-                role="button"
-                aria-label={item.key}
-                onClick={() => setSelectKey(item.key)}
-            >
-                {item.name}
-            </div>
-        ),
-    }));
+  const [selectKey, setSelectKey] = useState('editedPosts');
+  const items = menuMap.map((item) => ({
+    key: item.key,
+    label: (
+      <div
+        role="button"
+        aria-label={item.key}
+        onClick={() => setSelectKey(item.key)}
+      >
+        {item.name}
+      </div>
+    ),
+  }));
 
-    let menuItem = menuMap.find((k) => k.key === selectKey);
-    if (menuItem === undefined) menuItem = menuMap[0];
+  let menuItem = menuMap.find((k) => k.key === selectKey);
+  if (menuItem === undefined) menuItem = menuMap[0];
 
-    const title = menuItem.name;
-    const childComponent = menuItem.component;
+  const title = menuItem.name;
+  const childComponent = menuItem.component;
 
-    return (
-        <div className="info-main">
-            <div className="leftmenu">
-                <Menu mode="inline" selectedKeys={[selectKey]} items={items} />
-            </div>
-            <div className="right">
-                <div className="title">{title}</div>
-                {childComponent}
-            </div>
-        </div>
-    );
+  return (
+    <div className="info-main">
+      <div className="leftmenu">
+        <Menu mode="inline" selectedKeys={[selectKey]} items={items} />
+      </div>
+      <div className="right">
+        <div className="title">{title}</div>
+        {childComponent}
+      </div>
+    </div>
+  );
 };

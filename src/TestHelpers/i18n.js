@@ -36,15 +36,15 @@ import editor from './translations/editor.json';*/
 */
 
 i18n.use(initReactI18next).init({
-    lng: 'en',
-    fallbackLng: 'en',
-    debug: false,
-    interpolation: {
-        escapeValue: false, // not needed for react!!
-    },
-    resources: {
-        en: {},
-    },
+  lng: 'en',
+  fallbackLng: 'en',
+  debug: false,
+  interpolation: {
+    escapeValue: false, // not needed for react!!
+  },
+  resources: {
+    en: {},
+  },
 });
 
 export default i18n;

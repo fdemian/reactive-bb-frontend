@@ -8,57 +8,57 @@ const OAUTH_CONFIG = 'OAUTH_CONFIG';
 const CONFIG = 'CONFIG';
 
 const locales: { [key: string]: Locale } = {
-    es: es,
-    en: enUS,
+  es: es,
+  en: enUS,
 };
 
 function loadLocale(lang: string) {
-    setDefaultOptions({ locale: locales[lang] });
+  setDefaultOptions({ locale: locales[lang] });
 }
 
 const getLocale = (language: string) => language.split('-')[0];
 
 export const setConfig = async (config: ConfigType) => {
-    localStorage.setItem(CONFIG, JSON.stringify(config));
+  localStorage.setItem(CONFIG, JSON.stringify(config));
 };
 
 export const getConfig = (): ConfigType => {
-    return JSON.parse(localStorage.getItem(CONFIG) ?? '{}');
+  return JSON.parse(localStorage.getItem(CONFIG) ?? '{}');
 };
 
 export const setOauthConfig = async (config: string) => {
-    localStorage.setItem(OAUTH_CONFIG, config);
+  localStorage.setItem(OAUTH_CONFIG, config);
 };
 
 export const getOauthConfig = (): OAuthConfig => {
-    return JSON.parse(localStorage.getItem(OAUTH_CONFIG) ?? '{}');
+  return JSON.parse(localStorage.getItem(OAUTH_CONFIG) ?? '{}');
 };
 
 export const setIsMobile = async (isMobile: boolean) => {
-    localStorage.setItem(IS_MOBILE, isMobile.toString());
+  localStorage.setItem(IS_MOBILE, isMobile.toString());
 };
 
 export const getIsMobile = () => {
-    const isMobile = localStorage.getItem(IS_MOBILE);
-    return isMobile === 'true';
+  const isMobile = localStorage.getItem(IS_MOBILE);
+  return isMobile === 'true';
 };
 
 export const setDefaultPageItems = async (items: number) => {
-    localStorage.setItem(DEFAULT_PAGE_ITEMS, items.toString());
+  localStorage.setItem(DEFAULT_PAGE_ITEMS, items.toString());
 };
 
 export const getDefaultPageItems = () => {
-    return localStorage.getItem(DEFAULT_PAGE_ITEMS);
+  return localStorage.getItem(DEFAULT_PAGE_ITEMS);
 };
 
 export const getDefaultLocale = () => {
-    return localStorage.getItem(DEFAULT_LOCALE);
+  return localStorage.getItem(DEFAULT_LOCALE);
 };
 
 export const setDefaultLocale = (language: string) => {
-    const locale = getLocale(language);
-    if (!localStorage.getItem(DEFAULT_LOCALE)) {
-        localStorage.setItem(DEFAULT_LOCALE, locale);
-        loadLocale(locale);
-    }
+  const locale = getLocale(language);
+  if (!localStorage.getItem(DEFAULT_LOCALE)) {
+    localStorage.setItem(DEFAULT_LOCALE, locale);
+    loadLocale(locale);
+  }
 };

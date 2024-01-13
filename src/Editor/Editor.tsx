@@ -11,12 +11,12 @@ import EditorFooter from './Footer';
 import ExcalidrawModal from './ExcalidrawModal/ExcalidrawModal';
 import emojiData from 'emojibase-data/en/data.json';
 import {
-    EditorProps,
-    MentionType,
-    EntryComponentTypes,
-    InlineImageProps,
-    ImageProps,
-    InsertEquationProps,
+  EditorProps,
+  MentionType,
+  EntryComponentTypes,
+  InlineImageProps,
+  ImageProps,
+  InsertEquationProps,
 } from './editorTypes';
 import './Editor.css';
 
@@ -25,76 +25,68 @@ const Toolbar = lazy(() => import('./Toolbar'));
 const ToolbarMobile = lazy(() => import('./ToolbarMobile'));
 
 const Editor = (props: EditorProps) => {
-    //const locale = getDefaultLocale();
-    const {
-        initialState,
-        containerRef,
-        user,
-        mentions,
-        setMentions,
-        isMobile,
-    } = props;
-    const ToolbarComponent = isMobile ? ToolbarMobile : Toolbar;
-    const defaultMentions = user
-        ? [
-              {
-                  id: user.id,
-                  name: user.username,
-                  link: `/users/${user.id}/${user.username}`,
-                  avatar: user.avatar,
-              },
-          ]
-        : [];
+  //const locale = getDefaultLocale();
+  const { initialState, containerRef, user, mentions, setMentions, isMobile } =
+    props;
+  const ToolbarComponent = isMobile ? ToolbarMobile : Toolbar;
+  const defaultMentions = user
+    ? [
+        {
+          id: user.id,
+          name: user.username,
+          link: `/users/${user.id}/${user.username}`,
+          avatar: user.avatar,
+        },
+      ]
+    : [];
 
-    //
-    const { t } = useTranslation('editor', { keyPrefix: 'editor' });
+  //
+  const { t } = useTranslation('editor', { keyPrefix: 'editor' });
 
-    // All states.
-    const initialMentions = mentions.length > 0 ? mentions : defaultMentions;
-    //const [emojiData, setEmojiData] = useState(null);
-    const [formats, setFormats] = useState({});
-    const [canUndo, setCanUndo] = useState(false);
-    const [canRedo, setCanRedo] = useState(false);
-    const [updatedList, setUpdatedList] = useState(false);
-    const [suggestions, setSuggestions] = useState(initialMentions);
-    const [equationModalVisible, setEquationModal] = useState(false);
-    const [imageModalVisible, setImageModal] = useState(false);
-    const [bgColorModalVisible, setBgColorModal] = useState(false);
-    const [fontColorModalVisible, setFontColorModal] = useState(false);
-    const [inlineImageModalVisible, setInlineImageModalVisible] =
-        useState(false);
-    const [inlineImagemodalProps, setInlineImageModalProps] = useState({});
-    const [inlineModalUpdateVisible, setInlineModalUpdateVisible] =
-        useState(false);
+  // All states.
+  const initialMentions = mentions.length > 0 ? mentions : defaultMentions;
+  //const [emojiData, setEmojiData] = useState(null);
+  const [formats, setFormats] = useState({});
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
+  const [updatedList, setUpdatedList] = useState(false);
+  const [suggestions, setSuggestions] = useState(initialMentions);
+  const [equationModalVisible, setEquationModal] = useState(false);
+  const [imageModalVisible, setImageModal] = useState(false);
+  const [bgColorModalVisible, setBgColorModal] = useState(false);
+  const [fontColorModalVisible, setFontColorModal] = useState(false);
+  const [inlineImageModalVisible, setInlineImageModalVisible] = useState(false);
+  const [inlineImagemodalProps, setInlineImageModalProps] = useState({});
+  const [inlineModalUpdateVisible, setInlineModalUpdateVisible] =
+    useState(false);
 
-    const [tweetToolbarVisible, setTweetToolbar] = useState(false);
-    const toggleTweetToolbar = () => setTweetToolbar(!tweetToolbarVisible);
-    const [tableToolbarVisible, setTableToolbar] = useState(false);
-    const toggleTableToolbar = () => setTableToolbar(!tableToolbarVisible);
-    const [videoToolbar, setVideoToolbar] = useState(false);
-    const toggleVideoToolbar = () => setVideoToolbar(!videoToolbar);
+  const [tweetToolbarVisible, setTweetToolbar] = useState(false);
+  const toggleTweetToolbar = () => setTweetToolbar(!tweetToolbarVisible);
+  const [tableToolbarVisible, setTableToolbar] = useState(false);
+  const toggleTableToolbar = () => setTableToolbar(!tableToolbarVisible);
+  const [videoToolbar, setVideoToolbar] = useState(false);
+  const toggleVideoToolbar = () => setVideoToolbar(!videoToolbar);
 
-    // TODO: reorder and name this.
-    const [equation, setEquation] = useState('f(x)');
-    const [inline, setInline] = useState(true);
+  // TODO: reorder and name this.
+  const [equation, setEquation] = useState('f(x)');
+  const [inline, setInline] = useState(true);
 
-    // Toggle functions (utility functions).
-    const toggleImageModal = () => setImageModal(!imageModalVisible);
-    const toggleEquationModal = () => setEquationModal(!equationModalVisible);
-    const toggleBgColorModal = () => setBgColorModal(!bgColorModalVisible);
-    const toggleFontColorModal = () =>
-        setFontColorModal(!fontColorModalVisible);
-    //const toggleExcalidrawModal = (status) => setExcalidrawModal(status === false ? status : !excalidrawModalVisible);
+  // Toggle functions (utility functions).
+  const toggleImageModal = () => setImageModal(!imageModalVisible);
+  const toggleEquationModal = () => setEquationModal(!equationModalVisible);
+  const toggleBgColorModal = () => setBgColorModal(!bgColorModalVisible);
+  const toggleFontColorModal = () => setFontColorModal(!fontColorModalVisible);
+  //const toggleExcalidrawModal = (status) => setExcalidrawModal(status === false ? status : !excalidrawModalVisible);
 
-    const toggleExcalidrawModal = () => {
-        containerRef.current.executeCommand('INSERT_EXCALIDRAW', null);
-    };
+  const toggleExcalidrawModal = () => {
+    containerRef.current.executeCommand('INSERT_EXCALIDRAW', null);
+  };
 
-    const [getMentionCandidates, { data, loading, error }] =
-        useLazyQuery(GET_MENTION_USERS);
-    const [uploadImage] = useMutation(UPLOAD_IMAGE);
+  const [getMentionCandidates, { data, loading, error }] =
+    useLazyQuery(GET_MENTION_USERS);
+  const [uploadImage] = useMutation(UPLOAD_IMAGE);
 
-    /*
+  /*
     useEffect(() => {
         async function fetchData() {
             if (locale === null) return null;
@@ -105,105 +97,105 @@ const Editor = (props: EditorProps) => {
     }, [locale]);
     */
 
-    const insertEquation = (props: InsertEquationProps) => {
-        containerRef.current.focus();
-        containerRef.current.executeCommand('INSERT_EQUATION', props);
-        toggleEquationModal();
-    };
+  const insertEquation = (props: InsertEquationProps) => {
+    containerRef.current.focus();
+    containerRef.current.executeCommand('INSERT_EQUATION', props);
+    toggleEquationModal();
+  };
 
-    const insertImage = (props: ImageProps) => {
-        containerRef.current.focus();
-        containerRef.current.executeCommand('INSERT_IMAGE', props);
-        toggleImageModal();
-    };
+  const insertImage = (props: ImageProps) => {
+    containerRef.current.focus();
+    containerRef.current.executeCommand('INSERT_IMAGE', props);
+    toggleImageModal();
+  };
 
-    const insertInlineImage = (image: InlineImageProps) => {
-        if (!containerRef.current) return;
-        containerRef.current.focus();
-        containerRef.current.executeCommand('INSERT_IMAGE_INLINE', image);
-    };
+  const insertInlineImage = (image: InlineImageProps) => {
+    if (!containerRef.current) return;
+    containerRef.current.focus();
+    containerRef.current.executeCommand('INSERT_IMAGE_INLINE', image);
+  };
 
-    const onSearchChange = (match: string) => {
-        if (match === null || match.length < 3) return;
-        getMentionCandidates({
-            variables: {
-                search: match,
-            },
-        });
-        setUpdatedList(true);
-    };
+  const onSearchChange = (match: string) => {
+    if (match === null || match.length < 3) return;
+    getMentionCandidates({
+      variables: {
+        search: match,
+      },
+    });
+    setUpdatedList(true);
+  };
 
-    const clearFormatting = () => {
-        if (!containerRef.current) return;
-        containerRef.current.focus();
-        containerRef.current.executeCommand('CLEAR_FORMATTING');
-    };
+  const clearFormatting = () => {
+    if (!containerRef.current) return;
+    containerRef.current.focus();
+    containerRef.current.executeCommand('CLEAR_FORMATTING');
+  };
 
-    if (data && !loading && updatedList) {
-        const { mentionCandidates } = data;
+  if (data && !loading && updatedList) {
+    const { mentionCandidates } = data;
 
-        if (mentionCandidates !== null) {
-            const _suggestions = mentionCandidates.map((u: any) => ({
-                id: u.id,
-                name: u.username,
-                link: `/users/${u.id}/${u.username}`,
-                avatar: u.avatar,
-            }));
-            setSuggestions(_suggestions);
-        }
-        setUpdatedList(false);
+    if (mentionCandidates !== null) {
+      const _suggestions = mentionCandidates.map((u: any) => ({
+        id: u.id,
+        name: u.username,
+        link: `/users/${u.id}/${u.username}`,
+        avatar: u.avatar,
+      }));
+      setSuggestions(_suggestions);
     }
+    setUpdatedList(false);
+  }
 
-    if (error) {
-        console.log(':::>');
-        console.log(error);
-        /*
+  if (error) {
+    console.log(':::>');
+    console.log(error);
+    /*
         notification.error({
           message: 'Mention candidates error',
           description: 'Error getting mention candidates.',
           placement: "topRight"
         })*/
-    }
+  }
 
-    const config = {
-        placeholderText: t('toolbar.placeholderText'),
-        initialState: initialState,
-        readOnly: false,
-        autoFocus: true,
-        onError: (error: any) => {
-            throw error;
-        },
-        plugins: [],
-        imageConfig: {
-            addCaptionText: t('internal.addCaption'),
-            defaultCaptionText: t('internal.enterCaption'),
-        },
-        inlineImage: {
-            showModal: (modalProps: any) => {
-                setInlineModalUpdateVisible(true);
-                setInlineImageModalProps(modalProps);
-            },
-        },
-        excalidrawConfig: {
-            modal: ExcalidrawModal,
-        },
-        twitterConfig: {
-            loadingComponent: ({ tweetId }: { tweetId: string }) => (
-                <p>
-                    {t('internal.loadingTweet')}...(ID={tweetId})
-                </p>
-            ),
-        },
-        collapsibleConfig: {
-            open: true,
-        },
-        citation: {
-            sourceLinkComponent: ({ sourceLink }: { sourceLink: string }) => (
-                <a href={sourceLink} className="source-link-component">
-                    <FontAwesomeIcon icon={faArrowUp} size="lg" />
-                </a>
-            ),
-            authorComponent: null /*({ author }) => (
+  const config = {
+    placeholderText: t('toolbar.placeholderText'),
+    initialState: initialState,
+    readOnly: false,
+    autoFocus: true,
+    onError: (error: any) => {
+      throw error;
+    },
+    plugins: [],
+    imageConfig: {
+      addCaptionText: t('internal.addCaption'),
+      defaultCaptionText: t('internal.enterCaption'),
+    },
+    inlineImage: {
+      showModal: (modalProps: any) => {
+        setInlineModalUpdateVisible(true);
+        setInlineImageModalProps(modalProps);
+      },
+    },
+    excalidrawConfig: {
+      modal: ExcalidrawModal,
+    },
+    twitterConfig: {
+      loadingComponent: ({ tweetId }: { tweetId: string }) => (
+        <p>
+          {t('internal.loadingTweet')}...(ID={tweetId})
+        </p>
+      ),
+    },
+    collapsibleConfig: {
+      open: true,
+    },
+    citation: {
+      sourceLinkComponent: ({ sourceLink }: { sourceLink: string }) => (
+        <a href={sourceLink} className="source-link-component">
+          <FontAwesomeIcon icon={faArrowUp} size="lg" />
+        </a>
+      ),
+      authorComponent: null /*({ author }) => (
              <a href={author.link} className="author-link-container">
                <AccountAvatar
                  avatar={author.avatar}
@@ -214,142 +206,139 @@ const Editor = (props: EditorProps) => {
                <span className="author-link-quote">{author.name}</span>
              </a>
             ),*/,
-        },
-        mentions: {
-            onSearchChange: onSearchChange,
-            onAddMention: (mention: MentionType) => {
-                setMentions([...mentions, mention]);
-            },
-            onRemoveMention: ({ name }: { name: string }) => {
-                const newMentions: MentionType[] = mentions.filter(
-                    (m) => m.name !== name
-                );
-                setMentions(newMentions);
-            },
-            entryComponent: ({
-                option: { avatar, name },
-            }: EntryComponentTypes) => (
-                <>
-                    <AccountAvatar
-                        avatar={avatar ?? ''}
-                        username={name}
-                        size={5}
-                        shape="circle"
-                    />
-                    &nbsp;{' '}
-                    <strong className="user-name-mentions">{name}</strong>
-                </>
-            ),
-            mentionsData: suggestions,
-        },
-        emojiConfig: {
-            emojiData: emojiData,
-        },
-        dragAndDropImage: {
-            handleDroppedFile: async (file: any) => {
-                const uploadRet = await uploadImage({
-                    variables: { image: file },
-                });
-                if (uploadRet.data) {
-                    const { src } = uploadRet.data.uploadImage;
-                    if (src === null) {
-                        notification.error({
-                            message: 'Failed to upload File',
-                            description:
-                                "Couldn't upload file to the server (file type not allowed).",
-                            placement: 'topRight',
-                        });
-                        return;
-                    }
-                    const imageSrc = `/static/uploads/${src}`;
-                    containerRef.current.executeCommand('INSERT_IMAGE', {
-                        src: imageSrc,
-                        altText: imageSrc,
-                    });
-                }
-            },
-        },
-    };
-
-    return (
+    },
+    mentions: {
+      onSearchChange: onSearchChange,
+      onAddMention: (mention: MentionType) => {
+        setMentions([...mentions, mention]);
+      },
+      onRemoveMention: ({ name }: { name: string }) => {
+        const newMentions: MentionType[] = mentions.filter(
+          (m) => m.name !== name
+        );
+        setMentions(newMentions);
+      },
+      entryComponent: ({ option: { avatar, name } }: EntryComponentTypes) => (
         <>
-            <Suspense fallback={<Spin data-testid="toolbar-spin" />}>
-                <ToolbarComponent
-                    clearFormatting={clearFormatting}
-                    editor={containerRef.current}
-                    formats={formats}
-                    tweetToolbarVisible={tweetToolbarVisible}
-                    toggleTweetToolbar={toggleTweetToolbar}
-                    tableToolbarVisible={tableToolbarVisible}
-                    toggleTableToolbar={toggleTableToolbar}
-                    videoToolbar={videoToolbar}
-                    toggleVideoToolbar={toggleVideoToolbar}
-                    toggleEquationModal={toggleEquationModal}
-                    toggleExcalidrawModal={toggleExcalidrawModal}
-                    insertEquation={insertEquation}
-                    bgColorModalVisible={bgColorModalVisible}
-                    fontColorModalVisible={fontColorModalVisible}
-                    equationModalVisible={equationModalVisible}
-                    imageModalVisible={imageModalVisible}
-                    toggleImageModal={toggleImageModal}
-                    toggleBgColorModal={toggleBgColorModal}
-                    toggleFontColorModal={toggleFontColorModal}
-                    insertImage={insertImage}
-                    t={t}
-                    equation={equation}
-                    setEquation={setEquation}
-                    inline={inline}
-                    setInline={setInline}
-                />
-            </Suspense>
-            <div className="editor-shell-container">
-                <CalliopeEditor
-                    config={config}
-                    containerRef={containerRef}
-                    setFormats={setFormats}
-                    setCanUndo={setCanUndo}
-                    setCanRedo={setCanRedo}
-                />
-            </div>
-            <EditorFooter
-                inlineModalUpdateVisible={inlineModalUpdateVisible}
-                setInlineModalUpdateVisible={setInlineModalUpdateVisible}
-                inlineImagemodalProps={inlineImagemodalProps}
-                inlineImageModalVisible={inlineImageModalVisible}
-                setInlineImageModalVisible={setInlineImageModalVisible}
-                insertInlineImage={insertInlineImage}
-                insertImage={insertImage}
-                editor={containerRef.current}
-                canUndo={canUndo}
-                canRedo={canRedo}
-                t={t}
-            />
-            <Suspense fallback={<Spin />}>
-                <MobileDrawer
-                    formats={formats}
-                    isMobile={isMobile}
-                    editor={containerRef.current}
-                    tweetToolbarVisible={tweetToolbarVisible}
-                    toggleTweetToolbar={toggleTweetToolbar}
-                    tableToolbarVisible={tableToolbarVisible}
-                    toggleTableToolbar={toggleTableToolbar}
-                    videoToolbar={videoToolbar}
-                    toggleVideoToolbar={toggleVideoToolbar}
-                    toggleEquationModal={toggleEquationModal}
-                    insertEquation={insertEquation}
-                    equationModalVisible={equationModalVisible}
-                    imageModalVisible={imageModalVisible}
-                    toggleImageModal={toggleImageModal}
-                    insertImage={insertImage}
-                    t={t}
-                    equation={equation}
-                    setEquation={setEquation}
-                    inline={inline}
-                    setInline={setInline}
-                />
-            </Suspense>
+          <AccountAvatar
+            avatar={avatar ?? ''}
+            username={name}
+            size={5}
+            shape="circle"
+          />
+          &nbsp; <strong className="user-name-mentions">{name}</strong>
         </>
-    );
+      ),
+      mentionsData: suggestions,
+    },
+    emojiConfig: {
+      emojiData: emojiData,
+    },
+    dragAndDropImage: {
+      handleDroppedFile: async (file: any) => {
+        const uploadRet = await uploadImage({
+          variables: { image: file },
+        });
+        if (uploadRet.data) {
+          const { src } = uploadRet.data.uploadImage;
+          if (src === null) {
+            notification.error({
+              message: 'Failed to upload File',
+              description:
+                "Couldn't upload file to the server (file type not allowed).",
+              placement: 'topRight',
+            });
+            return;
+          }
+          const imageSrc = `/static/uploads/${src}`;
+          containerRef.current.executeCommand('INSERT_IMAGE', {
+            src: imageSrc,
+            altText: imageSrc,
+          });
+        }
+      },
+    },
+  };
+
+  return (
+    <>
+      <Suspense fallback={<Spin data-testid="toolbar-spin" />}>
+        <ToolbarComponent
+          clearFormatting={clearFormatting}
+          editor={containerRef.current}
+          formats={formats}
+          tweetToolbarVisible={tweetToolbarVisible}
+          toggleTweetToolbar={toggleTweetToolbar}
+          tableToolbarVisible={tableToolbarVisible}
+          toggleTableToolbar={toggleTableToolbar}
+          videoToolbar={videoToolbar}
+          toggleVideoToolbar={toggleVideoToolbar}
+          toggleEquationModal={toggleEquationModal}
+          toggleExcalidrawModal={toggleExcalidrawModal}
+          insertEquation={insertEquation}
+          bgColorModalVisible={bgColorModalVisible}
+          fontColorModalVisible={fontColorModalVisible}
+          equationModalVisible={equationModalVisible}
+          imageModalVisible={imageModalVisible}
+          toggleImageModal={toggleImageModal}
+          toggleBgColorModal={toggleBgColorModal}
+          toggleFontColorModal={toggleFontColorModal}
+          insertImage={insertImage}
+          t={t}
+          equation={equation}
+          setEquation={setEquation}
+          inline={inline}
+          setInline={setInline}
+        />
+      </Suspense>
+      <div className="editor-shell-container">
+        <CalliopeEditor
+          config={config}
+          containerRef={containerRef}
+          setFormats={setFormats}
+          setCanUndo={setCanUndo}
+          setCanRedo={setCanRedo}
+        />
+      </div>
+      <EditorFooter
+        inlineModalUpdateVisible={inlineModalUpdateVisible}
+        setInlineModalUpdateVisible={setInlineModalUpdateVisible}
+        inlineImagemodalProps={inlineImagemodalProps}
+        inlineImageModalVisible={inlineImageModalVisible}
+        setInlineImageModalVisible={setInlineImageModalVisible}
+        insertInlineImage={insertInlineImage}
+        insertImage={insertImage}
+        editor={containerRef.current}
+        canUndo={canUndo}
+        canRedo={canRedo}
+        t={t}
+      />
+      <Suspense fallback={<Spin />}>
+        <MobileDrawer
+          formats={formats}
+          isMobile={isMobile}
+          editor={containerRef.current}
+          tweetToolbarVisible={tweetToolbarVisible}
+          toggleTweetToolbar={toggleTweetToolbar}
+          tableToolbarVisible={tableToolbarVisible}
+          toggleTableToolbar={toggleTableToolbar}
+          videoToolbar={videoToolbar}
+          toggleVideoToolbar={toggleVideoToolbar}
+          toggleEquationModal={toggleEquationModal}
+          insertEquation={insertEquation}
+          equationModalVisible={equationModalVisible}
+          imageModalVisible={imageModalVisible}
+          toggleImageModal={toggleImageModal}
+          insertImage={insertImage}
+          t={t}
+          equation={equation}
+          setEquation={setEquation}
+          inline={inline}
+          setInline={setInline}
+        />
+      </Suspense>
+    </>
+  );
 };
 
 export default Editor;

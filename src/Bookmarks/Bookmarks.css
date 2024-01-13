@@ -1,21 +1,21 @@
 .bookmarks-container {
-    width: 80%;
-    margin-left: 10%;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .bookmarks-header {
-    margin-top: 50px;
-    text-align: center;
+  margin-top: 50px;
+  text-align: center;
 }
 
 .ant-list-item-meta-content {
-    width: 100%;
+  width: 100%;
 }
 
 .remove-bookmark-icon {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .user-name {
-    font-size: 20px;
+  font-size: 20px;
 }

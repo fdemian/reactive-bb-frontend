@@ -9,111 +9,102 @@ import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 
 const SecurityView = () => {
-    const { t } = useTranslation('accountSettings', {
-        keyPrefix: 'settings.security',
-    });
+  const { t } = useTranslation('accountSettings', {
+    keyPrefix: 'settings.security',
+  });
 
-    const userId = getUserId();
-    const queryOpts = { variables: { id: userId }, skip: !userId };
-    const { loading, error, data } = useQuery(GET_PROFILE, queryOpts);
+  const userId = getUserId();
+  const queryOpts = { variables: { id: userId }, skip: !userId };
+  const { loading, error, data } = useQuery(GET_PROFILE, queryOpts);
 
-    const [showPasswordModal, setShowPasswordModal] = useState(false);
-    const [showEmailModal, setShowEmailModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
 
-    const openPasswordModal = () => setShowPasswordModal(true);
-    const closePasswordModal = () => setShowPasswordModal(false);
+  const openPasswordModal = () => setShowPasswordModal(true);
+  const closePasswordModal = () => setShowPasswordModal(false);
 
-    const openEmailModal = () => setShowEmailModal(true);
-    const closeEmailModal = () => setShowEmailModal(false);
+  const openEmailModal = () => setShowEmailModal(true);
+  const closeEmailModal = () => setShowEmailModal(false);
 
-    if (loading) return <Loading />;
+  if (loading) return <Loading />;
 
-    if (error) return <p>Error</p>;
+  if (error) return <p>Error</p>;
 
-    const { email } = data.getUser;
+  const { email } = data.getUser;
 
-    const getData = () => [
-        {
-            title: t('password'),
-            description: (
-                <>
-                    {t('currentPass')}: <strong>*****</strong>
-                </>
-            ),
-            actions: [
-                <Button
-                    key="modify-pass-btn"
-                    aria-label={`password ${t('modify')}`}
-                    role="button"
-                    type="link"
-                    onClick={openPasswordModal}
-                >
-                    {t('modify')}
-                </Button>,
-            ],
-        },
-        {
-            title: t('email'),
-            description: <strong>{email}</strong>,
-            actions: [
-                <Button
-                    key="modify-mail-btn"
-                    aria-label={`email ${t('modify')}`}
-                    role="button"
-                    type="link"
-                    onClick={openEmailModal}
-                >
-                    {t('modify')}
-                </Button>,
-            ],
-        } /*,
+  const getData = () => [
+    {
+      title: t('password'),
+      description: (
+        <>
+          {t('currentPass')}: <strong>*****</strong>
+        </>
+      ),
+      actions: [
+        <Button
+          key="modify-pass-btn"
+          aria-label={`password ${t('modify')}`}
+          role="button"
+          type="link"
+          onClick={openPasswordModal}
+        >
+          {t('modify')}
+        </Button>,
+      ],
+    },
+    {
+      title: t('email'),
+      description: <strong>{email}</strong>,
+      actions: [
+        <Button
+          key="modify-mail-btn"
+          aria-label={`email ${t('modify')}`}
+          role="button"
+          type="link"
+          onClick={openEmailModal}
+        >
+          {t('modify')}
+        </Button>,
+      ],
+    } /*,
     {
       title: 'Delete',
       description:'This will permanently delete your account',
       actions: [<Button type="danger">Delete my account</Button>]
     }*/,
-    ];
+  ];
 
-    return (
-        <>
-            <List
-                itemLayout="horizontal"
-                dataSource={getData()}
-                renderItem={(item) => (
-                    <List.Item actions={item.actions}>
-                        <List.Item.Meta
-                            title={item.title}
-                            description={item.description}
-                        />
-                    </List.Item>
-                )}
-            />
-            <Modal
-                width={650}
-                title={t('passwordModalTitle')}
-                footer={
-                    <Button onClick={closePasswordModal}>
-                        {t('dialogClose')}
-                    </Button>
-                }
-                open={showPasswordModal}
-            >
-                <ModifyPasswordModal t={t} />
-            </Modal>
-            <Modal
-                width={650}
-                title={t('emailModalTitle')}
-                footer={
-                    <Button onClick={closeEmailModal}>
-                        {t('dialogClose')}
-                    </Button>
-                }
-                open={showEmailModal}
-            >
-                <ModifyEmailModal user={data.getUser} t={t} />
-            </Modal>
-        </>
-    );
+  return (
+    <>
+      <List
+        itemLayout="horizontal"
+        dataSource={getData()}
+        renderItem={(item) => (
+          <List.Item actions={item.actions}>
+            <List.Item.Meta title={item.title} description={item.description} />
+          </List.Item>
+        )}
+      />
+      <Modal
+        width={650}
+        title={t('passwordModalTitle')}
+        footer={
+          <Button onClick={closePasswordModal}>{t('dialogClose')}</Button>
+        }
+        open={showPasswordModal}
+      >
+        <ModifyPasswordModal t={t} />
+      </Modal>
+      <Modal
+        width={650}
+        title={t('emailModalTitle')}
+        footer={<Button onClick={closeEmailModal}>{t('dialogClose')}</Button>}
+        open={showEmailModal}
+      >
+        <ModifyEmailModal user={data.getUser} t={t} />
+      </Modal>
+    </>
+  );
 };
 
 export default SecurityView;
