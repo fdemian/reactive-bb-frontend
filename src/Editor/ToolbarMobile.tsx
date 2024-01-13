@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */ 
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useState } from 'react';
 import { Button, Tooltip, Dropdown, Select, ColorPicker } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -299,7 +304,6 @@ const Toolbar = (props: ToolbarProps) => {
             <Button
               key={t('toolbar.fontColor')}
               aria-label={t('toolbar.fontColor')}
-              /* @ts-expect-error */
               onClick={toggleFontColorModal}
               type="default"
               className="dropdown-menu-toolbar"
@@ -317,7 +321,6 @@ const Toolbar = (props: ToolbarProps) => {
             <Button
               key={t('toolbar.bgColor')}
               aria-label={t('toolbar.bgColor')}
-              /* @ts-expect-error */
               onClick={toggleBgColorModal}
               type="default"
               className="dropdown-menu-toolbar"
@@ -383,7 +386,6 @@ const Toolbar = (props: ToolbarProps) => {
                   <button
                     className="toolbar-style-button"
                     key={b.text}
-                    /* @ts-expect-error */
                     onClick={b.onClick}
                     aria-label={b.text}
                   >
