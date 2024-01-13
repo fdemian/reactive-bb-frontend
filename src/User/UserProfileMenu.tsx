@@ -9,10 +9,9 @@ import './User.css';
 type UserProfileProps = {
     id: number;
     user: UserType;
-}
+};
 
 const UserProfileMenu = ({ id, user }: UserProfileProps) => {
-
     const menuMap = [
         {
             key: 'topics',
@@ -35,7 +34,7 @@ const UserProfileMenu = ({ id, user }: UserProfileProps) => {
     ];
     const [selectIndex, setSelectIndex] = useState(0);
 
-    const setKey = ({ key }: { key:string; }) => {
+    const setKey = ({ key }: { key: string }) => {
         const index = menuMap.findIndex((s) => s.key === key);
         setSelectIndex(index);
     };
@@ -50,7 +49,12 @@ const UserProfileMenu = ({ id, user }: UserProfileProps) => {
     return (
         <div className="info-main">
             <div className="leftmenu">
-                <Menu mode="inline" items={menuMap} selectedKeys={[selectKey]} onClick={setKey} />
+                <Menu
+                    mode="inline"
+                    items={menuMap}
+                    selectedKeys={[selectKey]}
+                    onClick={setKey}
+                />
             </div>
             <div className="right">
                 <div className="title">{`${title} by ${user.username}`}</div>

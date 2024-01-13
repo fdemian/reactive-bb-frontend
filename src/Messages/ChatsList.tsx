@@ -9,18 +9,18 @@ import MessagesEditor from './MessagesEditor';
 import CreateMessage from './CreateMessage';
 import '../AccountSettings/Settings.css';
 import './Messages.css';
-import { UserType } from "../User/userTypes";
+import { UserType } from '../User/userTypes';
 
 type MessagesEditorProps = {
     containerRef: any;
-    sendMessage: (user:number, p:boolean) => void;
+    sendMessage: (user: number, p: boolean) => void;
     clearMessage: () => void;
     users: UserType[];
     userId: number;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
-const ChatsList = (props:MessagesEditorProps) => {
+const ChatsList = (props: MessagesEditorProps) => {
     const { containerRef, sendMessage, clearMessage, users, userId, t } = props;
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -31,7 +31,7 @@ const ChatsList = (props:MessagesEditorProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const closeModal = () => setIsModalOpen(false);
     const openModal = () => setIsModalOpen(true);
-    const sendAndCloseModal = (user:number, newchat:boolean) => {
+    const sendAndCloseModal = (user: number, newchat: boolean) => {
         sendMessage(user, newchat);
         closeModal();
     };
@@ -46,13 +46,18 @@ const ChatsList = (props:MessagesEditorProps) => {
         key: u.id,
         label: (
             <div onClick={() => setSelectedUser(u.id)}>
-                <UserAvatar size="large" shape="square" avatar={u.avatar} username={u.username} />
+                <UserAvatar
+                    size="large"
+                    shape="square"
+                    avatar={u.avatar}
+                    username={u.username}
+                />
                 &nbsp; {u.username}
             </div>
-        )
+        ),
     }));
 
-    const onMenuItemSelect = ({ key }:{key:string;}) => {
+    const onMenuItemSelect = ({ key }: { key: string }) => {
         setSearchParams({ user: key });
         setSelectedUser(parseInt(key, 10));
     };
@@ -62,7 +67,11 @@ const ChatsList = (props:MessagesEditorProps) => {
             <Divider>
                 <h1 className="chat-list-title">{t('title')}</h1>
             </Divider>
-            <Button aria-label={t('newConversation')} onClick={openModal} type="primary">
+            <Button
+                aria-label={t('newConversation')}
+                onClick={openModal}
+                type="primary"
+            >
                 <FontAwesomeIcon icon={faPlus} />
                 &nbsp; {t('newConversation')}
             </Button>
@@ -76,7 +85,10 @@ const ChatsList = (props:MessagesEditorProps) => {
                     />
                 </div>
                 <div className="right">
-                    <MessagesList currentUser={userId} otherUser={selectedUser} />
+                    <MessagesList
+                        currentUser={userId}
+                        otherUser={selectedUser}
+                    />
                     <MessagesEditor
                         containerRef={containerRef}
                         selectedUser={selectedUser}
@@ -93,7 +105,11 @@ const ChatsList = (props:MessagesEditorProps) => {
                 width={1250}
                 title={t('newConversation')}
                 open={isModalOpen}
-                footer={[<Button key="close-modal-btn" onClick={closeModal}>{t('close')}</Button>]}
+                footer={[
+                    <Button key="close-modal-btn" onClick={closeModal}>
+                        {t('close')}
+                    </Button>,
+                ]}
             >
                 <CreateMessage
                     sendMessage={sendAndCloseModal}

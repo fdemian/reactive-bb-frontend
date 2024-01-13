@@ -12,10 +12,15 @@ type MessagesMenuProps = {
     chatSubscription: () => void;
     enabled: boolean;
     messages: ChatsByUserResponse;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
-const MessagesMenu = ({ messages, chatSubscription, enabled, t }: MessagesMenuProps) => {
+const MessagesMenu = ({
+    messages,
+    chatSubscription,
+    enabled,
+    t,
+}: MessagesMenuProps) => {
     useEffect(() => {
         chatSubscription();
     }, [chatSubscription]);
@@ -50,30 +55,38 @@ const MessagesMenu = ({ messages, chatSubscription, enabled, t }: MessagesMenuPr
                 </div>
             ),
             key: 'see-all-messages',
-            disabled: false
+            disabled: false,
         },
     ];
     const messageItems =
         data.chatsByUser.length === 0
             ? [
-                {
-                    label: <Empty description={t('noMessages')} />,
-                    key: 'messages-empty',
-                    disabled: true,
-                },
-            ]
+                  {
+                      label: <Empty description={t('noMessages')} />,
+                      key: 'messages-empty',
+                      disabled: true,
+                  },
+              ]
             : data.chatsByUser.map((m, index) => ({
-                label: <Message message={m.author} />,
-                key: 'message-' + index,
-                disabled: false,
-            }));
+                  label: <Message message={m.author} />,
+                  key: 'message-' + index,
+                  disabled: false,
+              }));
     const items = messageItems.concat(messageActions);
 
     return (
-        <Dropdown overlayClassName="messages-dropdown" menu={{ items }} placement="bottom">
-      <span>
-        <MessageMenuHeader t={t} messages={data.chatsByUser} enabled={enabled} />
-      </span>
+        <Dropdown
+            overlayClassName="messages-dropdown"
+            menu={{ items }}
+            placement="bottom"
+        >
+            <span>
+                <MessageMenuHeader
+                    t={t}
+                    messages={data.chatsByUser}
+                    enabled={enabled}
+                />
+            </span>
         </Dropdown>
     );
 };

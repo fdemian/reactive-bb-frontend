@@ -11,11 +11,11 @@ export const cache = new InMemoryCache({
                 loggedIn: {
                     read() {
                         return isLoggedIn();
-                    }
-                }
-            }
-        }
-    }
+                    },
+                },
+            },
+        },
+    },
 });
 
 export const loggedInVar = makeVar(isLoggedIn());

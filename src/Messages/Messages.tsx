@@ -15,30 +15,30 @@ export const Component = () => {
     const [sendPm] = useMutation(SEND_PM);
     const { t } = useTranslation('chats', { keyPrefix: 'chats' });
 
-    const sendMessage = (user:number, newchat:boolean) => {
-        const editor:any = containerRef.current;
+    const sendMessage = (user: number, newchat: boolean) => {
+        const editor: any = containerRef.current;
         const message = editor.getContent();
         sendPm({
             variables: {
                 author: userId,
                 recipient: user,
                 message: message,
-                newchat: newchat
-            }
+                newchat: newchat,
+            },
         });
         editor.clear();
     };
 
     const clearMessage = () => {
-        const editor:any = containerRef.current;
+        const editor: any = containerRef.current;
         editor.clear();
-    }
+    };
 
     const { data, loading, error } = useQuery(GET_ALL_CHATS, {
         variables: {
-            user: userId
+            user: userId,
         },
-        pollInterval: 500
+        pollInterval: 500,
     });
 
     if (loading) return <Spin />;

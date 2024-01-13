@@ -4,13 +4,13 @@ import CreateMessage from './CreateMessage';
 import './Messages.css';
 
 type NoMessageProps = {
-    userId:number; 
-    sendMessage:(user: number, p: boolean) => void;
-    containerRef:any; 
-    t:(key:string) => string;
+    userId: number;
+    sendMessage: (user: number, p: boolean) => void;
+    containerRef: any;
+    t: (key: string) => string;
 };
 
-const NoMessages = ({ sendMessage, containerRef, t }:NoMessageProps) => {
+const NoMessages = ({ sendMessage, containerRef, t }: NoMessageProps) => {
     const [converstationVisible, setConverstationVisible] = useState(false);
     return (
         <>

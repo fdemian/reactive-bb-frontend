@@ -10,23 +10,20 @@ import { GET_POSITION_IN_PAGE } from './Queries';
 const PostLinkError = lazy(() => import('./PostLinkError'));
 
 export const Component = () => {
-
     const params = useParams();
     const { id } = params;
     const pageItems = getDefaultPageItems();
-    const postId = parseInt(id ?? "-1", 10);
+    const postId = parseInt(id ?? '-1', 10);
     const { data, loading, error } = useQuery(GET_POSITION_IN_PAGE, {
         variables: {
             post: postId,
-            itemscount: parseInt(pageItems ?? "5", 10)
-        }
+            itemscount: parseInt(pageItems ?? '5', 10),
+        },
     });
 
     if (error)
         return (
-            <Suspense
-                fallback={<Spin />}
-            >
+            <Suspense fallback={<Spin />}>
                 <PostLinkError />
             </Suspense>
         );

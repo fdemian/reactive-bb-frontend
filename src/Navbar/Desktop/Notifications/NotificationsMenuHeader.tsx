@@ -10,32 +10,39 @@ type NotificationsHeaderParams = {
     enabled: boolean;
 };
 
-const NotificationsHeader = ({ notifications, enabled }: NotificationsHeaderParams) => {
+const NotificationsHeader = ({
+    notifications,
+    enabled,
+}: NotificationsHeaderParams) => {
     if (enabled) {
         return (
             <span className="notifications-icon-header header-enabled">
-        <Badge count={notifications.length} offset={[0, -4]} size="small">
-          <FontAwesomeIcon
-              className="bell-icon-notification"
-              icon={faBell}
-              size="2x"
-              color="rgba(0,0,0,.65)"
-          />
-        </Badge>
-      </span>
+                <Badge
+                    count={notifications.length}
+                    offset={[0, -4]}
+                    size="small"
+                >
+                    <FontAwesomeIcon
+                        className="bell-icon-notification"
+                        icon={faBell}
+                        size="2x"
+                        color="rgba(0,0,0,.65)"
+                    />
+                </Badge>
+            </span>
         );
     } else {
         return (
             <span className="notifications-icon-header header-disabled">
-        <Tooltip title="Notifications disabled" placement="bottom">
-          <FontAwesomeIcon
-              className="bell-icon-notification"
-              icon={faBellSlash}
-              size="lg"
-              color="rgba(0,0,0,.65)"
-          />
-        </Tooltip>
-      </span>
+                <Tooltip title="Notifications disabled" placement="bottom">
+                    <FontAwesomeIcon
+                        className="bell-icon-notification"
+                        icon={faBellSlash}
+                        size="lg"
+                        color="rgba(0,0,0,.65)"
+                    />
+                </Tooltip>
+            </span>
         );
     }
 };

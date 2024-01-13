@@ -9,20 +9,19 @@ import { vi, test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 vi.mock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
         getUserId: () => 1,
         getBanStatus: () => {
-          return {
-            banned: false,
-            banReason: null
-          };
+            return {
+                banned: false,
+                banReason: null,
+            };
         },
-        getUserType: () => 'U'
-    }
+        getUserType: () => 'U',
+    };
 });
-
 
 const user1 = {
     avatar: null,
@@ -30,7 +29,7 @@ const user1 = {
     username: 'userx',
     type: 'U',
     banned: false,
-    banReason: null
+    banReason: null,
 };
 
 const user2 = {
@@ -39,26 +38,26 @@ const user2 = {
     username: 'rulo',
     type: 'U',
     banned: false,
-    banReason: null
+    banReason: null,
 };
 
 const chat = {
     author: user1,
     recipient: user2,
     content: {},
-    date: '2022-09-18T13:49:12.767267'
+    date: '2022-09-18T13:49:12.767267',
 };
 
 const chat2 = {
     author: user1,
     recipient: user2,
     content: {},
-    date: '2022-10-18T13:49:12.767267'
+    date: '2022-10-18T13:49:12.767267',
 };
 
-vi.mock("kalliope", () => {
+vi.mock('kalliope', () => {
     return {
-        default: ({  containerRef }) => {
+        default: ({ containerRef }) => {
             /* eslint-disable */
             const react = require('react');
             react.useState(() => {
@@ -66,7 +65,7 @@ vi.mock("kalliope", () => {
                     getContent: () => {
                         return 'CALLIOPE_EDITOR_MOCK_CONTENT';
                     },
-                    clear: vi.fn()
+                    clear: vi.fn(),
                 };
                 if (containerRef !== null) {
                     containerRef.current = currentContainerRef;
@@ -74,40 +73,40 @@ vi.mock("kalliope", () => {
             }, []);
 
             return <input data-testid="calliope-editor" />;
-        }
-    }
-})
+        },
+    };
+});
 
 const noMessageMocks = [
     {
         request: {
             query: GET_ALL_CHATS,
             variables: {
-                user: 1
-            }
+                user: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                chatsByUser: []
-            }
-        }
+                chatsByUser: [],
+            },
+        },
     },
     {
         request: {
             query: GET_USER,
             variables: {
-                id: 1
-            }
+                id: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                getUser: user1
-            }
-        }
+                getUser: user1,
+            },
+        },
     },
     {
         request: {
@@ -116,17 +115,17 @@ const noMessageMocks = [
                 limit: 400,
                 offset: 0,
                 userA: 1,
-                userB: 1
-            }
+                userB: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                chat: []
-            }
-        }
-    }
+                chat: [],
+            },
+        },
+    },
 ];
 
 const messagesMock = [
@@ -134,31 +133,31 @@ const messagesMock = [
         request: {
             query: GET_USER,
             variables: {
-                id: 1
-            }
+                id: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                getUser: user1
-            }
-        }
+                getUser: user1,
+            },
+        },
     },
     {
         request: {
             query: GET_ALL_CHATS,
             variables: {
-                user: 1
-            }
+                user: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                chatsByUser: [user1]
-            }
-        }
+                chatsByUser: [user1],
+            },
+        },
     },
     {
         request: {
@@ -167,48 +166,48 @@ const messagesMock = [
                 limit: 400,
                 offset: 0,
                 userA: 1,
-                userB: 1
-            }
+                userB: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                chat: [chat]
-            }
-        }
+                chat: [chat],
+            },
+        },
     },
     {
         request: {
             query: CHATS_SUBSCRIPTION,
             variables: {
                 userA: 1,
-                userB: 1
-            }
+                userB: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                chatAdded: chat2
-            }
-        }
+                chatAdded: chat2,
+            },
+        },
     },
     {
         request: {
             query: CHATS_SUBSCRIPTION,
             variables: {
                 userA: 1,
-                userB: 1
-            }
+                userB: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                chatAdded: []
-            }
-        }
+                chatAdded: [],
+            },
+        },
     },
     {
         request: {
@@ -217,21 +216,21 @@ const messagesMock = [
                 author: user1,
                 recipient: user2,
                 message: 'CALLIOPE_EDITOR_MOCK_CONTENT',
-                newchat: false
-            }
+                newchat: false,
+            },
         },
         result: {
             loading: false,
             error: false,
-            data: true
-        }
+            data: true,
+        },
     },
     {
         request: {
             query: GET_MENTION_USERS,
             variables: {
-                search: 'r'
-            }
+                search: 'r',
+            },
         },
         result: {
             loading: false,
@@ -240,11 +239,11 @@ const messagesMock = [
                 {
                     id: 1,
                     username: 'rulo',
-                    avatar: 'rulo.png'
-                }
-            ]
-        }
-    }
+                    avatar: 'rulo.png',
+                },
+            ],
+        },
+    },
 ];
 
 // Test interaction when there are no messages.
@@ -255,7 +254,7 @@ test('<Messages /> > No messages.', async () => {
         isMobile: false,
         isLoggedIn: true,
         mocks: noMessageMocks,
-        initialEntries: ['/messages']
+        initialEntries: ['/messages'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
@@ -268,7 +267,9 @@ test('<Messages /> > No messages.', async () => {
         screen.getByRole('button', { name: 'chats.startConversation' })
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'chats.startConversation' }));
+    await user.click(
+        screen.getByRole('button', { name: 'chats.startConversation' })
+    );
 
     //expect(screen.getByRole('form')).toBeInTheDocument();
 
@@ -283,14 +284,16 @@ test('Messages editor > Render', async () => {
         isMobile: false,
         isLoggedIn: true,
         mocks: messagesMock,
-        initialEntries: ['/messages?user=1']
+        initialEntries: ['/messages?user=1'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
 
     expect(await screen.findByText('chats.title')).toBeInTheDocument();
 
-    expect(screen.queryByTestId('new-conversation-modal')).not.toBeInTheDocument();
+    expect(
+        screen.queryByTestId('new-conversation-modal')
+    ).not.toBeInTheDocument();
 
     expect(
         screen.getByRole('button', { name: 'chats.newConversation' })
@@ -301,7 +304,7 @@ test('Messages editor > Render', async () => {
 
     expect(
         screen.getByRole('button', {
-            name: 'chats.newConversation'
+            name: 'chats.newConversation',
         })
     ).toBeInTheDocument();
 });
@@ -312,7 +315,7 @@ test('<Messages /> > Messages editor > Interaction', async () => {
         isMobile: false,
         isLoggedIn: true,
         mocks: messagesMock,
-        initialEntries: ['/messages']
+        initialEntries: ['/messages'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
@@ -343,7 +346,7 @@ test('<Messages /> > <CreateMessage />', async () => {
         {
             isLoggedIn: true,
             mocks: messagesMock,
-            initialEntries: ['/messages']
+            initialEntries: ['/messages'],
         }
     );
 
@@ -370,4 +373,4 @@ test('<Messages /> > <CreateMessage />', async () => {
 
     // TODO: XXXX
     // Currently we are unable to test refetching of messages.
-})
+});

@@ -9,38 +9,35 @@ import './AdminPanel.css';
  { key: 'socialSites', name: t('socialSites'), component: <p>Social Sites</p> }
 */
 
-export const Component = ():React.ReactElement => {
+export const Component = (): React.ReactElement => {
     const { t } = useTranslation('modcp', { keyPrefix: 'admincp' });
 
     const menuMap = [
         {
             key: 'editedPosts',
             name: t('editedPosts'),
-            component: <ModerationLog t={t} />
-        }
+            component: <ModerationLog t={t} />,
+        },
     ];
 
     const [selectKey, setSelectKey] = useState('editedPosts');
-    const items = menuMap.map(
-        (item) => ({
-            key: item.key,
-            label: (
-                <div
-                    role="button"
-                    aria-label={item.key}
-                    onClick={() => setSelectKey(item.key)}
-                >
-                    {item.name}
-                </div>
-            )
-        })
-    );
+    const items = menuMap.map((item) => ({
+        key: item.key,
+        label: (
+            <div
+                role="button"
+                aria-label={item.key}
+                onClick={() => setSelectKey(item.key)}
+            >
+                {item.name}
+            </div>
+        ),
+    }));
 
     let menuItem = menuMap.find((k) => k.key === selectKey);
-    if(menuItem === undefined)
-        menuItem = menuMap[0];
+    if (menuItem === undefined) menuItem = menuMap[0];
 
-    const title = menuItem.name; 
+    const title = menuItem.name;
     const childComponent = menuItem.component;
 
     return (

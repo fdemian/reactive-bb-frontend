@@ -14,11 +14,11 @@ const _user = {
 };
 
 vi.mock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
         getUserId: () => 1,
-    }
+    };
 });
 
 const mocks = [
@@ -81,7 +81,9 @@ test('<NavbarDesktop /> > Not logged in.', async () => {
 
     const blogText = await screen.findByText('Morpheus');
     expect(blogText).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: 'Morpheus logo' })).toBeInTheDocument();
+    expect(
+        screen.getByRole('img', { name: 'Morpheus logo' })
+    ).toBeInTheDocument();
     expect(
         await screen.findByText('login', { exact: false })
     ).toBeInTheDocument();
@@ -102,7 +104,9 @@ test('<NavbarDesktop /> > Logged in.', async () => {
     const imgHeading = await screen.findAllByRole('img');
     expect(imgHeading.length).toStrictEqual(1);
 
-    expect(screen.getByRole('img', { name: 'Morpheus logo' })).toBeInTheDocument();
+    expect(
+        screen.getByRole('img', { name: 'Morpheus logo' })
+    ).toBeInTheDocument();
     const avatars = await screen.findAllByRole('img', {
         name: `Avatar of ${_user.username}`,
     });
@@ -115,4 +119,3 @@ test('<NavbarDesktop /> > Logged in.', async () => {
     expect(avatarImg).toHaveAttribute('alt', `Avatar of ${_user.username}`);
     expect(avatarImg).toHaveAttribute('src', `/static/avatars/${_user.avatar}`);
 });
-

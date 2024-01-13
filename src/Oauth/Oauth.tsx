@@ -14,14 +14,14 @@ export const Component = (): React.ReactElement => {
     const navigate = useNavigate();
     const { t } = useTranslation('oauth', { keyPrefix: 'oauth' });
 
-    const registerUser = async (code:string, service:string) => {
+    const registerUser = async (code: string, service: string) => {
         const jsonData = JSON.stringify({
             service: service,
-            code: code
+            code: code,
         });
         const resp = await fetch('/api/oauth', {
             method: 'POST',
-            body: jsonData
+            body: jsonData,
         });
         const data = await resp.json();
         return data;
@@ -29,13 +29,12 @@ export const Component = (): React.ReactElement => {
 
     useEffect(() => {
         async function oauthFlow() {
-
-            if(code === null){
-               navigate(`/autherror/${service}`);   
-               return;             
+            if (code === null) {
+                navigate(`/autherror/${service}`);
+                return;
             }
 
-            if(service === undefined){
+            if (service === undefined) {
                 navigate(`/autherror/`);
                 return;
             }
@@ -48,11 +47,11 @@ export const Component = (): React.ReactElement => {
                 client.writeQuery({
                     query: SET_LOGIN,
                     data: {
-                        loggedIn: true
+                        loggedIn: true,
                     },
                     variables: {
-                        status: true
-                    }
+                        status: true,
+                    },
                 });
 
                 // Refresh token once its TTL (time to live) has passed.

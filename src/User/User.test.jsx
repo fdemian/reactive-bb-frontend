@@ -65,11 +65,11 @@ const mocks = [
 ];
 
 vi.mock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
-        getUserId: () => 1
-    }
+        getUserId: () => 1,
+    };
 });
 
 test('<User /> > Renders correctly.', async () => {
@@ -97,7 +97,9 @@ test('<User /> > Renders correctly.', async () => {
     expect(screen.getByText('Topics')).toBeInTheDocument();
     expect(screen.getByText('Posts')).toBeInTheDocument();
     expect(screen.getByText('Likes')).toBeInTheDocument();
-    expect(screen.getByText(`Topics by ${mockUser.username}`)).toBeInTheDocument();
+    expect(
+        screen.getByText(`Topics by ${mockUser.username}`)
+    ).toBeInTheDocument();
 
     // Change between menues.
     // Moved over from previous test.

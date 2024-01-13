@@ -6,13 +6,13 @@ const DEFAULT_PAGE_ITEMS = 'DEFAULT_PAGE_ITEMS';
 const DEFAULT_LOCALE = 'DEFAULT_LOCALE';
 const OAUTH_CONFIG = 'OAUTH_CONFIG';
 const CONFIG = 'CONFIG';
-  
-const locales: { [key: string]: Locale }  = {
-   'es': es,
-   'en': enUS
+
+const locales: { [key: string]: Locale } = {
+    es: es,
+    en: enUS,
 };
 
-function loadLocale(lang:string) {
+function loadLocale(lang: string) {
     setDefaultOptions({ locale: locales[lang] });
 }
 
@@ -23,7 +23,7 @@ export const setConfig = async (config: ConfigType) => {
 };
 
 export const getConfig = (): ConfigType => {
-    return JSON.parse(localStorage.getItem(CONFIG) ?? "{}");
+    return JSON.parse(localStorage.getItem(CONFIG) ?? '{}');
 };
 
 export const setOauthConfig = async (config: string) => {
@@ -31,7 +31,7 @@ export const setOauthConfig = async (config: string) => {
 };
 
 export const getOauthConfig = (): OAuthConfig => {
-    return JSON.parse(localStorage.getItem(OAUTH_CONFIG) ?? "{}");
+    return JSON.parse(localStorage.getItem(OAUTH_CONFIG) ?? '{}');
 };
 
 export const setIsMobile = async (isMobile: boolean) => {
@@ -43,7 +43,7 @@ export const getIsMobile = () => {
     return isMobile === 'true';
 };
 
-export const setDefaultPageItems = async (items:number) => {
+export const setDefaultPageItems = async (items: number) => {
     localStorage.setItem(DEFAULT_PAGE_ITEMS, items.toString());
 };
 
@@ -55,7 +55,7 @@ export const getDefaultLocale = () => {
     return localStorage.getItem(DEFAULT_LOCALE);
 };
 
-export const setDefaultLocale = (language:string) => {
+export const setDefaultLocale = (language: string) => {
     const locale = getLocale(language);
     if (!localStorage.getItem(DEFAULT_LOCALE)) {
         localStorage.setItem(DEFAULT_LOCALE, locale);

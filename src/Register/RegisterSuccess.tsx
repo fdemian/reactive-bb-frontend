@@ -30,7 +30,7 @@ export const Component = () => {
                     onClick={() => redirect('/')}
                 >
                     {t('home')}
-                </Button>
+                </Button>,
             ]}
         />
     );

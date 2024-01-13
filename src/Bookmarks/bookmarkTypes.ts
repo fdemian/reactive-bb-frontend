@@ -1,14 +1,14 @@
 type UserType = {
-  id: number;
-  username: string;
-  avatar: string;
+    id: number;
+    username: string;
+    avatar: string;
 };
 
 type PostType = {
     id: number;
     content: string;
     user: UserType;
-}
+};
 
 type RemoveBookmarkFnProps = {
     variables: {
@@ -31,9 +31,9 @@ export type BookmarkType = {
     post: PostType;
 };
 
-export type BookmarkListProps = { 
+export type BookmarkListProps = {
     bookmarks: BookmarkType[];
-    userId: number | null ;
-    removeBookmark: (props:RemoveBookmarkFnProps) => void; 
-    t: (key:string) => string;
+    userId: number | null;
+    removeBookmark: (props: RemoveBookmarkFnProps) => void;
+    t: (key: string) => string;
 };

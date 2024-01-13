@@ -19,7 +19,9 @@ import './Topics.css';
 const NoTopics = lazy(() => import('./NoTopics'));
 const TopicList = lazy(() => import('./TopicList'));
 const TopicsHeader = lazy(() => import('./TopicsHeader'));
-const TopicListFooter = lazy(() => import('../PaginationFooter/PaginationFooter'));
+const TopicListFooter = lazy(
+    () => import('../PaginationFooter/PaginationFooter')
+);
 const MobileCategoryDrawer = lazy(() => import('./MobileCategoryDrawer'));
 
 export const Component = () => {
@@ -32,7 +34,7 @@ export const Component = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const pageParams = searchParams.get('page');
     const initialPage = getPageNumber(pageParams);
-    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? "5", 10);
+    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? '5', 10);
     const PAGE_OFFSET = (initialPage - 1) * PAGE_LIMIT;
 
     //
@@ -40,7 +42,7 @@ export const Component = () => {
     const [categoryFilter, setCategoryFilter] = useState<string>('all');
     const [categoriesDrawer, setCategoriesDrawer] = useState<boolean>(false);
     const toggleCategoriesDrawer = () => setCategoriesDrawer(!categoriesDrawer);
-    const selectCategoriesMobile = (name:string) => {
+    const selectCategoriesMobile = (name: string) => {
         setCategoryFilter(name);
         toggleCategoriesDrawer();
     };
@@ -49,9 +51,9 @@ export const Component = () => {
     const { loading, error, data, fetchMore } = useQuery(GET_TOPICS, {
         variables: {
             limit: PAGE_LIMIT,
-            offset: PAGE_OFFSET
+            offset: PAGE_OFFSET,
         },
-        pollInterval: 500
+        pollInterval: 500,
     });
     const categoriesQuery = useQuery(GET_CATEGORIES);
     const loginQuery = useQuery(GET_IS_LOGGED_IN);
@@ -60,12 +62,13 @@ export const Component = () => {
 
     if (error) return <p>Error</p>;
 
-    if (loading || categoriesQuery.loading || pinnedTopicsQuery.loading) return <Loading />;
+    if (loading || categoriesQuery.loading || pinnedTopicsQuery.loading)
+        return <Loading />;
 
     const defaultCategory = {
         id: -1,
         name: 'Uncategorized',
-        description: t('defaultCategory')
+        description: t('defaultCategory'),
     };
 
     const { topics, topicsCount } = data.topics;
@@ -87,7 +90,7 @@ export const Component = () => {
     const numberOfPages = Math.ceil(topicsCount / PAGE_LIMIT);
 
     // Page changed
-    const onChangePage = (page:number) => {
+    const onChangePage = (page: number) => {
         const _offset = (currentPage - 1) * PAGE_LIMIT;
         const _limit = (currentPage - 1) * PAGE_LIMIT + PAGE_LIMIT;
         setCurrentPage(page);
@@ -95,8 +98,8 @@ export const Component = () => {
         fetchMore({
             variables: {
                 offset: _offset,
-                limit: _limit
-            }
+                limit: _limit,
+            },
         });
 
         // Scroll to the top of the page.
@@ -110,11 +113,15 @@ export const Component = () => {
             </Helmet>
 
             <h1 className="topics-title-title">{config.name}</h1>
-            
+
             <Card
                 className={`topics-list-container${isMobile ? '-mobile' : ''}`}
                 bordered={false}
-                title={isMobile ? null : <p className="topics-header-title">{t('topics')}</p>}
+                title={
+                    isMobile ? null : (
+                        <p className="topics-header-title">{t('topics')}</p>
+                    )
+                }
                 style={{ marginTop: 24 }}
                 bodyStyle={{ padding: '0 32px 40px 32px' }}
                 extra={
@@ -134,7 +141,7 @@ export const Component = () => {
             >
                 <Suspense fallback={<Spin />}>
                     <TopicList
-                        userType={userType ?? ""}
+                        userType={userType ?? ''}
                         pinnedTopics={pinnedTopics}
                         topics={filteredTopics}
                         isMobile={isMobile}

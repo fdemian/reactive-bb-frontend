@@ -5,13 +5,16 @@ import './Register.css';
 
 const { Paragraph, Text, Link } = Typography;
 
-export const Component = ():React.ReactElement => {
+export const Component = (): React.ReactElement => {
     const { t } = useTranslation('register', { keyPrefix: 'register' });
     let { mail } = useParams();
     return (
         <Result status="info" title={t('activationInfoTitle')}>
             <Paragraph>
-                <Text style={{ fontSize: 16 }}>{t('activationInfoSubMail')}</Text> &nbsp;
+                <Text style={{ fontSize: 16 }}>
+                    {t('activationInfoSubMail')}
+                </Text>{' '}
+                &nbsp;
                 <Link href={`mailto:${mail}`} style={{ fontSize: 16 }}>
                     {mail}
                 </Link>

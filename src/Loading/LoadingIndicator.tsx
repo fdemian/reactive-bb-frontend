@@ -4,7 +4,11 @@ const Loading = (): React.ReactElement => {
     return (
         <div className="loading-indicator">
             <Spin tip="Loading...">
-                <Alert message="Loading" description="Please wait." type="info" />
+                <Alert
+                    message="Loading"
+                    description="Please wait."
+                    type="info"
+                />
             </Spin>
         </div>
     );

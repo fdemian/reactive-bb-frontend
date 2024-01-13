@@ -11,8 +11,8 @@ export const Component = () => {
     useEffect(() => {
         validateUser({
             variables: {
-                token: token
-            }
+                token: token,
+            },
         });
     }, [validateUser, token]);
 
@@ -21,6 +21,11 @@ export const Component = () => {
     if (!data.validateUser.ok) {
         return <p>Error</p>;
     } else {
-        return <Navigate to={`/registersuccess/${data.validateUser.id}`} replace={true} />;
+        return (
+            <Navigate
+                to={`/registersuccess/${data.validateUser.id}`}
+                replace={true}
+            />
+        );
     }
 };

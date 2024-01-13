@@ -10,15 +10,14 @@ import { getDefaultPageItems } from '../App/utils';
 import { useNavigate } from 'react-router-dom';
 import './Notifications.css';
 
-const getTranslationKey = (key:string):string => {
-    if(key === 'mention')
-        return "mentionUser";
+const getTranslationKey = (key: string): string => {
+    if (key === 'mention') return 'mentionUser';
     return 'likedPost';
-}
+};
 
-type UserType ={
-  avatar: string;
-  username: string;
+type UserType = {
+    avatar: string;
+    username: string;
 };
 
 type NotificationType = {
@@ -42,18 +41,18 @@ export const Component = () => {
                 fields: {
                     notifications() {
                         return markAsRead;
-                    }
-                }
+                    },
+                },
             });
-        }
+        },
     });
 
     const { data, loading, error } = useQuery(GET_ALL_NOTIFICATIONS, {
         variables: {
             user: id,
-            limit: parseInt(limit ?? "5", 10),
-            offset: 0
-        }
+            limit: parseInt(limit ?? '5', 10),
+            offset: 0,
+        },
     });
 
     if (error) return <p>Error</p>;
@@ -65,18 +64,18 @@ export const Component = () => {
     return (
         <>
             <Helmet>
-                <title>{t("notifications")}</title>
+                <title>{t('notifications')}</title>
             </Helmet>
             <List
                 bordered
-                header={<h1>{t("notifications")}</h1>}
+                header={<h1>{t('notifications')}</h1>}
                 dataSource={allNotifications}
-                renderItem={(notification:NotificationType) => (
+                renderItem={(notification: NotificationType) => (
                     <List.Item
                         actions={[
                             <Typography.Text key="read-indicator" mark>
                                 {notification.read ? 'READ' : 'UNREAD'}
-                            </Typography.Text>
+                            </Typography.Text>,
                         ]}
                     >
                         <div
@@ -85,16 +84,23 @@ export const Component = () => {
                                 // Mark as read.
                                 markAsRead({
                                     variables: {
-                                        notifications: [notification.id]
+                                        notifications: [notification.id],
                                     },
                                     optimisticResponse: {
-                                        markAsRead: allNotifications.filter((n:NotificationType) => n.id !== notification.id)
-                                    }
+                                        markAsRead: allNotifications.filter(
+                                            (n: NotificationType) =>
+                                                n.id !== notification.id
+                                        ),
+                                    },
                                 });
                                 navigate(notification.link);
                             }}
                         >
-                            <Badge status={notification.read ? 'default' : 'processing'} />
+                            <Badge
+                                status={
+                                    notification.read ? 'default' : 'processing'
+                                }
+                            />
                             &nbsp;
                             <UserAvatar
                                 avatar={notification.user.avatar}

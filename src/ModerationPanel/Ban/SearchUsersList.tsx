@@ -4,9 +4,13 @@ import { getLockoutTimeStr } from './utils';
 import { SearchUserListProps } from '../moderationPanelTypes';
 import { UserType } from '../../User/userTypes';
 
-const SearchUsersList = ({ users, setScreenType, setUserToBan, t }:SearchUserListProps) => {
-    
-    const changeToBanScreen = (user:UserType) => {
+const SearchUsersList = ({
+    users,
+    setScreenType,
+    setUserToBan,
+    t,
+}: SearchUserListProps) => {
+    const changeToBanScreen = (user: UserType) => {
         setScreenType(user.banned ? 'removeban' : 'ban');
         setUserToBan(user);
     };
@@ -18,14 +22,14 @@ const SearchUsersList = ({ users, setScreenType, setUserToBan, t }:SearchUserLis
             renderItem={(user) => (
                 <List.Item
                     actions={[
-                     <Button
-                        danger
-                        type="primary"
-                        key="ban-user-btn"
-                        onClick={() => changeToBanScreen(user)}
-                     >
-                       {user.banned ? t('reviewBan') : t('banUser')}
-                     </Button>
+                        <Button
+                            danger
+                            type="primary"
+                            key="ban-user-btn"
+                            onClick={() => changeToBanScreen(user)}
+                        >
+                            {user.banned ? t('reviewBan') : t('banUser')}
+                        </Button>,
                     ]}
                 >
                     <List.Item.Meta
@@ -39,7 +43,9 @@ const SearchUsersList = ({ users, setScreenType, setUserToBan, t }:SearchUserLis
                         }
                         title={<strong>{user.username}</strong>}
                         description={
-                            user.banned ? getLockoutTimeStr(user.banExpires, t) : t('notBanned')
+                            user.banned
+                                ? getLockoutTimeStr(user.banExpires, t)
+                                : t('notBanned')
                         }
                     />
                 </List.Item>

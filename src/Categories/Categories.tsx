@@ -11,7 +11,7 @@ import './Categories.css';
 const defaultCategory = {
     id: -1,
     name: 'Uncategorized',
-    description: 'Default category.'
+    description: 'Default category.',
 };
 
 const NewCategoryForm = lazy(() => import('./NewCategoryForm'));
@@ -42,15 +42,34 @@ export const Component = () => {
                     renderItem={(item) => (
                         <List.Item>
                             <List.Item.Meta
-                                avatar={<Avatar size={{ xs: 64, sm: 64, md: 64, lg: 64, xl: 64, xxl: 80 }}>{item.name[0]}</Avatar>}
-                                title={
-                                 <span className="categories-name">
-                                    <Link to={`/categories/${item.id}/${item.name.toLowerCase()}`}>
-                                        {item.name}
-                                    </Link>
-                                 </span>   
+                                avatar={
+                                    <Avatar
+                                        size={{
+                                            xs: 64,
+                                            sm: 64,
+                                            md: 64,
+                                            lg: 64,
+                                            xl: 64,
+                                            xxl: 80,
+                                        }}
+                                    >
+                                        {item.name[0]}
+                                    </Avatar>
                                 }
-                                description={<span className="categories-description">{item.description}</span>}
+                                title={
+                                    <span className="categories-name">
+                                        <Link
+                                            to={`/categories/${item.id}/${item.name.toLowerCase()}`}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    </span>
+                                }
+                                description={
+                                    <span className="categories-description">
+                                        {item.description}
+                                    </span>
+                                }
                             />
                         </List.Item>
                     )}

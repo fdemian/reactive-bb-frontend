@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '../TestHelpers/testing-utils';
 import userEvent from '@testing-library/user-event';
-import {loggedInMocks, mockPosts, mockTopic} from './testData';
+import { loggedInMocks, mockPosts, mockTopic } from './testData';
 import { expect, test, vi } from 'vitest';
 
 vi.mock('kalliope', () => ({
@@ -19,20 +19,19 @@ vi.mock('../App/utils', () => ({
     getIsMobile: () => {},
     setDefaultPageItems: () => {},
     getDefaultLocale: () => {},
-    setDefaultLocale: () => {}
+    setDefaultLocale: () => {},
 }));
 
 vi.mock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
         getUserId: () => 1,
-        getUserType: () => 'U'
-    }
+        getUserType: () => 'U',
+    };
 });
 
 test('<Posts /> > Logged out > test render', async () => {
-
     render({
         mocks: loggedInMocks,
         initialEntries: ['/topics/1/topicname'],
@@ -58,7 +57,9 @@ test('<Posts /> > Logged out > test render', async () => {
     expect(screen.getByText('Tag2')).toBeInTheDocument();
 
     await waitFor(() => {
-        expect(screen.getByText('Post 1', { exact: false })).toBeInTheDocument();
+        expect(
+            screen.getByText('Post 1', { exact: false })
+        ).toBeInTheDocument();
     });
 
     expect(screen.getByText('Post 2', { exact: false })).toBeInTheDocument();
@@ -73,17 +74,23 @@ test('<Posts /> > Logged in > Test render.', async () => {
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
-    expect(await screen.findByRole('button', { name: 'posts.main.reply' })).toBeInTheDocument();
+    expect(
+        await screen.findByRole('button', { name: 'posts.main.reply' })
+    ).toBeInTheDocument();
 
     expect(screen.getAllByText(mockTopic.name).length).toStrictEqual(2);
     expect(screen.getByText('Tag1')).toBeInTheDocument();
     expect(screen.getByText('Tag2')).toBeInTheDocument();
     expect(screen.getByText(mockTopic.category.name)).toBeInTheDocument();
 
-    const postQuoteBtn =  await screen.findAllByRole("button", { name: "posts.footer.quote"});
+    const postQuoteBtn = await screen.findAllByRole('button', {
+        name: 'posts.footer.quote',
+    });
     expect(postQuoteBtn.length).toStrictEqual(mockPosts.posts.length);
 
-    expect(await screen.findByText('Post 1', { exact: false })).toBeInTheDocument();
+    expect(
+        await screen.findByText('Post 1', { exact: false })
+    ).toBeInTheDocument();
     expect(screen.getByText('Post 2', { exact: false })).toBeInTheDocument();
     expect(screen.getAllByTestId('bookmark-icon').length).toStrictEqual(2);
     expect(screen.getAllByTestId('like-badge').length).toStrictEqual(2);
@@ -106,7 +113,9 @@ test('<Posts /> > Logged in > Test interaction.', async () => {
     expect(screen.getAllByTestId('like-badge').length).toStrictEqual(2);
 
     await user.hover(screen.getAllByTestId('like-icon')[0]);
-    expect(await screen.findByText('posts.footer.likePost')).toBeInTheDocument();
+    expect(
+        await screen.findByText('posts.footer.likePost')
+    ).toBeInTheDocument();
 
     expect(screen.queryByText(`1 posts.footer.likes`)).not.toBeInTheDocument();
 
@@ -117,7 +126,9 @@ test('<Posts /> > Logged in > Test interaction.', async () => {
     expect(screen.queryByText(`1 posts.footer.likes`)).not.toBeInTheDocument();
 
     await user.hover(screen.getAllByTestId('bookmark-icon')[0]);
-    expect(await screen.findByText('posts.footer.bookmarkPost')).toBeInTheDocument();
+    expect(
+        await screen.findByText('posts.footer.bookmarkPost')
+    ).toBeInTheDocument();
     await user.click(screen.getAllByTestId('bookmark-icon')[0]);
 
     expect(screen.getByTestId('bookmarked-post-icon')).toBeInTheDocument();

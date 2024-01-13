@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '../TestHelpers/testing-utils';
-import { GET_TOPICS, GET_PINNED_TOPICS} from './Queries';
+import { GET_TOPICS, GET_PINNED_TOPICS } from './Queries';
 import { GET_CATEGORIES } from '../Categories/Queries';
 import { vi, test, expect } from 'vitest';
 
@@ -13,7 +13,7 @@ vi.mock('../App/utils', () => ({
     getIsMobile: () => {},
     setDefaultPageItems: () => {},
     getDefaultLocale: () => {},
-    setDefaultLocale: () => {}
+    setDefaultLocale: () => {},
 }));
 
 const i18n = (x) => 'topics.' + x;
@@ -32,12 +32,11 @@ const mockTopics = {
             replies: 502,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
-            views: 253
+            views: 253,
         },
         {
             __typename: 'Topic',
@@ -52,11 +51,10 @@ const mockTopics = {
             user: {
                 __typename: 'User',
                 id: 1,
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
-                username: 'rulo'
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                username: 'rulo',
             },
-            views: 17
+            views: 17,
         },
         {
             __typename: 'Topic',
@@ -70,12 +68,11 @@ const mockTopics = {
             replies: 4,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
-            views: 12
+            views: 12,
         },
         {
             __typename: 'Topic',
@@ -89,12 +86,11 @@ const mockTopics = {
             replies: 1,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
-            views: 3
+            views: 3,
         },
         {
             __typename: 'Topic',
@@ -108,14 +104,13 @@ const mockTopics = {
             replies: 1,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
-            views: 4
-        }
-    ]
+            views: 4,
+        },
+    ],
 };
 
 const mockCategories = [];
@@ -127,8 +122,8 @@ test('<TopicsList /> > Logged out > No topics > Renders no topics page', async (
                 query: GET_TOPICS,
                 variables: {
                     limit: 5,
-                    offset: 0
-                }
+                    offset: 0,
+                },
             },
             result: {
                 loading: false,
@@ -136,50 +131,48 @@ test('<TopicsList /> > Logged out > No topics > Renders no topics page', async (
                 data: {
                     topics: {
                         topics: [],
-                        topicsCount: 0
-                    }
-                }
-            }
+                        topicsCount: 0,
+                    },
+                },
+            },
         },
         {
             request: {
                 query: GET_PINNED_TOPICS,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    pinnedTopics: []
-                }
-            }
+                    pinnedTopics: [],
+                },
+            },
         },
         {
             request: {
                 query: GET_CATEGORIES,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    categories: []
-                }
-            }
-        }
+                    categories: [],
+                },
+            },
+        },
     ];
 
     render({
         mocks: mocks,
         isLoggedIn: false,
-        isMobile:false,
-        initialEntries: ['/']
+        isMobile: false,
+        initialEntries: ['/'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
-    expect(
-        await screen.findByText(i18n('noTopics'))
-    ).toBeInTheDocument();
+    expect(await screen.findByText(i18n('noTopics'))).toBeInTheDocument();
 });
 
 test('<TopicsList /> > Logged out > Topics present.', async () => {
@@ -189,66 +182,66 @@ test('<TopicsList /> > Logged out > Topics present.', async () => {
                 query: GET_TOPICS,
                 variables: {
                     limit: 5,
-                    offset: 0
-                }
+                    offset: 0,
+                },
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    topics: mockTopics
-                }
-            }
+                    topics: mockTopics,
+                },
+            },
         },
         {
             request: {
                 query: GET_TOPICS,
                 variables: {
                     limit: 5,
-                    offset: 0
-                }
+                    offset: 0,
+                },
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    topics: mockTopics
-                }
-            }
+                    topics: mockTopics,
+                },
+            },
         },
         {
             request: {
                 query: GET_PINNED_TOPICS,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    pinnedTopics: []
-                }
-            }
+                    pinnedTopics: [],
+                },
+            },
         },
         {
             request: {
                 query: GET_CATEGORIES,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    categories: mockCategories
-                }
-            }
-        }
+                    categories: mockCategories,
+                },
+            },
+        },
     ];
 
     render({
         mocks: mocks,
         isLoggedIn: false,
-        isMobile:false,
-        initialEntries: ['/']
+        isMobile: false,
+        initialEntries: ['/'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
@@ -272,7 +265,7 @@ test('<TopicsList /> > Logged out > Topics present.', async () => {
     //   expect(link).toHaveAttribute('href', `/topics/item.id/format_title_string(item.name)`);
     //   //expect(link).toHaveAttribute('href', `/topics/${item.id}/${format_title_string(item.name)}`);
     // }
-})
+});
 
 test('<TopicsList /> > Logged in > Topics present.', async () => {
     const mocks = [
@@ -281,50 +274,50 @@ test('<TopicsList /> > Logged in > Topics present.', async () => {
                 query: GET_TOPICS,
                 variables: {
                     limit: 5,
-                    offset: 0
-                }
+                    offset: 0,
+                },
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    topics: mockTopics
-                }
-            }
+                    topics: mockTopics,
+                },
+            },
         },
         {
             request: {
                 query: GET_PINNED_TOPICS,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    pinnedTopics: []
-                }
-            }
+                    pinnedTopics: [],
+                },
+            },
         },
         {
             request: {
                 query: GET_CATEGORIES,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    categories: mockCategories
-                }
-            }
-        }
+                    categories: mockCategories,
+                },
+            },
+        },
     ];
 
     render({
         mocks: mocks,
         isLoggedIn: true,
-        isMobile:false,
-        initialEntries: ['/']
+        isMobile: false,
+        initialEntries: ['/'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
@@ -334,7 +327,7 @@ test('<TopicsList /> > Logged in > Topics present.', async () => {
         expect(screen.getByText('+ ' + i18n('newTopic'))).toBeInTheDocument();
     });
 
-    expect(screen.getByText((i18n('topics')))).toBeInTheDocument();
+    expect(screen.getByText(i18n('topics'))).toBeInTheDocument();
     expect(screen.getByRole('combobox')).toBeInTheDocument();
 
     expect(screen.getAllByText(i18n('author')).length).toStrictEqual(5);

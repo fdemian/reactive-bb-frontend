@@ -1,5 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faPlus, faClose, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+    faEdit,
+    faPlus,
+    faClose,
+    faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import './Composer.css';
@@ -9,10 +14,10 @@ type ConfirmButtonProps = {
     editing: boolean;
     postStoryContent: () => void;
     postAsDraftFn: () => void;
-    t:(key:string) => string;
+    t: (key: string) => string;
 };
 
-const ConfirmButtons = (props:ConfirmButtonProps) => {
+const ConfirmButtons = (props: ConfirmButtonProps) => {
     const {
         isDraft,
         editing,

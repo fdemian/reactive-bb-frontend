@@ -9,10 +9,10 @@ const translationKeys = {
 
 type MarkReadParams = {
     variables: {
-        notifications: number[],
+        notifications: number[];
     };
     optimisticResponse: {
-        markAsRead: NotificationType[],
+        markAsRead: NotificationType[];
     };
 };
 
@@ -20,10 +20,15 @@ type NotificationProps = {
     notification: NotificationType;
     notifications: NotificationType[];
     markAsRead: (p: MarkReadParams) => void;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
-const Notification = ({ t, notification, markAsRead, notifications }: NotificationProps) => {
+const Notification = ({
+    t,
+    notification,
+    markAsRead,
+    notifications,
+}: NotificationProps) => {
     const navigate = useNavigate();
     return (
         <div
@@ -34,7 +39,9 @@ const Notification = ({ t, notification, markAsRead, notifications }: Notificati
                         notifications: [notification.id],
                     },
                     optimisticResponse: {
-                        markAsRead: notifications.filter((n) => n.id !== notification.id),
+                        markAsRead: notifications.filter(
+                            (n) => n.id !== notification.id
+                        ),
                     },
                 });
                 navigate(notification.link);

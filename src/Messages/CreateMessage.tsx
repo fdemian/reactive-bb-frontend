@@ -11,32 +11,37 @@ import { UserType } from '../User/userTypes';
 const { getMentions } = Mentions;
 
 type CreateMessageProps = {
-    sendMessage: (user:number, p:boolean) => void;
+    sendMessage: (user: number, p: boolean) => void;
     containerRef: any;
-    t:(key:string) => string;
+    t: (key: string) => string;
 };
 
 type UserMessageType = {
-    id:number;
+    id: number;
     name: string;
-}
+};
 
-const CreateMessage = ({ sendMessage, containerRef, t }:CreateMessageProps) => {
+const CreateMessage = ({
+    sendMessage,
+    containerRef,
+    t,
+}: CreateMessageProps) => {
     const [updatedList, setUpdatedList] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<number | null>(null);
     const [users, setUsers] = useState([]);
     const ref = useRef();
     const isMobile = getIsMobile();
 
-    const mentionSelectChange = ({ value }:{ value: string; }) => {
-        const user:UserMessageType = users.filter((u:UserMessageType) => u.name === value)[0];
-        if(!user)
-            return;
+    const mentionSelectChange = ({ value }: { value: string }) => {
+        const user: UserMessageType = users.filter(
+            (u: UserMessageType) => u.name === value
+        )[0];
+        if (!user) return;
         const userIdCurrent = user.id;
         setSelectedUser(userIdCurrent);
     };
 
-    const checkMention = async (_:any, value:string) => {
+    const checkMention = async (_: any, value: string) => {
         const mentions = getMentions(value);
 
         if (mentions.length > 1) {
@@ -45,25 +50,25 @@ const CreateMessage = ({ sendMessage, containerRef, t }:CreateMessageProps) => {
     };
 
     const onFinish = () => {
-        if(!selectedUser)
-            return;
+        if (!selectedUser) return;
         sendMessage(selectedUser, true);
     };
 
-    const onFinishFailed = (errorInfo:any) => {
+    const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
 
-    const [getMentionCandidates, { data, loading }] = useLazyQuery(GET_MENTION_USERS);
+    const [getMentionCandidates, { data, loading }] =
+        useLazyQuery(GET_MENTION_USERS);
 
-    const onSearch = (value:any) => {
+    const onSearch = (value: any) => {
         ref.current = value;
         setUsers([]);
 
         getMentionCandidates({
             variables: {
-                search: value
-            }
+                search: value,
+            },
         });
         setUpdatedList(true);
     };
@@ -71,11 +76,11 @@ const CreateMessage = ({ sendMessage, containerRef, t }:CreateMessageProps) => {
     if (data && !loading && updatedList) {
         const { mentionCandidates } = data;
         if (mentionCandidates !== null) {
-            const _suggestions = mentionCandidates.map((u:UserType) => ({
+            const _suggestions = mentionCandidates.map((u: UserType) => ({
                 id: u.id,
                 name: u.username,
                 link: `/users/${u.id}/${u.username}`,
-                avatar: u.avatar
+                avatar: u.avatar,
             }));
             setUsers(_suggestions);
         }
@@ -88,10 +93,15 @@ const CreateMessage = ({ sendMessage, containerRef, t }:CreateMessageProps) => {
             key: name,
             label: (
                 <>
-                    <UserAvatar avatar={avatar} username={name} size={30} shape="circle" />
+                    <UserAvatar
+                        avatar={avatar}
+                        username={name}
+                        size={30}
+                        shape="circle"
+                    />
                     &nbsp; <span>{name}</span>
                 </>
-            )
+            ),
         };
     });
 
@@ -111,17 +121,17 @@ const CreateMessage = ({ sendMessage, containerRef, t }:CreateMessageProps) => {
                 rules={[
                     {
                         required: true,
-                        message: t('userNameInputError')
+                        message: t('userNameInputError'),
                     },
                     {
-                        validator: checkMention
-                    }
+                        validator: checkMention,
+                    },
                 ]}
             >
                 <Mentions
                     data-testid="mention-user-select"
                     rows={1}
-                    onSelect={(val:any) => mentionSelectChange(val)}
+                    onSelect={(val: any) => mentionSelectChange(val)}
                     placeholder={t('userMentionPlaceholder')}
                     style={{ width: '400px' }}
                     loading={loading}

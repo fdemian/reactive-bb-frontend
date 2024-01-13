@@ -4,19 +4,23 @@ import { useTranslation } from 'react-i18next';
 const { TextArea } = Input;
 
 type FlagPostProps = {
-    flagReasonValue:number;
-    setFlagReasonValue:(p:number)=> void; 
-    setFlagTextValue:(p:any)=> void;
+    flagReasonValue: number;
+    setFlagReasonValue: (p: number) => void;
+    setFlagTextValue: (p: any) => void;
 };
 
-const FlagPostModal = ({ flagReasonValue, setFlagReasonValue, setFlagTextValue }:FlagPostProps) => {
+const FlagPostModal = ({
+    flagReasonValue,
+    setFlagReasonValue,
+    setFlagTextValue,
+}: FlagPostProps) => {
     const { t } = useTranslation('modcp', { keyPrefix: 'modcp' });
 
-    const onChange = (e:any) => {
+    const onChange = (e: any) => {
         setFlagReasonValue(e.target.value);
     };
 
-    const onReasonTextChange = (e:any) => {
+    const onReasonTextChange = (e: any) => {
         const val = e.target.value;
         if (val.trim() === '') return;
         setFlagTextValue(e.target.value);
@@ -36,7 +40,9 @@ const FlagPostModal = ({ flagReasonValue, setFlagReasonValue, setFlagTextValue }
                 </Radio.Group>
             </div>
             <br />
-            {flagReasonValue === 4 ? <TextArea rows={4} onChange={onReasonTextChange} /> : null}
+            {flagReasonValue === 4 ? (
+                <TextArea rows={4} onChange={onReasonTextChange} />
+            ) : null}
         </>
     );
 };

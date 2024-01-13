@@ -11,12 +11,12 @@ type AvatarViewProps = {
     id: number;
     avatar: string;
     username: string;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
 const uploadURL = '';
 
-const AvatarView = ({ avatar, username, id, t }:AvatarViewProps) => {
+const AvatarView = ({ avatar, username, id, t }: AvatarViewProps) => {
     const [uploadAvatar] = useMutation(UPLOAD_AVATAR, {
         refetchQueries: [GET_PROFILE, 'GetUser'],
     });
@@ -25,7 +25,7 @@ const AvatarView = ({ avatar, username, id, t }:AvatarViewProps) => {
         refetchQueries: [GET_PROFILE, 'GetUser'],
     });
 
-    const uploadImage = async (options:any) => {
+    const uploadImage = async (options: any) => {
         const { file } = options;
         const fmData = new FormData();
         fmData.append('image', file);
@@ -60,7 +60,12 @@ const AvatarView = ({ avatar, username, id, t }:AvatarViewProps) => {
                 Remove avatar
             </Button>
             <div className="avatar">
-                <AccountAvatar avatar={avatar} username={username} size={160} shape="square" />
+                <AccountAvatar
+                    avatar={avatar}
+                    username={username}
+                    size={160}
+                    shape="square"
+                />
             </div>
 
             <Upload

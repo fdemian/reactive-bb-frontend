@@ -1,4 +1,4 @@
-/* eslint react-refresh/only-export-components: 0 */  //
+/* eslint react-refresh/only-export-components: 0 */ //
 import PropTypes from 'prop-types';
 import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
@@ -17,7 +17,7 @@ const _user = {
     avatar: 'avatar.png',
     banned: false,
     banReason: null,
-    type: 'U'
+    type: 'U',
 };
 
 // Config settings.
@@ -26,19 +26,19 @@ const configSettingsMock = [
         request: {
             query: GET_USER,
             variables: {
-                id: 1
-            }
+                id: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
-            data: { getUser: _user }
-        }
+            data: { getUser: _user },
+        },
     },
     {
         request: {
             query: GET_CONFIG,
-            variables: {}
+            variables: {},
         },
         result: {
             loading: false,
@@ -49,15 +49,17 @@ const configSettingsMock = [
                         name: 'Morpheus',
                         description: 'This is a forum',
                         items_per_page: '5',
-                        logoURL: "", 
-                        faviconURL: "",
-                        faviconType: ""
+                        logoURL: '',
+                        faviconURL: '',
+                        faviconType: '',
                     },
-                    oauth: JSON.parse('{"services":[{"name":"google","scope":"email profile","clientId":"<CLIENT_ID>","link":"https://accounts.google.com/o/oauth2/v2/auth","extraParams":"&prompt=consent&access_type=offline"},{"name":"github","scope":"user:email","clientId":"<CLIENT_ID>","link":"https://github.com/login/oauth/authorize","extraParams":""}],"redirectURI":"www.redirect.com"}')
-                }
-            }
-        }
-    }
+                    oauth: JSON.parse(
+                        '{"services":[{"name":"google","scope":"email profile","clientId":"<CLIENT_ID>","link":"https://accounts.google.com/o/oauth2/v2/auth","extraParams":"&prompt=consent&access_type=offline"},{"name":"github","scope":"user:email","clientId":"<CLIENT_ID>","link":"https://github.com/login/oauth/authorize","extraParams":""}],"redirectURI":"www.redirect.com"}'
+                    ),
+                },
+            },
+        },
+    },
 ];
 
 const TestingWrapper = (props) => {
@@ -67,16 +69,20 @@ const TestingWrapper = (props) => {
         Query: {
             loggedIn() {
                 return isLoggedIn ? true : false;
-            }
-        }
+            },
+        },
     };
 
-    const configMock = configMockOverride ? configMockOverride : configSettingsMock;
+    const configMock = configMockOverride
+        ? configMockOverride
+        : configSettingsMock;
     const _mocks = mocks ? mocks.concat(configMock) : configMock;
 
     return (
         <I18nextProvider i18n={i18n}>
-            <ResponsiveContext.Provider value={{ width: isMobile ? 300 : 1900 }}>
+            <ResponsiveContext.Provider
+                value={{ width: isMobile ? 300 : 1900 }}
+            >
                 <MockedProvider
                     mocks={_mocks}
                     cache={cache}
@@ -94,25 +100,25 @@ TestingWrapper.propTypes = {
     isMobile: PropTypes.bool,
     children: PropTypes.any,
     mocks: PropTypes.arrayOf({
-      request: PropTypes.shape({
-          query: PropTypes.any,
-          variables: PropTypes.any
-      }),
-      result: PropTypes.shape({
-          loading: PropTypes.bool,
-          error: PropTypes.bool,
-          data: PropTypes.any
-      })
+        request: PropTypes.shape({
+            query: PropTypes.any,
+            variables: PropTypes.any,
+        }),
+        result: PropTypes.shape({
+            loading: PropTypes.bool,
+            error: PropTypes.bool,
+            data: PropTypes.any,
+        }),
     }),
     isLoggedIn: PropTypes.bool,
-    configMockOverride: PropTypes.shape({
-    })
+    configMockOverride: PropTypes.shape({}),
 };
-
 
 const customRender = (ui, options) => {
     return render(ui, {
-        wrapper: (props) => <TestingWrapper {...options} >{props.children}</TestingWrapper>
+        wrapper: (props) => (
+            <TestingWrapper {...options}>{props.children}</TestingWrapper>
+        ),
     });
 };
 

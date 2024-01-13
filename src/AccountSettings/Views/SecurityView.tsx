@@ -9,7 +9,9 @@ import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 
 const SecurityView = () => {
-    const { t } = useTranslation('accountSettings', { keyPrefix: 'settings.security' });
+    const { t } = useTranslation('accountSettings', {
+        keyPrefix: 'settings.security',
+    });
 
     const userId = getUserId();
     const queryOpts = { variables: { id: userId }, skip: !userId };
@@ -73,33 +75,44 @@ const SecurityView = () => {
     ];
 
     return (
-    <>
-        <List
-            itemLayout="horizontal"
-            dataSource={getData()}
-            renderItem={(item) => (
-                <List.Item actions={item.actions}>
-                    <List.Item.Meta title={item.title} description={item.description} />
-                </List.Item>
-            )}
-        />
-        <Modal
-            width={650}
-            title={t('passwordModalTitle')}
-            footer={<Button onClick={closePasswordModal}>{t('dialogClose')}</Button>}
-            open={showPasswordModal}
-        >
-            <ModifyPasswordModal t={t} />
-        </Modal>
-        <Modal
-            width={650}
-            title={t('emailModalTitle')}
-            footer={<Button onClick={closeEmailModal}>{t('dialogClose')}</Button>}
-            open={showEmailModal}
-        >
-            <ModifyEmailModal user={data.getUser} t={t} />
-        </Modal>
-    </>
+        <>
+            <List
+                itemLayout="horizontal"
+                dataSource={getData()}
+                renderItem={(item) => (
+                    <List.Item actions={item.actions}>
+                        <List.Item.Meta
+                            title={item.title}
+                            description={item.description}
+                        />
+                    </List.Item>
+                )}
+            />
+            <Modal
+                width={650}
+                title={t('passwordModalTitle')}
+                footer={
+                    <Button onClick={closePasswordModal}>
+                        {t('dialogClose')}
+                    </Button>
+                }
+                open={showPasswordModal}
+            >
+                <ModifyPasswordModal t={t} />
+            </Modal>
+            <Modal
+                width={650}
+                title={t('emailModalTitle')}
+                footer={
+                    <Button onClick={closeEmailModal}>
+                        {t('dialogClose')}
+                    </Button>
+                }
+                open={showEmailModal}
+            >
+                <ModifyEmailModal user={data.getUser} t={t} />
+            </Modal>
+        </>
     );
 };
 

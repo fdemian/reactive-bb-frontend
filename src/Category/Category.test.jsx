@@ -18,16 +18,15 @@ const mockCategory = {
             closed: false,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
             category: {
                 id: 0,
-                name: 'Uncategorized'
+                name: 'Uncategorized',
             },
-            views: 12
+            views: 12,
         },
         {
             __typename: 'Topic',
@@ -39,16 +38,15 @@ const mockCategory = {
             replies: 1,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
             category: {
                 id: 0,
-                name: 'Uncategorized'
+                name: 'Uncategorized',
             },
-            views: 3
+            views: 3,
         },
         {
             __typename: 'Topic',
@@ -60,16 +58,15 @@ const mockCategory = {
             replies: 1,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
             category: {
                 id: 0,
-                name: 'Uncategorized'
+                name: 'Uncategorized',
             },
-            views: 4
+            views: 4,
         },
         {
             __typename: 'Topic',
@@ -81,16 +78,15 @@ const mockCategory = {
             created: '2020-01-01',
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
             category: {
                 id: 0,
-                name: 'Uncategorized'
+                name: 'Uncategorized',
             },
-            views: 2
+            views: 2,
         },
         {
             __typename: 'Topic',
@@ -102,18 +98,17 @@ const mockCategory = {
             replies: 1,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
             category: {
                 id: 0,
-                name: 'Uncategorized'
+                name: 'Uncategorized',
             },
-            views: 2
-        }
-    ]
+            views: 2,
+        },
+    ],
 };
 
 test('<TopicsList /> > Renders category.', async () => {
@@ -122,23 +117,23 @@ test('<TopicsList /> > Renders category.', async () => {
             request: {
                 query: GET_CATEGORY,
                 variables: {
-                    id: 1
-                }
+                    id: 1,
+                },
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
-                    category: mockCategory
-                }
-            }
-        }
+                    category: mockCategory,
+                },
+            },
+        },
     ];
 
     render({
         isLoggedIn: true,
         mocks: mocks,
-        initialEntries: ['/categories/1/:name']
+        initialEntries: ['/categories/1/:name'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();

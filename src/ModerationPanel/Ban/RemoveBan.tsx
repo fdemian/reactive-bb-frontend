@@ -8,14 +8,13 @@ import BanExpirationClock from './BanExpirationClock';
 import { BanUserTypes } from '../moderationPanelTypes';
 import './Ban.css';
 
-const RemoveBanScreen = ({ user, goBack, t }:BanUserTypes) => {
+const RemoveBanScreen = ({ user, goBack, t }: BanUserTypes) => {
     const [removeBanMutation, { data, loading }] = useMutation(REMOVE_BAN, {
         refetchQueries: [{ query: GET_MENTION_USERS }, 'GET_MENTION_USERS'],
     });
 
     const removeBan = () => {
-        if(!user)
-           return;
+        if (!user) return;
 
         const _id = parseInt(user.id.toString(), 10);
         removeBanMutation({
@@ -26,7 +25,7 @@ const RemoveBanScreen = ({ user, goBack, t }:BanUserTypes) => {
     };
 
     if (loading || !user) return <Spin />;
-    
+
     if (!loading && data && data.removeUserBan === true)
         return (
             <Result
@@ -69,7 +68,12 @@ const RemoveBanScreen = ({ user, goBack, t }:BanUserTypes) => {
             <Button onClick={goBack} type="primary" key="home">
                 {t('back')}
             </Button>
-            <Button className="ban-button" danger type="primary" onClick={removeBan}>
+            <Button
+                className="ban-button"
+                danger
+                type="primary"
+                onClick={removeBan}
+            >
                 {t('liftBan')}
             </Button>
         </div>

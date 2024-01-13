@@ -5,11 +5,11 @@ import { CHECK_USERNAME } from './Queries';
 import { vi, test, expect } from 'vitest';
 
 vi.doMock('../App/utils', async () => {
-    const actual = await vi.importActual("../App/utils");
+    const actual = await vi.importActual('../App/utils');
     return {
-       ...actual,
-       getOauthConfig: () => ({ services: [] })
-    }
+        ...actual,
+        getOauthConfig: () => ({ services: [] }),
+    };
 });
 
 const mocks = [
@@ -19,8 +19,8 @@ const mocks = [
             variables: {
                 username: 'user1',
                 password: 'password123',
-                email: 'user1@mail.com'
-            }
+                email: 'user1@mail.com',
+            },
         },
         result: {
             loading: false,
@@ -30,52 +30,52 @@ const mocks = [
                     ok: true,
                     id: 1,
                     message: '',
-                    email: ''
-                }
-            }
-        }
+                    email: '',
+                },
+            },
+        },
     },
     {
         request: {
             query: CHECK_USERNAME,
             variables: {
-                username: 'user1'
-            }
+                username: 'user1',
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
                 checkUsername: {
-                    exists: false
-                }
-            }
-        }
+                    exists: false,
+                },
+            },
+        },
     },
     {
         request: {
             query: CHECK_USERNAME,
             variables: {
-                username: 'user'
-            }
+                username: 'user',
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
                 checkUsername: {
-                    exists: false
-                }
-            }
-        }
-    }
+                    exists: false,
+                },
+            },
+        },
+    },
 ];
 
 const activationMocks = [
     {
         request: {
             query: VALIDATE_USER,
-            variables: { token: 'token1' }
+            variables: { token: 'token1' },
         },
         result: {
             loading: false,
@@ -83,11 +83,11 @@ const activationMocks = [
             data: {
                 validateUser: {
                     id: 1,
-                    ok: true
-                }
-            }
-        }
-    }
+                    ok: true,
+                },
+            },
+        },
+    },
 ];
 
 vi.clearAllMocks();
@@ -95,21 +95,20 @@ vi.clearAllMocks();
 test('<Register /> > Register screen > Form interaction > Success', async () => {
     const user = userEvent.setup();
     const mockNavigateComp = vi.fn();
-    vi.doMock("react-router-dom", async () => {
-        const actual = await vi.importActual("react-router-dom")
+    vi.doMock('react-router-dom', async () => {
+        const actual = await vi.importActual('react-router-dom');
         return {
             ...actual,
             Navigate: (props) => {
                 return mockNavigateComp(props);
-            }
-        }
+            },
+        };
     });
-
 
     render({
         mocks: mocks,
         isLoggedIn: false,
-        initialEntries: ['/register']
+        initialEntries: ['/register'],
     });
 
     expect(await screen.findByRole('form')).toBeInTheDocument();
@@ -119,13 +118,19 @@ test('<Register /> > Register screen > Form interaction > Success', async () => 
             username: '',
             email: '',
             password: '',
-            passwordrepeat: ''
+            passwordrepeat: '',
         });
     });
 
     await user.type(screen.getByRole('textbox', { name: 'username' }), 'user1');
-    await user.type(screen.getByRole('textbox', { name: 'email' }), 'user1@mail.com');
-    await user.type(screen.getByRole('textbox', { name: 'password' }), 'password123');
+    await user.type(
+        screen.getByRole('textbox', { name: 'email' }),
+        'user1@mail.com'
+    );
+    await user.type(
+        screen.getByRole('textbox', { name: 'password' }),
+        'password123'
+    );
     await user.type(
         screen.getByRole('textbox', { name: 'passwordrepeat' }),
         'password123'
@@ -135,35 +140,34 @@ test('<Register /> > Register screen > Form interaction > Success', async () => 
         username: 'user1',
         email: 'user1@mail.com',
         password: 'password123',
-        passwordrepeat: 'password123'
+        passwordrepeat: 'password123',
     });
 
     await user.click(screen.getByRole('button', { name: 'register.register' }));
 
-    await waitFor(() =>{
+    await waitFor(() => {
         expect(screen.queryByRole('form')).not.toBeInTheDocument();
-    })
+    });
 
-    expect(mockNavigateComp).toHaveBeenCalledWith(({to: '/activationinfo/'}));
+    expect(mockNavigateComp).toHaveBeenCalledWith({ to: '/activationinfo/' });
 });
 
 test('<Register /> > User activation screen > ActivationSuccess', async () => {
-
     const mockNavigateComp = vi.fn();
-    vi.doMock("react-router-dom", async () => {
-        const actual = await vi.importActual("react-router-dom")
+    vi.doMock('react-router-dom', async () => {
+        const actual = await vi.importActual('react-router-dom');
         return {
             ...actual,
             Navigate: (props) => {
                 return mockNavigateComp(props);
-            }
-        }
+            },
+        };
     });
 
     render({
         isLoggedIn: false,
         mocks: activationMocks,
-        initialEntries: ['/activation/token1']
+        initialEntries: ['/activation/token1'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
@@ -171,6 +175,8 @@ test('<Register /> > User activation screen > ActivationSuccess', async () => {
     await waitFor(() => {
         expect(mockNavigateComp).toHaveBeenCalledOnce();
     });
-    expect(mockNavigateComp).toHaveBeenCalledWith({ to: `/registersuccess/1`, replace: true});
-
+    expect(mockNavigateComp).toHaveBeenCalledWith({
+        to: `/registersuccess/1`,
+        replace: true,
+    });
 });

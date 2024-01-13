@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Input, Form, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,9 +10,9 @@ import Loading from '../../Loading/LoadingIndicator';
 import PasswordStrengthBar from '../../PasswordStrength/PasswordStrengthBar';
 import { getUserId } from '../../Login/authUtils';
 
-const ModifyPasswordModal = ({ t }:{t:(key:string) => string;}) => {
+const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
     const [updatePassword, mutationData] = useMutation(UPDATE_PASSWORD);
-    const modifyPassword = (currentPass:string, newPass:string) => {
+    const modifyPassword = (currentPass: string, newPass: string) => {
         const userId = getUserId();
         updatePassword({
             variables: {
@@ -37,21 +37,21 @@ const ModifyPasswordModal = ({ t }:{t:(key:string) => string;}) => {
     }
 
     function onSubmit() {
-        if(newPass.trim() === "" || currentPass.trim() === "") {
+        if (newPass.trim() === '' || currentPass.trim() === '') {
             setErrorState(true);
             setMessage(t('passwordMissing'));
             return false;
         }
 
-        if(newPassRepeat.trim() === "") {
+        if (newPassRepeat.trim() === '') {
             setErrorState(true);
             setMessage(t('repeatPasswordMissing'));
             return false;
         }
 
-        if(newPass !== newPassRepeat) {
+        if (newPass !== newPassRepeat) {
             setErrorState(true);
-            setMessage(t("passNoMatch"));
+            setMessage(t('passNoMatch'));
             return false;
         }
 
@@ -69,7 +69,7 @@ const ModifyPasswordModal = ({ t }:{t:(key:string) => string;}) => {
         }
     }
 
-    const newPasswordInputChangeFn = (e:any) => setNewPass(e.target.value);
+    const newPasswordInputChangeFn = (e: any) => setNewPass(e.target.value);
 
     if (loading) return <Loading />;
 
@@ -101,7 +101,11 @@ const ModifyPasswordModal = ({ t }:{t:(key:string) => string;}) => {
                     onChange={(e) => setCurrentPass(e.target.value)}
                     value={currentPass}
                     prefix={
-                        <FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />
+                        <FontAwesomeIcon
+                            icon={faLock}
+                            size="lg"
+                            color="gainsboro"
+                        />
                     }
                 />
             </Form.Item>
@@ -116,7 +120,13 @@ const ModifyPasswordModal = ({ t }:{t:(key:string) => string;}) => {
                     onChange={newPasswordInputChangeFn}
                     type="password"
                     value={newPass}
-                    prefix={<FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />}
+                    prefix={
+                        <FontAwesomeIcon
+                            icon={faLock}
+                            size="lg"
+                            color="gainsboro"
+                        />
+                    }
                 />
                 <PasswordStrengthBar password={newPass} t={t} />
             </Form.Item>
@@ -132,25 +142,38 @@ const ModifyPasswordModal = ({ t }:{t:(key:string) => string;}) => {
                     type="password"
                     value={newPassRepeat}
                     prefix={
-                        <FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />
+                        <FontAwesomeIcon
+                            icon={faLock}
+                            size="lg"
+                            color="gainsboro"
+                        />
                     }
                 />
             </Form.Item>
             <div>
-                <Button type="primary" aria-label="Password change submit" onClick={onSubmit}>
+                <Button
+                    type="primary"
+                    aria-label="Password change submit"
+                    onClick={onSubmit}
+                >
                     {t('passwordModalTitle')}
                 </Button>
             </div>
 
             <div style={{ marginTop: '10px' }}>
-                <ErrorLayout isError={errorState} message={message} onClose={clearError} tr={t} />
+                <ErrorLayout
+                    isError={errorState}
+                    message={message}
+                    onClose={clearError}
+                    tr={t}
+                />
             </div>
         </Form>
     );
 };
 
 ModifyPasswordModal.propTypes = {
-  t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
 };
 
 export default ModifyPasswordModal;

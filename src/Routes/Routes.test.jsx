@@ -1,4 +1,4 @@
-import {render, screen} from '../TestHelpers/testing-utils';
+import { render, screen } from '../TestHelpers/testing-utils';
 import { vi, test, expect, afterEach, beforeEach } from 'vitest';
 
 beforeEach(() => {
@@ -16,10 +16,12 @@ test('Routes > <NoMatchRoute />', async () => {
         mocks: [],
         initialEntries: ['/notmatchingroute'],
         isMobile: false,
-        isLoggedIn: true
+        isLoggedIn: true,
     });
 
-    expect(await screen.findByText('nomatch.pageDoesNotExist')).toBeInTheDocument();
+    expect(
+        await screen.findByText('nomatch.pageDoesNotExist')
+    ).toBeInTheDocument();
     expect(screen.getByText('nomatch.home')).toBeInTheDocument();
 });
 
@@ -28,7 +30,7 @@ test('Routes > <PrivateRoute /> > Logged in > Private route. Renders private rou
         mocks: [],
         initialEntries: ['/'],
         isMobile: false,
-        isLoggedIn: false
+        isLoggedIn: false,
     });
 
     expect(await screen.findByTestId('app-layout')).toBeInTheDocument();
@@ -38,7 +40,7 @@ test('Routes > <PrivateRoute /> > Logged out > Renders public route correctly.',
     render({
         isLoggedIn: false,
         isMobile: false,
-        initialEntries: ['/']
+        initialEntries: ['/'],
     });
 
     expect(await screen.findByTestId('app-layout')).toBeInTheDocument();

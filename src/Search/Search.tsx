@@ -11,7 +11,9 @@ import SearchHeader from './SearchHeader';
 import { SEARCH_TERM } from './Queries';
 import './Search.css';
 
-const PaginationFooter = lazy(() => import('../PaginationFooter/PaginationFooter'));
+const PaginationFooter = lazy(
+    () => import('../PaginationFooter/PaginationFooter')
+);
 
 export const Component = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -21,42 +23,46 @@ export const Component = () => {
     const [searchIn, setSearchIn] = useState<string[]>([]);
     const [search, setSearch] = useState<string | null>(searchTerm);
     const initialPage = getPageNumber(pageParams);
-    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? "5", 10);
+    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? '5', 10);
     const PAGE_OFFSET = (initialPage - 1) * PAGE_LIMIT;
     const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
     // Total page calculation.
-    const [performSearch, { data, loading, error, fetchMore }] = useLazyQuery(SEARCH_TERM, {
-        variables: {
-            term: search,
-            where: searchIn.length === 0 ? ['titles', 'posts'] : searchIn,
-            limit: PAGE_LIMIT,
-            offset: PAGE_OFFSET
+    const [performSearch, { data, loading, error, fetchMore }] = useLazyQuery(
+        SEARCH_TERM,
+        {
+            variables: {
+                term: search,
+                where: searchIn.length === 0 ? ['titles', 'posts'] : searchIn,
+                limit: PAGE_LIMIT,
+                offset: PAGE_OFFSET,
+            },
         }
-    });
+    );
 
     useEffect(() => {
         if (searchTerm || search) {
-            const where = searchIn.length === 0 ? ['titles', 'posts'] : searchIn;
+            const where =
+                searchIn.length === 0 ? ['titles', 'posts'] : searchIn;
             performSearch({
                 variables: {
                     term: searchTerm,
                     where: where,
                     limit: PAGE_LIMIT,
-                    offset: PAGE_OFFSET
-                }
+                    offset: PAGE_OFFSET,
+                },
             });
             setSearch(searchTerm);
             setSearchIn(where);
         }
     }, [PAGE_LIMIT, PAGE_OFFSET, performSearch, search, searchIn, searchTerm]);
 
-    const onSearch = (value:string) => {
+    const onSearch = (value: string) => {
         if (!value || value.trim() === '') return;
         setSearch(value);
         setSearchParams({
-            page: "1",
-            term: value
+            page: '1',
+            term: value,
         });
         setCurrentPage(1);
         performSearch({
@@ -64,24 +70,24 @@ export const Component = () => {
                 term: value,
                 where: searchIn.length === 0 ? ['titles'] : searchIn,
                 limit: PAGE_LIMIT,
-                offset: 0
-            }
+                offset: 0,
+            },
         });
     };
 
     // Page changed
-    const onChangePage = (page:number) => {
+    const onChangePage = (page: number) => {
         const _offset = (currentPage - 1) * PAGE_LIMIT;
         const _limit = (currentPage - 1) * PAGE_LIMIT + PAGE_LIMIT;
         setCurrentPage(page);
-        setSearchParams({ page: page.toString(), term: search ?? "" });
+        setSearchParams({ page: page.toString(), term: search ?? '' });
         fetchMore({
             variables: {
                 offset: _offset,
                 limit: _limit,
                 term: search,
-                where: searchIn
-            }
+                where: searchIn,
+            },
         });
         // Scroll to the top of the page.
         window.scroll(0, 0);
@@ -99,11 +105,11 @@ export const Component = () => {
 
     const breadCrumbItems = [
         {
-            title: <Link to="/">Home</Link>
+            title: <Link to="/">Home</Link>,
         },
         {
-            title: <p>{t('search')}</p>
-        }
+            title: <p>{t('search')}</p>,
+        },
     ];
 
     return (
@@ -121,20 +127,20 @@ export const Component = () => {
                     {t('searchedFor')} <code>{search}</code> {t('in')}{' '}
                     <strong>{t('topics')}</strong>.
                 </h2>
-            ) : (<h2>{t('noSearch')}</h2>)
-            }
+            ) : (
+                <h2>{t('noSearch')}</h2>
+            )}
             <Divider />
             <SearchHeader
                 setSearchIn={setSearchIn}
                 searchIn={searchIn}
-                search={search ?? ""}
+                search={search ?? ''}
                 onSearch={onSearch}
                 t={t}
             />
             {(searchTerm || search) && data && data.search ? (
                 <SearchResults t={t} data={data.search.results} />
-            ) : null
-            }
+            ) : null}
             <Suspense fallback={<Spin />}>
                 <PaginationFooter
                     currentPage={currentPage}

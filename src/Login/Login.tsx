@@ -11,7 +11,7 @@ import {
     refreshToken,
     setLoginData,
     setBanStatus,
-    setUserType
+    setUserType,
 } from './authUtils';
 import TopIcon from './TopIcon';
 import Loading from '../Loading/LoadingIndicator';
@@ -20,7 +20,7 @@ import './Login.css';
 
 type LoginDataTypes = {
     id: number;
-    ok: boolean; 
+    ok: boolean;
     ttl: number;
     banned: boolean;
     banReason: string;
@@ -31,15 +31,15 @@ type LoginDataTypes = {
 type LoginFormValues = {
     username: string;
     password: string;
-}
+};
 
 const layout = {
     labelCol: {
-        span: 8
+        span: 8,
     },
     wrapperCol: {
-        span: 16
-    }
+        span: 16,
+    },
 };
 
 export const Component = (): React.ReactElement => {
@@ -55,7 +55,8 @@ export const Component = (): React.ReactElement => {
     let from = location.state?.from?.pathname || '/';
 
     const loginResponse = (loginData: LoginDataTypes, username: string) => {
-        const { id, ok, ttl, banned, banReason, banExpirationTime, type } = loginData;
+        const { id, ok, ttl, banned, banReason, banExpirationTime, type } =
+            loginData;
         const ttlInSeconds = ttl * 1000;
 
         if (ok) {
@@ -67,24 +68,26 @@ export const Component = (): React.ReactElement => {
             client.writeQuery({
                 query: SET_LOGIN,
                 data: {
-                    loggedIn: true
+                    loggedIn: true,
                 },
                 variables: {
-                    status: true
-                }
+                    status: true,
+                },
             });
 
             // Refresh token once its TTL (time to live) has passed.
             setTimeout(refreshToken, ttlInSeconds);
         } else {
             if (!errorMessage) {
-                setErrorMessage('La combinación de usuario y contraseña es incorrecta.');
+                setErrorMessage(
+                    'La combinación de usuario y contraseña es incorrecta.'
+                );
             }
         }
     };
 
     // Finished checking login values.
-    const onFinish = async (values:LoginFormValues) => {
+    const onFinish = async (values: LoginFormValues) => {
         if (loginLoading) return;
 
         const { username, password } = values;
@@ -104,7 +107,7 @@ export const Component = (): React.ReactElement => {
         setErrorMessage('Failed: ' + errorInfo);
         setLoginLoading(false);
     };
-    
+
     if (loginQuery.loading) return <Loading />;
 
     if (userBanned) {
@@ -115,10 +118,7 @@ export const Component = (): React.ReactElement => {
         return <Navigate to={from} replace={true} />;
 
     return (
-        <div
-            data-testid="login-container"
-            className="login-grid-container"
-        >
+        <div data-testid="login-container" className="login-grid-container">
             <TopIcon />
             <br />
             <Form
@@ -136,12 +136,12 @@ export const Component = (): React.ReactElement => {
                     rules={[
                         {
                             required: true,
-                            message: t('usernameError')
-                        }
+                            message: t('usernameError'),
+                        },
                     ]}
                 >
                     <Input
-                        disabled={loginLoading?? true}
+                        disabled={loginLoading ?? true}
                         name="username"
                         className="input-field"
                         placeholder={t('usernamePlaceholder')}
@@ -161,8 +161,8 @@ export const Component = (): React.ReactElement => {
                     rules={[
                         {
                             required: true,
-                            message: t('passwordError')
-                        }
+                            message: t('passwordError'),
+                        },
                     ]}
                 >
                     <Input.Password
@@ -193,7 +193,11 @@ export const Component = (): React.ReactElement => {
                         block
                     >
                         {t('login')} &nbsp;
-                        <FontAwesomeIcon icon={faSignIn} size="lg" color="white" />
+                        <FontAwesomeIcon
+                            icon={faSignIn}
+                            size="lg"
+                            color="white"
+                        />
                     </Button>
                 </Form.Item>
                 <Form.Item>
@@ -229,4 +233,3 @@ export const Component = (): React.ReactElement => {
         </div>
     );
 };
-

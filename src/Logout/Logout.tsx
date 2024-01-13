@@ -22,15 +22,16 @@ export const Component = () => {
     client.writeQuery({
         query: SET_LOGIN,
         data: {
-            loggedIn: false
+            loggedIn: false,
         },
         variables: {
-            status: false
-        }
+            status: false,
+        },
     });
     fetch('/api/logout', { method: 'POST' });
 
-    const goToLoginPage = () => navigate('/login', { state: { from: location } });
+    const goToLoginPage = () =>
+        navigate('/login', { state: { from: location } });
     const goToMainPage = () => navigate('/');
 
     return (
@@ -44,7 +45,7 @@ export const Component = () => {
                 </Button>,
                 <Button type="primary" key="mainpagebtn" onClick={goToMainPage}>
                     {t('mainPageLink')}
-                </Button>
+                </Button>,
             ]}
         >
             <div style={{ textAlign: 'center' }}>
@@ -60,4 +61,4 @@ export const Component = () => {
             </div>
         </Result>
     );
-}
+};

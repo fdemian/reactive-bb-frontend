@@ -40,12 +40,11 @@ i18n.use(initReactI18next).init({
     fallbackLng: 'en',
     debug: false,
     interpolation: {
-        escapeValue: false // not needed for react!!
+        escapeValue: false, // not needed for react!!
     },
     resources: {
-        en: {
-        }
-    }
+        en: {},
+    },
 });
 
 export default i18n;

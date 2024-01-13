@@ -1,22 +1,27 @@
 import { Avatar } from 'antd';
 
 type AvatarSizeType = {
-    xs: number; 
-    sm: number; 
-    md: number; 
-    lg: number; 
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
     xl: number;
     xxl: number;
 };
 
 type AccountAvatarTypes = {
-    avatar: string; 
-    username: string; 
-    size: number | AvatarSizeType | "large" | "small" | "default";
-    shape: "circle" |  "square" | undefined;
+    avatar: string;
+    username: string;
+    size: number | AvatarSizeType | 'large' | 'small' | 'default';
+    shape: 'circle' | 'square' | undefined;
 };
 
-const AccountAvatar = ({ avatar, username, size, shape }: AccountAvatarTypes) => {
+const AccountAvatar = ({
+    avatar,
+    username,
+    size,
+    shape,
+}: AccountAvatarTypes) => {
     if (avatar === null || avatar === undefined)
         return (
             <Avatar

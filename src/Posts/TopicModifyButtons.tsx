@@ -4,7 +4,7 @@ import { faTimes, faLock } from '@fortawesome/free-solid-svg-icons';
 import { TopicModifyButtonsProps } from './postTypes';
 import './Posts.css';
 
-const TopicModifyButtons = (props:TopicModifyButtonsProps) => {
+const TopicModifyButtons = (props: TopicModifyButtonsProps) => {
     const { closed, reopenTopic, closeTopic, deleteTopic, userType, t } = props;
 
     if (userType === 'U') return null;

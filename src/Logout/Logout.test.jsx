@@ -7,7 +7,7 @@ const i18t = (x) => 'logout.' + x;
 const RESPONSE = { ok: true };
 global.fetch = vi.fn(() =>
     Promise.resolve({
-        json: () => Promise.resolve(RESPONSE)
+        json: () => Promise.resolve(RESPONSE),
     })
 );
 
@@ -16,7 +16,7 @@ test('<Logout /> > Renders correctly.', async () => {
         mocks: [],
         isLoggedIn: true,
         isMobile: false,
-        initialEntries: ['/logout']
+        initialEntries: ['/logout'],
     });
 
     screen.debug(undefined, 300000);
@@ -35,7 +35,9 @@ test('<Logout /> > Renders correctly.', async () => {
         screen.getByText(i18t('sessionNotRenewedPage'), { exact: false })
     ).toBeInTheDocument();
 
-    expect(screen.getByText(i18t('youCan'), { exact: false })).toBeInTheDocument();
+    expect(
+        screen.getByText(i18t('youCan'), { exact: false })
+    ).toBeInTheDocument();
     expect(screen.getByText(i18t('logBackIn'))).toBeInTheDocument();
     expect(screen.getByText(i18t('goBack'))).toBeInTheDocument();
     expect(screen.getByText(i18t('logBackIn'))).toBeInTheDocument();

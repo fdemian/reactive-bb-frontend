@@ -19,12 +19,12 @@ export const Component = () => {
     const [resetPassword, { data, loading }] = useMutation(RESET_PASSWORD);
     let { token } = useParams();
 
-    const onFinish = (values:ActivatePasswordValues) => {
+    const onFinish = (values: ActivatePasswordValues) => {
         resetPassword({
             variables: {
                 token: token,
-                password: values.password
-            }
+                password: values.password,
+            },
         });
     };
 
@@ -80,7 +80,7 @@ export const Component = () => {
                         </Button>
                         <Button
                             role="button"
-                            aria-label={t("resetPassRepeat")}
+                            aria-label={t('resetPassRepeat')}
                             className="forgot-pass-button-link"
                             type="primary"
                             size="large"
@@ -117,8 +117,8 @@ export const Component = () => {
                     rules={[
                         {
                             required: true,
-                            message: t('passwordMissing')
-                        }
+                            message: t('passwordMissing'),
+                        },
                     ]}
                 >
                     <Input.Password

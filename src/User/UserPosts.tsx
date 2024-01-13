@@ -11,7 +11,7 @@ import { UserType, PostType } from './userTypes';
 type UserPostsParams = {
     id: number;
     user: UserType;
-}
+};
 
 const UserPosts = ({ id, user }: UserPostsParams) => {
     const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {
@@ -22,14 +22,14 @@ const UserPosts = ({ id, user }: UserPostsParams) => {
 
     if (loading) return <Loading />;
 
-    const posts:PostType[] = data.postsByUser;
+    const posts: PostType[] = data.postsByUser;
     return (
         <List
             itemLayout="vertical"
             size="large"
             data-testid="user-posts"
             dataSource={posts}
-            renderItem={(item:PostType) => (
+            renderItem={(item: PostType) => (
                 <List.Item id={`post-${item.id}`} key={item.id}>
                     <List.Item.Meta
                         avatar={
@@ -42,7 +42,9 @@ const UserPosts = ({ id, user }: UserPostsParams) => {
                         }
                         title={
                             <Link to={`/posts/${item.id}/${item.topicId}`}>
-                                <span className="user-name">{user.username}</span>
+                                <span className="user-name">
+                                    {user.username}
+                                </span>
                             </Link>
                         }
                     />
@@ -63,8 +65,8 @@ UserPosts.propTypes = {
         email: PropTypes.string.isRequired,
         status: PropTypes.string.isRequired,
         about: PropTypes.string.isRequired,
-        banned: PropTypes.bool.isRequired
-    })
+        banned: PropTypes.bool.isRequired,
+    }),
 };
 
 export default UserPosts;

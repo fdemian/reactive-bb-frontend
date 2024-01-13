@@ -10,19 +10,19 @@ import { vi, test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 vi.doMock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
         getUserId: () => 1,
-    }
+    };
 });
 
 vi.doMock('../App/utils', async () => {
-    const actual = await vi.importActual("../App/utils");
+    const actual = await vi.importActual('../App/utils');
     return {
-       ...actual,
-       getOauthConfig: () => ({ services: [] })
-    }
+        ...actual,
+        getOauthConfig: () => ({ services: [] }),
+    };
 });
 
 const _user = {
@@ -70,15 +70,21 @@ test('<Navbar /> > Mobile > Not logged in.', async () => {
         initialEntries: ['/login'],
     });
 
-    expect(await screen.findByRole('img', { name: 'Morpheus logo' })).toBeInTheDocument();
+    expect(
+        await screen.findByRole('img', { name: 'Morpheus logo' })
+    ).toBeInTheDocument();
 
     expect(
         await screen.findByRole('button', { name: 'navbar.menuTrigger' })
     ).toBeInTheDocument();
-    
-    await user.click(await screen.findByRole('button', { name: 'navbar.menuTrigger' }));
 
-    expect(await screen.findByText('login.login', { exact: false })).toBeInTheDocument();
+    await user.click(
+        await screen.findByRole('button', { name: 'navbar.menuTrigger' })
+    );
+
+    expect(
+        await screen.findByText('login.login', { exact: false })
+    ).toBeInTheDocument();
     expect(screen.getByText('register', { exact: false })).toBeInTheDocument();
 });
 
@@ -171,7 +177,9 @@ test('<Navbar /> > Mobile > Logged in.', async () => {
         await screen.findByRole('button', { name: 'navbar.menuTrigger' })
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'navbar.menuTrigger' }));
+    await user.click(
+        screen.getByRole('button', { name: 'navbar.menuTrigger' })
+    );
 
     expect(await screen.findByText('navbar.user')).toBeInTheDocument();
     expect(await screen.findByText('adminuser')).toBeInTheDocument();
@@ -179,9 +187,7 @@ test('<Navbar /> > Mobile > Logged in.', async () => {
     await user.click(screen.getByText('navbar.user'));
 
     // User sub-menus.
-    expect(
-        await screen.findByText('navbar.bookmarks')
-    ).toBeInTheDocument();
+    expect(await screen.findByText('navbar.bookmarks')).toBeInTheDocument();
 
     expect(screen.getByText('navbar.profile')).toBeInTheDocument();
 
@@ -193,4 +199,3 @@ test('<Navbar /> > Mobile > Logged in.', async () => {
     expect(screen.getByText('navbar.notifications')).toBeInTheDocument();
     expect(screen.getByText('navbar.chats')).toBeInTheDocument();
 });
-

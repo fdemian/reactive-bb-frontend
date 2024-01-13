@@ -9,16 +9,16 @@
 
 // $FlowFixMe
 import katex from 'katex';
-import {useEffect, useRef} from 'react';
+import { useEffect, useRef } from 'react';
 import 'katex/dist/katex.css';
 
 type KatexRendererProps = {
-  equation: string;
-  inline: boolean;
-  onClick: () => void;
+    equation: string;
+    inline: boolean;
+    onClick: () => void;
 };
 
-const KatexRenderer = ({ equation, inline, onClick}:KatexRendererProps) => {
+const KatexRenderer = ({ equation, inline, onClick }: KatexRendererProps) => {
     const katexElementRef = useRef(null);
 
     useEffect(() => {
@@ -37,8 +37,13 @@ const KatexRenderer = ({ equation, inline, onClick}:KatexRendererProps) => {
     }, [equation, inline]);
 
     return (
-        <span role="button" tabIndex={-1} onClick={onClick} ref={katexElementRef} />
+        <span
+            role="button"
+            tabIndex={-1}
+            onClick={onClick}
+            ref={katexElementRef}
+        />
     );
-}
+};
 
 export default KatexRenderer;

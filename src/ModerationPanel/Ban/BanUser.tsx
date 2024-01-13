@@ -12,7 +12,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { BanUserTypes } from '../moderationPanelTypes';
 import './Ban.css';
 
-const BanUser = ({ user, goBack, t }:BanUserTypes) => {
+const BanUser = ({ user, goBack, t }: BanUserTypes) => {
     const [banLimitDate, setBanLimitDate] = useState(null);
     const [isPermanent, setIsPermanent] = useState(false);
     const [banMutation, { data, loading }] = useMutation(BAN_USER, {
@@ -20,12 +20,12 @@ const BanUser = ({ user, goBack, t }:BanUserTypes) => {
     });
 
     const banUser = () => {
-        if(!containerRef || !containerRef.current || !user)
-            return;
+        if (!containerRef || !containerRef.current || !user) return;
 
         // @ts-ignore
         const reason = containerRef.current.getContent();
-        const banDate = (isPermanent || !banLimitDate) ? null : new Date(banLimitDate);
+        const banDate =
+            isPermanent || !banLimitDate ? null : new Date(banLimitDate);
 
         banMutation({
             variables: {
@@ -36,7 +36,7 @@ const BanUser = ({ user, goBack, t }:BanUserTypes) => {
         });
     };
 
-    const datePickerChange = (date:any) => {
+    const datePickerChange = (date: any) => {
         if (date === null) {
             setBanLimitDate(null);
             return;
@@ -45,7 +45,7 @@ const BanUser = ({ user, goBack, t }:BanUserTypes) => {
     };
 
     const containerRef = useRef(null);
-    const mentions:any[] = [];
+    const mentions: any[] = [];
     const setMentions = () => {};
     const isMobile = getIsMobile();
 
@@ -93,7 +93,10 @@ const BanUser = ({ user, goBack, t }:BanUserTypes) => {
                         <FontAwesomeIcon icon={faQuestionCircle} />
                     </Tooltip>
                 </h2>
-                <BanDatePicker onChange={datePickerChange} disabled={isPermanent} />
+                <BanDatePicker
+                    onChange={datePickerChange}
+                    disabled={isPermanent}
+                />
                 <Checkbox
                     aria-label={t('permanent')}
                     className="checkbox-ban-permanent"
@@ -108,7 +111,10 @@ const BanUser = ({ user, goBack, t }:BanUserTypes) => {
             <div>
                 <h2>
                     {t('justification')} &nbsp;
-                    <Tooltip placement="right" title={t('justificationTooltip')}>
+                    <Tooltip
+                        placement="right"
+                        title={t('justificationTooltip')}
+                    >
                         <FontAwesomeIcon icon={faQuestionCircle} />
                     </Tooltip>
                 </h2>
@@ -124,7 +130,12 @@ const BanUser = ({ user, goBack, t }:BanUserTypes) => {
                 />
             </div>
             <div className="ban-button-group">
-                <Button role="button" aria-label={t('back')} type="primary" onClick={goBack}>
+                <Button
+                    role="button"
+                    aria-label={t('back')}
+                    type="primary"
+                    onClick={goBack}
+                >
                     {t('back')}
                 </Button>
                 <Button

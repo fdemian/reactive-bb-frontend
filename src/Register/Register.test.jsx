@@ -5,11 +5,11 @@ import { CHECK_USERNAME } from './Queries';
 import { vi, test, expect, beforeEach } from 'vitest';
 
 vi.doMock('../App/utils', async () => {
-    const actual = await vi.importActual("../App/utils");
+    const actual = await vi.importActual('../App/utils');
     return {
-       ...actual,
-       getOauthConfig: () => ({ services: [] })
-    }
+        ...actual,
+        getOauthConfig: () => ({ services: [] }),
+    };
 });
 
 let mocks;
@@ -25,8 +25,8 @@ beforeEach(() => {
                 variables: {
                     username: 'user1',
                     password: 'password123',
-                    email: 'user1@mail.com'
-                }
+                    email: 'user1@mail.com',
+                },
             },
             result: {
                 loading: false,
@@ -36,52 +36,52 @@ beforeEach(() => {
                         ok: true,
                         id: 1,
                         message: '',
-                        email: ''
-                    }
-                }
-            }
+                        email: '',
+                    },
+                },
+            },
         },
         {
             request: {
                 query: CHECK_USERNAME,
                 variables: {
-                    username: 'user1'
-                }
+                    username: 'user1',
+                },
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
                     checkUsername: {
-                        exists: false
-                    }
-                }
-            }
+                        exists: false,
+                    },
+                },
+            },
         },
         {
             request: {
                 query: CHECK_USERNAME,
                 variables: {
-                    username: 'user'
-                }
+                    username: 'user',
+                },
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
                     checkUsername: {
-                        exists: false
-                    }
-                }
-            }
-        }
+                        exists: false,
+                    },
+                },
+            },
+        },
     ];
 
     activationMocksError = [
         {
             request: {
                 query: VALIDATE_USER,
-                variables: { token: 'token1' }
+                variables: { token: 'token1' },
             },
             result: {
                 loading: false,
@@ -89,15 +89,13 @@ beforeEach(() => {
                 data: {
                     validateUser: {
                         id: -1,
-                        ok: false
-                    }
-                }
-            }
-        }
+                        ok: false,
+                    },
+                },
+            },
+        },
     ];
-
-
-})
+});
 
 test('<Register /> > Register screen > Form interaction > Error', async () => {
     const user = userEvent.setup();
@@ -105,7 +103,7 @@ test('<Register /> > Register screen > Form interaction > Error', async () => {
     render({
         mocks: mocks,
         isLoggedIn: false,
-        initialEntries: ['/register']
+        initialEntries: ['/register'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
@@ -114,12 +112,18 @@ test('<Register /> > Register screen > Form interaction > Error', async () => {
         username: '',
         email: '',
         password: '',
-        passwordrepeat: ''
+        passwordrepeat: '',
     });
 
     await user.type(screen.getByRole('textbox', { name: 'username' }), 'user1');
-    await user.type(screen.getByRole('textbox', { name: 'email' }), 'user1@mail.com');
-    await user.type(screen.getByRole('textbox', { name: 'password' }), 'password123');
+    await user.type(
+        screen.getByRole('textbox', { name: 'email' }),
+        'user1@mail.com'
+    );
+    await user.type(
+        screen.getByRole('textbox', { name: 'password' }),
+        'password123'
+    );
     await user.type(
         screen.getByRole('textbox', { name: 'passwordrepeat' }),
         'password231'
@@ -129,27 +133,29 @@ test('<Register /> > Register screen > Form interaction > Error', async () => {
         username: 'user1',
         email: 'user1@mail.com',
         password: 'password123',
-        passwordrepeat: 'password231'
+        passwordrepeat: 'password231',
     });
 
     await user.click(screen.getByRole('button', { name: 'register.register' }));
 
     screen.debug(undefined, 3000000);
 
-    expect(
-        await screen.findByText('register.passNoMatch')
-    ).toBeInTheDocument();
+    expect(await screen.findByText('register.passNoMatch')).toBeInTheDocument();
 });
 
 test('<Register /> > Register success screen.', async () => {
     render({
         mocks: mocks,
         isLoggedIn: false,
-        initialEntries: ['/registersuccess/1']
+        initialEntries: ['/registersuccess/1'],
     });
 
-    expect(await screen.findByRole('button', { name: 'register.home' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'register.login' })).toBeInTheDocument();
+    expect(
+        await screen.findByRole('button', { name: 'register.home' })
+    ).toBeInTheDocument();
+    expect(
+        screen.getByRole('button', { name: 'register.login' })
+    ).toBeInTheDocument();
     expect(screen.getByText('register.registerSuccess')).toBeInTheDocument();
     expect(screen.getByText('register.registerSuccessSub')).toBeInTheDocument();
 });
@@ -157,7 +163,7 @@ test('<Register /> > Register success screen.', async () => {
 test('<Register /> > User activation screen > ActivationError', async () => {
     render({
         mocks: activationMocksError,
-        initialEntries: ['/activation/token1']
+        initialEntries: ['/activation/token1'],
     });
     expect(screen.getByText('Loading')).toBeInTheDocument();
     expect(await screen.findByText('Error')).toBeInTheDocument();
@@ -165,10 +171,16 @@ test('<Register /> > User activation screen > ActivationError', async () => {
 
 test('<Register /> > User activation screen > Activation info', async () => {
     render({
-        initialEntries: ['/activationinfo/email@mail.com']
+        initialEntries: ['/activationinfo/email@mail.com'],
     });
-    expect(await screen.findByText('register.activationInfoTitle')).toBeInTheDocument();
-    expect(await screen.findByText('register.activationInfoSubMail')).toBeInTheDocument();
-    expect(await screen.findByText('register.doesntArrive')).toBeInTheDocument();
+    expect(
+        await screen.findByText('register.activationInfoTitle')
+    ).toBeInTheDocument();
+    expect(
+        await screen.findByText('register.activationInfoSubMail')
+    ).toBeInTheDocument();
+    expect(
+        await screen.findByText('register.doesntArrive')
+    ).toBeInTheDocument();
     expect(await screen.findByText('email@mail.com')).toBeInTheDocument();
 });

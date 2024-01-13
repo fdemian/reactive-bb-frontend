@@ -26,11 +26,11 @@ import {
 } from 'antd';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
+import {
     faReply,
     faRightToBracket,
     faLock,
-    faEnvelope    
+    faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
 import {
     Link,
@@ -40,7 +40,12 @@ import {
     useSearchParams,
 } from 'react-router-dom';
 import Loading from '../Loading/LoadingIndicator';
-import { getUserId, getUserName, getBanStatus, getUserType } from '../Login/authUtils';
+import {
+    getUserId,
+    getUserName,
+    getBanStatus,
+    getUserType,
+} from '../Login/authUtils';
 import { getCategoryURL, getCategoryName } from './utils';
 import { useTranslation } from 'react-i18next';
 import { getDefaultPageItems, getIsMobile, getConfig } from '../App/utils';
@@ -55,7 +60,9 @@ import { MentionType } from '../Editor/editorTypes';
 const TopicReplies = lazy(() => import('./TopicReplies'));
 const ReplyDrawer = lazy(() => import('./ReplyDrawer'));
 const TagList = lazy(() => import('./TagList'));
-const PaginationFooter = lazy(() => import('../PaginationFooter/PaginationFooter'));
+const PaginationFooter = lazy(
+    () => import('../PaginationFooter/PaginationFooter')
+);
 
 export const Component = () => {
     const navigate = useNavigate();
@@ -73,13 +80,13 @@ export const Component = () => {
     const [editablePost, setEditablePost] = useState<number | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const initialPage = searchParams.get('page');
-    
-    const openFlagPostDialog = (flagPostId:number) => {
+
+    const openFlagPostDialog = (flagPostId: number) => {
         setFlaggedPostId(flagPostId);
         setFlagPostDialog(true);
     };
 
-    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? "5", 10);
+    const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? '5', 10);
     const [currentPage, setCurrentPage] = useState(getPageNumber(initialPage));
     const PAGE_OFFSET = (currentPage - 1) * PAGE_LIMIT;
     const [closeTopicMut] = useMutation(CLOSE_TOPIC);
@@ -103,7 +110,9 @@ export const Component = () => {
                 fields: {
                     posts(existingPosts = []) {
                         const { id } = deletePost;
-                        return existingPosts.filter((p:PostType) => p.__ref !== 'Post:' + id);
+                        return existingPosts.filter(
+                            (p: PostType) => p.__ref !== 'Post:' + id
+                        );
                     },
                 },
             });
@@ -116,7 +125,7 @@ export const Component = () => {
                 fields: {
                     posts(existingPosts = []) {
                         const { id, content } = editPost;
-                        return existingPosts.map((p:PostType) => {
+                        return existingPosts.map((p: PostType) => {
                             if (p.__ref !== 'Post:' + id) {
                                 return {
                                     ...p,
@@ -155,7 +164,7 @@ export const Component = () => {
     const closeTopic = () =>
         closeTopicMut({
             variables: {
-                topic: parseInt(id ?? "0", 10),
+                topic: parseInt(id ?? '0', 10),
             },
             refetchQueries: [GET_TOPIC, 'GetTopic'],
         });
@@ -163,7 +172,7 @@ export const Component = () => {
     const deleteTopic = () => {
         deleteTopicMut({
             variables: {
-                topic: parseInt(id ?? "0", 10),
+                topic: parseInt(id ?? '0', 10),
             },
         });
 
@@ -173,21 +182,20 @@ export const Component = () => {
     const reopenTopic = () =>
         reopenTopicMut({
             variables: {
-                topic: parseInt(id ?? "0", 10),
+                topic: parseInt(id ?? '0', 10),
             },
             refetchQueries: [GET_TOPIC, 'GetTopic'],
         });
 
     useEffect(() => {
-        if(isLoggedIn){
+        if (isLoggedIn) {
             // TODO: send the user id, so that a user cannot actually 'see' a thread more than once.
             increaseViewCount({
                 variables: {
-                    topic: parseInt(id ?? "0", 10),
+                    topic: parseInt(id ?? '0', 10),
                 },
             });
         }
-
     }, [increaseViewCount, id, isLoggedIn]);
 
     const containerRef = useRef(null);
@@ -195,13 +203,12 @@ export const Component = () => {
     const showDrawer = () => setVisible(true);
     const onClose = () => {
         setVisible(false);
-        const editor:any = containerRef.current;
+        const editor: any = containerRef.current;
         editor.clear();
     };
     const userId = getUserId();
 
-    const quotePost = (postToQuote:PostToQuote) => {
-
+    const quotePost = (postToQuote: PostToQuote) => {
         // TODO: workaround.
         /*
          * The first time the user quotes a post and
@@ -218,8 +225,8 @@ export const Component = () => {
         }
 
         const { content, user } = postToQuote;
-        const editor:any = containerRef.current;
-        
+        const editor: any = containerRef.current;
+
         const quoteProps = {
             author: {
                 name: `@${user.username}`,
@@ -230,18 +237,18 @@ export const Component = () => {
                 link: `/postlink/${postToQuote.id}`,
             },
         };
-        editor.executeCommand("INSERT_CITE_QUOTE", quoteProps);
+        editor.executeCommand('INSERT_CITE_QUOTE', quoteProps);
     };
 
     const { loading, error, data } = useQuery(GET_TOPIC, {
         variables: {
-            id: parseInt(id ?? "0", 10),
+            id: parseInt(id ?? '0', 10),
         },
     });
 
     const postsQuery = useQuery(GET_POSTS, {
         variables: {
-            topicId: parseInt(id ?? "0", 10),
+            topicId: parseInt(id ?? '0', 10),
             limit: PAGE_LIMIT,
             offset: PAGE_OFFSET,
         },
@@ -261,7 +268,7 @@ export const Component = () => {
     // Number of pages calculation.
     const numberOfPages = Math.ceil(topic.replies / PAGE_LIMIT);
 
-    const onChangePage = (page:number) => {
+    const onChangePage = (page: number) => {
         const { fetchMore } = postsQuery;
         const _offset = (currentPage - 1) * PAGE_LIMIT;
         const _limit = (currentPage - 1) * PAGE_LIMIT + PAGE_LIMIT;
@@ -279,7 +286,7 @@ export const Component = () => {
         window.scroll(0, 0);
     };
 
-    const removePost = (postId:number) => {
+    const removePost = (postId: number) => {
         const userId = getUserId();
 
         deletePost({
@@ -298,7 +305,7 @@ export const Component = () => {
 
     const editUserPost = () => {
         const userId = getUserId();
-        const editor:any = containerRef.current;
+        const editor: any = containerRef.current;
         const editorContent = editor.getContent();
         const newPostContent = JSON.stringify(editorContent);
         const postId = editablePost;
@@ -324,10 +331,10 @@ export const Component = () => {
     };
 
     const createPost = () => {
-        const editor:any = containerRef.current;
+        const editor: any = containerRef.current;
         const postContent = editor.getContent();
         const jsonContent = JSON.stringify(postContent);
-        const topicId = parseInt(id ?? "0", 10);
+        const topicId = parseInt(id ?? '0', 10);
         const userId = getUserId();
         const userName = getUserName();
 
@@ -365,7 +372,8 @@ export const Component = () => {
         onChangePage(numberOfPages);
     };
 
-    const navigateToLogin = () => navigate('/login', { state: { from: location } });
+    const navigateToLogin = () =>
+        navigate('/login', { state: { from: location } });
     const { posts } = postsQuery.data;
 
     const replyActionButton = isLoggedIn ? (
@@ -387,7 +395,7 @@ export const Component = () => {
                 reopenTopic={reopenTopic}
                 closeTopic={closeTopic}
                 deleteTopic={deleteTopic}
-                userType={userType ?? ""}
+                userType={userType ?? ''}
                 t={t}
             />
         </div>
@@ -412,23 +420,32 @@ export const Component = () => {
         },
         {
             title: (
-                <Link to={getCategoryURL(topic.category)}>{getCategoryName(topic.category)}</Link>
+                <Link to={getCategoryURL(topic.category)}>
+                    {getCategoryName(topic.category)}
+                </Link>
             ),
         },
         {
             title: topic.name,
         },
     ];
-    
+
     return (
         <>
             <Helmet>
-                <title>{topic.name} - {config.name}</title>
+                <title>
+                    {topic.name} - {config.name}
+                </title>
             </Helmet>
 
             <Card className="posts-page-container">
-                <div style={isMobile ? {} : { width: '80%', marginLeft: '10%' }}>
-                    <Breadcrumb items={breadCrumbItems} className="topic-breadcrumbs" />
+                <div
+                    style={isMobile ? {} : { width: '80%', marginLeft: '10%' }}
+                >
+                    <Breadcrumb
+                        items={breadCrumbItems}
+                        className="topic-breadcrumbs"
+                    />
                     <>
                         <p className="topic-name">
                             {topic.name} &nbsp;
@@ -441,16 +458,20 @@ export const Component = () => {
                             )}
                         </p>
                         <TagList tags={topic.tags} />
-                        {(banStatus === null || banStatus.banned === false) && replyActionButton}
+                        {(banStatus === null || banStatus.banned === false) &&
+                            replyActionButton}
                     </>
                     <span className="topic-statistics">
-            <Statistic
-                title={t('posts.main.views')}
-                value={topic.views}
-                style={{ marginRight: 30 }}
-            />
-            <Statistic title={t('posts.main.replies')} value={topic.replies} />
-          </span>
+                        <Statistic
+                            title={t('posts.main.views')}
+                            value={topic.views}
+                            style={{ marginRight: 30 }}
+                        />
+                        <Statistic
+                            title={t('posts.main.replies')}
+                            value={topic.replies}
+                        />
+                    </span>
                     <Divider>
                         <h2>{t('posts.main.replies')}</h2>
                     </Divider>
@@ -464,14 +485,14 @@ export const Component = () => {
                         userId={userId ?? -1}
                         isLoggedIn={isLoggedIn}
                         topic={topic}
-                        selectedPost={selectedPost?? "-1"}
+                        selectedPost={selectedPost ?? '-1'}
                         editablePost={editablePost}
                         setEditablePost={setEditablePost}
                         editUserPost={editUserPost}
                         t={t}
                         isMobile={isMobile}
                         banStatus={banStatus}
-                        userType={userType ?? ""}
+                        userType={userType ?? ''}
                         openFlagPostDialog={openFlagPostDialog}
                     />
                 </div>
@@ -495,7 +516,10 @@ export const Component = () => {
                     currentPage={currentPage}
                     onChangePage={onChangePage}
                 />
-                <FloatButton.Group shape="circle" style={{ right: isMobile ? 20 : 70 }}>
+                <FloatButton.Group
+                    shape="circle"
+                    style={{ right: isMobile ? 20 : 70 }}
+                >
                     {!topic.closed && isLoggedIn ? (
                         <FloatButton
                             className="float-button-reply"
@@ -505,7 +529,10 @@ export const Component = () => {
                             icon={<FontAwesomeIcon icon={faEnvelope} />}
                         />
                     ) : null}
-                    <FloatButton.BackTop className="float-button-backtop" type="primary" />
+                    <FloatButton.BackTop
+                        className="float-button-backtop"
+                        type="primary"
+                    />
                 </FloatButton.Group>
                 <Modal
                     title="Flag post"

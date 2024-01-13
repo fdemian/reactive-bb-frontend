@@ -8,51 +8,50 @@ import { getIsMobile } from '../App/utils';
 type MessagesEditorProps = {
     initialState: string | undefined;
     selectedUser: number;
-    sendMessage: (user:number, p:boolean) => void;
+    sendMessage: (user: number, p: boolean) => void;
     clearMessage: () => void;
     containerRef: any;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
 const MessagesEditor = ({
-                            initialState,
-                            selectedUser,
-                            sendMessage,
-                            clearMessage,
-                            containerRef,
-                            t
-                        }:MessagesEditorProps) => {
-
+    initialState,
+    selectedUser,
+    sendMessage,
+    clearMessage,
+    containerRef,
+    t,
+}: MessagesEditorProps) => {
     const isMobile = getIsMobile();
     return (
         <div className="messages-editor">
             <Editor
-                    containerRef={containerRef}
-                    setMentions={() => {}}
-                    mentions={[]}
-                    user={null}
-                    initialState={initialState}
-                    isMobile={isMobile}
+                containerRef={containerRef}
+                setMentions={() => {}}
+                mentions={[]}
+                user={null}
+                initialState={initialState}
+                isMobile={isMobile}
             />
             <span className="button-group">
-        <Button
-            aria-label={t('clear')}
-            className="chats-clear-button"
-            onClick={clearMessage}
-        >
-          {t('clear')} &nbsp;
-            <FontAwesomeIcon icon={faTrash} />
-        </Button>
-        <Button
-            aria-label={t('send')}
-            className="chats-send-button"
-            type="primary"
-            onClick={() => sendMessage(selectedUser, false)}
-        >
-          {t('send')} &nbsp;
-            <FontAwesomeIcon icon={faShare} />
-        </Button>
-      </span>
+                <Button
+                    aria-label={t('clear')}
+                    className="chats-clear-button"
+                    onClick={clearMessage}
+                >
+                    {t('clear')} &nbsp;
+                    <FontAwesomeIcon icon={faTrash} />
+                </Button>
+                <Button
+                    aria-label={t('send')}
+                    className="chats-send-button"
+                    type="primary"
+                    onClick={() => sendMessage(selectedUser, false)}
+                >
+                    {t('send')} &nbsp;
+                    <FontAwesomeIcon icon={faShare} />
+                </Button>
+            </span>
         </div>
     );
 };

@@ -10,7 +10,7 @@ import { useQuery } from '@apollo/client';
 type UserLikesProps = {
     id: number;
     user: UserType;
-}
+};
 
 const UserLikes = ({ id, user }: UserLikesProps) => {
     const { loading, error, data } = useQuery(GET_LIKES_BY_USER, {
@@ -29,7 +29,7 @@ const UserLikes = ({ id, user }: UserLikesProps) => {
             size="large"
             data-testid="user-likes"
             dataSource={likes}
-            renderItem={(item:LikeType) => (
+            renderItem={(item: LikeType) => (
                 <List.Item id={`post-${item.id}`} key={item.id}>
                     <List.Item.Meta
                         avatar={
@@ -41,8 +41,12 @@ const UserLikes = ({ id, user }: UserLikesProps) => {
                             />
                         }
                         title={
-                            <Link to={`/posts/${item.post.id}/${item.post.topicId}`}>
-                                <span className="user-name">{user.username}</span>
+                            <Link
+                                to={`/posts/${item.post.id}/${item.post.topicId}`}
+                            >
+                                <span className="user-name">
+                                    {user.username}
+                                </span>
                             </Link>
                         }
                     />

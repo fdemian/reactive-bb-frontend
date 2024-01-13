@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getUserId } from '../Login/authUtils';
 
-type NoTopicProps = { t: (key:string) => string };
+type NoTopicProps = { t: (key: string) => string };
 
-const NoTopics = ({ t }:NoTopicProps) => {
+const NoTopics = ({ t }: NoTopicProps) => {
     const loggedIn = getUserId() !== null;
     return (
         <Result
@@ -25,6 +25,5 @@ const NoTopics = ({ t }:NoTopicProps) => {
         />
     );
 };
-
 
 export default NoTopics;

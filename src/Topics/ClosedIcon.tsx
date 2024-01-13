@@ -9,11 +9,11 @@ const ClosedIcon = ({ closed }: ClosedIconProps) => {
     if (!closed) return null;
 
     return (
-    <span className="closed-topic-icon">
-      <Tooltip placement="right" title="Topic closed">
-        <FontAwesomeIcon icon={faLock} size="2x" color="gainsboro" />
-      </Tooltip>
-    </span>
+        <span className="closed-topic-icon">
+            <Tooltip placement="right" title="Topic closed">
+                <FontAwesomeIcon icon={faLock} size="2x" color="gainsboro" />
+            </Tooltip>
+        </span>
     );
 };
 

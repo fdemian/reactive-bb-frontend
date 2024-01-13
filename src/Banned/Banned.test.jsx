@@ -4,21 +4,21 @@ const date = new Date();
 const isoDate = date.toISOString();
 
 vi.mock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
-        getBanStatus: ()=> ({
+        getBanStatus: () => ({
             banned: true,
             banExpires: isoDate,
-            banReason: 'CALLIOPE_EDITOR_MOCK_CONTENT'
+            banReason: 'CALLIOPE_EDITOR_MOCK_CONTENT',
         }),
-    }
+    };
 });
 
 vi.mock('../Editor/Renderer', () => ({
     default: ({ content }) => {
         return <div>{content}</div>;
-    }
+    },
 }));
 
 test('<Banned /> > Renders correctly.', async () => {

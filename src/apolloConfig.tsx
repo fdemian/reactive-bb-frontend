@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, split , ServerError} from '@apollo/client';
+import { ApolloClient, ApolloLink, split, ServerError } from '@apollo/client';
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
@@ -9,18 +9,23 @@ import { refreshToken } from './Login/authUtils';
 
 const redirectToLogout = () => {
     const newURL = window.location.origin + '/logout';
-    const from = window.location.pathname === 'logout' ? '' : window.location.pathname;
+    const from =
+        window.location.pathname === 'logout' ? '' : window.location.pathname;
     window.location.replace(newURL + '?from=' + from);
 };
 
-const eraseUserTokensAndLogout = async (url:string, host:string, protocol:string) => {
+const eraseUserTokensAndLogout = async (
+    url: string,
+    host: string,
+    protocol: string
+) => {
     if (url.indexOf('logout') === -1) {
         await fetch(`${protocol}//${host}/api/logout`, { method: 'POST' });
         redirectToLogout();
     }
 };
 
-const getWSURL = ():string => {
+const getWSURL = (): string => {
     const host = window.location.host;
     const port = '8000';
     const isLocalhost = host.toString().includes('localhost');
@@ -31,16 +36,16 @@ const getWSURL = ():string => {
 };
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors){
+    if (graphQLErrors) {
         graphQLErrors.forEach(({ message, locations, path }) =>
-        console.log(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
-        );   
+            console.log(
+                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+            )
+        );
     }
 
-        if (networkError && networkError.name === "ServerError") {
-        const errorParsed:ServerError = networkError as ServerError;
+    if (networkError && networkError.name === 'ServerError') {
+        const errorParsed: ServerError = networkError as ServerError;
         const { statusCode } = errorParsed;
         const { href, host, protocol } = window.location;
         if (statusCode === 412) {
@@ -60,7 +65,8 @@ const splitLink = split(
     ({ query }) => {
         const definition = getMainDefinition(query);
         return (
-            definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
+            definition.kind === 'OperationDefinition' &&
+            definition.operation === 'subscription'
         );
     },
     wsLink,

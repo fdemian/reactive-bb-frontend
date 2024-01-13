@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Input, Button, Alert } from 'antd';
 import Loading from '../../Loading/LoadingIndicator';
@@ -8,14 +8,14 @@ import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import ErrorLayer from './ErrorLayer';
 import { UPDATE_EMAIL } from './Mutations';
 import { useMutation } from '@apollo/client';
-import { UserType } from "../../User/userTypes";
+import { UserType } from '../../User/userTypes';
 
 type ModifyEmailModalProps = {
     user: UserType;
-    t:(key:string) => string;
-}
+    t: (key: string) => string;
+};
 
-const ModifyEmailModal = ({ user, t }:ModifyEmailModalProps) => {
+const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
     const { email } = user;
     const [userEmail, setUserEmail] = useState(email);
     const [updateEmail, mutationData] = useMutation(UPDATE_EMAIL);
@@ -29,7 +29,8 @@ const ModifyEmailModal = ({ user, t }:ModifyEmailModalProps) => {
         });
     };
 
-    const success = mutationData && mutationData.data && mutationData.data.updateEmail;
+    const success =
+        mutationData && mutationData.data && mutationData.data.updateEmail;
     const error = mutationData && mutationData.error;
 
     if (mutationData.loading) return <Loading />;
@@ -52,8 +53,8 @@ const ModifyEmailModal = ({ user, t }:ModifyEmailModalProps) => {
             <p>
                 Current email: &nbsp;
                 <span className="email-desc">
-          <strong>{user.email}</strong>
-        </span>
+                    <strong>{user.email}</strong>
+                </span>
             </p>
             <Alert
                 message={t('warning')}
@@ -82,7 +83,11 @@ const ModifyEmailModal = ({ user, t }:ModifyEmailModalProps) => {
             </div>
             <br />
             <div>
-                <Button type="primary" aria-label="Email change submit" onClick={changeEmail}>
+                <Button
+                    type="primary"
+                    aria-label="Email change submit"
+                    onClick={changeEmail}
+                >
                     {t('emailModalTitle')}
                 </Button>
             </div>
@@ -93,12 +98,12 @@ const ModifyEmailModal = ({ user, t }:ModifyEmailModalProps) => {
 
 ModifyEmailModal.propTypes = {
     user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      username: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      status: PropTypes.string,
-      about: PropTypes.string
+        id: PropTypes.number.isRequired,
+        username: PropTypes.string.isRequired,
+        avatar: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        status: PropTypes.string,
+        about: PropTypes.string,
     }),
     t: PropTypes.func.isRequired,
 };

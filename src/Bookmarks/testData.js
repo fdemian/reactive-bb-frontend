@@ -14,11 +14,11 @@ export const mockBookmarks = {
                     type: 'U',
                     banned: false,
                     banReason: null,
-                    __typename: 'User'
+                    __typename: 'User',
                 },
-                __typename: 'Post'
+                __typename: 'Post',
             },
-            __typename: 'Bookmark'
+            __typename: 'Bookmark',
         },
         {
             id: 11,
@@ -34,11 +34,11 @@ export const mockBookmarks = {
                     type: 'U',
                     banned: false,
                     banReason: null,
-                    __typename: 'User'
+                    __typename: 'User',
                 },
-                __typename: 'Post'
+                __typename: 'Post',
             },
-            __typename: 'Bookmark'
-        }
-    ]
+            __typename: 'Bookmark',
+        },
+    ],
 };

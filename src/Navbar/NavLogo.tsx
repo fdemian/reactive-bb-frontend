@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import "./Navbar.css";
+import './Navbar.css';
 
 type NavLogoProps = {
     mobile: boolean;
@@ -7,7 +7,11 @@ type NavLogoProps = {
     logoURL: string;
 };
 
-const NavLogo = ({ mobile, name, logoURL }: NavLogoProps): React.ReactElement => {
+const NavLogo = ({
+    mobile,
+    name,
+    logoURL,
+}: NavLogoProps): React.ReactElement => {
     return (
         <Link to="/" className="topnav header-logo">
             <img

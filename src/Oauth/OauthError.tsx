@@ -18,7 +18,7 @@ export const Component = (): React.ReactElement => {
             extra={[
                 <Button type="primary" key="console" onClick={goToLoginPage}>
                     {t('loginPageBtn')}
-                </Button>
+                </Button>,
             ]}
         >
             <div className="desc">

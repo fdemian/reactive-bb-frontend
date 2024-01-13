@@ -1,7 +1,12 @@
 import { GET_CATEGORIES } from './Queries';
 import { CREATE_CATEGORY } from './Mutations';
-import { render, fireEvent, screen, waitFor } from '../TestHelpers/testing-utils';
-import { test, expect} from 'vitest';
+import {
+    render,
+    fireEvent,
+    screen,
+    waitFor,
+} from '../TestHelpers/testing-utils';
+import { test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 test('<Categories /> > Renders correctly', async () => {
@@ -9,7 +14,7 @@ test('<Categories /> > Renders correctly', async () => {
         {
             request: {
                 query: GET_CATEGORIES,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
@@ -19,31 +24,36 @@ test('<Categories /> > Renders correctly', async () => {
                         {
                             id: 1,
                             name: 'Test',
-                            description: 'A test'
-                        }
-                    ]
-                }
-            }
-        }
+                            description: 'A test',
+                        },
+                    ],
+                },
+            },
+        },
     ];
 
     render({
         isLoggedIn: true,
         isMobile: false,
         mocks: mocks,
-        initialEntries: ['/categories']
+        initialEntries: ['/categories'],
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
 
-    expect(await screen.findByText('categories.categories')).toBeInTheDocument();
+    expect(
+        await screen.findByText('categories.categories')
+    ).toBeInTheDocument();
 
     expect(screen.getByText('Test')).toBeInTheDocument();
     expect(screen.getByText('A test')).toBeInTheDocument();
     expect(screen.getByText('Uncategorized')).toBeInTheDocument();
 
     expect(
-        await screen.findByRole('button', { hidden: true, name: 'categories.newCategory' })
+        await screen.findByRole('button', {
+            hidden: true,
+            name: 'categories.newCategory',
+        })
     ).toBeInTheDocument();
 });
 
@@ -51,14 +61,14 @@ test('<Categories /> > New category > Create category.', async () => {
     const _user = userEvent.setup();
     const newCategory = {
         name: 'New Category',
-        description: 'New Description'
+        description: 'New Description',
     };
 
     const mocks = [
         {
             request: {
                 query: GET_CATEGORIES,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
@@ -68,19 +78,19 @@ test('<Categories /> > New category > Create category.', async () => {
                         {
                             id: 1,
                             name: 'Test',
-                            description: 'A test'
-                        }
-                    ]
-                }
-            }
+                            description: 'A test',
+                        },
+                    ],
+                },
+            },
         },
         {
             request: {
                 query: CREATE_CATEGORY,
                 variables: {
                     name: newCategory.name,
-                    description: newCategory.description
-                }
+                    description: newCategory.description,
+                },
             },
             result: {
                 loading: false,
@@ -89,17 +99,17 @@ test('<Categories /> > New category > Create category.', async () => {
                     createCategory: {
                         id: 1,
                         name: newCategory.name,
-                        description: newCategory.description
-                    }
-                }
-            }
-        }
+                        description: newCategory.description,
+                    },
+                },
+            },
+        },
     ];
 
     render({
         isLoggedIn: true,
         mocks: mocks,
-        initialEntries: ['/categories']
+        initialEntries: ['/categories'],
     });
 
     await waitFor(() => {
@@ -112,46 +122,47 @@ test('<Categories /> > New category > Create category.', async () => {
 
     await waitFor(() => {
         expect(
-            screen.getByRole('button', { hidden: true, name: 'categories.newCategory' })
+            screen.getByRole('button', {
+                hidden: true,
+                name: 'categories.newCategory',
+            })
         ).toBeInTheDocument();
     });
 
-    await _user.click(screen.getByRole('button', { name: 'categories.newCategory' }));
+    await _user.click(
+        screen.getByRole('button', { name: 'categories.newCategory' })
+    );
 
-    expect(
-       await screen.findByText("categories.create")
-    ).toBeInTheDocument();
+    expect(await screen.findByText('categories.create')).toBeInTheDocument();
 
     expect(screen.getByText('categories.create')).toBeInTheDocument();
     expect(screen.getByText('categories.discard')).toBeInTheDocument();
 
     expect(screen.getByRole('form')).toHaveFormValues({
         name: '',
-        description: ''
+        description: '',
     });
 
     await _user.type(
-        screen.getByRole("textbox", { name: "categories.namePlaceholder"}),
+        screen.getByRole('textbox', { name: 'categories.namePlaceholder' }),
         newCategory.name
     );
     await _user.type(
-        screen.getByRole("textbox", { name: "categories.descriptionPlaceholder"}),
+        screen.getByRole('textbox', {
+            name: 'categories.descriptionPlaceholder',
+        }),
         newCategory.description
     );
 
-    expect(
-        await screen.findByText('categories.create')
-    ).toBeInTheDocument();
+    expect(await screen.findByText('categories.create')).toBeInTheDocument();
 
     expect(screen.getByRole('form')).toHaveFormValues({
         name: newCategory.name,
-        description: newCategory.description
+        description: newCategory.description,
     });
 
     await _user.click(screen.getByText('categories.create'));
-    expect(
-      await screen.findByText(newCategory.name)
-    ).toBeInTheDocument();
+    expect(await screen.findByText(newCategory.name)).toBeInTheDocument();
     expect(screen.getByText(newCategory.description)).toBeInTheDocument();
 });
 
@@ -160,7 +171,7 @@ test('<Categories /> > New category > Create category. > Discard', async () => {
         {
             request: {
                 query: GET_CATEGORIES,
-                variables: {}
+                variables: {},
             },
             result: {
                 loading: false,
@@ -170,18 +181,18 @@ test('<Categories /> > New category > Create category. > Discard', async () => {
                         {
                             id: 1,
                             name: 'Test',
-                            description: 'A test'
-                        }
-                    ]
-                }
-            }
-        }
+                            description: 'A test',
+                        },
+                    ],
+                },
+            },
+        },
     ];
 
     render({
         isLoggedIn: true,
         mocks: mocks,
-        initialEntries: ['/categories']
+        initialEntries: ['/categories'],
     });
 
     await waitFor(() => {
@@ -192,7 +203,9 @@ test('<Categories /> > New category > Create category. > Discard', async () => {
     expect(screen.getByText('A test')).toBeInTheDocument();
     expect(screen.getByText('Uncategorized')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: 'categories.newCategory' }));
+    fireEvent.click(
+        screen.getByRole('button', { name: 'categories.newCategory' })
+    );
 
     await waitFor(() => {
         expect(screen.getByText('categories.create')).toBeInTheDocument();
@@ -202,7 +215,7 @@ test('<Categories /> > New category > Create category. > Discard', async () => {
     expect(screen.getByText('categories.discard')).toBeInTheDocument();
     expect(screen.getByRole('form')).toHaveFormValues({
         name: '',
-        description: ''
+        description: '',
     });
 
     fireEvent.click(screen.getByText('categories.discard'));
@@ -217,7 +230,10 @@ test('<Categories /> > New category > Create category. > Discard', async () => {
 
     await waitFor(() => {
         expect(
-            screen.getByRole('button', { hidden: true, name: 'categories.newCategory' })
+            screen.getByRole('button', {
+                hidden: true,
+                name: 'categories.newCategory',
+            })
         ).toBeInTheDocument();
     });
 });

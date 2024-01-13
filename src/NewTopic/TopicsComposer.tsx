@@ -28,7 +28,9 @@ const defaultCategory = {
 export const Component = () => {
     const editing = false;
 
-    const { t } = useTranslation('topicsComposer', { keyPrefix: 'topicsComposer' });
+    const { t } = useTranslation('topicsComposer', {
+        keyPrefix: 'topicsComposer',
+    });
 
     //
     const mobile = getIsMobile();
@@ -43,7 +45,7 @@ export const Component = () => {
 
     const postStoryFn = () => {
         const id = getUserId();
-        const editor:any = editorContainer.current;
+        const editor: any = editorContainer.current;
         const _content = editor.getContent();
         const _category = category.id === -1 ? null : category;
 
@@ -60,11 +62,11 @@ export const Component = () => {
     };
 
     const clearEditorContent = () => {
-        const editor:any = editorContainer.current; 
-        if(editor){
+        const editor: any = editorContainer.current;
+        if (editor) {
             editor.clear();
         }
-    }
+    };
 
     const postReplyProps = getPostReplyContent();
     const initialState = getQuoteStateFromProps(postReplyProps);
@@ -83,14 +85,16 @@ export const Component = () => {
         postStoryFn();
     };
 
-    const updateTitleFn = (evt:any) => setTitle(evt.target.value);
-    const updateTags = (tags:string[]) => setTags(tags);
+    const updateTitleFn = (evt: any) => setTitle(evt.target.value);
+    const updateTags = (tags: string[]) => setTags(tags);
 
     if (loading || categoriesQuery.loading) return <Loading />;
 
     if (data && data.createTopic && data.createTopic.ok && title !== null) {
         return (
-            <Navigate to={`/topics/${data.createTopic.id}/${format_title_string(title)}`} />
+            <Navigate
+                to={`/topics/${data.createTopic.id}/${format_title_string(title)}`}
+            />
         );
     }
 
@@ -105,69 +109,72 @@ export const Component = () => {
     const categoriesData = [defaultCategory].concat(categories);
 
     return (
-    <>
-    <Helmet>
-        <title>{t('createTopic')}</title>
-    </Helmet>
-    <div className="composer-container">
-            <div className="ComposerTitle">
-                <p
-                    className="composer-title-text"
-                    aria-label={t('createTopic')}
-                    aria-level={1}
-                    role="heading"
-                >
-                    {t('createTopic')}
-                </p>
-            </div>
+        <>
+            <Helmet>
+                <title>{t('createTopic')}</title>
+            </Helmet>
+            <div className="composer-container">
+                <div className="ComposerTitle">
+                    <p
+                        className="composer-title-text"
+                        aria-label={t('createTopic')}
+                        aria-level={1}
+                        role="heading"
+                    >
+                        {t('createTopic')}
+                    </p>
+                </div>
 
-            <div className={'ComposerHeadContainer ' + mobileClass}>
-        <span className="TitleInputContainer">
-          <Input
-              placeholder={t('titlePlaceholder')}
-              className="TitleInput"
-              defaultValue={title === null ? '' : title}
-              onChange={(value) => updateTitleFn(value)}
-              aria-label="Title Input"
-          />
-        </span>
-                <span className="CategoriesContainer">
-          <CategoriesDropdown
-              category={category}
-              updateCategoryFn={setCategory}
-              categories={categoriesData}
-          />
-        </span>
-            </div>
-            <br />
-            <br />
-            <div className="PostEditorContainer">
-                <Editor
-                    initialState={initialState}
-                    containerRef={editorContainer}
-                    user={null}
-                    mentions={[]}
-                    setMentions={(m) => console.log(m)}
-                    isMobile={mobile}
-                />
-            </div>
-            <br />
-            <div className="tags-container">
-                <p className="TagChooseText">{t('chooseTags')}</p>
-                <EditableTagGroup initialState={tags} updateFn={updateTags} t={t} />
-            </div>
+                <div className={'ComposerHeadContainer ' + mobileClass}>
+                    <span className="TitleInputContainer">
+                        <Input
+                            placeholder={t('titlePlaceholder')}
+                            className="TitleInput"
+                            defaultValue={title === null ? '' : title}
+                            onChange={(value) => updateTitleFn(value)}
+                            aria-label="Title Input"
+                        />
+                    </span>
+                    <span className="CategoriesContainer">
+                        <CategoriesDropdown
+                            category={category}
+                            updateCategoryFn={setCategory}
+                            categories={categoriesData}
+                        />
+                    </span>
+                </div>
+                <br />
+                <br />
+                <div className="PostEditorContainer">
+                    <Editor
+                        initialState={initialState}
+                        containerRef={editorContainer}
+                        user={null}
+                        mentions={[]}
+                        setMentions={(m) => console.log(m)}
+                        isMobile={mobile}
+                    />
+                </div>
+                <br />
+                <div className="tags-container">
+                    <p className="TagChooseText">{t('chooseTags')}</p>
+                    <EditableTagGroup
+                        initialState={tags}
+                        updateFn={updateTags}
+                        t={t}
+                    />
+                </div>
 
-            <div className="confirm-buttons">
-                <ConfirmButtons
-                    isDraft={isDraft}
-                    editing={editing}
-                    postStoryContent={postContentFn}
-                    postAsDraftFn={postStoryAdDraft}
-                    t={t}
-                />
+                <div className="confirm-buttons">
+                    <ConfirmButtons
+                        isDraft={isDraft}
+                        editing={editing}
+                        postStoryContent={postContentFn}
+                        postAsDraftFn={postStoryAdDraft}
+                        t={t}
+                    />
+                </div>
             </div>
-        </div>
-    </>
-      
+        </>
     );
 };

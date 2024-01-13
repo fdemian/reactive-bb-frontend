@@ -2,7 +2,7 @@
     margin-top: 100px;
     margin-left: 50px;
     min-height: 40px;
-    display:block;
+    display: block;
 }
 
 .reply-cancel-btn {
@@ -45,7 +45,7 @@
 }
 
 .user-name {
-    font-size:20px;
+    font-size: 20px;
 }
 
 .post-date {
@@ -71,7 +71,8 @@
     vertical-align: sub;
 }
 
-.like-post-icon, .bookmark-post-icon {
+.like-post-icon,
+.bookmark-post-icon {
     vertical-align: middle;
 }
 
@@ -115,7 +116,8 @@
     margin-left: 85%;
 }
 
-.close-topic-button, .delete-topic-button {
+.close-topic-button,
+.delete-topic-button {
     background-color: darkred !important;
 }
 
@@ -132,7 +134,7 @@
     border: 1px solid rgba(81, 203, 238, 1);
 }
 
-@media screen and (max-width:720px) {
+@media screen and (max-width: 720px) {
     .reply-buttons {
         margin-left: 28%;
     }
@@ -150,16 +152,17 @@
         width: 100%;
     }
 
-    :where(.css-dev-only-do-not-override-13q4hlo).ant-list-split .ant-list-item {
+    :where(.css-dev-only-do-not-override-13q4hlo).ant-list-split
+        .ant-list-item {
         padding: 0px !important;
     }
 
     .editor {
-      min-height: 150px !important;
+        min-height: 150px !important;
     }
 }
 
-@media screen and (min-width:1920px) {
+@media screen and (min-width: 1920px) {
     .post-composer-container {
         height: 230px;
         margin-left: 29%;

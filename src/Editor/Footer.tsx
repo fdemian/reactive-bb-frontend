@@ -1,16 +1,26 @@
 import { useState, lazy, Suspense } from 'react';
 import { Tooltip, Badge, Modal, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMicrophone, faUpload, faCloudArrowUp, faTrash, faUndo, faRedo } from '@fortawesome/free-solid-svg-icons';
-import { FooterProps } from "./editorTypes";
+import {
+    faMicrophone,
+    faUpload,
+    faCloudArrowUp,
+    faTrash,
+    faUndo,
+    faRedo,
+} from '@fortawesome/free-solid-svg-icons';
+import { FooterProps } from './editorTypes';
 import './Toolbar.css';
 
 const ImageModal = lazy(() => import('./ImageModal/ImageModal'));
-const InlineImageModal = lazy(() => import('./InlineImageModal/InlineImageModal'));
-const UpdateInlineImageDialog = lazy(() => import('./InlineImageModal/UpdateInlineImageModal'));
+const InlineImageModal = lazy(
+    () => import('./InlineImageModal/InlineImageModal')
+);
+const UpdateInlineImageDialog = lazy(
+    () => import('./InlineImageModal/UpdateInlineImageModal')
+);
 
-const EditorFooter = (props:FooterProps) => {
-
+const EditorFooter = (props: FooterProps) => {
     const {
         inlineModalUpdateVisible,
         setInlineModalUpdateVisible,
@@ -22,7 +32,7 @@ const EditorFooter = (props:FooterProps) => {
         editor,
         canUndo,
         canRedo,
-        t
+        t,
     } = props;
 
     const [isSpeechToText, setIsSpeechToText] = useState(false);
@@ -37,52 +47,62 @@ const EditorFooter = (props:FooterProps) => {
         'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 
     const modalButtonsText = {
-        okText: t("ok"),
-        cancelText: t("cancel")
+        okText: t('ok'),
+        cancelText: t('cancel'),
     };
 
     const modalMainProps = {
-        'imageModal': {
+        imageModal: {
             title: t('toolbar.uploadImage'),
             open: uploadModalVisible,
             onOk: () => {
-                if(imageURL)
-                    insertImage({ src: imageURL, altText: altText });
+                if (imageURL) insertImage({ src: imageURL, altText: altText });
 
                 toggleModalVisible();
                 setImageURL('');
             },
-            okButtonProps: { disabled: (imageURL ?? "").trim() === '' || altText.trim() === '' },
+            okButtonProps: {
+                disabled:
+                    (imageURL ?? '').trim() === '' || altText.trim() === '',
+            },
             onCancel: () => {
                 toggleModalVisible();
                 setImageURL('');
-            }
+            },
         },
-        'inlineModalUpdate': {
-            title: t("inlineModalUpdateTitle"),
+        inlineModalUpdate: {
+            title: t('inlineModalUpdateTitle'),
             open: inlineModalUpdateVisible,
             onCancel: () => {
-              setInlineModalUpdateVisible(false);
+                setInlineModalUpdateVisible(false);
             },
-            footer: null
+            footer: null,
         },
-        'inlineImageModal': {
-            title: t("imageModal.inlineImageModalTitle"),
+        inlineImageModal: {
+            title: t('imageModal.inlineImageModalTitle'),
             open: inlineImageModalVisible,
             onOk: () => {
-                const payload = {altText, position, showCaption, src: imageURL ?? ""};
-                if(imageURL){
-                   insertInlineImage(payload);
+                const payload = {
+                    altText,
+                    position,
+                    showCaption,
+                    src: imageURL ?? '',
+                };
+                if (imageURL) {
+                    insertInlineImage(payload);
                 }
                 setInlineImageModalVisible(false);
                 setImageURL('');
             },
-            okButtonProps: { disabled: (imageURL ?? "").trim() === '' || altText.trim() === '' },
+            okButtonProps: {
+                disabled:
+                    (imageURL ?? '').trim() === '' || altText.trim() === '',
+            },
             onCancel: () => {
                 setInlineImageModalVisible(false);
                 setImageURL('');
-            }
-        }
+            },
+        },
     };
 
     return (
@@ -99,12 +119,21 @@ const EditorFooter = (props:FooterProps) => {
                             className="toolbar-style-button"
                             key="SPEECH_TO_TEXT"
                             onClick={() => {
-                                editor.executeCommand('SPEECH_TO_TEXT', !isSpeechToText);
+                                editor.executeCommand(
+                                    'SPEECH_TO_TEXT',
+                                    !isSpeechToText
+                                );
                                 setIsSpeechToText(!isSpeechToText);
                             }}
                         >
-                            <Badge dot={true} status={isSpeechToText ? 'success' : 'default'}>
-                                <FontAwesomeIcon icon={faMicrophone} size="lg" />
+                            <Badge
+                                dot={true}
+                                status={isSpeechToText ? 'success' : 'default'}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faMicrophone}
+                                    size="lg"
+                                />
                             </Badge>
                         </button>
                     </Tooltip>
@@ -138,7 +167,11 @@ const EditorFooter = (props:FooterProps) => {
                     <FontAwesomeIcon icon={faCloudArrowUp} size="lg" />
                 </button>
             </Tooltip>
-            <Tooltip placement="bottom" title={t('toolbar.clearEditor')} key="clear">
+            <Tooltip
+                placement="bottom"
+                title={t('toolbar.clearEditor')}
+                key="clear"
+            >
                 <button
                     aria-label={t('toolbar.clearEditor')}
                     className="toolbar-style-button"
@@ -148,7 +181,11 @@ const EditorFooter = (props:FooterProps) => {
                     <FontAwesomeIcon icon={faTrash} size="lg" />
                 </button>
             </Tooltip>
-            <Tooltip placement="bottom" title={t('toolbar.undo')} key="undo-tooltip">
+            <Tooltip
+                placement="bottom"
+                title={t('toolbar.undo')}
+                key="undo-tooltip"
+            >
                 <button
                     aria-label={t('toolbar.undo')}
                     className="toolbar-style-button"
@@ -162,7 +199,11 @@ const EditorFooter = (props:FooterProps) => {
                     />
                 </button>
             </Tooltip>
-            <Tooltip placement="bottom" title={t('toolbar.redo')} key="redo-tooltip">
+            <Tooltip
+                placement="bottom"
+                title={t('toolbar.redo')}
+                key="redo-tooltip"
+            >
                 <button
                     aria-label={t('toolbar.redo')}
                     className="toolbar-style-button"
@@ -177,14 +218,15 @@ const EditorFooter = (props:FooterProps) => {
                 </button>
             </Tooltip>
             <span>
-        <Badge dot={true} status={isSpeechToText ? 'processing' : 'error'} />
-                &nbsp; {isSpeechToText ? <strong>REC</strong> : <strong>OFF</strong>}
-      </span>
-            <Modal
-                {...modalButtonsText}
-                {...modalMainProps['imageModal']}
-            >
-                <Suspense fallback={<Spin/>}>
+                <Badge
+                    dot={true}
+                    status={isSpeechToText ? 'processing' : 'error'}
+                />
+                &nbsp;{' '}
+                {isSpeechToText ? <strong>REC</strong> : <strong>OFF</strong>}
+            </span>
+            <Modal {...modalButtonsText} {...modalMainProps['imageModal']}>
+                <Suspense fallback={<Spin />}>
                     <ImageModal
                         t={t}
                         imageURL={imageURL}
@@ -195,14 +237,14 @@ const EditorFooter = (props:FooterProps) => {
                 </Suspense>
             </Modal>
             <Modal
-               {...modalButtonsText}
-               {...modalMainProps['inlineModalUpdate']}
+                {...modalButtonsText}
+                {...modalMainProps['inlineModalUpdate']}
             >
-                <Suspense fallback={<Spin/>}>
+                <Suspense fallback={<Spin />}>
                     <UpdateInlineImageDialog
-                       {...inlineImagemodalProps}
-                       onClose={() => setInlineModalUpdateVisible(false)}
-                       t={t}
+                        {...inlineImagemodalProps}
+                        onClose={() => setInlineModalUpdateVisible(false)}
+                        t={t}
                     />
                 </Suspense>
             </Modal>
@@ -210,9 +252,9 @@ const EditorFooter = (props:FooterProps) => {
                 {...modalButtonsText}
                 {...modalMainProps['inlineImageModal']}
             >
-                <Suspense fallback={<Spin/>}>
+                <Suspense fallback={<Spin />}>
                     <InlineImageModal
-                        imageURL={imageURL ?? ""}
+                        imageURL={imageURL ?? ''}
                         setImageURL={setImageURL}
                         altText={altText}
                         setAltText={setAltText}

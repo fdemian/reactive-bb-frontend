@@ -24,17 +24,18 @@ export const getUserName = (): string | null => {
     return localStorage.getItem(USER_USERNAME);
 };
 
-export const setLoginData = (id:number, username:string, ttl:number) => {
+export const setLoginData = (id: number, username: string, ttl: number) => {
     localStorage.setItem(USER_ID, id.toString());
     localStorage.setItem(USER_USERNAME, username);
     localStorage.setItem(TOKEN_TTL, ttl.toString());
 };
 
 const clearTTL = (): void => localStorage.removeItem(TOKEN_TTL);
-const getTTLForToken = (): number => parseInt(localStorage.getItem(TOKEN_TTL) ?? "0", 10);
+const getTTLForToken = (): number =>
+    parseInt(localStorage.getItem(TOKEN_TTL) ?? '0', 10);
 
 const removeCurrentTimeout = (): void => {
-    const timeoutElem: string = localStorage.getItem(REFRESH_TIMEOUT) ?? "0";
+    const timeoutElem: string = localStorage.getItem(REFRESH_TIMEOUT) ?? '0';
     const timeoutId: number = parseInt(timeoutElem, 10);
     if (!isNaN(timeoutId)) {
         clearTimeout(timeoutId);
@@ -42,9 +43,10 @@ const removeCurrentTimeout = (): void => {
     localStorage.removeItem(REFRESH_TIMEOUT);
 };
 
-const saveTimeout = (id: string): void => localStorage.setItem(REFRESH_TIMEOUT, id);
+const saveTimeout = (id: string): void =>
+    localStorage.setItem(REFRESH_TIMEOUT, id);
 
-export const clearUser = ():void => {
+export const clearUser = (): void => {
     removeCurrentTimeout();
     clearTTL();
     localStorage.removeItem(USER_ID);
@@ -53,14 +55,14 @@ export const clearUser = ():void => {
     localStorage.removeItem(USER_TYPE);
 };
 
-export const authenticateUser = async (username:string, password: string) => {
+export const authenticateUser = async (username: string, password: string) => {
     const jsonData: string = JSON.stringify({
         username: username,
-        password: password
+        password: password,
     });
     const resp: Response = await fetch('/api/login', {
         method: 'POST',
-        body: jsonData
+        body: jsonData,
     });
     const data = await resp.json();
 
@@ -77,7 +79,7 @@ export const authenticateUser = async (username:string, password: string) => {
  * - The server will attempt to refresh the token once the expiration time has passed.
  * - If the refresh token is no longer valid when the user is
  */
-export const refreshToken = async (onFail?:FailFnType) => {
+export const refreshToken = async (onFail?: FailFnType) => {
     const user: number | null = getUserId();
     if (user === null && onFail) {
         onFail();
@@ -104,7 +106,7 @@ export const refreshToken = async (onFail?:FailFnType) => {
     }
 };
 
-export const getBanStatus = (): BanStatusReturn  => {
+export const getBanStatus = (): BanStatusReturn => {
     const banned: string | null = localStorage.getItem(BANNED_USER);
     const banReason: string | null = localStorage.getItem(BAN_REASON);
     const banExpires: string | null = localStorage.getItem(BAN_EXPIRES);
@@ -112,11 +114,15 @@ export const getBanStatus = (): BanStatusReturn  => {
     return {
         banned: banned === 'true',
         banReason: banReason,
-        banExpires: banExpires
+        banExpires: banExpires,
     };
 };
 
-export const setBanStatus = (banned: boolean, banReason: string, banExpires:string): void => {
+export const setBanStatus = (
+    banned: boolean,
+    banReason: string,
+    banExpires: string
+): void => {
     localStorage.setItem(BANNED_USER, banned.toString());
     localStorage.setItem(BAN_REASON, banReason);
     localStorage.setItem(BAN_EXPIRES, banExpires);
@@ -126,7 +132,7 @@ export const clearBanStatus = (): void => {
     localStorage.removeItem(BANNED_USER);
     localStorage.removeItem(BAN_REASON);
     localStorage.removeItem(BAN_EXPIRES);
-    localStorage.setItem(BANNED_USER, "false");
+    localStorage.setItem(BANNED_USER, 'false');
 };
 
 export const setUserType = (type: string) => {

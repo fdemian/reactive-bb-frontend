@@ -1,16 +1,28 @@
 import PaginationFooter from './PaginationFooter';
-import { render, screen, fireEvent, waitFor } from '../TestHelpers/testing-utils-standalone';
-import { vi, test, expect } from 'vitest'
+import {
+    render,
+    screen,
+    fireEvent,
+    waitFor,
+} from '../TestHelpers/testing-utils-standalone';
+import { vi, test, expect } from 'vitest';
 
 /*
  * The control must have 5 buttons, all disabled and the text "1/1"
  * indicating we are in the first (and only) page.
  */
 test('<PaginationFooter /> > Disabled because there are no pages.', async () => {
-    render(<PaginationFooter currentPage={1} lastPage={1} onChangePage={vi.fn()} />, {
-        mocks: [],
-        isLoggedIn: false
-    });
+    render(
+        <PaginationFooter
+            currentPage={1}
+            lastPage={1}
+            onChangePage={vi.fn()}
+        />,
+        {
+            mocks: [],
+            isLoggedIn: false,
+        }
+    );
 
     await waitFor(() => {
         expect(screen.getAllByRole('radio').length).toStrictEqual(5);
@@ -33,10 +45,14 @@ test('<PaginationFooter /> > Disabled because there are no pages.', async () => 
 test('<PaginationFooter /> > Enabled footer > Test interaction with increase page buttons.', async () => {
     const changePageFn = vi.fn();
     render(
-        <PaginationFooter currentPage={1} lastPage={3} onChangePage={changePageFn} />,
+        <PaginationFooter
+            currentPage={1}
+            lastPage={3}
+            onChangePage={changePageFn}
+        />,
         {
             mocks: [],
-            isLoggedIn: false
+            isLoggedIn: false,
         }
     );
 
@@ -77,10 +93,14 @@ test('<PaginationFooter /> > Enabled footer > Test interaction with increase pag
 test('<PaginationFooter /> > Enabled footer > Test interaction with decrease page buttons.', async () => {
     const changePageFn = vi.fn();
     render(
-        <PaginationFooter currentPage={3} lastPage={3} onChangePage={changePageFn} />,
+        <PaginationFooter
+            currentPage={3}
+            lastPage={3}
+            onChangePage={changePageFn}
+        />,
         {
             mocks: [],
-            isLoggedIn: false
+            isLoggedIn: false,
         }
     );
 
@@ -117,10 +137,14 @@ test('<PaginationFooter /> > Enabled footer > Test interaction with decrease pag
 test('<PaginationFooter /> > Enabled footer > page jumper > Test back button.', async () => {
     const changePageFn = vi.fn();
     render(
-        <PaginationFooter currentPage={1} lastPage={3} onChangePage={changePageFn} />,
+        <PaginationFooter
+            currentPage={1}
+            lastPage={3}
+            onChangePage={changePageFn}
+        />,
         {
             mocks: [],
-            isLoggedIn: false
+            isLoggedIn: false,
         }
     );
 
@@ -138,7 +162,9 @@ test('<PaginationFooter /> > Enabled footer > page jumper > Test back button.', 
     expect(screen.getByText('paginationFooter.back')).toBeInTheDocument();
     expect(screen.getByRole('spinbutton')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('paginationFooter.back'), { bubbles: true });
+    fireEvent.click(screen.getByText('paginationFooter.back'), {
+        bubbles: true,
+    });
 });
 
 /*
@@ -148,10 +174,14 @@ test('<PaginationFooter /> > Enabled footer > page jumper > Test back button.', 
 test('<PaginationFooter /> > Invalid page change > Attempt to go to the previous page to the first page.', async () => {
     const changePageFn = vi.fn();
     render(
-        <PaginationFooter currentPage={1} lastPage={1} onChangePage={changePageFn} />,
+        <PaginationFooter
+            currentPage={1}
+            lastPage={1}
+            onChangePage={changePageFn}
+        />,
         {
             mocks: [],
-            isLoggedIn: false
+            isLoggedIn: false,
         }
     );
 
@@ -175,10 +205,14 @@ test('<PaginationFooter /> > Invalid page change > Attempt to go to the previous
 test('<PaginationFooter /> > Invalid page change > Attempt to go to the next page to the last page.', async () => {
     const changePageFn = vi.fn();
     render(
-        <PaginationFooter currentPage={1} lastPage={1} onChangePage={changePageFn} />,
+        <PaginationFooter
+            currentPage={1}
+            lastPage={1}
+            onChangePage={changePageFn}
+        />,
         {
             mocks: [],
-            isLoggedIn: false
+            isLoggedIn: false,
         }
     );
 
@@ -201,10 +235,14 @@ test('<PaginationFooter /> > Invalid page change > Attempt to go to the next pag
 test('<PaginationFooter /> > Enabled footer > page jumper > Go to page.', async () => {
     const changePageFn = vi.fn();
     render(
-        <PaginationFooter currentPage={1} lastPage={3} onChangePage={changePageFn} />,
+        <PaginationFooter
+            currentPage={1}
+            lastPage={3}
+            onChangePage={changePageFn}
+        />,
         {
             mocks: [],
-            isLoggedIn: false
+            isLoggedIn: false,
         }
     );
 

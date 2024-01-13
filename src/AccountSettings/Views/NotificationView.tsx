@@ -1,8 +1,6 @@
 import { Radio, List } from 'antd';
 
-
 const NotificationView = () => {
-
     const Action = (
         <Radio.Group onChange={() => console.log('change!')} value={1}>
             <Radio value={1}>Dont notify</Radio>
@@ -26,22 +24,23 @@ const NotificationView = () => {
             title: 'Watched topic',
             description: 'Notify me when a watched topic gets new replies.',
             actions: [Action],
-        }
+        },
     ];
 
-
     return (
-    <List
-        itemLayout="horizontal"
-        dataSource={data}
-        renderItem={(item) => (
-            <List.Item actions={item.actions}>
-                <List.Item.Meta title={item.title} description={item.description} />
-            </List.Item>
-        )}
-    />
+        <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
+                <List.Item actions={item.actions}>
+                    <List.Item.Meta
+                        title={item.title}
+                        description={item.description}
+                    />
+                </List.Item>
+            )}
+        />
     );
-
 };
 
 export default NotificationView;

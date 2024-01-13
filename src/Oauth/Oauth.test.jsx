@@ -1,4 +1,4 @@
-/* eslint no-undef: 0 */  //
+/* eslint no-undef: 0 */ //
 import { render, screen, waitFor } from '../TestHelpers/testing-utils';
 import { vi, test, expect } from 'vitest';
 
@@ -10,7 +10,7 @@ vi.mock('react-router-dom', async () => {
     return {
         ...actual,
         useNavigate: () => mockedUsedNavigate,
-    }
+    };
 });
 
 test('Oauth > User authenticated correctly', async () => {
@@ -20,8 +20,8 @@ test('Oauth > User authenticated correctly', async () => {
                 Promise.resolve({
                     id: 1,
                     ok: true,
-                    ttl: 500
-                })
+                    ttl: 500,
+                }),
         })
     );
 
@@ -29,12 +29,18 @@ test('Oauth > User authenticated correctly', async () => {
         isMobile: false,
         isLoggedIn: false,
         mocks: [],
-        initialEntries: [`/oauth/${service}`]
+        initialEntries: [`/oauth/${service}`],
     });
 
-    expect(await screen.findByText(`oauth.loggingInWith ${service}`)).toBeInTheDocument();
-    expect(screen.getByText('oauth.loggingInWith', { exact: false })).toBeInTheDocument();
-    expect(screen.getByText('oauth.waitWarning', { exact: false })).toBeInTheDocument();
+    expect(
+        await screen.findByText(`oauth.loggingInWith ${service}`)
+    ).toBeInTheDocument();
+    expect(
+        screen.getByText('oauth.loggingInWith', { exact: false })
+    ).toBeInTheDocument();
+    expect(
+        screen.getByText('oauth.waitWarning', { exact: false })
+    ).toBeInTheDocument();
 
     // If the user has correctly logged in, it should redirect to the home URL.
     await waitFor(() => {
@@ -49,8 +55,8 @@ test('Oauth > User authentication error', async () => {
                 Promise.resolve({
                     id: null,
                     ok: false,
-                    ttl: 0
-                })
+                    ttl: 0,
+                }),
         })
     );
 
@@ -58,17 +64,23 @@ test('Oauth > User authentication error', async () => {
         mocks: [],
         initialEntries: [`/oauth/${service}`],
         isLoggedIn: false,
-        isMobile: false
+        isMobile: false,
     });
 
     expect(
-        await screen.findByText(`oauth.loggingInWith ${service}`, { exact: false })
+        await screen.findByText(`oauth.loggingInWith ${service}`, {
+            exact: false,
+        })
     ).toBeInTheDocument();
-    expect(screen.getByText('oauth.waitWarning', { exact: false })).toBeInTheDocument();
+    expect(
+        screen.getByText('oauth.waitWarning', { exact: false })
+    ).toBeInTheDocument();
 
     // If the user has correctly logged in, it should redirect to the home URL.
     await waitFor(() => {
-        expect(mockedUsedNavigate).toHaveBeenCalledWith(`/autherror/${service}`);
+        expect(mockedUsedNavigate).toHaveBeenCalledWith(
+            `/autherror/${service}`
+        );
     });
 });
 
@@ -77,17 +89,13 @@ test('OauthError > Renders correctly', async () => {
         mocks: [],
         initialEntries: [`/autherror/${service}`],
         isLoggedIn: false,
-        isMobile: false
+        isMobile: false,
     });
 
     expect(await screen.findByText('oauth.authFailed')).toBeInTheDocument();
     expect(
         screen.getByText(`oauth.oauthUsing ${service} oauth.failed`)
     ).toBeInTheDocument();
-    expect(
-        screen.getByText('oauth.loginSuggestion')
-    ).toBeInTheDocument();
-    expect(
-        screen.getByText("oauth.loginPageBtn")
-    );
+    expect(screen.getByText('oauth.loginSuggestion')).toBeInTheDocument();
+    expect(screen.getByText('oauth.loginPageBtn'));
 });

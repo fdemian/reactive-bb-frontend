@@ -1,22 +1,25 @@
-/* eslint no-undef: 0 */  //
+/* eslint no-undef: 0 */ //
 import { render, screen, waitFor } from '../TestHelpers/testing-utils';
-import { vi , test, expect } from 'vitest';
+import { vi, test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 vi.doMock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
-        getOauthConfig: () => JSON.parse('{"services":[{"name":"google","scope":"email profile","clientId":"<CLIENT_ID>","link":"https://accounts.google.com/o/oauth2/v2/auth","extraParams":"&prompt=consent&access_type=offline"},{"name":"github","scope":"user:email","clientId":"<CLIENT_ID>","link":"https://github.com/login/oauth/authorize","extraParams":""}],"redirectURI":"www.redirect.com"}')
-    }
+        getOauthConfig: () =>
+            JSON.parse(
+                '{"services":[{"name":"google","scope":"email profile","clientId":"<CLIENT_ID>","link":"https://accounts.google.com/o/oauth2/v2/auth","extraParams":"&prompt=consent&access_type=offline"},{"name":"github","scope":"user:email","clientId":"<CLIENT_ID>","link":"https://github.com/login/oauth/authorize","extraParams":""}],"redirectURI":"www.redirect.com"}'
+            ),
+    };
 });
 
 vi.doMock('../App/utils', async () => {
-    const actual = await vi.importActual("../App/utils");
+    const actual = await vi.importActual('../App/utils');
     return {
-       ...actual,
-       getOauthConfig: () => ({ services: [] })
-    }
+        ...actual,
+        getOauthConfig: () => ({ services: [] }),
+    };
 });
 
 const RESPONSE = {
@@ -25,40 +28,43 @@ const RESPONSE = {
     ttl: 500,
     banned: false,
     banReason: null,
-    type: 'A'
+    type: 'A',
 };
 
 test("<Login /> > Login > Logged in (redirects to '/').", async () => {
     const mockNavigateComp = vi.fn();
-    vi.doMock("react-router-dom", async () => {
-        const actual = await vi.importActual("react-router-dom")
+    vi.doMock('react-router-dom', async () => {
+        const actual = await vi.importActual('react-router-dom');
         return {
             ...actual,
             Navigate: (props) => {
                 return mockNavigateComp(props);
-            }
-         }
+            },
+        };
     });
 
     render({
         mocks: [],
         initialEntries: ['/login'],
         isLoggedIn: true,
-        isMobile: false
+        isMobile: false,
     });
 
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
 
     await waitFor(() => {
-        expect(mockNavigateComp).toHaveBeenCalledWith({ to: '/', replace: true });
-    })
+        expect(mockNavigateComp).toHaveBeenCalledWith({
+            to: '/',
+            replace: true,
+        });
+    });
 });
 
 test('<Login /> > Login > Form interaction.', async () => {
     const user = userEvent.setup();
     global.fetch = vi.fn(() =>
         Promise.resolve({
-            json: () => Promise.resolve(RESPONSE)
+            json: () => Promise.resolve(RESPONSE),
         })
     );
 
@@ -66,18 +72,22 @@ test('<Login /> > Login > Form interaction.', async () => {
         mocks: [],
         initialEntries: ['/login'],
         isLoggedIn: false,
-        isMobile: false
+        isMobile: false,
     });
 
-    expect(await screen.findByRole("form")).toBeInTheDocument();
-    expect(screen.getByRole('form')).toHaveFormValues({ username: '', password: ''});
-    
+    expect(await screen.findByRole('form')).toBeInTheDocument();
+    expect(screen.getByRole('form')).toHaveFormValues({
+        username: '',
+        password: '',
+    });
+
     //
-    expect(screen.getByRole('link', { name: 'login.forgotPass' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'login.forgotPass' })).toHaveAttribute(
-        'href',
-        '/forgotpass'
-    );
+    expect(
+        screen.getByRole('link', { name: 'login.forgotPass' })
+    ).toBeInTheDocument();
+    expect(
+        screen.getByRole('link', { name: 'login.forgotPass' })
+    ).toHaveAttribute('href', '/forgotpass');
 
     const textboxes = screen.getAllByRole('textbox');
     const usernameInput = textboxes[0];
@@ -88,9 +98,11 @@ test('<Login /> > Login > Form interaction.', async () => {
 
     expect(screen.getByRole('form')).toHaveFormValues({
         username: 'user1',
-        password: 'pass'
+        password: 'pass',
     });
 
-    expect(await screen.findByRole('button', { name: 'login.login' })).toBeInTheDocument();
+    expect(
+        await screen.findByRole('button', { name: 'login.login' })
+    ).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'login.login' }));
 });

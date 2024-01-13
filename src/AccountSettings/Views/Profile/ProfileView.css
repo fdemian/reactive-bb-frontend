@@ -1,4 +1,4 @@
-@media screen and (min-width:720px) {
+@media screen and (min-width: 720px) {
     .baseView {
         display: flex;
         padding-top: 12px;
@@ -35,7 +35,7 @@
     width: 100%;
 }
 
-.baseView .right  .button_view {
+.baseView .right .button_view {
     width: 144px;
     text-align: center;
 }
@@ -55,7 +55,6 @@
         display: none;
     }
 }
-
 
 .avatar-uploader,
 .avatar-uploader-trigger,
@@ -87,9 +86,7 @@
 
 /* ------------------------------------------------- */
 
-
-.ProfileTitleHeading
-{
+.ProfileTitleHeading {
     display: inline;
     margin-right: 12px;
     word-wrap: break-word;

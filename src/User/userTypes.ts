@@ -1,4 +1,3 @@
-
 export type PostType = {
     id: number;
     topicId: number;
@@ -11,8 +10,8 @@ export type TopicType = {
 };
 
 export type LikeType = {
-   id: number;
-   post:PostType;
+    id: number;
+    post: PostType;
 };
 
 export type UserType = {

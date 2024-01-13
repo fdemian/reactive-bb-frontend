@@ -5,16 +5,19 @@ import Notification from './Notification';
 import { NotificationType } from '../../navbarTypes';
 import { Empty } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowsRotate, faEye, faInbox } from '@fortawesome/free-solid-svg-icons';
+import {
+    faArrowsRotate,
+    faEye,
+    faInbox,
+} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
 
 type MarkReadParams = {
     variables: {
-        notifications: number[],
+        notifications: number[];
     };
     optimisticResponse: {
-        markAsRead: NotificationType[],
+        markAsRead: NotificationType[];
     };
 };
 
@@ -23,7 +26,7 @@ type NotificationProps = {
     enabled: boolean;
     markAsRead: (p: MarkReadParams) => void;
     newSubscription: () => void;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
 const NotificationsMenu = (props: NotificationProps) => {
@@ -62,9 +65,9 @@ const NotificationsMenu = (props: NotificationProps) => {
         {
             label: (
                 <span onClick={dismissNotifications}>
-          <FontAwesomeIcon icon={faArrowsRotate} />
+                    <FontAwesomeIcon icon={faArrowsRotate} />
                     &nbsp; {t('markAllNotificationsRead')}
-        </span>
+                </span>
             ),
             key: 'mark-notifications-read',
             disabled: notifications.length === 0,
@@ -84,20 +87,20 @@ const NotificationsMenu = (props: NotificationProps) => {
     const displayItems =
         notifications.length === 0
             ? [
-                {
-                    label: (
-                        <Empty
-                            image={<FontAwesomeIcon icon={faInbox} />}
-                            imageStyle={{
-                                height: 40,
-                            }}
-                            description={t('noNotifications')}
-                        />
-                    ),
-                    key: 'no-notifications',
-                    disabled: true,
-                },
-            ]
+                  {
+                      label: (
+                          <Empty
+                              image={<FontAwesomeIcon icon={faInbox} />}
+                              imageStyle={{
+                                  height: 40,
+                              }}
+                              description={t('noNotifications')}
+                          />
+                      ),
+                      key: 'no-notifications',
+                      disabled: true,
+                  },
+              ]
             : notificationItems;
     const items = displayItems.concat(notificationActions);
 
@@ -107,9 +110,12 @@ const NotificationsMenu = (props: NotificationProps) => {
             menu={enabled ? { items } : {}}
             placement="bottom"
         >
-      <span>
-        <NotificationsHeader notifications={notifications} enabled={enabled} />
-      </span>
+            <span>
+                <NotificationsHeader
+                    notifications={notifications}
+                    enabled={enabled}
+                />
+            </span>
         </Dropdown>
     );
 };

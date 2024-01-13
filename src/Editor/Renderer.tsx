@@ -1,13 +1,13 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalliopeEditor from 'kalliope';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import './Editor.css';
 
-type RendererParse = { content: string | null; };
+type RendererParse = { content: string | null };
 
-const Renderer = ({ content }:RendererParse) => {
+const Renderer = ({ content }: RendererParse) => {
     const containerRef = useRef(null);
 
     let parsedContent;
@@ -25,10 +25,10 @@ const Renderer = ({ content }:RendererParse) => {
         readOnly: true,
         autoFocus: false,
         excalidrawConfig: {
-            modal: () => <div></div>
-        }, 
+            modal: () => <div></div>,
+        },
         inlineImage: {
-          showModal: () => {}
+            showModal: () => {},
         },
         onError: (error: Error) => {
             throw error;
@@ -38,7 +38,7 @@ const Renderer = ({ content }:RendererParse) => {
             defaultCaptionText: '',
         },
         twitterConfig: {
-            loadingComponent: ({ tweetId }:{ tweetId: string; }) => (
+            loadingComponent: ({ tweetId }: { tweetId: string }) => (
                 <p>
                     {t('internal.loadingTweet')}...(ID={tweetId})
                 </p>
@@ -51,7 +51,7 @@ const Renderer = ({ content }:RendererParse) => {
             emojiData: null,
         },
         citation: {
-            sourceLinkComponent: ({ sourceLink }: { sourceLink: string; }) => (
+            sourceLinkComponent: ({ sourceLink }: { sourceLink: string }) => (
                 <a href={sourceLink} className="source-link-component">
                     <FontAwesomeIcon icon={faArrowUp} size="lg" />
                 </a>
@@ -67,7 +67,7 @@ const Renderer = ({ content }:RendererParse) => {
         },
         dragAndDropImage: {
             handleDroppedFile: () => {},
-        }
+        },
     };
 
     return (

@@ -1,7 +1,11 @@
 import React from 'react';
 import UserAvatar from './UserAvatar';
 import { render } from '@testing-library/react';
-import { screen, waitFor, within } from '../TestHelpers/testing-utils-standalone';
+import {
+    screen,
+    waitFor,
+    within,
+} from '../TestHelpers/testing-utils-standalone';
 import { expect, test } from 'vitest';
 
 test('User has an avatar image.', async () => {
@@ -9,20 +13,32 @@ test('User has an avatar image.', async () => {
         avatar: 'avatar.png',
         username: 'adminuser',
         size: 30,
-        shape: 'circle'
+        shape: 'circle',
     };
 
     render(<UserAvatar {...props} />, {});
 
     await waitFor(() => {
         expect(
-            screen.getByRole('img', { name: `Avatar of ${props.username}`, hidden: true })
-        ).toBeInTheDocument()
+            screen.getByRole('img', {
+                name: `Avatar of ${props.username}`,
+                hidden: true,
+            })
+        ).toBeInTheDocument();
     });
-    
-    const avatarImgContainer = screen.getByRole('img', { name: `Avatar of ${props.username}`, hidden: true });
-    expect(avatarImgContainer).toHaveAttribute('alt', `Avatar of ${props.username}`);
-    expect(avatarImgContainer).toHaveAttribute('src', `/static/avatars/${props.avatar}`);
+
+    const avatarImgContainer = screen.getByRole('img', {
+        name: `Avatar of ${props.username}`,
+        hidden: true,
+    });
+    expect(avatarImgContainer).toHaveAttribute(
+        'alt',
+        `Avatar of ${props.username}`
+    );
+    expect(avatarImgContainer).toHaveAttribute(
+        'src',
+        `/static/avatars/${props.avatar}`
+    );
 });
 
 test('User does not have an image as avatar.', async () => {
@@ -30,7 +46,7 @@ test('User does not have an image as avatar.', async () => {
         avatar: null,
         username: 'adminuser',
         size: 30,
-        shape: 'circle'
+        shape: 'circle',
     };
 
     render(<UserAvatar {...props} />, {});

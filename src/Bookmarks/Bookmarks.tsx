@@ -10,13 +10,12 @@ import { BookmarkType } from './bookmarkTypes';
 import './Bookmarks.css';
 
 export const Component = () => {
-    
     const userId = getUserId();
     const { t } = useTranslation('bookmarks', { keyPrefix: 'bookmarks' });
 
     const { data, loading, error } = useQuery(GET_BOOKMARKS_BY_USER, {
         variables: { user: userId },
-        skip: !userId
+        skip: !userId,
     });
 
     const [removeBookmark] = useMutation(REMOVE_BOOKMARK, {
@@ -27,52 +26,54 @@ export const Component = () => {
                         // Workarround checking for __ref prop.
                         // TODO: investigate why .filter(b => b.id !== id) is not working.
                         const { id } = removeBookmark;
-                        return bookmarksByUser.filter((b:BookmarkType) => b.__ref !== 'Bookmark:' + id);
-                    }
-                }
+                        return bookmarksByUser.filter(
+                            (b: BookmarkType) => b.__ref !== 'Bookmark:' + id
+                        );
+                    },
+                },
             });
-        }
+        },
     });
 
     if (loading) return <Loading />;
 
-    if (error) 
-    return(
-    <>
-      <Helmet>
-        <title>{t('bookmarks')}</title>
-      </Helmet>
-      <h1>{t('error')}</h1>
-    </>
-    );
-    
+    if (error)
+        return (
+            <>
+                <Helmet>
+                    <title>{t('bookmarks')}</title>
+                </Helmet>
+                <h1>{t('error')}</h1>
+            </>
+        );
+
     const { bookmarksByUser } = data;
-    
-    if(bookmarksByUser.length === 0)
-        return(
-        <>
-        <Helmet>
-           <title>{t('bookmarks')}</title>
-         </Helmet>
-          <h1 className="bookmarks-header">{t('bookmarks')}</h1>
-          <h2 className="bookmarks-header">{t('noBookmarks')}</h2>
-        </>    
-        )
+
+    if (bookmarksByUser.length === 0)
+        return (
+            <>
+                <Helmet>
+                    <title>{t('bookmarks')}</title>
+                </Helmet>
+                <h1 className="bookmarks-header">{t('bookmarks')}</h1>
+                <h2 className="bookmarks-header">{t('noBookmarks')}</h2>
+            </>
+        );
 
     return (
-    <>
-      <Helmet>
-        <title>{t('bookmarks')}</title>
-      </Helmet>
-      <div className="bookmarks-container">
-         <h1 className="bookmarks-header">{t('bookmarks')}</h1>
-         <BookrmarkList
-            t={t}
-            userId={userId}
-            bookmarks={bookmarksByUser}
-            removeBookmark={removeBookmark}
-        />
-      </div>
-    </>
+        <>
+            <Helmet>
+                <title>{t('bookmarks')}</title>
+            </Helmet>
+            <div className="bookmarks-container">
+                <h1 className="bookmarks-header">{t('bookmarks')}</h1>
+                <BookrmarkList
+                    t={t}
+                    userId={userId}
+                    bookmarks={bookmarksByUser}
+                    removeBookmark={removeBookmark}
+                />
+            </div>
+        </>
     );
 };

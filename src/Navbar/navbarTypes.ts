@@ -9,9 +9,9 @@ type UserNotificationType = {
 
 export type ChatType = {
     author: {
-      id: number;
-      avatar: string;
-      username: string;
+        id: number;
+        avatar: string;
+        username: string;
     };
     read: boolean;
 };
@@ -23,21 +23,20 @@ export type MessageType = {
     read: boolean;
 };
 
-
 export type ChatsByUserResponse = {
-    data: { 
-        chatsByUser: ChatType[] 
-    }; 
-    loading: boolean; 
+    data: {
+        chatsByUser: ChatType[];
+    };
+    loading: boolean;
     error?: ApolloError | undefined;
 };
 
 type MarkReadParams = {
     variables: {
-        notifications: number[],
+        notifications: number[];
     };
     optimisticResponse: {
-        markAsRead: NotificationType[],
+        markAsRead: NotificationType[];
     };
 };
 
@@ -52,13 +51,13 @@ export type NavbarLoggedProps = {
     newSubscription: () => void;
     logoutFn: () => void;
     markAsRead: (p: MarkReadParams) => void;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
 export type NotificationType = {
     id: number;
     link: string;
-    type: "like" | "mention";
+    type: 'like' | 'mention';
     read: boolean;
     originator: UserNotificationType;
     user: UserNotificationType;

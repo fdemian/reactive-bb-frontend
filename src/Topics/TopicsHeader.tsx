@@ -3,7 +3,7 @@ import { Select, Button, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import type {TopicsHeaderParams} from './topicTypes';
+import type { TopicsHeaderParams } from './topicTypes';
 
 import './Topics.css';
 
@@ -18,7 +18,7 @@ const TopicsHeader = (props: TopicsHeaderParams) => {
         toggleCategoriesDrawer,
         tr,
         isLoggedIn,
-        banStatus
+        banStatus,
     } = props;
 
     if (isMobile)
@@ -27,7 +27,7 @@ const TopicsHeader = (props: TopicsHeaderParams) => {
                 <div className="mobile-header-buttons">
                     <Button
                         size="large"
-                        aria-label={tr("categories")}
+                        aria-label={tr('categories')}
                         onClick={toggleCategoriesDrawer}
                         className="mobile-categories-icon"
                     >
@@ -63,7 +63,10 @@ const TopicsHeader = (props: TopicsHeaderParams) => {
                     optionFilterProp="children"
                     defaultValue={categoryFilter}
                     filterOption={(input, option) =>
-                       option !== undefined && option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        option !== undefined &&
+                        option.props.children
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
                     }
                     onChange={setCategoryFilter}
                 >
@@ -76,7 +79,11 @@ const TopicsHeader = (props: TopicsHeaderParams) => {
                 </Select>
                 {isLoggedIn && !banStatus.banned ? (
                     <Link to="/topics/new">
-                        <Button className="new-topic-button" key="add" type="primary">
+                        <Button
+                            className="new-topic-button"
+                            key="add"
+                            type="primary"
+                        >
                             + {tr('newTopic')}
                         </Button>
                     </Link>

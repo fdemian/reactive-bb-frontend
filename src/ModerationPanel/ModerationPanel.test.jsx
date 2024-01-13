@@ -23,15 +23,13 @@ vi.mock('../../Editor/Editor', () => ({
 
         const updateRef = (evt) => console.log(evt.target.value);
 
-        return (
-            <input data-testid="calliope-editor" onChange={updateRef} />
-        );
+        return <input data-testid="calliope-editor" onChange={updateRef} />;
     },
 }));
 
-
-const banContentReason = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
-const datePlus2Years = addYears(new Date(), 2)
+const banContentReason =
+    '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+const datePlus2Years = addYears(new Date(), 2);
 const isoDate = datePlus2Years.toISOString();
 
 const candidates = [
@@ -151,24 +149,24 @@ const bannedMocks = [
                 banUser: true,
             },
         },
-    }
+    },
 ];
 
 const emptyMocks = [
     {
-       request: {
-          query: GET_FLAGGED_POSTS,
-          variables: {
-              offset: 0,
-              limit: 5,
-          },
+        request: {
+            query: GET_FLAGGED_POSTS,
+            variables: {
+                offset: 0,
+                limit: 5,
+            },
         },
         result: {
-           loading: false,
-           error: false,
-           data: {
-              flaggedPosts: [],
-           },
+            loading: false,
+            error: false,
+            data: {
+                flaggedPosts: [],
+            },
         },
     },
     {
@@ -215,16 +213,24 @@ test('<ModerationPanel /> > Renders correctly.', async () => {
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
-    const allBannedText = await screen.findAllByText('modcp.bannedUsers')
+    const allBannedText = await screen.findAllByText('modcp.bannedUsers');
     expect(allBannedText.length).toStrictEqual(2);
 
-    expect(screen.getAllByText('modcp.bannedUsers', { exact: false }).length).toStrictEqual(2);
-    expect(screen.getAllByText('modcp.flaggedMsg', { exact: false }).length).toStrictEqual(1);
+    expect(
+        screen.getAllByText('modcp.bannedUsers', { exact: false }).length
+    ).toStrictEqual(2);
+    expect(
+        screen.getAllByText('modcp.flaggedMsg', { exact: false }).length
+    ).toStrictEqual(1);
 
     await user.click(screen.getByRole('button', { name: 'flagged' }));
 
-    expect(await screen.findByText('modcp.bannedUsers', { exact: false })).toBeInTheDocument();
-    expect(screen.getAllByText('modcp.flaggedMsg', { exact: false }).length).toStrictEqual(2);
+    expect(
+        await screen.findByText('modcp.bannedUsers', { exact: false })
+    ).toBeInTheDocument();
+    expect(
+        screen.getAllByText('modcp.flaggedMsg', { exact: false }).length
+    ).toStrictEqual(2);
 });
 
 test('<ModerationPanel /> > <BanPanel /> > Go back', async () => {
@@ -241,10 +247,16 @@ test('<ModerationPanel /> > <BanPanel /> > Go back', async () => {
         await screen.findByRole('input', { name: 'modcp.searchUsers' })
     ).toBeInTheDocument();
     expect(screen.getByText('No data')).toBeInTheDocument();
-    
+
     // Clear and type username.
-    await user.pointer({element: screen.getByRole('input', { name: 'modcp.searchUsers' }), keys: '[MouseLeft]'});
-    await user.type(screen.getByRole('input', { name: 'modcp.searchUsers' }), 'user1');
+    await user.pointer({
+        element: screen.getByRole('input', { name: 'modcp.searchUsers' }),
+        keys: '[MouseLeft]',
+    });
+    await user.type(
+        screen.getByRole('input', { name: 'modcp.searchUsers' }),
+        'user1'
+    );
 
     // All users should appear when searching.
     expect(await screen.findByText('user1')).toBeInTheDocument();
@@ -254,7 +266,9 @@ test('<ModerationPanel /> > <BanPanel /> > Go back', async () => {
     // One is not banned, the other permanently banned, and the other temporarily banned.
     expect(screen.getByText('modcp.notBanned')).toBeInTheDocument();
     expect(screen.getByText('modcp.permanentlyBanned')).toBeInTheDocument();
-    expect(screen.getByText('modcp.bannedUntil', { exact: false })).toBeInTheDocument();
+    expect(
+        screen.getByText('modcp.bannedUntil', { exact: false })
+    ).toBeInTheDocument();
 
     // Ban user
     await user.click(screen.getByText('modcp.banUser'));
@@ -266,9 +280,15 @@ test('<ModerationPanel /> > <BanPanel /> > Go back', async () => {
     expect(screen.queryByText('user100')).not.toBeInTheDocument();
     expect(screen.getByText('user1')).toBeInTheDocument();
     expect(screen.getByText('modcp.justification')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'modcp.back' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'modcp.banUser' })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: 'modcp.permanent' })).toBeInTheDocument();
+    expect(
+        screen.getByRole('button', { name: 'modcp.back' })
+    ).toBeInTheDocument();
+    expect(
+        screen.getByRole('button', { name: 'modcp.banUser' })
+    ).toBeInTheDocument();
+    expect(
+        screen.getByRole('checkbox', { name: 'modcp.permanent' })
+    ).toBeInTheDocument();
 
     expect(
         await screen.findByRole('checkbox', { name: 'modcp.permanent' })
@@ -288,7 +308,6 @@ test('<ModerationPanel /> > <BanPanel /> > Go back', async () => {
     expect(screen.getByText('No data')).toBeInTheDocument();
 });
 
-
 test('<ModerationPanel /> > <BanPanel /> > Ban user', async () => {
     const user = userEvent.setup();
     render({
@@ -304,8 +323,14 @@ test('<ModerationPanel /> > <BanPanel /> > Ban user', async () => {
     ).toBeInTheDocument();
     expect(screen.getByText('No data')).toBeInTheDocument();
 
-    await user.pointer({element: screen.getByRole('input', { name: 'modcp.searchUsers' }), keys: '[MouseLeft]'});
-    await user.type(screen.getByRole('input', { name: 'modcp.searchUsers' }), 'user1');
+    await user.pointer({
+        element: screen.getByRole('input', { name: 'modcp.searchUsers' }),
+        keys: '[MouseLeft]',
+    });
+    await user.type(
+        screen.getByRole('input', { name: 'modcp.searchUsers' }),
+        'user1'
+    );
 
     // All users should appear when searching.
     expect(await screen.findByText('user1')).toBeInTheDocument();
@@ -313,11 +338,11 @@ test('<ModerationPanel /> > <BanPanel /> > Ban user', async () => {
     // Ban user
     await user.click(screen.getByText('modcp.banUser'));
 
-    expect(
-        await screen.findByText('modcp.expirationDate')
-    ).toBeInTheDocument();
+    expect(await screen.findByText('modcp.expirationDate')).toBeInTheDocument();
     expect(screen.getByText('user1')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'modcp.banUser' })).toBeInTheDocument();
+    expect(
+        screen.getByRole('button', { name: 'modcp.banUser' })
+    ).toBeInTheDocument();
 
     // Fill in the data and ban user.
     await user.click(screen.getByRole('checkbox', { name: 'modcp.permanent' }));
@@ -327,8 +352,8 @@ test('<ModerationPanel /> > <BanPanel /> > Ban user', async () => {
     await user.click(screen.getByRole('button', { name: 'modcp.banUser' }));
 
     expect(
-     await screen.findByText("modcp.successfulBan", { exact: false })
-    ).toBeInTheDocument()
+        await screen.findByText('modcp.successfulBan', { exact: false })
+    ).toBeInTheDocument();
 });
 
 test('<ModerationPanel /> > Renders flagged users correctly.', async () => {
@@ -341,21 +366,27 @@ test('<ModerationPanel /> > Renders flagged users correctly.', async () => {
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
-    expect(await screen.findAllByText('modcp.bannedUsers', { exact: false })).toBeTruthy();
-    expect(screen.getAllByText('modcp.bannedUsers', { exact: false }).length).toStrictEqual(2);
-    expect(screen.getAllByText('modcp.flaggedMsg', { exact: false }).length).toStrictEqual(1);
+    expect(
+        await screen.findAllByText('modcp.bannedUsers', { exact: false })
+    ).toBeTruthy();
+    expect(
+        screen.getAllByText('modcp.bannedUsers', { exact: false }).length
+    ).toStrictEqual(2);
+    expect(
+        screen.getAllByText('modcp.flaggedMsg', { exact: false }).length
+    ).toStrictEqual(1);
 
     await user.click(screen.getByRole('button', { name: 'flagged' }));
-    await user.click(screen.getByRole('button', { name: 'flagged' }));    
+    await user.click(screen.getByRole('button', { name: 'flagged' }));
 
     await waitFor(() => {
-      expect(
-        screen.getAllByText('modcp.bannedUsers').length
-      ).toStrictEqual(1);
+        expect(screen.getAllByText('modcp.bannedUsers').length).toStrictEqual(
+            1
+        );
     });
 
-    expect(screen.getByRole("button", { name: "flagged" })).toBeInTheDocument();
-    
+    expect(screen.getByRole('button', { name: 'flagged' })).toBeInTheDocument();
+
     // Expect banned posts to be in the flag screen.
     expect(await screen.findByText('BAN_REASON_TEXT')).toBeInTheDocument();
     expect(screen.getByText('modcp.flagReason-1')).toBeInTheDocument();
@@ -363,23 +394,26 @@ test('<ModerationPanel /> > Renders flagged users correctly.', async () => {
     expect(screen.getByText('modcp.flagReason-3')).toBeInTheDocument();
 });
 
-
 test('<ModerationPanel /> > Renders empty flagged users.', async () => {
     const user = userEvent.setup();
     render({
-      mocks: emptyMocks,
-      isLoggedIn: true,
-      isMobile: false,
-      initialEntries: ['/modcp'],
+        mocks: emptyMocks,
+        isLoggedIn: true,
+        isMobile: false,
+        initialEntries: ['/modcp'],
     });
 
-    expect(await screen.findAllByText('modcp.bannedUsers', { exact: false })).toBeTruthy();
-    expect(screen.getAllByText('modcp.bannedUsers', { exact: false }).length).toStrictEqual(2);
-    expect(screen.getAllByText('modcp.flaggedMsg', { exact: false }).length).toStrictEqual(1);
+    expect(
+        await screen.findAllByText('modcp.bannedUsers', { exact: false })
+    ).toBeTruthy();
+    expect(
+        screen.getAllByText('modcp.bannedUsers', { exact: false }).length
+    ).toStrictEqual(2);
+    expect(
+        screen.getAllByText('modcp.flaggedMsg', { exact: false }).length
+    ).toStrictEqual(1);
     await user.click(screen.getByRole('button', { name: 'flagged' }));
     await user.click(screen.getByRole('button', { name: 'flagged' }));
 
-    expect(
-      await screen.findByText('modcp.noFlaggedPosts')
-    ).toBeInTheDocument();
+    expect(await screen.findByText('modcp.noFlaggedPosts')).toBeInTheDocument();
 });

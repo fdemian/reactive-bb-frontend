@@ -1,29 +1,35 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { Divider, Input, Select, Form } from 'antd';
 
 const { Option } = Select;
 const { Search } = Input;
 
 type SearchHeaderProps = {
-    setSearchIn: (value:string[]) => void; 
+    setSearchIn: (value: string[]) => void;
     searchIn: string[];
-    search:string; 
-    onSearch: (value:string) => void;
-    t: (key:string) => string;
+    search: string;
+    onSearch: (value: string) => void;
+    t: (key: string) => string;
 };
 
-const SearchHeader = ({ setSearchIn, searchIn, search, onSearch, t }: SearchHeaderProps) => {
-    const handleChange = (value:string[]) => setSearchIn(value);
-    const onFinish = (values:string) => {
+const SearchHeader = ({
+    setSearchIn,
+    searchIn,
+    search,
+    onSearch,
+    t,
+}: SearchHeaderProps) => {
+    const handleChange = (value: string[]) => setSearchIn(value);
+    const onFinish = (values: string) => {
         console.log('Success:', values);
     };
-    const onFinishFailed = (errorInfo:any) => {
+    const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
 
     const options = [
         { value: 'titles', label: t('topicTitles') },
-        { value: 'posts', label: t('postSearch') }
+        { value: 'posts', label: t('postSearch') },
     ];
 
     return (
@@ -86,7 +92,7 @@ SearchHeader.propTypes = {
     searchIn: PropTypes.string.isRequired,
     search: PropTypes.string.isRequired,
     onSearch: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
 };
 
 export default SearchHeader;

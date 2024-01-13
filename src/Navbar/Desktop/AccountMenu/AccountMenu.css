@@ -7,8 +7,7 @@
     position: initial;
 }
 
-.NotificationsSubmenu
-{
+.NotificationsSubmenu {
     margin-right: 0%;
     padding-left: 0%;
     padding-bottom: 11px;
@@ -16,37 +15,32 @@
     padding-top: 8px;
 }
 
-.NotificationsIcon
-{
-    margin-top:15px;
-    margin-bottom:15px;
+.NotificationsIcon {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-.UserMenu
-{
+.UserMenu {
     height: 50px;
     padding-top: 0px;
     margin-top: 0px;
     margin-bottom: 27px;
 }
 
-.UserMenu > .Avatar
-{
+.UserMenu > .Avatar {
     top: 8px;
     margin-right: 8px;
     margin-top: 8px;
 }
 
-.UserAvatarImg
-{
-    width:35px;
+.UserAvatarImg {
+    width: 35px;
     height: 35px;
     margin-top: 10px;
     margin-right: 5px;
 }
 
-.UserMenuName
-{
+.UserMenuName {
     display: inline;
     font-size: 15px;
     vertical-align: text-top;
@@ -63,14 +57,13 @@
     margin-top: -5px;
 }
 
-.MenuIcon
-{
+.MenuIcon {
     margin: 2px;
 }
 
 .username-menu-text {
     text-align: center;
-    color: rgba(0,0,0,.65);
+    color: rgba(0, 0, 0, 0.65);
     font-size: 20px;
     margin-left: 10px;
 }

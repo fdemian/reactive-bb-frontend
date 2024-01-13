@@ -10,26 +10,40 @@ import AccountAvatar from '../UserAvatar/UserAvatar';
 import EditorFooter from './Footer';
 import ExcalidrawModal from './ExcalidrawModal/ExcalidrawModal';
 import emojiData from 'emojibase-data/en/data.json';
-import { EditorProps, MentionType, EntryComponentTypes, InlineImageProps, ImageProps, InsertEquationProps} from './editorTypes';
+import {
+    EditorProps,
+    MentionType,
+    EntryComponentTypes,
+    InlineImageProps,
+    ImageProps,
+    InsertEquationProps,
+} from './editorTypes';
 import './Editor.css';
 
 const MobileDrawer = lazy(() => import('./MobileDrawer'));
 const Toolbar = lazy(() => import('./Toolbar'));
 const ToolbarMobile = lazy(() => import('./ToolbarMobile'));
 
-const Editor = (props:EditorProps) => {
+const Editor = (props: EditorProps) => {
     //const locale = getDefaultLocale();
-    const { initialState, containerRef, user, mentions, setMentions, isMobile } = props;
+    const {
+        initialState,
+        containerRef,
+        user,
+        mentions,
+        setMentions,
+        isMobile,
+    } = props;
     const ToolbarComponent = isMobile ? ToolbarMobile : Toolbar;
     const defaultMentions = user
         ? [
-            {
-                id: user.id,
-                name: user.username,
-                link: `/users/${user.id}/${user.username}`,
-                avatar: user.avatar,
-            },
-        ]
+              {
+                  id: user.id,
+                  name: user.username,
+                  link: `/users/${user.id}/${user.username}`,
+                  avatar: user.avatar,
+              },
+          ]
         : [];
 
     //
@@ -47,9 +61,11 @@ const Editor = (props:EditorProps) => {
     const [imageModalVisible, setImageModal] = useState(false);
     const [bgColorModalVisible, setBgColorModal] = useState(false);
     const [fontColorModalVisible, setFontColorModal] = useState(false);
-    const [inlineImageModalVisible, setInlineImageModalVisible] = useState(false);
+    const [inlineImageModalVisible, setInlineImageModalVisible] =
+        useState(false);
     const [inlineImagemodalProps, setInlineImageModalProps] = useState({});
-    const [inlineModalUpdateVisible, setInlineModalUpdateVisible] = useState(false);
+    const [inlineModalUpdateVisible, setInlineModalUpdateVisible] =
+        useState(false);
 
     const [tweetToolbarVisible, setTweetToolbar] = useState(false);
     const toggleTweetToolbar = () => setTweetToolbar(!tweetToolbarVisible);
@@ -66,7 +82,8 @@ const Editor = (props:EditorProps) => {
     const toggleImageModal = () => setImageModal(!imageModalVisible);
     const toggleEquationModal = () => setEquationModal(!equationModalVisible);
     const toggleBgColorModal = () => setBgColorModal(!bgColorModalVisible);
-    const toggleFontColorModal = () => setFontColorModal(!fontColorModalVisible);
+    const toggleFontColorModal = () =>
+        setFontColorModal(!fontColorModalVisible);
     //const toggleExcalidrawModal = (status) => setExcalidrawModal(status === false ? status : !excalidrawModalVisible);
 
     const toggleExcalidrawModal = () => {
@@ -88,26 +105,25 @@ const Editor = (props:EditorProps) => {
     }, [locale]);
     */
 
-    const insertEquation = (props:InsertEquationProps) => {
+    const insertEquation = (props: InsertEquationProps) => {
         containerRef.current.focus();
         containerRef.current.executeCommand('INSERT_EQUATION', props);
         toggleEquationModal();
     };
 
-    const insertImage = (props:ImageProps) => {
+    const insertImage = (props: ImageProps) => {
         containerRef.current.focus();
         containerRef.current.executeCommand('INSERT_IMAGE', props);
         toggleImageModal();
     };
 
-    const insertInlineImage = (image:InlineImageProps) => {
-        if(!containerRef.current)
-            return;
+    const insertInlineImage = (image: InlineImageProps) => {
+        if (!containerRef.current) return;
         containerRef.current.focus();
-        containerRef.current.executeCommand("INSERT_IMAGE_INLINE", image);
-    }
+        containerRef.current.executeCommand('INSERT_IMAGE_INLINE', image);
+    };
 
-    const onSearchChange = (match:string) => {
+    const onSearchChange = (match: string) => {
         if (match === null || match.length < 3) return;
         getMentionCandidates({
             variables: {
@@ -118,17 +134,16 @@ const Editor = (props:EditorProps) => {
     };
 
     const clearFormatting = () => {
-        if(!containerRef.current)
-            return;
+        if (!containerRef.current) return;
         containerRef.current.focus();
-        containerRef.current.executeCommand("CLEAR_FORMATTING");
-    }
+        containerRef.current.executeCommand('CLEAR_FORMATTING');
+    };
 
     if (data && !loading && updatedList) {
         const { mentionCandidates } = data;
 
         if (mentionCandidates !== null) {
-            const _suggestions = mentionCandidates.map((u:any) => ({
+            const _suggestions = mentionCandidates.map((u: any) => ({
                 id: u.id,
                 name: u.username,
                 link: `/users/${u.id}/${u.username}`,
@@ -155,7 +170,7 @@ const Editor = (props:EditorProps) => {
         initialState: initialState,
         readOnly: false,
         autoFocus: true,
-        onError: (error:any) => {
+        onError: (error: any) => {
             throw error;
         },
         plugins: [],
@@ -164,16 +179,16 @@ const Editor = (props:EditorProps) => {
             defaultCaptionText: t('internal.enterCaption'),
         },
         inlineImage: {
-            showModal: (modalProps:any) => {
+            showModal: (modalProps: any) => {
                 setInlineModalUpdateVisible(true);
                 setInlineImageModalProps(modalProps);
-            }
+            },
         },
         excalidrawConfig: {
-            modal: ExcalidrawModal
+            modal: ExcalidrawModal,
         },
         twitterConfig: {
-            loadingComponent: ({ tweetId }:{tweetId: string}) => (
+            loadingComponent: ({ tweetId }: { tweetId: string }) => (
                 <p>
                     {t('internal.loadingTweet')}...(ID={tweetId})
                 </p>
@@ -183,14 +198,11 @@ const Editor = (props:EditorProps) => {
             open: true,
         },
         citation: {
-           sourceLinkComponent: ({ sourceLink }:{sourceLink: string}) => (
-           <a
-               href={sourceLink}
-               className="source-link-component"
-           >
-              <FontAwesomeIcon icon={faArrowUp} size="lg" />
-           </a>
-           ),
+            sourceLinkComponent: ({ sourceLink }: { sourceLink: string }) => (
+                <a href={sourceLink} className="source-link-component">
+                    <FontAwesomeIcon icon={faArrowUp} size="lg" />
+                </a>
+            ),
             authorComponent: null /*({ author }) => (
              <a href={author.link} className="author-link-container">
                <AccountAvatar
@@ -201,21 +213,31 @@ const Editor = (props:EditorProps) => {
                />
                <span className="author-link-quote">{author.name}</span>
              </a>
-            ),*/
+            ),*/,
         },
         mentions: {
             onSearchChange: onSearchChange,
-            onAddMention: (mention:MentionType) => {
+            onAddMention: (mention: MentionType) => {
                 setMentions([...mentions, mention]);
             },
-            onRemoveMention: ({ name }:{ name: string}) => {
-                const newMentions:MentionType[] = mentions.filter((m) => m.name !== name);
+            onRemoveMention: ({ name }: { name: string }) => {
+                const newMentions: MentionType[] = mentions.filter(
+                    (m) => m.name !== name
+                );
                 setMentions(newMentions);
             },
-            entryComponent: ({ option: { avatar, name } }:EntryComponentTypes) => (
+            entryComponent: ({
+                option: { avatar, name },
+            }: EntryComponentTypes) => (
                 <>
-                    <AccountAvatar avatar={avatar ?? ""} username={name} size={5} shape="circle" />
-                    &nbsp; <strong className="user-name-mentions">{name}</strong>
+                    <AccountAvatar
+                        avatar={avatar ?? ''}
+                        username={name}
+                        size={5}
+                        shape="circle"
+                    />
+                    &nbsp;{' '}
+                    <strong className="user-name-mentions">{name}</strong>
                 </>
             ),
             mentionsData: suggestions,
@@ -224,14 +246,17 @@ const Editor = (props:EditorProps) => {
             emojiData: emojiData,
         },
         dragAndDropImage: {
-            handleDroppedFile: async (file:any) => {
-                const uploadRet = await uploadImage({ variables: { image: file } });
+            handleDroppedFile: async (file: any) => {
+                const uploadRet = await uploadImage({
+                    variables: { image: file },
+                });
                 if (uploadRet.data) {
                     const { src } = uploadRet.data.uploadImage;
                     if (src === null) {
                         notification.error({
                             message: 'Failed to upload File',
-                            description: "Couldn't upload file to the server (file type not allowed).",
+                            description:
+                                "Couldn't upload file to the server (file type not allowed).",
                             placement: 'topRight',
                         });
                         return;

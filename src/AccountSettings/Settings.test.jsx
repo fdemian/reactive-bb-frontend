@@ -36,15 +36,17 @@ const user2 = {
 const i18n = (x) => `settings.${x}`;
 
 vi.mock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
         getUserId: () => 1,
-    }
+    };
 });
 
 test('<Settings /> > Renders settings (Profile view)', async () => {
-    const imageFile = new File(['(⌐□_□)'], newAvatarName, { type: 'image/png' });
+    const imageFile = new File(['(⌐□_□)'], newAvatarName, {
+        type: 'image/png',
+    });
     const _user = userEvent.setup();
 
     const mocks = [
@@ -131,7 +133,7 @@ test('<Settings /> > Renders settings (Profile view)', async () => {
                 error: false,
                 data: { updatePassword: { ok: true } },
             },
-        }
+        },
     ];
 
     render({
@@ -142,21 +144,22 @@ test('<Settings /> > Renders settings (Profile view)', async () => {
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
 
-    const profileTexts = await screen.findAllByText(i18n("options.profile"));
+    const profileTexts = await screen.findAllByText(i18n('options.profile'));
     expect(profileTexts.length).toStrictEqual(2);
 
     expect(await screen.findByText(user.username)).toBeInTheDocument();
 
-    expect(
-        screen.getByText(i18n('profile.avatarChange'))
-    ).toBeInTheDocument();
+    expect(screen.getByText(i18n('profile.avatarChange'))).toBeInTheDocument();
 
     expect(screen.getByRole('form')).toHaveFormValues({
         status: '',
         about: '',
     });
 
-    await _user.type(screen.getByRole('textbox', { name: 'Status' }), 'NEW_STATUS');
+    await _user.type(
+        screen.getByRole('textbox', { name: 'Status' }),
+        'NEW_STATUS'
+    );
     await _user.type(
         screen.getByRole('textbox', { name: 'About me' }),
         'NEW_ABOUT_TEXT'
@@ -172,9 +175,7 @@ test('<Settings /> > Renders settings (Profile view)', async () => {
     expect(screen.getByText(i18n('profile.avatarChange'))).toBeInTheDocument();
     expect(screen.getByTestId('upload-component')).toBeInTheDocument();
 
-    expect(
-        screen.getByText(i18n('options.securityView'))
-    ).toBeInTheDocument();
+    expect(screen.getByText(i18n('options.securityView'))).toBeInTheDocument();
 
     await _user.click(screen.getByText(i18n('options.securityView')));
     expect(await screen.findByText(i18n('security.password')));
@@ -188,7 +189,11 @@ test('<Settings /> > Renders settings (Profile view)', async () => {
         screen.queryByText(i18n('security.passwordModalTitle'))
     ).not.toBeInTheDocument();
 
-    await _user.click(screen.getByRole('button', { name: `password ${i18n('security.modify')}` }));
+    await _user.click(
+        screen.getByRole('button', {
+            name: `password ${i18n('security.modify')}`,
+        })
+    );
     await waitFor(() => {
         expect(
             screen.getAllByText(i18n('security.passwordModalTitle')).length
@@ -196,7 +201,9 @@ test('<Settings /> > Renders settings (Profile view)', async () => {
     });
 
     await _user.click(screen.getAllByText(i18n('options.securityView'))[0]);
-    await _user.click(screen.getByRole('button', { name:`email ${i18n('security.modify')}` }));
+    await _user.click(
+        screen.getByRole('button', { name: `email ${i18n('security.modify')}` })
+    );
 
     await waitFor(() => {
         expect(
@@ -229,14 +236,14 @@ test('<Settings /> > <ModifyPasswordModal /> Test interaction', async () => {
                 variables: {
                     id: 1,
                     currentPass: 'currentPass',
-                    newPass: 'pass1'
+                    newPass: 'pass1',
                 },
                 result: {
                     loading: false,
                     error: false,
-                    data: {updatePassword: {ok: true}},
-                }
-            }
+                    data: { updatePassword: { ok: true } },
+                },
+            },
         },
         {
             request: {
@@ -244,14 +251,14 @@ test('<Settings /> > <ModifyPasswordModal /> Test interaction', async () => {
                 variables: {
                     id: 1,
                     currentPass: 'currentPass',
-                    newPass: 'pass1'
+                    newPass: 'pass1',
                 },
                 result: {
                     loading: false,
                     error: false,
-                    data: {updatePassword: {ok: true}},
-                }
-            }
+                    data: { updatePassword: { ok: true } },
+                },
+            },
         },
         {
             request: {
@@ -259,14 +266,14 @@ test('<Settings /> > <ModifyPasswordModal /> Test interaction', async () => {
                 variables: {
                     id: 1,
                     currentPass: 'currentPass',
-                    newPass: 'pass1'
+                    newPass: 'pass1',
                 },
                 result: {
                     loading: false,
                     error: false,
-                    data: {updatePassword: {ok: true}},
-                }
-            }
+                    data: { updatePassword: { ok: true } },
+                },
+            },
         },
         {
             request: {
@@ -274,15 +281,15 @@ test('<Settings /> > <ModifyPasswordModal /> Test interaction', async () => {
                 variables: {
                     id: 1,
                     currentPass: 'currentPass',
-                    newPass: 'pass1'
+                    newPass: 'pass1',
                 },
                 result: {
                     loading: false,
                     error: false,
-                    data: {updatePassword: {ok: true}},
-                }
-            }
-        }
+                    data: { updatePassword: { ok: true } },
+                },
+            },
+        },
     ];
 
     renderSTL(<ModifyPasswordModal t={i18n} />, {
@@ -300,9 +307,18 @@ test('<Settings /> > <ModifyPasswordModal /> Test interaction', async () => {
     });
 
     // Change password fields.
-    await _user.type(screen.getByRole('input', { name: 'Password' }), 'currentPass');
-    await _user.type(screen.getByRole('input', { name: 'Password new' }), 'newPass');
-    await _user.type(screen.getByRole('input', { name: 'Password repeat' }), 'newPass');
+    await _user.type(
+        screen.getByRole('input', { name: 'Password' }),
+        'currentPass'
+    );
+    await _user.type(
+        screen.getByRole('input', { name: 'Password new' }),
+        'newPass'
+    );
+    await _user.type(
+        screen.getByRole('input', { name: 'Password repeat' }),
+        'newPass'
+    );
 
     await waitFor(() => {
         expect(screen.getByRole('form')).toHaveFormValues({
@@ -358,9 +374,18 @@ test('<Settings /> > <ModifyPasswordModal /> Password update error', async () =>
     });
 
     // Change password fields.
-    await _user.type(screen.getByRole('input', { name: 'Password' }), 'currentPass');
-    await _user.type(screen.getByRole('input', { name: 'Password new' }), 'pass1');
-    await _user.type(screen.getByRole('input', { name: 'Password repeat' }), 'pass1');
+    await _user.type(
+        screen.getByRole('input', { name: 'Password' }),
+        'currentPass'
+    );
+    await _user.type(
+        screen.getByRole('input', { name: 'Password new' }),
+        'pass1'
+    );
+    await _user.type(
+        screen.getByRole('input', { name: 'Password repeat' }),
+        'pass1'
+    );
 
     await waitFor(() => {
         expect(screen.getByRole('form')).toHaveFormValues({
@@ -370,14 +395,15 @@ test('<Settings /> > <ModifyPasswordModal /> Password update error', async () =>
         });
     });
 
-    await _user.click(screen.getByRole('button', { name: 'Password change submit' }));
+    await _user.click(
+        screen.getByRole('button', { name: 'Password change submit' })
+    );
 
     await waitFor(() => {
         expect(
             screen.getAllByText(i18n('passwordUpdateError')).length
         ).toStrictEqual(2);
     });
-
 });
 
 test('<Settings /> > <ModifyEmailModal /> Basic interaction (Update success)', async () => {
@@ -408,9 +434,7 @@ test('<Settings /> > <ModifyEmailModal /> Basic interaction (Update success)', a
     });
 
     await waitFor(() => {
-        expect(
-            screen.getByText('user@user.com')
-        ).toBeInTheDocument();
+        expect(screen.getByText('user@user.com')).toBeInTheDocument();
     });
 
     expect(screen.getByText(user.email)).toBeInTheDocument();
@@ -444,7 +468,9 @@ test('<Settings /> > <ModifyEmailModal /> Basic interaction (Update success)', a
         'newemail@email.com'
     );
 
-    await _user.click(screen.getByRole('button', { name: 'Email change submit' }));
+    await _user.click(
+        screen.getByRole('button', { name: 'Email change submit' })
+    );
 
     expect(
         await screen.findByText(i18n('updateEmailSuccess'))

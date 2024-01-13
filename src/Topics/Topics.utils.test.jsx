@@ -11,7 +11,7 @@ vi.mock('../App/utils', () => ({
     getIsMobile: () => {},
     setDefaultPageItems: () => {},
     getDefaultLocale: () => {},
-    setDefaultLocale: () => {}
+    setDefaultLocale: () => {},
 }));
 
 const mockTopics = {
@@ -29,12 +29,11 @@ const mockTopics = {
             replies: 502,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
-            views: 253
+            views: 253,
         },
         {
             __typename: 'Topic',
@@ -49,11 +48,10 @@ const mockTopics = {
             user: {
                 __typename: 'User',
                 id: 1,
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
-                username: 'rulo'
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                username: 'rulo',
             },
-            views: 17
+            views: 17,
         },
         {
             __typename: 'Topic',
@@ -67,12 +65,11 @@ const mockTopics = {
             replies: 4,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
-            views: 12
+            views: 12,
         },
         {
             __typename: 'Topic',
@@ -86,12 +83,11 @@ const mockTopics = {
             replies: 1,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
-            views: 3
+            views: 3,
         },
         {
             __typename: 'Topic',
@@ -105,16 +101,14 @@ const mockTopics = {
             replies: 1,
             user: {
                 __typename: 'User',
-                avatar:
-                    '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
+                avatar: '/api/uploads%3Fname%3DOne-punch-man-saitama-ok-decal-black_1024x1024.jpg',
                 id: 1,
-                username: 'rulo'
+                username: 'rulo',
             },
-            views: 4
-        }
-    ]
+            views: 4,
+        },
+    ],
 };
-
 
 test('<TopicsList /> > Utils > getFilteredTopics  > no filters (ALL topics)', () => {
     const { topics } = mockTopics;
@@ -128,4 +122,4 @@ test('<TopicsList /> > Utils > getFilteredTopics  > Uncategorized', () => {
 
 test('<TopicsList /> > Utils > getFilteredTopics > other category', () => {
     expect(getFilteredTopics(mockTopics.topics, 'nonsense')).toStrictEqual([]);
-})
+});

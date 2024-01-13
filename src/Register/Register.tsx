@@ -6,12 +6,12 @@ import OuathLogins from '../Login/OauthLogins';
 import Loading from '../Loading/LoadingIndicator';
 import PasswordStrengthBar from '../PasswordStrength/PasswordStrengthBar.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faUser,
-  faUserPlus,
-  faTimes,
-  faCheck,
-  faLock 
+import {
+    faUser,
+    faUserPlus,
+    faTimes,
+    faCheck,
+    faLock,
 } from '@fortawesome/free-solid-svg-icons';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
@@ -21,22 +21,21 @@ import './Register.css';
 
 const layout = {
     labelCol: {
-        span: 8
+        span: 8,
     },
     wrapperCol: {
-        span: 16
-    }
+        span: 16,
+    },
 };
 
 type FormValues = {
     passwordValue: string;
     passwordrepeat: string;
-    username: string; 
+    username: string;
     email: string;
 };
 
 export const Component = () => {
-
     const [form] = Form.useForm();
     const id = localStorage.getItem('ID');
     const { t } = useTranslation('register', { keyPrefix: 'register' });
@@ -47,10 +46,10 @@ export const Component = () => {
     const [checkUsername, usernameQueryResp] = useLazyQuery(CHECK_USERNAME);
     const [passwordValue, setPasswordValue] = useState(null);
 
-    const onFinish = (values:FormValues) => {
+    const onFinish = (values: FormValues) => {
         if (passwordValue !== values.passwordrepeat) {
             setError(true);
-            setErrorMessage(t("passNoMatch"));
+            setErrorMessage(t('passNoMatch'));
             return false;
         }
 
@@ -59,22 +58,22 @@ export const Component = () => {
             variables: {
                 username: username,
                 password: passwordValue,
-                email: email
-            }
+                email: email,
+            },
         });
     };
 
-    const checkUsernameAvailability = async (e:any) => {
+    const checkUsernameAvailability = async (e: any) => {
         const username = e.target.value;
         if (username.length < 4) return;
         checkUsername({
             variables: {
-                username: username
-            }
+                username: username,
+            },
         });
     };
 
-    const onFinishFailed = (errorInfo:any) => {
+    const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo.errorFields);
     };
 
@@ -88,9 +87,10 @@ export const Component = () => {
             return <Navigate to={`/activationinfo/${email}`} />;
         }
     }
-    
+
     const usernameTaken =
-        usernameQueryResp.data && usernameQueryResp.data.checkUsername.exists === true;
+        usernameQueryResp.data &&
+        usernameQueryResp.data.checkUsername.exists === true;
 
     const UserNameSuffix = usernameTaken ? (
         <Tooltip title={t('usernameTaken')}>
@@ -122,8 +122,8 @@ export const Component = () => {
                     rules={[
                         {
                             required: true,
-                            message: t('requiredField')
-                        }
+                            message: t('requiredField'),
+                        },
                     ]}
                 >
                     <Input
@@ -149,12 +149,12 @@ export const Component = () => {
                     rules={[
                         {
                             required: true,
-                            message: t('requiredField')
+                            message: t('requiredField'),
                         },
                         {
                             type: 'email',
-                            message: t('notValidEmail')
-                        }
+                            message: t('notValidEmail'),
+                        },
                     ]}
                 >
                     <Input
@@ -179,12 +179,7 @@ export const Component = () => {
                         }*/
                     />
                 </Form.Item>
-                <Form.Item
-                    label=""
-                    name="password"
-                    rules={[
-                    ]}
-                >
+                <Form.Item label="" name="password" rules={[]}>
                     <Input.Password
                         aria-label="password"
                         name="password"
@@ -200,9 +195,9 @@ export const Component = () => {
                             />
                         }
                         autoComplete="password"
-                        onChange={(e:any) => setPasswordValue(e.target.value)}
+                        onChange={(e: any) => setPasswordValue(e.target.value)}
                     />
-                    <PasswordStrengthBar password={passwordValue ?? ""} t={t} />
+                    <PasswordStrengthBar password={passwordValue ?? ''} t={t} />
                 </Form.Item>
                 <Form.Item
                     label=""
@@ -210,8 +205,8 @@ export const Component = () => {
                     rules={[
                         {
                             required: true,
-                            message: t('repeatPasswordMissing')
-                        }
+                            message: t('repeatPasswordMissing'),
+                        },
                     ]}
                 >
                     <Input.Password
@@ -235,7 +230,7 @@ export const Component = () => {
                 <br />
                 <Form.Item>
                     <Button
-                        aria-label={t("register")}
+                        aria-label={t('register')}
                         type="primary"
                         htmlType="submit"
                         className="register-button"
@@ -243,8 +238,12 @@ export const Component = () => {
                         size="large"
                         block
                     >
-                       {t("register")} &nbsp;
-                       <FontAwesomeIcon icon={faUserPlus} size="lg" color="white" />
+                        {t('register')} &nbsp;
+                        <FontAwesomeIcon
+                            icon={faUserPlus}
+                            size="lg"
+                            color="white"
+                        />
                     </Button>
                 </Form.Item>
             </Form>

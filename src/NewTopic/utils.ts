@@ -5,7 +5,9 @@ type QuoteStateProps = {
     comment: string | null;
 };
 
-export const getQuoteStateFromProps = (props:QuoteStateProps):string | undefined => {
+export const getQuoteStateFromProps = (
+    props: QuoteStateProps
+): string | undefined => {
     const { content, user, userId, comment } = props;
 
     if (content === null || content === undefined) return undefined;

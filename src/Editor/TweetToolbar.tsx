@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Input, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faCheck} from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import './Toolbar.css';
 
 type TweetToolbarProps = {
-    insertTweet:(t:string) => void;
+    insertTweet: (t: string) => void;
     toggleToolbar: () => void;
-    t:(key:string) => string;
-}
+    t: (key: string) => string;
+};
 
-const TweetToolbar = ({ insertTweet, toggleToolbar, t }:TweetToolbarProps) => {
+const TweetToolbar = ({ insertTweet, toggleToolbar, t }: TweetToolbarProps) => {
     const [tweetURL, setTweetURL] = useState('');
 
     return (
@@ -26,15 +26,15 @@ const TweetToolbar = ({ insertTweet, toggleToolbar, t }:TweetToolbarProps) => {
                 />
                 &nbsp;
                 <span className="tweet-toolbar-confirm-buttons">
-          <Button
-              danger
-              type="primary"
-              onClick={toggleToolbar}
-              className="cancel-darkred-btn"
-          >
-            <FontAwesomeIcon icon={faTimes} size="lg" />
-              &nbsp; {t('toolbar.cancel')}
-          </Button>
+                    <Button
+                        danger
+                        type="primary"
+                        onClick={toggleToolbar}
+                        className="cancel-darkred-btn"
+                    >
+                        <FontAwesomeIcon icon={faTimes} size="lg" />
+                        &nbsp; {t('toolbar.cancel')}
+                    </Button>
                     &nbsp;
                     <Button
                         type="primary"
@@ -43,10 +43,10 @@ const TweetToolbar = ({ insertTweet, toggleToolbar, t }:TweetToolbarProps) => {
                             toggleToolbar();
                         }}
                     >
-            <FontAwesomeIcon icon={faCheck} size="lg" />
+                        <FontAwesomeIcon icon={faCheck} size="lg" />
                         &nbsp; {t('toolbar.confirm')}
-          </Button>
-        </span>
+                    </Button>
+                </span>
             </div>
         </div>
     );

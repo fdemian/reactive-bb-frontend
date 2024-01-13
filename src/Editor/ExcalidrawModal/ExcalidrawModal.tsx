@@ -16,11 +16,14 @@ type ExcalidrawModalProps = {
     isShown?: boolean | undefined;
     onClose: () => void;
     onDelete: () => void;
-    onSave: (elements: ReadonlyArray<any>, appState: Partial<any>, files: any) => void;
-}
+    onSave: (
+        elements: ReadonlyArray<any>,
+        appState: Partial<any>,
+        files: any
+    ) => void;
+};
 
-const ExcalidrawModal = (props:ExcalidrawModalProps) => {
-
+const ExcalidrawModal = (props: ExcalidrawModalProps) => {
     const {
         excalidrawComponent,
         setExcalidrawAPI,
@@ -30,13 +33,13 @@ const ExcalidrawModal = (props:ExcalidrawModalProps) => {
         initialElements,
         initialAppState,
         initialFiles,
-        isShown = false
+        isShown = false,
     } = props;
 
     const isMobile = getIsMobile();
     const Excalidraw = excalidrawComponent;
     const ModalComponent = isMobile ? Drawer : Modal;
-    const width = isMobile ? "100%" : "auto";
+    const width = isMobile ? '100%' : 'auto';
     const { t } = useTranslation('editor', { keyPrefix: 'editor' });
 
     return (
@@ -55,23 +58,21 @@ const ExcalidrawModal = (props:ExcalidrawModalProps) => {
                     danger
                     onClick={discard}
                 >
-                    {t("modal.cancel")}
+                    {t('modal.cancel')}
                 </Button>,
-                <Button
-                    key="ok"
-                    type="primary"
-                    onClick={save}
-                >
-                    {t("modal.ok")}
-                </Button>
+                <Button key="ok" type="primary" onClick={save}>
+                    {t('modal.ok')}
+                </Button>,
             ]}
         >
-            <div className="excalidraw-modal-row"> {/* @ts-ignore */}
-                <Excalidraw 
+            <div className="excalidraw-modal-row">
+                {' '}
+                {/* @ts-ignore */}
+                <Excalidraw
                     onChange={onChange}
-                    excalidrawAPI={(api:any) => setExcalidrawAPI(api)}
+                    excalidrawAPI={(api: any) => setExcalidrawAPI(api)}
                     initialData={{
-                        appState: initialAppState || {isLoading: false},
+                        appState: initialAppState || { isLoading: false },
                         elements: initialElements,
                         files: initialFiles,
                     }}
@@ -79,6 +80,6 @@ const ExcalidrawModal = (props:ExcalidrawModalProps) => {
             </div>
         </ModalComponent>
     );
-}
+};
 
 export default ExcalidrawModal;

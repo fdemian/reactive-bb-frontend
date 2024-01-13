@@ -1,8 +1,8 @@
 import { GET_CONFIG } from './Queries';
 import { render, screen } from '../TestHelpers/testing-utils';
 import { vi, test, expect } from 'vitest';
-import {GET_PINNED_TOPICS, GET_TOPICS} from "../Topics/Queries";
-import {GET_CATEGORIES} from "../Categories/Queries";
+import { GET_PINNED_TOPICS, GET_TOPICS } from '../Topics/Queries';
+import { GET_CATEGORIES } from '../Categories/Queries';
 
 const errorStackText =
     'ApolloError: Response not successful: Received status code 500\nat new ApolloError';
@@ -24,8 +24,8 @@ const mocks = [
             query: GET_TOPICS,
             variables: {
                 limit: 5,
-                offset: 0
-            }
+                offset: 0,
+            },
         },
         result: {
             loading: false,
@@ -33,37 +33,37 @@ const mocks = [
             data: {
                 topics: {
                     topics: [],
-                    topicsCount: 0
-                }
-            }
-        }
+                    topicsCount: 0,
+                },
+            },
+        },
     },
     {
         request: {
             query: GET_PINNED_TOPICS,
-            variables: {}
+            variables: {},
         },
         result: {
             loading: false,
             error: false,
             data: {
-                pinnedTopics: []
-            }
-        }
+                pinnedTopics: [],
+            },
+        },
     },
     {
         request: {
             query: GET_CATEGORIES,
-            variables: {}
+            variables: {},
         },
         result: {
             loading: false,
             error: false,
             data: {
-                categories: []
-            }
-        }
-    }
+                categories: [],
+            },
+        },
+    },
 ];
 
 test('<App /> > Renders with errors.', async () => {
@@ -73,27 +73,26 @@ test('<App /> > Renders with errors.', async () => {
         initialEntries: ['/'],
     });
     expect(screen.getByText('Loading')).toBeInTheDocument();
-    expect(await screen.findByText('ApolloError: ApolloError')).toBeInTheDocument();
+    expect(
+        await screen.findByText('ApolloError: ApolloError')
+    ).toBeInTheDocument();
 });
 
 test('<App /> > <BanStatusBanner />', async () => {
-
     vi.mock('../Login/authUtils', async () => {
-        const actual = await vi.importActual("../Login/authUtils");
+        const actual = await vi.importActual('../Login/authUtils');
         return {
             ...actual,
-            getBanStatus: ()=> ({ banned: true, banReason: '' }),
-        }
+            getBanStatus: () => ({ banned: true, banReason: '' }),
+        };
     });
 
-    render(
-      {
-          mocks: mocks,
-          initialEntries: ['/'],
-          isLoggedIn: true,
-          isMobile: false
-      },
-    );
+    render({
+        mocks: mocks,
+        initialEntries: ['/'],
+        isLoggedIn: true,
+        isMobile: false,
+    });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
     expect(

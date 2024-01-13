@@ -10,21 +10,19 @@ import { RESET_PASSWORD_REQUEST } from './Mutations';
 import Loading from '../Loading/LoadingIndicator';
 import './ResetPassword.css';
 
-
 type ResetPasswordValues = {
     email: string;
 };
 
-
 export const Component = () => {
     const [resetInitiated, setResetInitiated] = useState(false);
     const navigate = useNavigate();
-    const onFinish = (values:ResetPasswordValues) => {
+    const onFinish = (values: ResetPasswordValues) => {
         const { email } = values;
         resetPassword({
             variables: {
-                email: email
-            }
+                email: email,
+            },
         });
         setResetInitiated(true);
     };
@@ -85,12 +83,12 @@ export const Component = () => {
                     rules={[
                         {
                             required: true,
-                            message: t('requiredField')
+                            message: t('requiredField'),
                         },
                         {
                             type: 'email',
-                            message: t('notValidEmail')
-                        }
+                            message: t('notValidEmail'),
+                        },
                     ]}
                 >
                     <Input

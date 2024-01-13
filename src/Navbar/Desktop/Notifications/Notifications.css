@@ -7,6 +7,7 @@
     cursor: pointer;
 }
 
-.notifications-link, .notifications-link:hover {
+.notifications-link,
+.notifications-link:hover {
     color: black;
 }

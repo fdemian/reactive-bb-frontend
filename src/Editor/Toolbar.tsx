@@ -1,14 +1,7 @@
 import { Suspense, lazy } from 'react';
-import {
-    Button,
-    Tooltip,
-    Dropdown,
-    Select,
-    Spin,
-    ColorPicker
-} from 'antd';
+import { Button, Tooltip, Dropdown, Select, Spin, ColorPicker } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
+import {
     faTrash,
     faRulerHorizontal,
     faCaretRight,
@@ -21,26 +14,31 @@ import {
     faOutdent,
     faIndent,
     faFill,
-    faTextHeight
+    faTextHeight,
 } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Toolbar.css';
 import { ToolbarProps } from './editorTypes';
 import { recomendedColors } from './toolbarUtils';
-import { getCodeLanguageOptions } from "kalliope";
-import { getButtonElementsToolbarDesktop, getToolbarDropdownDesktop, FONT_FAMILIES, FONT_SIZES } from './toolbarUtils';
+import { getCodeLanguageOptions } from 'kalliope';
+import {
+    getButtonElementsToolbarDesktop,
+    getToolbarDropdownDesktop,
+    FONT_FAMILIES,
+    FONT_SIZES,
+} from './toolbarUtils';
 import { getProperty } from './utils';
 
 import {
-   blockFormatChangeFn,
-   onCodeLanguageSelect, 
-   insertTweet,
-   insertTable,
-   insertVideo,
-   onFontSizeChange,
-   onFontFamilyChange,
-   onFontColorChange,
-   onBGColorChange
+    blockFormatChangeFn,
+    onCodeLanguageSelect,
+    insertTweet,
+    insertTable,
+    insertVideo,
+    onFontSizeChange,
+    onFontFamilyChange,
+    onFontColorChange,
+    onBGColorChange,
 } from './toolbarUtils';
 
 const { Option } = Select;
@@ -49,9 +47,11 @@ const EquationModal = lazy(() => import('./EquationModal/EquationModal'));
 const TweetToolbar = lazy(() => import('./TweetToolbar'));
 const TableToolbar = lazy(() => import('./TableToolbar'));
 const VideoToolbar = lazy(() => import('./VideoToolbar'));
-const InsertImageToolbar = lazy(() => import('./ImageModal/InsertImageToolbar'));
+const InsertImageToolbar = lazy(
+    () => import('./ImageModal/InsertImageToolbar')
+);
 
-const Toolbar = (props:ToolbarProps) => {
+const Toolbar = (props: ToolbarProps) => {
     const {
         equationModalVisible,
         equation,
@@ -78,8 +78,8 @@ const Toolbar = (props:ToolbarProps) => {
         t,
     } = props;
 
-    const CODE_LANGUAGE_OPTIONS:[string, string][] = getCodeLanguageOptions();
-    
+    const CODE_LANGUAGE_OPTIONS: [string, string][] = getCodeLanguageOptions();
+
     //
     const BUTTON_ELEMENTS = getButtonElementsToolbarDesktop(t, formats);
     const DROPDOWN_FORMATS = getToolbarDropdownDesktop(t);
@@ -127,17 +127,20 @@ const Toolbar = (props:ToolbarProps) => {
         },
     ];
 
-    const selectedBlock = DROPDOWN_FORMATS.find((b) => b.blockType ===  (getProperty('blockType', formats) as string));
-    const currentBlock = selectedBlock === undefined ? DROPDOWN_FORMATS[0] : selectedBlock;
+    const selectedBlock = DROPDOWN_FORMATS.find(
+        (b) => b.blockType === (getProperty('blockType', formats) as string)
+    );
+    const currentBlock =
+        selectedBlock === undefined ? DROPDOWN_FORMATS[0] : selectedBlock;
 
     const formatItemsForMenu = DROPDOWN_FORMATS.map((s) => ({
         key: s.name,
         label: (
             <span onClick={() => blockFormatChangeFn(s.value, editor)}>
-        <FontAwesomeIcon icon={s.icon} size="lg" />
+                <FontAwesomeIcon icon={s.icon} size="lg" />
                 {'  '}
                 &nbsp; {s.name}
-      </span>
+            </span>
         ),
     }));
 
@@ -190,7 +193,11 @@ const Toolbar = (props:ToolbarProps) => {
     if (imageModalVisible) {
         return (
             <Suspense fallback={<Spin />}>
-                <InsertImageToolbar okFn={insertImage} cancelFn={toggleImageModal} t={t} />
+                <InsertImageToolbar
+                    okFn={insertImage}
+                    cancelFn={toggleImageModal}
+                    t={t}
+                />
             </Suspense>
         );
     }
@@ -211,9 +218,13 @@ const Toolbar = (props:ToolbarProps) => {
         );
     }
 
-    if(getProperty('blockType', formats) === 'code'){
+    if (getProperty('blockType', formats) === 'code') {
         return (
-            <div className="toolbar-code" role="presentation" aria-label="TOOLBAR-CODE">
+            <div
+                className="toolbar-code"
+                role="presentation"
+                aria-label="TOOLBAR-CODE"
+            >
                 <div className="toolbar-single"></div>
                 <Dropdown
                     key="dropdown-menu-toolbar"
@@ -242,15 +253,23 @@ const Toolbar = (props:ToolbarProps) => {
                     value={getProperty('codeLanguage', formats)}
                 >
                     {CODE_LANGUAGE_OPTIONS.map(([value, name]) => (
-                        <Option key={value} value={value}>{name}</Option>
+                        <Option key={value} value={value}>
+                            {name}
+                        </Option>
                     ))}
                 </Select>
                 <>
-                    <Tooltip placement="bottom" title={t('toolbar.outdent')} key="Outdent">
+                    <Tooltip
+                        placement="bottom"
+                        title={t('toolbar.outdent')}
+                        key="Outdent"
+                    >
                         <button
                             className="toolbar-style-button"
                             key="OUTDENT"
-                            onClick={() => editor.executeCommand('OUTDENT', null)}
+                            onClick={() =>
+                                editor.executeCommand('OUTDENT', null)
+                            }
                             aria-label={t('toolbar.outdent')}
                         >
                             <FontAwesomeIcon
@@ -261,11 +280,17 @@ const Toolbar = (props:ToolbarProps) => {
                             />
                         </button>
                     </Tooltip>
-                    <Tooltip placement="bottom" title={t('toolbar.indent')} key="Indent">
+                    <Tooltip
+                        placement="bottom"
+                        title={t('toolbar.indent')}
+                        key="Indent"
+                    >
                         <button
                             className="toolbar-style-button"
                             key="INDENT"
-                            onClick={() => editor.executeCommand('INDENT', null)}
+                            onClick={() =>
+                                editor.executeCommand('INDENT', null)
+                            }
                             aria-label={t('toolbar.indent')}
                         >
                             <FontAwesomeIcon
@@ -302,7 +327,10 @@ const Toolbar = (props:ToolbarProps) => {
                     </Button>
                 </Dropdown>
                 &nbsp;
-                <Dropdown key="dropdown-menu-font-family" menu={{ items: fontFamilyItems }}>
+                <Dropdown
+                    key="dropdown-menu-font-family"
+                    menu={{ items: fontFamilyItems }}
+                >
                     <Button
                         key="dropdown-font-family-button"
                         style={{ width: '160px' }}
@@ -310,7 +338,10 @@ const Toolbar = (props:ToolbarProps) => {
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
-                        { getProperty('fontFamily', formats) ? getProperty('fontFamily', formats) : FONT_FAMILIES[0]} &nbsp;
+                        {getProperty('fontFamily', formats)
+                            ? getProperty('fontFamily', formats)
+                            : FONT_FAMILIES[0]}{' '}
+                        &nbsp;
                         <FontAwesomeIcon icon={faCaretDown} size="lg" />
                     </Button>
                 </Dropdown>
@@ -328,17 +359,22 @@ const Toolbar = (props:ToolbarProps) => {
                         type="default"
                         className="dropdown-menu-toolbar"
                     >
-                        { getProperty('fontSize', formats) ? getProperty('fontSize', formats) : FONT_SIZES[0]} &nbsp;
+                        {getProperty('fontSize', formats)
+                            ? getProperty('fontSize', formats)
+                            : FONT_SIZES[0]}{' '}
+                        &nbsp;
                         <FontAwesomeIcon icon={faCaretDown} />
                     </Button>
                 </Dropdown>
                 &nbsp;
                 <Tooltip title={t('toolbar.fontColor')} placement="bottom">
                     <ColorPicker
-                        presets={[{
-                            label: 'Recommended',
-                            colors: recomendedColors
-                        }]}
+                        presets={[
+                            {
+                                label: 'Recommended',
+                                colors: recomendedColors,
+                            },
+                        ]}
                         value={getProperty('fontColor', formats)}
                         onChange={(val) => onFontColorChange(val, editor)}
                     >
@@ -350,19 +386,19 @@ const Toolbar = (props:ToolbarProps) => {
                             type="default"
                             className="dropdown-menu-toolbar"
                         >
-                            <FontAwesomeIcon
-                                icon={faTextHeight}
-                            />
+                            <FontAwesomeIcon icon={faTextHeight} />
                         </Button>
                     </ColorPicker>
                 </Tooltip>
                 &nbsp;
                 <Tooltip title={t('toolbar.bgColor')} placement="bottom">
                     <ColorPicker
-                        presets={[{
-                            label: 'Recommended',
-                            colors: recomendedColors
-                        }]}
+                        presets={[
+                            {
+                                label: 'Recommended',
+                                colors: recomendedColors,
+                            },
+                        ]}
                         value={getProperty('bgColor', formats)}
                         onChange={(val) => onBGColorChange(val, editor)}
                     >
@@ -379,7 +415,10 @@ const Toolbar = (props:ToolbarProps) => {
                     </ColorPicker>
                 </Tooltip>
                 &nbsp;
-                <Tooltip title={t('toolbar.clearFormatting')} placement="bottom">
+                <Tooltip
+                    title={t('toolbar.clearFormatting')}
+                    placement="bottom"
+                >
                     <Button
                         role="button"
                         key={t('toolbar.clearFormatting')}
@@ -397,19 +436,30 @@ const Toolbar = (props:ToolbarProps) => {
                     <>
                         {BUTTON_ELEMENTS.map((b) => (
                             <>
-                                <Tooltip placement="bottom" title={b.text} key={b.text}>
+                                <Tooltip
+                                    placement="bottom"
+                                    title={b.text}
+                                    key={b.text}
+                                >
                                     <button
                                         className="toolbar-style-button"
                                         key={b.name}
                                         onClick={() => {
-                                            editor.executeCommand(b.command, b.props);
+                                            editor.executeCommand(
+                                                b.command,
+                                                b.props
+                                            );
                                         }}
                                         aria-label={b.name}
                                     >
                                         <FontAwesomeIcon
                                             icon={b.icon}
                                             size="lg"
-                                            color={b.isActive ? 'black' : 'gainsboro'}
+                                            color={
+                                                b.isActive
+                                                    ? 'black'
+                                                    : 'gainsboro'
+                                            }
                                         />
                                     </button>
                                 </Tooltip>
@@ -426,7 +476,11 @@ const Toolbar = (props:ToolbarProps) => {
                                 onClick={b.onClick}
                                 aria-label={b.text}
                             >
-                                <FontAwesomeIcon icon={b.icon} size="lg" color="gainsboro" />
+                                <FontAwesomeIcon
+                                    icon={b.icon}
+                                    size="lg"
+                                    color="gainsboro"
+                                />
                             </button>
                         </Tooltip>
                     </>

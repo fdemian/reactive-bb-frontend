@@ -27,7 +27,6 @@
     z-index: 10000 !important;
 }
 
-
 .code-action-menu-container .code-highlight-language {
     margin-right: 4px;
 }
@@ -72,7 +71,8 @@ cite {
     margin-left: 90%;
 }
 
-#emojis-typeahead, #mentions-typeahead {
+#emojis-typeahead,
+#mentions-typeahead {
     z-index: 100000 !important;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3) !important;
     position: fixed !important;
@@ -86,7 +86,8 @@ cite {
     font-size: 0.9em !important;
 }
 
-#emojis-typeahead  ul li, #mentions-typeahead ul li {
+#emojis-typeahead ul li,
+#mentions-typeahead ul li {
     padding: 10px 15px !important;
     margin: 0 !important;
     min-width: 180px !important;
@@ -96,24 +97,25 @@ cite {
     border-radius: 8px !important;
 }
 
-#emojis-typeahead ul,#mentions-typeahead ul {
+#emojis-typeahead ul,
+#mentions-typeahead ul {
     padding: 0 !important;
     list-style: none !important;
     margin: 0 !important;
     border-radius: 8px !important;
 }
 
-
-#emojis-typeahead ul li.selected, #mentions-typeahead ul li.selected {
+#emojis-typeahead ul li.selected,
+#mentions-typeahead ul li.selected {
     background: #eee !important;
 }
 
-#emojis-typeahead ul li.hovered, #mentions-typeahead ul li.hovered {
+#emojis-typeahead ul li.hovered,
+#mentions-typeahead ul li.hovered {
     background: #ddd !important;
 }
 
-.ExcalidrawModal__overlay
-{
+.ExcalidrawModal__overlay {
     z-index: 1000 !important;
 }
 

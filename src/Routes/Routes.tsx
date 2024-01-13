@@ -45,52 +45,66 @@ const routes = [
                     const props = {
                         requiresActiveUser: false,
                         modRoute: false,
-                        adminRoute: false
+                        adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Banned} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Banned} />
+                        ),
                     };
                 },
             },
             {
                 path: 'modcp',
                 async lazy() {
-                    let { Component } = await import('../ModerationPanel/ModerationPanel');
+                    let { Component } = await import(
+                        '../ModerationPanel/ModerationPanel'
+                    );
                     const props = {
                         requiresActiveUser: true,
                         modRoute: true,
-                        adminRoute: false
+                        adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Component} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Component} />
+                        ),
                     };
                 },
             },
             {
                 path: 'admincp',
                 async lazy() {
-                    let { Component } = await import('../AdminPanel/AdminPanel');
+                    let { Component } = await import(
+                        '../AdminPanel/AdminPanel'
+                    );
                     const props = {
                         requiresActiveUser: true,
                         modRoute: true,
-                        adminRoute: true
+                        adminRoute: true,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Component} />
+                        Component: () => (
+                            <PrivateRoute {...props} component={Component} />
+                        ),
                     };
-                }
+                },
             },
             {
                 path: 'topics/new',
                 async lazy() {
-                    let { Component } = await import('../NewTopic/TopicsComposer');
+                    let { Component } = await import(
+                        '../NewTopic/TopicsComposer'
+                    );
                     const props = {
                         requiresActiveUser: true,
                         modRoute: false,
-                        adminRoute: false
+                        adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Component} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Component} />
+                        ),
                     };
                 },
             },
@@ -125,24 +139,30 @@ const routes = [
                     const props = {
                         requiresActiveUser: false,
                         modRoute: false,
-                        adminRoute: false
+                        adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Component} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Component} />
+                        ),
                     };
                 },
             },
             {
                 path: 'settings',
                 async lazy() {
-                    let { Settings } = await import('../AccountSettings/Settings');
+                    let { Settings } = await import(
+                        '../AccountSettings/Settings'
+                    );
                     const props = {
                         requiresActiveUser: true,
                         modRoute: false,
-                        adminRoute: false
+                        adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Settings} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Settings} />
+                        ),
                     };
                 },
             },
@@ -154,10 +174,12 @@ const routes = [
                     const props = {
                         requiresActiveUser: false,
                         modRoute: false,
-                        adminRoute: false
+                        adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Component} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Component} />
+                        ),
                     };
                 },
             },
@@ -168,10 +190,12 @@ const routes = [
                     const props = {
                         requiresActiveUser: false,
                         modRoute: false,
-                        adminRoute: false
+                        adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Component} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Component} />
+                        ),
                     };
                 },
             },
@@ -185,21 +209,27 @@ const routes = [
                         adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Component} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Component} />
+                        ),
                     };
                 },
             },
             {
                 path: 'notifications',
                 async lazy() {
-                    let { Component } = await import('../Notifications/Notifications');
+                    let { Component } = await import(
+                        '../Notifications/Notifications'
+                    );
                     const props = {
                         requiresActiveUser: false,
                         modRoute: false,
-                        adminRoute: false
+                        adminRoute: false,
                     };
                     return {
-                        Component: () => <PrivateRoute {...props} component={Component} />,
+                        Component: () => (
+                            <PrivateRoute {...props} component={Component} />
+                        ),
                     };
                 },
             },
@@ -222,9 +252,9 @@ const routes = [
             {
                 path: '*',
                 lazy: () => import('./NoMatch'),
-            }
-        ]
-    }
+            },
+        ],
+    },
 ];
 
 export default routes;

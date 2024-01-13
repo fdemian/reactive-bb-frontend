@@ -1,13 +1,13 @@
 import { Alert } from 'antd';
 
 type ErrorLayoutProps = {
-    tr: (key:string) => string;
+    tr: (key: string) => string;
     isError: boolean;
     message: string;
     onClose: () => void;
 };
 
-const ErrorLayout = ({ tr, isError, message, onClose }:ErrorLayoutProps) => {
+const ErrorLayout = ({ tr, isError, message, onClose }: ErrorLayoutProps) => {
     if (!isError) return null;
 
     return (

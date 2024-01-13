@@ -12,17 +12,17 @@ const requestResetMocks = [
         request: {
             query: RESET_PASSWORD_REQUEST,
             variables: {
-                email: userEmail
-            }
+                email: userEmail,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                resetPasswordRequest: true
-            }
-        }
-    }
+                resetPasswordRequest: true,
+            },
+        },
+    },
 ];
 
 const resetPasswordMocks = [
@@ -31,17 +31,17 @@ const resetPasswordMocks = [
             query: RESET_PASSWORD,
             variables: {
                 token: token,
-                password: newPass
-            }
+                password: newPass,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                resetPassword: true
-            }
-        }
-    }
+                resetPassword: true,
+            },
+        },
+    },
 ];
 
 const resetPasswordMocksFail = [
@@ -50,17 +50,17 @@ const resetPasswordMocksFail = [
             query: RESET_PASSWORD,
             variables: {
                 token: token,
-                password: newPass
-            }
+                password: newPass,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                resetPassword: false
-            }
-        }
-    }
+                resetPassword: false,
+            },
+        },
+    },
 ];
 
 test('<ResetPassword /> > Reset Password', async () => {
@@ -68,7 +68,7 @@ test('<ResetPassword /> > Reset Password', async () => {
     render({
         mocks: requestResetMocks,
         initialEntries: ['/forgotpass'],
-        isLoggedIn: false
+        isLoggedIn: false,
     });
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
@@ -84,10 +84,14 @@ test('<ResetPassword /> > Reset Password', async () => {
         screen.getByRole('button', { name: 'register.resetPass' })
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'register.resetPass' }));
+    await user.click(
+        screen.getByRole('button', { name: 'register.resetPass' })
+    );
 
     expect(
-        await screen.findByText('register.requestResetSuccess', { exact: false })
+        await screen.findByText('register.requestResetSuccess', {
+            exact: false,
+        })
     ).toBeInTheDocument();
 });
 
@@ -96,7 +100,7 @@ test('<ResetPassword /> > Reset Password activation', async () => {
     render({
         mocks: resetPasswordMocks,
         initialEntries: [`/resetpass/${token}`],
-        isLoggedIn: false
+        isLoggedIn: false,
     });
 
     expect(await screen.findByRole('form')).toHaveFormValues({ password: '' });
@@ -108,15 +112,23 @@ test('<ResetPassword /> > Reset Password activation', async () => {
         newPass
     );
 
-    expect(await screen.findByRole('form')).toHaveFormValues({ password: newPass });
+    expect(await screen.findByRole('form')).toHaveFormValues({
+        password: newPass,
+    });
 
     expect(
         await screen.findByRole('button', { name: 'register.resetPass' })
     ).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'register.resetPass' }));
+    await user.click(
+        screen.getByRole('button', { name: 'register.resetPass' })
+    );
 
-    expect(await screen.findByText('register.passwordResetSuccess')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'register.home' })).toBeInTheDocument();
+    expect(
+        await screen.findByText('register.passwordResetSuccess')
+    ).toBeInTheDocument();
+    expect(
+        screen.getByRole('button', { name: 'register.home' })
+    ).toBeInTheDocument();
 });
 
 test('<ResetPassword /> > Reset Password activation fail', async () => {
@@ -124,7 +136,7 @@ test('<ResetPassword /> > Reset Password activation fail', async () => {
     render({
         mocks: resetPasswordMocksFail,
         initialEntries: [`/resetpass/${token}`],
-        isLoggedIn: false
+        isLoggedIn: false,
     });
 
     expect(await screen.findByRole('form')).toHaveFormValues({ password: '' });
@@ -136,14 +148,24 @@ test('<ResetPassword /> > Reset Password activation fail', async () => {
         newPass
     );
 
-    expect(await screen.findByRole('form')).toHaveFormValues({ password: newPass });
+    expect(await screen.findByRole('form')).toHaveFormValues({
+        password: newPass,
+    });
 
     expect(
         await screen.findByRole('button', { name: 'register.resetPass' })
     ).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'register.resetPass' }));
+    await user.click(
+        screen.getByRole('button', { name: 'register.resetPass' })
+    );
 
-    expect(await screen.findByText('register.passwordResetError')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'register.home' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'register.resetPassRepeat' })).toBeInTheDocument();
+    expect(
+        await screen.findByText('register.passwordResetError')
+    ).toBeInTheDocument();
+    expect(
+        screen.getByRole('button', { name: 'register.home' })
+    ).toBeInTheDocument();
+    expect(
+        screen.getByRole('button', { name: 'register.resetPassRepeat' })
+    ).toBeInTheDocument();
 });

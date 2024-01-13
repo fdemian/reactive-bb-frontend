@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { Input, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faCheck} from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import './Toolbar.css';
 
-
 type VideoToolbarProps = {
-    insertVideo:(t:string) => void;
+    insertVideo: (t: string) => void;
     toggleToolbar: () => void;
-    t:(key:string) => string;
-}
+    t: (key: string) => string;
+};
 
-const VideoToolbar = ({ insertVideo, toggleToolbar, t }:VideoToolbarProps) => {
+const VideoToolbar = ({ insertVideo, toggleToolbar, t }: VideoToolbarProps) => {
     const [videoURL, setVideoURL] = useState('');
 
     return (
@@ -27,16 +26,16 @@ const VideoToolbar = ({ insertVideo, toggleToolbar, t }:VideoToolbarProps) => {
                 />
                 &nbsp;
                 <span className="video-toolbar-buttons">
-          <Button
-              danger
-              type="primary"
-              aria-label={t('toolbar.cancel')}
-              onClick={toggleToolbar}
-              className="cancel-darkred-btn"
-          >
-            <FontAwesomeIcon icon={faTimes} size="lg" />
-              &nbsp; {t('toolbar.cancel')}
-          </Button>
+                    <Button
+                        danger
+                        type="primary"
+                        aria-label={t('toolbar.cancel')}
+                        onClick={toggleToolbar}
+                        className="cancel-darkred-btn"
+                    >
+                        <FontAwesomeIcon icon={faTimes} size="lg" />
+                        &nbsp; {t('toolbar.cancel')}
+                    </Button>
                     &nbsp;
                     <Button
                         aria-label={t('toolbar.confirm')}
@@ -46,10 +45,10 @@ const VideoToolbar = ({ insertVideo, toggleToolbar, t }:VideoToolbarProps) => {
                             toggleToolbar();
                         }}
                     >
-            <FontAwesomeIcon icon={faCheck} size="lg" />
+                        <FontAwesomeIcon icon={faCheck} size="lg" />
                         &nbsp; {t('toolbar.confirm')}
-          </Button>
-        </span>
+                    </Button>
+                </span>
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ const MobileCategoryDrawer = (props: MobileCategoryDrawerProps) => {
         categoriesDrawer,
         toggleCategoriesDrawer,
         selectCategoriesMobile,
-        t
+        t,
     } = props;
 
     return (
@@ -31,7 +31,10 @@ const MobileCategoryDrawer = (props: MobileCategoryDrawerProps) => {
                 <br />
                 {categoriesData.map((c) => (
                     <div key={`container-${c.name}`}>
-                        <Button onClick={() => selectCategoriesMobile(c.name)} key={c.name}>
+                        <Button
+                            onClick={() => selectCategoriesMobile(c.name)}
+                            key={c.name}
+                        >
                             <Badge status="default" />
                             &nbsp; {c.name}
                         </Button>

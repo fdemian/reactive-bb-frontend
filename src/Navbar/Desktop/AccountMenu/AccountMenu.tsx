@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import { Spin, Dropdown } from 'antd';
 import AccountAvatar from '../../../UserAvatar/UserAvatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-    faUser, 
+import {
+    faUser,
     faUserPlus,
     faCog,
     faShield,
     faBookmark,
-    faSignOutAlt 
+    faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { UserType } from '../../../User/userTypes';
 import './AccountMenu.css';
@@ -17,10 +17,10 @@ type AccountMenuType = {
     userType: string | null;
     user: UserType;
     logoutFn: () => void;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
-const AccountMenu = ({ userType, user, logoutFn, t }:AccountMenuType) => {
+const AccountMenu = ({ userType, user, logoutFn, t }: AccountMenuType) => {
     if (user === undefined) return <Spin />;
 
     const isMod = userType !== 'U';
@@ -37,31 +37,41 @@ const AccountMenu = ({ userType, user, logoutFn, t }:AccountMenuType) => {
                         size="default"
                     />
                     &nbsp;
-                    <strong className="username-menu-text">{user.username}</strong>
+                    <strong className="username-menu-text">
+                        {user.username}
+                    </strong>
                     <hr className="divider" />
                 </>
             ),
             disabled: true,
-            key: 'user'
+            key: 'user',
         },
         {
             label: (
                 <Link to={`/users/${user.id}/${user.username}`}>
-                    <FontAwesomeIcon icon={faUser} className="MenuIcon" size="lg" />
+                    <FontAwesomeIcon
+                        icon={faUser}
+                        className="MenuIcon"
+                        size="lg"
+                    />
                     &nbsp; {t('profile')}
                 </Link>
             ),
-            key: 'profile'
+            key: 'profile',
         },
         {
             label: (
                 <Link to="/settings">
-                    <FontAwesomeIcon icon={faCog} className="MenuIcon" size="lg" />
+                    <FontAwesomeIcon
+                        icon={faCog}
+                        className="MenuIcon"
+                        size="lg"
+                    />
                     &nbsp; {t('settings')}
                 </Link>
             ),
             disabled: user.banned,
-            key: 'settings'
+            key: 'settings',
         },
         {
             label: (
@@ -74,8 +84,8 @@ const AccountMenu = ({ userType, user, logoutFn, t }:AccountMenuType) => {
                     &nbsp; {t('bookmarks')}
                 </Link>
             ),
-            key: 'bookmarks'
-        }
+            key: 'bookmarks',
+        },
     ];
 
     const modMenu = {
@@ -91,7 +101,7 @@ const AccountMenu = ({ userType, user, logoutFn, t }:AccountMenuType) => {
             </Link>
         ),
         disabled: user.banned,
-        key: 'modcp'
+        key: 'modcp',
     };
 
     const adminMenu = {
@@ -107,7 +117,7 @@ const AccountMenu = ({ userType, user, logoutFn, t }:AccountMenuType) => {
             </Link>
         ),
         disabled: user.banned,
-        key: 'admincp'
+        key: 'admincp',
     };
 
     const logoutItem = {
@@ -122,28 +132,33 @@ const AccountMenu = ({ userType, user, logoutFn, t }:AccountMenuType) => {
                 &nbsp; {t('logout')}
             </>
         ),
-        key: 'logout'
+        key: 'logout',
     };
 
-    const adminModMenu = isMod && isAdmin ?
-        [modMenu, adminMenu, logoutItem] :
-        [modMenu, logoutItem];
+    const adminModMenu =
+        isMod && isAdmin
+            ? [modMenu, adminMenu, logoutItem]
+            : [modMenu, logoutItem];
 
     const items = isMod
         ? menuItems.concat(adminModMenu)
         : menuItems.concat(logoutItem);
 
     return (
-    <Dropdown overlayClassName="account-menu" menu={{ items }} placement="bottom">
-      <span className="UserMenuAvatar">
-        <AccountAvatar
-            avatar={user.avatar}
-            username={user.username}
-            size={60}
-            shape="square"
-        />
-      </span>
-    </Dropdown>
+        <Dropdown
+            overlayClassName="account-menu"
+            menu={{ items }}
+            placement="bottom"
+        >
+            <span className="UserMenuAvatar">
+                <AccountAvatar
+                    avatar={user.avatar}
+                    username={user.username}
+                    size={60}
+                    shape="square"
+                />
+            </span>
+        </Dropdown>
     );
 };
 

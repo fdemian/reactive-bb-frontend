@@ -4,10 +4,10 @@ import { ApolloError } from '@apollo/client';
 
 type ErrorLayerProps = {
     error: ApolloError | undefined;
-    tr: (key:string) => string;
+    tr: (key: string) => string;
 };
 
-const ErrorLayer = ({ error, tr }:ErrorLayerProps) => {
+const ErrorLayer = ({ error, tr }: ErrorLayerProps) => {
     if (!error) return null;
 
     return (

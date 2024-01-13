@@ -1,6 +1,6 @@
-import { UserType  } from "../User/userTypes";
+import { UserType } from '../User/userTypes';
 import { BanStatusReturn } from '../Login/authUtils';
-import { MentionType } from "../Editor/editorTypes";
+import { MentionType } from '../Editor/editorTypes';
 
 type CategoryType = {
     id: number;
@@ -32,7 +32,6 @@ export type LikeType = {
     __typename?: string | undefined;
 };
 
-
 export type BookmarkType = {
     id: number;
     userId: number;
@@ -52,8 +51,8 @@ export type PostType = {
 export type TopicRepliesProps = {
     userType: string;
     banStatus: BanStatusReturn;
-    quotePost: (post:PostType) => void;
-    removePost:  (post:number) => void;
+    quotePost: (post: PostType) => void;
+    removePost: (post: number) => void;
     topic: TopicType;
     replies: PostType[];
     isLoggedIn: boolean;
@@ -61,13 +60,13 @@ export type TopicRepliesProps = {
     selectedPost: string;
     isMobile: boolean;
     isClosed: boolean;
-    openFlagPostDialog: (id:number) => void;
+    openFlagPostDialog: (id: number) => void;
     editablePost: number | null;
-    setEditablePost: (id:number | null) => void;
-    editUserPost: (id:number) => void;
+    setEditablePost: (id: number | null) => void;
+    editUserPost: (id: number) => void;
     containerRef: any;
     user: UserType;
-    t: (key:string) => string;
+    t: (key: string) => string;
 };
 
 export type PostFooterProps = {
@@ -78,21 +77,20 @@ export type PostFooterProps = {
     bookmarksByPostList: BookmarkType[];
     isLoggedIn: boolean;
     isMobile: boolean;
-    quotePost: (id:PostType) => void;
-    replyAsNewPost: (item:PostType) => void;
-    openFlagPostDialog: (id:number) => void;
-    t: (key:string) => string;
+    quotePost: (id: PostType) => void;
+    replyAsNewPost: (item: PostType) => void;
+    openFlagPostDialog: (id: number) => void;
+    t: (key: string) => string;
 };
 
 export type TopicModifyButtonsProps = {
     closed: boolean;
-    reopenTopic:  () => void;
-    closeTopic:   () => void;
-    deleteTopic:  () => void;
+    reopenTopic: () => void;
+    closeTopic: () => void;
+    deleteTopic: () => void;
     userType: string;
-    t:(key:string) => string;
+    t: (key: string) => string;
 };
-
 
 export type ReplyTitleProps = {
     topic: TopicType;
@@ -108,7 +106,7 @@ export type ReplyDrawerProps = {
     containerRef: any;
     isMobile: boolean;
     mentions: MentionType[];
-    setMentions: (p:MentionType[]) => void;
+    setMentions: (p: MentionType[]) => void;
 };
 
 /*

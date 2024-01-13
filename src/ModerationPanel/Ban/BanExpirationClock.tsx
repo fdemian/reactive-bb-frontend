@@ -4,17 +4,15 @@ import { differenceInMilliseconds } from 'date-fns';
 
 type BanClockProps = {
     lockoutTime: string | null | undefined;
-    t:(key:string) => string;
+    t: (key: string) => string;
 };
 
-const BanExpirationClock = ({ lockoutTime, t }:BanClockProps) => {
-    if (lockoutTime === null || lockoutTime === undefined) return <h3>{t('permanentlyBanned')}</h3>;
+const BanExpirationClock = ({ lockoutTime, t }: BanClockProps) => {
+    if (lockoutTime === null || lockoutTime === undefined)
+        return <h3>{t('permanentlyBanned')}</h3>;
 
     const dateDiffString = getExpirationTime(lockoutTime);
-    const msDiff = differenceInMilliseconds(
-        new Date(lockoutTime),
-        new Date()
-    );
+    const msDiff = differenceInMilliseconds(new Date(lockoutTime), new Date());
 
     return (
         <Progress
@@ -23,6 +21,6 @@ const BanExpirationClock = ({ lockoutTime, t }:BanClockProps) => {
             format={() => `${dateDiffString}`}
         />
     );
-}
+};
 
 export default BanExpirationClock;

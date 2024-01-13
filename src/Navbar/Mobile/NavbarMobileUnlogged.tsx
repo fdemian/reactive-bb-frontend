@@ -6,13 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSignIn } from '@fortawesome/free-solid-svg-icons';
 import DrawerToggleButton from './DrawerToggleButton';
 
-const NavbarMobileUnlogged = ({ t }:{ t: (key:string) => string; }) => {
-
+const NavbarMobileUnlogged = ({ t }: { t: (key: string) => string }) => {
     const [drawerVisible, setDrawerVisible] = useState(false);
     const closeDrawer = () => setDrawerVisible(false);
     const openDrawer = () => setDrawerVisible(true);
 
-    const items: MenuProps['items']  = [
+    const items: MenuProps['items'] = [
         {
             key: 'login',
             label: (
@@ -26,32 +25,35 @@ const NavbarMobileUnlogged = ({ t }:{ t: (key:string) => string; }) => {
                     &nbsp;
                     {t('login')}
                 </Link>
-            )
+            ),
         },
         {
             key: 'register',
             label: (
-                <Link className="login-menu-link-mobile" onClick={closeDrawer} to="/register">
+                <Link
+                    className="login-menu-link-mobile"
+                    onClick={closeDrawer}
+                    to="/register"
+                >
                     <FontAwesomeIcon icon={faUserPlus} />
                     &nbsp;
                     {t('register')}
                 </Link>
-            )
-        }
+            ),
+        },
     ];
-
 
     return (
         <>
-          <span className="mobile-drawer-toggle">
-              <DrawerToggleButton
-                t={t}
-                openDrawer={openDrawer}
-                isLoggedIn={false}
-                showBadge={false}
-                user={null}
-              />
-          </span>
+            <span className="mobile-drawer-toggle">
+                <DrawerToggleButton
+                    t={t}
+                    openDrawer={openDrawer}
+                    isLoggedIn={false}
+                    showBadge={false}
+                    user={null}
+                />
+            </span>
             <Drawer
                 open={drawerVisible}
                 placement="right"
@@ -61,18 +63,16 @@ const NavbarMobileUnlogged = ({ t }:{ t: (key:string) => string; }) => {
             >
                 <Suspense fallback={<Spin />}>
                     <Menu
-                       onClick={undefined}
-                       defaultSelectedKeys={[]}
-                       defaultOpenKeys={[]}
-                       mode="inline"
-                       items={items}
+                        onClick={undefined}
+                        defaultSelectedKeys={[]}
+                        defaultOpenKeys={[]}
+                        mode="inline"
+                        items={items}
                     />
                 </Suspense>
             </Drawer>
         </>
-    )
-}
+    );
+};
 
 export default NavbarMobileUnlogged;
-
-

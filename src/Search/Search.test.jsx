@@ -4,9 +4,9 @@ import { vi, test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 vi.mock('kalliope', () => ({
-    default: ({ content  }) => {
+    default: ({ content }) => {
         return <div>{content}</div>;
-    }
+    },
 }));
 
 const searchTerm = 'testterm';
@@ -18,8 +18,8 @@ const mocks = [
                 term: searchTerm,
                 where: ['titles', 'posts'],
                 limit: 5,
-                offset: 0
-            }
+                offset: 0,
+            },
         },
         result: {
             loading: false,
@@ -31,14 +31,14 @@ const mocks = [
                             id: 1,
                             text: 'CALLIOPE_EDITOR_MOCK_TEST',
                             topicId: 2,
-                            topic: 'Test topic'
-                        }
+                            topic: 'Test topic',
+                        },
                     ],
-                    total: 1
-                }
-            }
-        }
-    }
+                    total: 1,
+                },
+            },
+        },
+    },
 ];
 
 test('<Search /> | No search params', async () => {
@@ -47,7 +47,7 @@ test('<Search /> | No search params', async () => {
         mocks: mocks,
         isLoggedIn: true,
         isMobile: false,
-        initialEntries: ['/search']
+        initialEntries: ['/search'],
     });
     expect(screen.getByText('Loading')).toBeInTheDocument();
 
@@ -64,16 +64,17 @@ test('<Search /> | No search params', async () => {
     });
 
     expect(screen.getByText('search.searchInDetail')).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: 'Search input' })).toHaveAttribute(
-        'placeholder',
-        'search.searchTermDetail'
-    );
+    expect(
+        screen.getByRole('textbox', { name: 'Search input' })
+    ).toHaveAttribute('placeholder', 'search.searchTermDetail');
 
     //
     await waitFor(() => {
         screen.getByRole('textbox', { name: 'Search input' });
     });
-    expect(screen.getByRole('combobox', { name: 'Search dropdown' })).toBeInTheDocument();
+    expect(
+        screen.getByRole('combobox', { name: 'Search dropdown' })
+    ).toBeInTheDocument();
     await user.click(screen.getByRole('combobox', { name: 'Search dropdown' }));
     await waitFor(() => {
         expect(screen.getByText('titles')).toBeInTheDocument();
@@ -82,21 +83,30 @@ test('<Search /> | No search params', async () => {
     const titleDropdownElement = screen.getByText('titles');
     expect(titleDropdownElement).toBeInTheDocument();
     await user.click(titleDropdownElement);
-    await user.type(screen.getByRole('textbox', { name: 'Search input' }), searchTerm);
-    expect(screen.getByRole('textbox', { name: 'Search input' })).toHaveValue(searchTerm);
+    await user.type(
+        screen.getByRole('textbox', { name: 'Search input' }),
+        searchTerm
+    );
+    expect(screen.getByRole('textbox', { name: 'Search input' })).toHaveValue(
+        searchTerm
+    );
 
     // Type enter and start searching.
-    await user.keyboard('{Enter}', screen.getByRole('textbox', { name: 'Search input' }));
+    await user.keyboard(
+        '{Enter}',
+        screen.getByRole('textbox', { name: 'Search input' })
+    );
     await waitFor(() => {
-        expect(screen.getByText('searchedFor', { exact: false })).toBeInTheDocument();
+        expect(
+            screen.getByText('searchedFor', { exact: false })
+        ).toBeInTheDocument();
     });
 
     expect(screen.getByText(searchTerm, { exact: false })).toBeInTheDocument();
     expect(screen.getByText('Test topic')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Result post link' })).toHaveAttribute(
-        'href',
-        '/postlink/1'
-    );
+    expect(
+        screen.getByRole('link', { name: 'Result post link' })
+    ).toHaveAttribute('href', '/postlink/1');
 });
 
 test('<Search /> | Search params from navbar', async () => {
@@ -104,7 +114,7 @@ test('<Search /> | Search params from navbar', async () => {
         mocks: mocks,
         isLoggedIn: true,
         isMobile: false,
-        initialEntries: [`/search?term=${searchTerm}`]
+        initialEntries: [`/search?term=${searchTerm}`],
     });
     expect(screen.getByText('Loading')).toBeInTheDocument();
 
@@ -115,12 +125,10 @@ test('<Search /> | Search params from navbar', async () => {
     expect(screen.getByText('search.searchIn')).toBeInTheDocument();
 
     expect(
-      await screen.findByText('search.searchedFor', { exact: false })
+        await screen.findByText('search.searchedFor', { exact: false })
     ).toBeInTheDocument();
 
     expect(screen.getByText(searchTerm)).toBeInTheDocument();
 
-    expect(
-        await screen.findByText('search.searchTerm')
-    ).toBeInTheDocument();
+    expect(await screen.findByText('search.searchTerm')).toBeInTheDocument();
 });

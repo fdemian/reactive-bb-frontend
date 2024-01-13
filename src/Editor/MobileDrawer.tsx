@@ -6,9 +6,11 @@ const EquationModal = lazy(() => import('./EquationModal/EquationModal'));
 const TweetToolbar = lazy(() => import('./TweetToolbar'));
 const TableToolbar = lazy(() => import('./TableToolbar'));
 const VideoToolbar = lazy(() => import('./VideoToolbar'));
-const InsertImageToolbar = lazy(() => import('./ImageModal/InsertImageToolbar'));
+const InsertImageToolbar = lazy(
+    () => import('./ImageModal/InsertImageToolbar')
+);
 
-const MobileDrawer = (props:MobileDrawerProps) => {
+const MobileDrawer = (props: MobileDrawerProps) => {
     const {
         isMobile,
         equationModalVisible,
@@ -33,16 +35,22 @@ const MobileDrawer = (props:MobileDrawerProps) => {
 
     if (!isMobile) return null;
 
-    const insertTweet = (url:string) => {
+    const insertTweet = (url: string) => {
         const tweetId = url.split('status/')?.[1]?.split('?')?.[0];
         editor.executeCommand('INSERT_TWEET', tweetId);
     };
 
-    const insertTable = ({columns, rows}:{ columns: number; rows:number;}) => {
+    const insertTable = ({
+        columns,
+        rows,
+    }: {
+        columns: number;
+        rows: number;
+    }) => {
         editor.executeCommand('INSERT_TABLE', { columns, rows });
     };
 
-    const insertVideo = (props:string) => {
+    const insertVideo = (props: string) => {
         editor.executeCommand('INSERT_VIDEO', props);
     };
 
@@ -96,7 +104,11 @@ const MobileDrawer = (props:MobileDrawerProps) => {
                 />
             ) : null}
             {imageModalVisible ? (
-                <InsertImageToolbar okFn={insertImage} cancelFn={toggleImageModal} t={t} />
+                <InsertImageToolbar
+                    okFn={insertImage}
+                    cancelFn={toggleImageModal}
+                    t={t}
+                />
             ) : null}
         </Drawer>
     );

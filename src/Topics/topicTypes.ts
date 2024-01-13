@@ -1,4 +1,3 @@
-
 type Category = {
     name: string;
 };
@@ -6,17 +5,17 @@ type Category = {
 type BanStatus = {
     banned: boolean;
     banReason: string | null;
-}
+};
 
 export type TopicsHeaderParams = {
     isMobile: boolean;
     categories: Category[];
     categoryFilter: string;
-    setCategoryFilter: (value:any) => void;
-    toggleCategoriesDrawer: (value:any) => void;
-    tr: (key:string) => string;
+    setCategoryFilter: (value: any) => void;
+    toggleCategoriesDrawer: (value: any) => void;
+    tr: (key: string) => string;
     isLoggedIn: boolean;
-    banStatus:  BanStatus;
+    banStatus: BanStatus;
 };
 
 type UserType = {
@@ -43,17 +42,17 @@ export type TopicType = {
 };
 
 export type TopicsListParams = {
-   topics: TopicType[];
-   pinnedTopics: TopicType[];
-   isMobile: boolean;
-   userType: string;
-   t: (key:string) => string;
+    topics: TopicType[];
+    pinnedTopics: TopicType[];
+    isMobile: boolean;
+    userType: string;
+    t: (key: string) => string;
 };
 
 export type MobileCategoryDrawerProps = {
-  categoriesData: CategoryType[];
-  categoriesDrawer: boolean;
-  toggleCategoriesDrawer: () => void;
-  selectCategoriesMobile: (name:string) => void;
-  t: (key:string) => string;
+    categoriesData: CategoryType[];
+    categoriesDrawer: boolean;
+    toggleCategoriesDrawer: () => void;
+    selectCategoriesMobile: (name: string) => void;
+    t: (key: string) => string;
 };

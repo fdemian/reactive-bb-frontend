@@ -6,20 +6,20 @@ import Editor from '../Editor/Editor';
 import { ReplyTitleProps, ReplyDrawerProps } from './postTypes';
 import './Posts.css';
 
-const ReplyTitle = ({  topic, isMobile }:ReplyTitleProps) => {
+const ReplyTitle = ({ topic, isMobile }: ReplyTitleProps) => {
     if (isMobile) return null;
 
     return (
-    <span className="reply-title">
-      <FontAwesomeIcon icon={faReply} size="lg" />
+        <span className="reply-title">
+            <FontAwesomeIcon icon={faReply} size="lg" />
             &nbsp; &nbsp;
             <strong>{topic.name}</strong>
             &nbsp;
-    </span>
+        </span>
     );
 };
 
-const ReplyDrawer = (props:ReplyDrawerProps) => {
+const ReplyDrawer = (props: ReplyDrawerProps) => {
     const {
         topic,
         user,
@@ -41,28 +41,28 @@ const ReplyDrawer = (props:ReplyDrawerProps) => {
                 <>
                     <ReplyTitle topic={topic} isMobile={isMobile} />
                     <span className="reply-buttons">
-            <Button
-                danger
-                type="primary"
-                className="reply-cancel-btn"
-                onClick={onClose}
-                size={isMobile ? 'middle' : 'large'}
-                style={{ marginLeft: isMobile ? '0%' : '50px' }}
-            >
-              &nbsp;
-                <FontAwesomeIcon icon={faTimes} />
-                &nbsp; Discard
-            </Button>
+                        <Button
+                            danger
+                            type="primary"
+                            className="reply-cancel-btn"
+                            onClick={onClose}
+                            size={isMobile ? 'middle' : 'large'}
+                            style={{ marginLeft: isMobile ? '0%' : '50px' }}
+                        >
+                            &nbsp;
+                            <FontAwesomeIcon icon={faTimes} />
+                            &nbsp; Discard
+                        </Button>
                         &nbsp;
                         <Button
                             onClick={createPost}
                             type="primary"
                             size={isMobile ? 'middle' : 'large'}
                         >
-              Post &nbsp;
+                            Post &nbsp;
                             <FontAwesomeIcon icon={faCheck} />
-            </Button>
-          </span>
+                        </Button>
+                    </span>
                 </>
             }
             placement={isMobile ? 'top' : 'bottom'}
@@ -70,18 +70,18 @@ const ReplyDrawer = (props:ReplyDrawerProps) => {
             onClose={onClose}
             open={open}
         >
-          <Suspense fallback={<Skeleton avatar paragraph={{ rows: 4 }} />}>
-            <div className="post-composer-container">
-                <Editor
-                    containerRef={containerRef}
-                    setMentions={setMentions}
-                    mentions={mentions}
-                    user={user}
-                    initialState={undefined}
-                    isMobile={isMobile}
-                />
-            </div>
-          </Suspense>
+            <Suspense fallback={<Skeleton avatar paragraph={{ rows: 4 }} />}>
+                <div className="post-composer-container">
+                    <Editor
+                        containerRef={containerRef}
+                        setMentions={setMentions}
+                        mentions={mentions}
+                        user={user}
+                        initialState={undefined}
+                        isMobile={isMobile}
+                    />
+                </div>
+            </Suspense>
         </Drawer>
     );
 };

@@ -7,8 +7,8 @@ import { CREATE_CATEGORY } from './Mutations';
 import './Categories.css';
 
 type NewCategoryFormProps = {
-    isLoggedIn: boolean; 
-    t:(key:string) => string;
+    isLoggedIn: boolean;
+    t: (key: string) => string;
 };
 
 type ValuesType = {
@@ -16,7 +16,7 @@ type ValuesType = {
     description: string;
 };
 
-const NewCategoryForm = ({ isLoggedIn, t }:NewCategoryFormProps) => {
+const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
     const [editing, setIsEditing] = useState(false);
     const [form] = Form.useForm();
     const [createCategory] = useMutation(CREATE_CATEGORY, {
@@ -25,14 +25,14 @@ const NewCategoryForm = ({ isLoggedIn, t }:NewCategoryFormProps) => {
                 fields: {
                     categories(existingCategories = []) {
                         return existingCategories.concat(createCategory);
-                    }
-                }
+                    },
+                },
             });
-        }
+        },
     });
 
     // Finished checking login values.
-    const onFinish = (values:ValuesType) => {
+    const onFinish = (values: ValuesType) => {
         form.resetFields();
         setIsEditing(false);
 
@@ -42,15 +42,15 @@ const NewCategoryForm = ({ isLoggedIn, t }:NewCategoryFormProps) => {
         createCategory({
             variables: {
                 name: name,
-                description: description
+                description: description,
             },
             optimisticResponse: {
                 createCategory: {
                     id: 0,
                     name: name,
-                    description: description
-                }
-            }
+                    description: description,
+                },
+            },
         });
     };
 
@@ -92,8 +92,8 @@ const NewCategoryForm = ({ isLoggedIn, t }:NewCategoryFormProps) => {
                     rules={[
                         {
                             required: true,
-                            message: t('nameMessage')
-                        }
+                            message: t('nameMessage'),
+                        },
                     ]}
                 >
                     <Input
@@ -110,8 +110,8 @@ const NewCategoryForm = ({ isLoggedIn, t }:NewCategoryFormProps) => {
                     rules={[
                         {
                             required: true,
-                            message: t('descriptionMessage')
-                        }
+                            message: t('descriptionMessage'),
+                        },
                     ]}
                 >
                     <Input

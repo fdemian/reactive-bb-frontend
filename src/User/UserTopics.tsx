@@ -7,11 +7,10 @@ import { useQuery } from '@apollo/client';
 import format_title_string from '../utils/formats.js';
 import { UserType, TopicType } from './userTypes';
 
-
 type UserTopicsProps = {
     id: number;
     user: UserType;
-}
+};
 
 const UserTopics = ({ id, user }: UserTopicsProps) => {
     const { loading, error, data } = useQuery(GET_TOPICS_BY_USER, {
@@ -30,7 +29,7 @@ const UserTopics = ({ id, user }: UserTopicsProps) => {
             size="large"
             data-testid="user-topics"
             dataSource={topics}
-            renderItem={(item:TopicType) => (
+            renderItem={(item: TopicType) => (
                 <List.Item id={`post-${item.id}`} key={item.id}>
                     <List.Item.Meta
                         avatar={
@@ -46,7 +45,9 @@ const UserTopics = ({ id, user }: UserTopicsProps) => {
                                 data-testid="topic-link"
                                 to={`/topics/${item.id}/${format_title_string(item.name)}`}
                             >
-                                <span className="topic-item-title">{item.name}</span>
+                                <span className="topic-item-title">
+                                    {item.name}
+                                </span>
                             </Link>
                         }
                     />

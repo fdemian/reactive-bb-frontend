@@ -3,13 +3,18 @@ import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'antd';
 
 type ModeratorPostControlsProps = {
-    t:(key:string) => string; 
+    t: (key: string) => string;
     onDelete: () => void;
     onEdit: () => void;
     isEditing: boolean;
 };
 
-const ModeratorPostControls = ({ t, onDelete, onEdit, isEditing }:ModeratorPostControlsProps) => {
+const ModeratorPostControls = ({
+    t,
+    onDelete,
+    onEdit,
+    isEditing,
+}: ModeratorPostControlsProps) => {
     if (isEditing) return null;
 
     return (

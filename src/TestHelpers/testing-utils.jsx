@@ -1,5 +1,5 @@
-/* eslint no-unused-vars: 0 */  //
-/* eslint react-refresh/only-export-components: 0 */  //
+/* eslint no-unused-vars: 0 */ //
+/* eslint react-refresh/only-export-components: 0 */ //
 import PropTypes from 'prop-types';
 import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
@@ -12,7 +12,11 @@ import '@testing-library/jest-dom';
 import { GET_CONFIG } from '../App/Queries';
 import routes from '../Routes/Routes';
 import cache from '../cache';
-import { GET_NOTIFICATIONS, NOTIFICATIONS_SUBSCRIPTION, GET_USER } from '../Navbar/Queries';
+import {
+    GET_NOTIFICATIONS,
+    NOTIFICATIONS_SUBSCRIPTION,
+    GET_USER,
+} from '../Navbar/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 
 const navbarMocks = [
@@ -20,8 +24,8 @@ const navbarMocks = [
         request: {
             query: GET_USER,
             variables: {
-                id: 1
-            }
+                id: 1,
+            },
         },
         result: {
             loading: false,
@@ -33,81 +37,75 @@ const navbarMocks = [
                     avatar: null,
                     type: 'u',
                     banned: false,
-                    banReason: null
-                }
-            }
-        }
+                    banReason: null,
+                },
+            },
+        },
     },
     {
         request: {
             query: GET_ALL_CHATS,
             variables: {
-                user: 1
-            }
+                user: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
             data: {
-                chatsByUser: []
-            }
-        }
+                chatsByUser: [],
+            },
+        },
     },
     {
         request: {
             query: GET_NOTIFICATIONS,
             variables: {
-                user: 1
-            }
+                user: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
-            data: { notifications: [] }
-        }
+            data: { notifications: [] },
+        },
     },
     {
         request: {
             query: GET_NOTIFICATIONS,
             variables: {
-                user: 1
-            }
+                user: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
-            data: { notifications: [] }
-        }
+            data: { notifications: [] },
+        },
     },
     {
         request: {
             query: NOTIFICATIONS_SUBSCRIPTION,
             variables: {
-                user: 1
-            }
+                user: 1,
+            },
         },
         result: {
             loading: false,
             error: false,
-            data: { notificationAdded: null }
-        }
-    }
+            data: { notificationAdded: null },
+        },
+    },
 ];
 
 const TestingWrapper = (props) => {
-    const {
-        isMobile,
-        mocks,
-        initialEntries,
-        isLoggedIn,
-        configMockOverride
-    } = props;
-
+    const { isMobile, mocks, initialEntries, isLoggedIn, configMockOverride } =
+        props;
 
     const configRequestMock = {
         request: {
             query: GET_CONFIG,
-            variables: {}
+            variables: {},
         },
         result: {
             loading: false,
@@ -118,20 +116,21 @@ const TestingWrapper = (props) => {
                         name: 'Morpheus',
                         description: 'This is a forum',
                         items_per_page: '5',
-                        logoURL: "", 
-                        faviconURL: "",
-                        faviconType: ""
+                        logoURL: '',
+                        faviconURL: '',
+                        faviconType: '',
                     },
-                    oauth:
-                        JSON.parse('{"services":[{"name":"google","scope":"email profile","clientId":"<CLIENT_ID>","link":"https://accounts.google.com/o/oauth2/v2/auth","extraParams":"&prompt=consent&access_type=offline"},{"name":"github","scope":"user:email","clientId":"<CLIENT_ID>","link":"https://github.com/login/oauth/authorize","extraParams":""}],"redirectURI":"www.redirect.com"}')
-                }
-            }
-        }
+                    oauth: JSON.parse(
+                        '{"services":[{"name":"google","scope":"email profile","clientId":"<CLIENT_ID>","link":"https://accounts.google.com/o/oauth2/v2/auth","extraParams":"&prompt=consent&access_type=offline"},{"name":"github","scope":"user:email","clientId":"<CLIENT_ID>","link":"https://github.com/login/oauth/authorize","extraParams":""}],"redirectURI":"www.redirect.com"}'
+                    ),
+                },
+            },
+        },
     };
 
     // Config settings.
     let configSettingsMock = [];
-    for(var i=0; i < 100; i++){
+    for (var i = 0; i < 100; i++) {
         configSettingsMock.push(configRequestMock);
     }
 
@@ -139,30 +138,37 @@ const TestingWrapper = (props) => {
         Query: {
             loggedIn() {
                 return isLoggedIn;
-            }
-        }
+            },
+        },
     };
     const router = createMemoryRouter(routes, {
         initialEntries: initialEntries,
-        initialIndex: 0
+        initialIndex: 0,
     });
-    const configMock = configMockOverride ? configMockOverride : configSettingsMock;
+    const configMock = configMockOverride
+        ? configMockOverride
+        : configSettingsMock;
     const providerMocks = mocks ? mocks.concat(configMock) : configMock;
     const finalMocks = providerMocks.concat(navbarMocks);
 
     return (
-    <I18nextProvider i18n={i18n}>
-        <ResponsiveContext.Provider value={{ width: isMobile ? 300 : 1900 }}>
-            <MockedProvider
-            mocks={finalMocks}
-            cache={cache}
-            resolvers={resolvers}
-            addTypename={true}
-             >
-                <RouterProvider router={router} fallbackElement={<p>Loading</p>} />
-            </MockedProvider>
-        </ResponsiveContext.Provider>
-    </I18nextProvider>
+        <I18nextProvider i18n={i18n}>
+            <ResponsiveContext.Provider
+                value={{ width: isMobile ? 300 : 1900 }}
+            >
+                <MockedProvider
+                    mocks={finalMocks}
+                    cache={cache}
+                    resolvers={resolvers}
+                    addTypename={true}
+                >
+                    <RouterProvider
+                        router={router}
+                        fallbackElement={<p>Loading</p>}
+                    />
+                </MockedProvider>
+            </ResponsiveContext.Provider>
+        </I18nextProvider>
     );
 };
 
@@ -171,27 +177,25 @@ TestingWrapper.propTypes = {
     initialEntries: PropTypes.arrayOf(PropTypes.string),
     children: PropTypes.any,
     mocks: PropTypes.arrayOf(
-      PropTypes.shape({
-        request: PropTypes.shape({
-            query: PropTypes.any,
-            variables: PropTypes.any
-        }),
-        result: PropTypes.shape({
-            loading: PropTypes.bool,
-            error: PropTypes.bool,
-            data: PropTypes.any
+        PropTypes.shape({
+            request: PropTypes.shape({
+                query: PropTypes.any,
+                variables: PropTypes.any,
+            }),
+            result: PropTypes.shape({
+                loading: PropTypes.bool,
+                error: PropTypes.bool,
+                data: PropTypes.any,
+            }),
         })
-      })
     ),
     isLoggedIn: PropTypes.bool,
-    configMockOverride: PropTypes.shape({
-    })
+    configMockOverride: PropTypes.shape({}),
 };
-
 
 const customRender = (options) => {
     return render(<div></div>, {
-        wrapper: (_) => <TestingWrapper {...options} />
+        wrapper: (_) => <TestingWrapper {...options} />,
     });
 };
 

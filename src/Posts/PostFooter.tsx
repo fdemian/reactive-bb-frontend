@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import { Dropdown, Badge, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faHeart,
-  faQuoteLeft,
-  faBookmark,
-  faReply,
-  faFlag
+import {
+    faHeart,
+    faQuoteLeft,
+    faBookmark,
+    faReply,
+    faFlag,
 } from '@fortawesome/free-solid-svg-icons';
-import { LIKE_POST, REMOVE_LIKE, BOOKMARK_POST, REMOVE_BOOKMARK } from './Mutations';
+import {
+    LIKE_POST,
+    REMOVE_LIKE,
+    BOOKMARK_POST,
+    REMOVE_BOOKMARK,
+} from './Mutations';
 import { useMutation } from '@apollo/client';
 import Loading from '../Loading/LoadingIndicator';
 import { BookmarkType, LikeType, PostFooterProps, PostType } from './postTypes';
 
-const PostFooter = (props:PostFooterProps) => {
+const PostFooter = (props: PostFooterProps) => {
     const {
         item,
         userId,
@@ -53,7 +58,8 @@ const PostFooter = (props:PostFooterProps) => {
                     bookmarksByPostList(existingBookmarks = []) {
                         const { postId, userId } = removeBookmark;
                         return existingBookmarks.filter(
-                            (b:BookmarkType) => b.postId !== postId && b.userId !== userId
+                            (b: BookmarkType) =>
+                                b.postId !== postId && b.userId !== userId
                         );
                     },
                 },
@@ -61,10 +67,11 @@ const PostFooter = (props:PostFooterProps) => {
         },
     });
 
-    const bookmarkPost = (post:PostType) => {
+    const bookmarkPost = (post: PostType) => {
         const bookmarkExists =
-            bookmarksByPostList.find((l) => l.postId === post.id && l.userId === userId) !==
-            undefined;
+            bookmarksByPostList.find(
+                (l) => l.postId === post.id && l.userId === userId
+            ) !== undefined;
 
         if (bookmarkExists) {
             removeBookmark({
@@ -102,9 +109,11 @@ const PostFooter = (props:PostFooterProps) => {
     const [removeLike] = useMutation(REMOVE_LIKE);
     const [addLike] = useMutation(LIKE_POST);
 
-    const bumpLikes = (post:PostType) => {
+    const bumpLikes = (post: PostType) => {
         if (
-            postLikes.find((l) => l.postId === post.id && l.userId === userId) !== undefined
+            postLikes.find(
+                (l) => l.postId === post.id && l.userId === userId
+            ) !== undefined
         ) {
             // User already liked the post. Remove like.
             removeLike({
@@ -114,7 +123,11 @@ const PostFooter = (props:PostFooterProps) => {
                 },
             });
 
-            setPostLikes(postLikes.filter((l:LikeType) => l.postId !== post.id && l.userId !== userId));
+            setPostLikes(
+                postLikes.filter(
+                    (l: LikeType) => l.postId !== post.id && l.userId !== userId
+                )
+            );
         } else {
             addLike({
                 variables: {
@@ -125,7 +138,7 @@ const PostFooter = (props:PostFooterProps) => {
                 },
             });
 
-            const newLike:LikeType = {
+            const newLike: LikeType = {
                 id: 0,
                 postId: post.id,
                 userId: post.user.id,
@@ -152,14 +165,16 @@ const PostFooter = (props:PostFooterProps) => {
                                 : t('posts.footer.noLikes')
                         }
                     >
-            <span>
-              <FontAwesomeIcon
-                  color={postLikes.length > 0 ? 'black' : 'gainsboro'}
-                  icon={faHeart}
-                  size="2x"
-                  style={{ marginTop: '10px' }}
-              />
-            </span>
+                        <span>
+                            <FontAwesomeIcon
+                                color={
+                                    postLikes.length > 0 ? 'black' : 'gainsboro'
+                                }
+                                icon={faHeart}
+                                size="2x"
+                                style={{ marginTop: '10px' }}
+                            />
+                        </span>
                     </Tooltip>
                 </Badge>
             </div>
@@ -171,7 +186,8 @@ const PostFooter = (props:PostFooterProps) => {
     const bookmarks = bookmarksByPostList;
     const bookmarkFilter = bookmarks.find((l) => l.postId === item.id);
     const itemColor = bookmarkFilter !== undefined ? 'black' : 'gainsboro';
-    const testId = bookmarkFilter !== undefined ? 'bookmarked-post-icon' : 'bookmark-icon';
+    const testId =
+        bookmarkFilter !== undefined ? 'bookmarked-post-icon' : 'bookmark-icon';
     const userBanned = banStatus !== null && banStatus.banned === true;
 
     if (isMobile) {
@@ -185,10 +201,7 @@ const PostFooter = (props:PostFooterProps) => {
                     onClick={() => quotePost(item)}
                     style={{ marginRight: '10px' }}
                 />
-                <Badge
-                    count={postLikes.length}
-                    overflowCount={99}
-                >
+                <Badge count={postLikes.length} overflowCount={99}>
                     <FontAwesomeIcon
                         data-testid="like-icon-mobile"
                         color={postLikes.length > 0 ? 'black' : 'gainsboro'}
@@ -251,7 +264,6 @@ const PostFooter = (props:PostFooterProps) => {
                 data-testid="like-badge"
                 overflowCount={99}
                 offset={[0, -10]}
-
             >
                 <Tooltip
                     placement="bottom"
@@ -261,31 +273,34 @@ const PostFooter = (props:PostFooterProps) => {
                             : t('posts.footer.likePost')
                     }
                 >
-          <span>
-            <FontAwesomeIcon
-                data-testid="like-icon"
-                color={postLikes.length > 0 ? 'black' : 'gainsboro'}
-                icon={faHeart}
-                size="2x"
-                className="like-post-icon"
-                onClick={() => bumpLikes(item)}
-            />
-          </span>
+                    <span>
+                        <FontAwesomeIcon
+                            data-testid="like-icon"
+                            color={postLikes.length > 0 ? 'black' : 'gainsboro'}
+                            icon={faHeart}
+                            size="2x"
+                            className="like-post-icon"
+                            onClick={() => bumpLikes(item)}
+                        />
+                    </span>
+                </Tooltip>
+            </Badge>
+            <Tooltip
+                placement="bottomLeft"
+                title={t('posts.footer.bookmarkPost')}
+            >
+                <span>
+                    <FontAwesomeIcon
+                        data-testid={testId}
+                        onClick={() => bookmarkPost(item)}
+                        icon={faBookmark}
+                        size="2x"
+                        color={itemColor}
+                        className="bookmark-post-icon"
+                    />
+                </span>
             </Tooltip>
-         </Badge>
-        <Tooltip placement="bottomLeft" title={t('posts.footer.bookmarkPost')}>
-            <span>
-              <FontAwesomeIcon
-                  data-testid={testId}
-                  onClick={() => bookmarkPost(item)}
-                  icon={faBookmark}
-                  size="2x"
-                  color={itemColor}
-                  className="bookmark-post-icon"
-              />
-            </span>
-        </Tooltip>
-    </div>
+        </div>
     );
 };
 

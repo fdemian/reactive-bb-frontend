@@ -1,10 +1,9 @@
-.ComposerTitle
-{
-    margin-bottom:40px;
+.ComposerTitle {
+    margin-bottom: 40px;
 }
 
-.composer-title-text, .TagChooseText
-{
+.composer-title-text,
+.TagChooseText {
     font-size: 25px;
 }
 
@@ -12,39 +11,33 @@
     margin-left: 35%;
 }
 
-.ComposerHeadContainer.Desktop
-{
+.ComposerHeadContainer.Desktop {
     display: flex;
 }
 
-.ComposerHeadContainer.Mobile
-{
+.ComposerHeadContainer.Mobile {
     display: block;
     width: 100%;
     margin-left: 1%;
 }
 
-.ComposerHeadContainer.Mobile .TitleInput
-{
+.ComposerHeadContainer.Mobile .TitleInput {
     margin-bottom: 7px;
 }
 
-.CategoriesContainer
-{
+.CategoriesContainer {
     width: 40%;
 }
 
-.PostEditorContainer
-{
-    margin-bottom:80px;
+.PostEditorContainer {
+    margin-bottom: 80px;
     height: 300px;
     width: 100%;
     margin-left: 1%;
     display: contents;
 }
 
-.tags-container
-{
+.tags-container {
     margin-bottom: 40px;
     margin-left: 25%;
 }
@@ -60,7 +53,7 @@
 }
 
 .accept-button {
-    background-color: #3366CC !important;
+    background-color: #3366cc !important;
 }
 
 .cancel-button {
@@ -86,12 +79,10 @@
     .editor-shell-container {
         margin-top: 50px;
     }
-
 }
 
 @media screen and (min-width: 720px) {
-    .TitleInputContainer
-    {
+    .TitleInputContainer {
         margin-right: 12px;
         width: 635px;
     }
@@ -100,8 +91,7 @@
         width: 454px;
     }
 
-    .composer-container
-    {
+    .composer-container {
         padding-top: 40px;
         padding-bottom: 150px;
         width: 80%;
@@ -118,7 +108,8 @@
         margin-left: 25%;
     }
 
-    .toolbar, .editor-shell-container {
+    .toolbar,
+    .editor-shell-container {
         margin-left: 25%;
     }
 

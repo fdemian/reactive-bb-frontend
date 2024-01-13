@@ -8,11 +8,17 @@ import SecurityView from './Views/SecurityView';
 import './Settings.css';
 
 export const Settings = () => {
-    const { t } = useTranslation('accountSettings', { keyPrefix: 'settings.options' });
+    const { t } = useTranslation('accountSettings', {
+        keyPrefix: 'settings.options',
+    });
 
     const menuMap = [
         { key: 'profile', name: t('profile'), component: <ProfileView /> },
-        { key: 'securityView', name: t('securityView'), component: <SecurityView /> },
+        {
+            key: 'securityView',
+            name: t('securityView'),
+            component: <SecurityView />,
+        },
     ];
 
     /*,
@@ -26,7 +32,7 @@ export const Settings = () => {
         label: <div onClick={() => setSelectKey(item.key)}>{item.name}</div>,
     }));
 
-    const menuItem:any = menuMap.find((k) => k.key === selectKey);
+    const menuItem: any = menuMap.find((k) => k.key === selectKey);
     const title = menuItem.name;
     const childComponent = menuItem.component;
 

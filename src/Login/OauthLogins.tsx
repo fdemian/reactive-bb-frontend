@@ -1,5 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faGithub, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import {
+    faGoogle,
+    faGithub,
+    faFacebook,
+    faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
 import { Tooltip } from 'antd';
 import { getOauthConfig } from '../App/utils';
 import { TranslationFn } from '../utils/types';
@@ -7,27 +12,27 @@ import { OAuthService, OAuthConfig } from '../App/types';
 import './Login.css';
 
 type OauthIconType = {
-  name: string;
-  icon: any;
+    name: string;
+    icon: any;
 };
 
 const oauthIcons: OauthIconType[] = [
     {
         name: 'google',
-        icon: faGoogle
+        icon: faGoogle,
     },
     {
         name: 'github',
-        icon: faGithub
+        icon: faGithub,
     },
     {
         name: 'facebook',
-        icon: faFacebook
+        icon: faFacebook,
     },
     {
         name: 'twitter',
-        icon: faTwitter
-    }
+        icon: faTwitter,
+    },
 ];
 
 const getOauthLink = (service: OAuthService, config: OAuthConfig): string => {
@@ -39,8 +44,7 @@ const getOauthLink = (service: OAuthService, config: OAuthConfig): string => {
 
 const getOuathIcon = (name: string): any | null => {
     const oauthIcon = oauthIcons.find((i) => i.name === name);
-    if(!oauthIcon)
-        return null;
+    if (!oauthIcon) return null;
     return oauthIcon.icon;
 };
 

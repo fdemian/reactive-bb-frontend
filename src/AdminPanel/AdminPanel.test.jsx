@@ -3,8 +3,10 @@ import userEvent from '@testing-library/user-event';
 import { GET_POST_EDITS } from './Queries';
 import { vi, test, expect } from 'vitest';
 
-const previousPost = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
-const currentPost =  '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+const previousPost =
+    '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+const currentPost =
+    '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
 
 vi.mock('../Editor/Renderer', () => ({
     default: ({ content }) => {
@@ -13,12 +15,12 @@ vi.mock('../Editor/Renderer', () => ({
 }));
 
 vi.mock('../Login/authUtils', async () => {
-    const actual = await vi.importActual("../Login/authUtils");
+    const actual = await vi.importActual('../Login/authUtils');
     return {
         ...actual,
         getUserId: () => 1,
-        getUserType: () => 'A'
-    }
+        getUserType: () => 'A',
+    };
 });
 
 test('<AdminPanel /> > <ModerationLog /> > No moderation logs', async () => {
@@ -29,7 +31,7 @@ test('<AdminPanel /> > <ModerationLog /> > No moderation logs', async () => {
                 variables: {
                     limit: 5,
                     offset: 0,
-                }
+                },
             },
             result: {
                 loading: false,
@@ -37,11 +39,11 @@ test('<AdminPanel /> > <ModerationLog /> > No moderation logs', async () => {
                 data: {
                     postEdits: {
                         postEdits: [],
-                        editsCount: 0
-                    }
-                }
-            }
-        }
+                        editsCount: 0,
+                    },
+                },
+            },
+        },
     ];
 
     render({
@@ -54,11 +56,11 @@ test('<AdminPanel /> > <ModerationLog /> > No moderation logs', async () => {
     expect(screen.getByText('Loading')).toBeInTheDocument();
 
     expect(
-        await screen.findByRole("button", { name: "editedPosts" })
+        await screen.findByRole('button', { name: 'editedPosts' })
     ).toBeInTheDocument();
 
-    expect(screen.getAllByText("admincp.editedPosts").length).toStrictEqual(2);
-    expect(screen.getByText("admincp.noModLogs")).toBeInTheDocument();
+    expect(screen.getAllByText('admincp.editedPosts').length).toStrictEqual(2);
+    expect(screen.getByText('admincp.noModLogs')).toBeInTheDocument();
 });
 
 test('<AdminPanel /> > <ModerationLog /> > Moderation logs render correctly', async () => {
@@ -70,28 +72,30 @@ test('<AdminPanel /> > <ModerationLog /> > Moderation logs render correctly', as
                 variables: {
                     limit: 5,
                     offset: 0,
-                }
+                },
             },
             result: {
                 loading: false,
                 error: false,
                 data: {
                     postEdits: {
-                        postEdits: [{
-                          user: {
-                            id: 1,
-                            avatar: null,
-                            username: "user"
-                          },
-                          date: (new Date()).toString(),
-                          previous: previousPost,
-                          current: currentPost
-                        }],
-                        editsCount: 1
-                    }
-                }
-            }
-        }
+                        postEdits: [
+                            {
+                                user: {
+                                    id: 1,
+                                    avatar: null,
+                                    username: 'user',
+                                },
+                                date: new Date().toString(),
+                                previous: previousPost,
+                                current: currentPost,
+                            },
+                        ],
+                        editsCount: 1,
+                    },
+                },
+            },
+        },
     ];
 
     render({
@@ -104,17 +108,15 @@ test('<AdminPanel /> > <ModerationLog /> > Moderation logs render correctly', as
     expect(screen.getByText('Loading')).toBeInTheDocument();
 
     expect(
-        await screen.findByRole("button", { name: "editedPosts" })
+        await screen.findByRole('button', { name: 'editedPosts' })
     ).toBeInTheDocument();
 
-    expect(screen.getAllByText("admincp.editedPosts").length).toStrictEqual(2);
+    expect(screen.getAllByText('admincp.editedPosts').length).toStrictEqual(2);
     expect(
-        await screen.findByRole("img", { name: "Avatar of user"})
+        await screen.findByRole('img', { name: 'Avatar of user' })
     ).toBeInTheDocument();
-    await _user.click(screen.getByRole("img", { name: "Avatar of user"}));
+    await _user.click(screen.getByRole('img', { name: 'Avatar of user' }));
 
-    expect(
-        await screen.findByText("admincp.previous")
-    ).toBeInTheDocument();
-    expect(screen.getByText("admincp.current")).toBeInTheDocument();
+    expect(await screen.findByText('admincp.previous')).toBeInTheDocument();
+    expect(screen.getByText('admincp.current')).toBeInTheDocument();
 });

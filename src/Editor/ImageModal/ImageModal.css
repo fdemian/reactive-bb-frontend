@@ -38,7 +38,7 @@
     background-color: darkred !important;
 }
 
-@media screen and (max-width:720px) {
+@media screen and (max-width: 720px) {
     .insert-image-buttons {
         margin-top: 10px;
     }
@@ -46,5 +46,4 @@
     .img-url-input {
         width: 300px;
     }
-
 }
