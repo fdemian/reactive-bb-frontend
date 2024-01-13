@@ -30,8 +30,8 @@ export const Component = () => {
   });
   fetch('/api/logout', { method: 'POST' });
 
-  const goToLoginPage = () => navigate('/login', { state: { from: location } });
-  const goToMainPage = () => navigate('/');
+  const goToLoginPage = () => { navigate('/login', { state: { from: location } }); };
+  const goToMainPage = () => { navigate('/'); };
 
   return (
     <Result

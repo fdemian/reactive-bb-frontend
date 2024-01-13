@@ -36,7 +36,7 @@ const MobileDrawer = (props: MobileDrawerProps) => {
   if (!isMobile) return null;
 
   const insertTweet = (url: string) => {
-    const tweetId = url.split('status/')?.[1]?.split('?')?.[0];
+    const tweetId = url.split('status/')[1]?.split('?')?.[0];
     editor.executeCommand('INSERT_TWEET', tweetId);
   };
 

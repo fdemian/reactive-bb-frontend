@@ -6,7 +6,7 @@ import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { TopicType } from './topicTypes';
 import './Topics.css';
 
-type PinTopicParams = { topic: TopicType };
+interface PinTopicParams { topic: TopicType }
 
 const PinTopic = ({ topic }: PinTopicParams) => {
   const [pinTopicMut] = useMutation(PIN_TOPIC);

@@ -107,7 +107,7 @@ const Toolbar = (props: ToolbarProps) => {
     },
     {
       text: t('toolbar.excalidraw'),
-      onClick: () => toggleExcalidrawModal(),
+      onClick: () => { toggleExcalidrawModal(); },
       icon: faDiagramProject,
     },
     {
@@ -136,7 +136,7 @@ const Toolbar = (props: ToolbarProps) => {
   const formatItemsForMenu = DROPDOWN_FORMATS.map((s) => ({
     key: s.name,
     label: (
-      <span onClick={() => blockFormatChangeFn(s.value, editor)}>
+      <span onClick={() => { blockFormatChangeFn(s.value, editor); }}>
         <FontAwesomeIcon icon={s.icon} size="lg" />
         {'  '}
         &nbsp; {s.name}
@@ -146,19 +146,19 @@ const Toolbar = (props: ToolbarProps) => {
 
   const fontSizeMenuItems = FONT_SIZES.map((fs) => ({
     key: fs,
-    label: <span onClick={() => onFontSizeChange(fs, editor)}>{fs}</span>,
+    label: <span onClick={() => { onFontSizeChange(fs, editor); }}>{fs}</span>,
   }));
 
   const fontFamilyItems = FONT_FAMILIES.map((ff) => ({
     key: ff,
-    label: <span onClick={() => onFontFamilyChange(ff, editor)}>{ff}</span>,
+    label: <span onClick={() => { onFontFamilyChange(ff, editor); }}>{ff}</span>,
   }));
 
   if (tweetToolbarVisible) {
     return (
       <Suspense fallback={<Spin />}>
         <TweetToolbar
-          insertTweet={(t) => insertTweet(t, editor)}
+          insertTweet={(t) => { insertTweet(t, editor); }}
           toggleToolbar={toggleTweetToolbar}
           t={t}
         />
@@ -170,7 +170,7 @@ const Toolbar = (props: ToolbarProps) => {
     return (
       <Suspense fallback={<Spin />}>
         <TableToolbar
-          insertTable={(t) => insertTable(t, editor)}
+          insertTable={(t) => { insertTable(t, editor); }}
           toggleToolbar={toggleTableToolbar}
           t={t}
         />
@@ -182,7 +182,7 @@ const Toolbar = (props: ToolbarProps) => {
     return (
       <Suspense fallback={<Spin />}>
         <VideoToolbar
-          insertVideo={(val) => insertVideo(val, editor)}
+          insertVideo={(val) => { insertVideo(val, editor); }}
           toggleToolbar={toggleVideoToolbar}
           t={t}
         />
@@ -249,7 +249,7 @@ const Toolbar = (props: ToolbarProps) => {
         <Select
           key="code-language-select"
           className="code-language-select"
-          onChange={(val) => onCodeLanguageSelect(val, editor)}
+          onChange={(val) => { onCodeLanguageSelect(val, editor); }}
           value={getProperty('codeLanguage', formats)}
         >
           {CODE_LANGUAGE_OPTIONS.map(([value, name]) => (
@@ -368,7 +368,7 @@ const Toolbar = (props: ToolbarProps) => {
               },
             ]}
             value={getProperty('fontColor', formats)}
-            onChange={(val) => onFontColorChange(val, editor)}
+            onChange={(val) => { onFontColorChange(val, editor); }}
           >
             <Button
               role="button"
@@ -392,7 +392,7 @@ const Toolbar = (props: ToolbarProps) => {
               },
             ]}
             value={getProperty('bgColor', formats)}
-            onChange={(val) => onBGColorChange(val, editor)}
+            onChange={(val) => { onBGColorChange(val, editor); }}
           >
             <Button
               role="button"

@@ -18,7 +18,7 @@ import Loading from '../Loading/LoadingIndicator';
 import OauthLogins from './OauthLogins';
 import './Login.css';
 
-type LoginDataTypes = {
+interface LoginDataTypes {
   id: number;
   ok: boolean;
   ttl: number;
@@ -26,12 +26,12 @@ type LoginDataTypes = {
   banReason: string;
   banExpirationTime: string;
   type: string;
-};
+}
 
-type LoginFormValues = {
+interface LoginFormValues {
   username: string;
   password: string;
-};
+}
 
 const layout = {
   labelCol: {
@@ -52,7 +52,7 @@ export const Component = (): React.ReactElement => {
   const location = useLocation();
   const { t } = useTranslation('login', { keyPrefix: 'login' });
 
-  let from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || '/';
 
   const loginResponse = (loginData: LoginDataTypes, username: string) => {
     const { id, ok, ttl, banned, banReason, banExpirationTime, type } =

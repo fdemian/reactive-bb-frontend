@@ -6,15 +6,15 @@ import { useMutation } from '@apollo/client';
 import { CREATE_CATEGORY } from './Mutations';
 import './Categories.css';
 
-type NewCategoryFormProps = {
+interface NewCategoryFormProps {
   isLoggedIn: boolean;
   t: (key: string) => string;
-};
+}
 
-type ValuesType = {
+interface ValuesType {
   name: string;
   description: string;
-};
+}
 
 const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
   const [editing, setIsEditing] = useState(false);
@@ -65,7 +65,7 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
   if (!editing)
     return (
       <Button
-        onClick={() => setIsEditing(true)}
+        onClick={() => { setIsEditing(true); }}
         type="primary"
         className="new-category-button"
         aria-label={t('newCategory')}
@@ -84,7 +84,7 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
         role="form"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={() => console.log('FAILED!')}
+        onFinishFailed={() => { console.log('FAILED!'); }}
       >
         <Form.Item
           label={t('name')}

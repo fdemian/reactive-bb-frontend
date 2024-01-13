@@ -8,21 +8,21 @@ const translationKeys = {
   like: 'likedPost',
 };
 
-type MarkReadParams = {
+interface MarkReadParams {
   variables: {
     notifications: number[];
   };
   optimisticResponse: {
     markAsRead: NotificationType[];
   };
-};
+}
 
-type NotificationParams = {
+interface NotificationParams {
   t: (key: string) => string;
   markAsRead: (p: MarkReadParams) => void;
   notification: NotificationType;
   notifications: NotificationType[];
-};
+}
 
 const NotificationMobile = (props: NotificationParams) => {
   const { t, markAsRead, notification, notifications } = props;
@@ -46,7 +46,7 @@ const NotificationMobile = (props: NotificationParams) => {
   return (
     <span
       className="notification-title"
-      onClick={() => markNotificationAsRead(notification, notifications)}
+      onClick={() => { markNotificationAsRead(notification, notifications); }}
     >
       {`${notification.user.username} ${t(translationKeys[notification.type])}`}
       <Badge status="processing" className="new-notification-icon" />

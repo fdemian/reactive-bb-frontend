@@ -28,12 +28,12 @@ const layout = {
   },
 };
 
-type FormValues = {
+interface FormValues {
   passwordValue: string;
   passwordrepeat: string;
   username: string;
   email: string;
-};
+}
 
 export const Component = () => {
   const [form] = Form.useForm();
@@ -183,7 +183,7 @@ export const Component = () => {
               <FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />
             }
             autoComplete="password"
-            onChange={(e: any) => setPasswordValue(e.target.value)}
+            onChange={(e: any) => { setPasswordValue(e.target.value); }}
           />
           <PasswordStrengthBar password={passwordValue ?? ''} t={t} />
         </Form.Item>

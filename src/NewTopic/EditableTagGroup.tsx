@@ -2,11 +2,11 @@ import { useState, useRef } from 'react';
 import { Tag, Input, Tooltip, Button } from 'antd';
 import './Composer.css';
 
-type EditableTagGroupProps = {
+interface EditableTagGroupProps {
   initialState: string[];
   t: (key: string) => string;
   updateFn: (tags: string[]) => void;
-};
+}
 
 const initialTags = (initialState: null | string[]) =>
   initialState === null ? [] : initialState;
@@ -39,7 +39,7 @@ const EditableTagGroup = (props: EditableTagGroupProps) => {
     if (
       inputValue.trim() !== '' &&
       inputValue &&
-      tags.indexOf(inputValue) === -1
+      !tags.includes(inputValue)
     ) {
       newTags = [...tags, inputValue];
       setTags(newTags);
@@ -62,7 +62,7 @@ const EditableTagGroup = (props: EditableTagGroupProps) => {
             className="ant-tag"
             key={tag}
             closable={true}
-            onClose={() => handleClose(tag)}
+            onClose={() => { handleClose(tag); }}
           >
             {isLongTag ? `${tag.slice(0, 20)}...` : tag}
           </Tag>

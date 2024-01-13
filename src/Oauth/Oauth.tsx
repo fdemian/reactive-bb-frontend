@@ -7,7 +7,7 @@ import { refreshToken, setLoginData } from '../Login/authUtils';
 import { useTranslation } from 'react-i18next';
 
 export const Component = (): React.ReactElement => {
-  let { service } = useParams();
+  const { service } = useParams();
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
   const client = useApolloClient();

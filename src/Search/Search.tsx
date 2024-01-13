@@ -98,7 +98,7 @@ export const Component = () => {
 
   let numberOfPages = 1;
 
-  if (data && data.search.total) {
+  if (data?.search.total) {
     numberOfPages = Math.ceil(data.search.total / PAGE_LIMIT);
   }
 
@@ -133,7 +133,7 @@ export const Component = () => {
         onSearch={onSearch}
         t={t}
       />
-      {(searchTerm || search) && data && data.search ? (
+      {(searchTerm || search) && data?.search ? (
         <SearchResults t={t} data={data.search.results} />
       ) : null}
       <Suspense fallback={<Spin />}>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import './Topics.css';
 
-type ClosedIconProps = { closed: boolean };
+interface ClosedIconProps { closed: boolean }
 
 const ClosedIcon = ({ closed }: ClosedIconProps) => {
   if (!closed) return null;

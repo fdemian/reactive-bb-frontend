@@ -35,8 +35,8 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
   } = props;
 
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const closeDrawer = () => setDrawerVisible(false);
-  const openDrawer = () => setDrawerVisible(true);
+  const closeDrawer = () => { setDrawerVisible(false); };
+  const openDrawer = () => { setDrawerVisible(true); };
 
   useEffect(() => {
     newSubscription();

@@ -1,26 +1,26 @@
-export type OAuthService = {
+export interface OAuthService {
   name: string;
   scope: string;
   clientId: string;
   link: string;
   extraParams: string;
-};
+}
 
-export type OAuthConfig = {
+export interface OAuthConfig {
   redirectURI: string;
   services: OAuthService[];
-};
+}
 
-export type ConfigType = {
+export interface ConfigType {
   name: string;
   description: string;
   logoURL: string;
   faviconURL: string;
   faviconType: string;
   items_per_page: string;
-};
+}
 
-export type AppConfig = {
+export interface AppConfig {
   config: ConfigType;
   oauth: OAuthConfig;
-};
+}

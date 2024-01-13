@@ -9,15 +9,15 @@ import Loading from '../Loading/LoadingIndicator';
 import { RESET_PASSWORD } from './Mutations';
 import './ResetPassword.css';
 
-type ActivatePasswordValues = {
+interface ActivatePasswordValues {
   password: string;
-};
+}
 
 export const Component = () => {
   const navigate = useNavigate();
   const { t } = useTranslation('register', { keyPrefix: 'register' });
   const [resetPassword, { data, loading }] = useMutation(RESET_PASSWORD);
-  let { token } = useParams();
+  const { token } = useParams();
 
   const onFinish = (values: ActivatePasswordValues) => {
     resetPassword({
@@ -50,7 +50,7 @@ export const Component = () => {
               type="primary"
               size="large"
               key="home"
-              onClick={() => navigate('/')}
+              onClick={() => { navigate('/'); }}
             >
               {t('home')}
             </Button>
@@ -74,7 +74,7 @@ export const Component = () => {
               type="primary"
               size="large"
               key="home"
-              onClick={() => navigate('/')}
+              onClick={() => { navigate('/'); }}
             >
               {t('home')}
             </Button>
@@ -85,7 +85,7 @@ export const Component = () => {
               type="primary"
               size="large"
               key="resetpass"
-              onClick={() => navigate('/forgotpass')}
+              onClick={() => { navigate('/forgotpass'); }}
             >
               {t('resetPass')}
             </Button>

@@ -85,12 +85,12 @@ export const Component = () => {
     postStoryFn();
   };
 
-  const updateTitleFn = (evt: any) => setTitle(evt.target.value);
-  const updateTags = (tags: string[]) => setTags(tags);
+  const updateTitleFn = (evt: any) => { setTitle(evt.target.value); };
+  const updateTags = (tags: string[]) => { setTags(tags); };
 
   if (loading || categoriesQuery.loading) return <Loading />;
 
-  if (data && data.createTopic && data.createTopic.ok && title !== null) {
+  if (data?.createTopic?.ok && title !== null) {
     return (
       <Navigate
         to={`/topics/${data.createTopic.id}/${format_title_string(title)}`}
@@ -100,8 +100,8 @@ export const Component = () => {
 
   const mobileClass = mobile ? 'Mobile' : 'Desktop';
   const isDraft = !editing; //(!editing || story.isDraft === true);
-  const postStoryAdDraft = () => postStoryContent(/*true*/);
-  const postContentFn = () => postStoryContent(/*false*/);
+  const postStoryAdDraft = () => { postStoryContent(/*true*/); };
+  const postContentFn = () => { postStoryContent(/*false*/); };
 
   if (error || categoriesQuery.error) return <p>Error :(</p>;
 
@@ -131,7 +131,7 @@ export const Component = () => {
               placeholder={t('titlePlaceholder')}
               className="TitleInput"
               defaultValue={title === null ? '' : title}
-              onChange={(value) => updateTitleFn(value)}
+              onChange={(value) => { updateTitleFn(value); }}
               aria-label="Title Input"
             />
           </span>
@@ -151,7 +151,7 @@ export const Component = () => {
             containerRef={editorContainer}
             user={null}
             mentions={[]}
-            setMentions={(m) => console.log(m)}
+            setMentions={(m) => { console.log(m); }}
             isMobile={mobile}
           />
         </div>

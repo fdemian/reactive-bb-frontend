@@ -1,9 +1,9 @@
-type QuoteStateProps = {
+interface QuoteStateProps {
   content: string | undefined;
   user: string | null;
   userId: string | null;
   comment: string | null;
-};
+}
 
 export const getQuoteStateFromProps = (
   props: QuoteStateProps

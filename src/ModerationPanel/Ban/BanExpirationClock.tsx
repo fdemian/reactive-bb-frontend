@@ -2,10 +2,10 @@ import { Progress } from 'antd';
 import { getExpirationTime } from './utils';
 import { differenceInMilliseconds } from 'date-fns';
 
-type BanClockProps = {
+interface BanClockProps {
   lockoutTime: string | null | undefined;
   t: (key: string) => string;
-};
+}
 
 const BanExpirationClock = ({ lockoutTime, t }: BanClockProps) => {
   if (lockoutTime === null || lockoutTime === undefined)

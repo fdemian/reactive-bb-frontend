@@ -10,10 +10,10 @@ import { UPDATE_EMAIL } from './Mutations';
 import { useMutation } from '@apollo/client';
 import { UserType } from '../../User/userTypes';
 
-type ModifyEmailModalProps = {
+interface ModifyEmailModalProps {
   user: UserType;
   t: (key: string) => string;
-};
+}
 
 const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
   const { email } = user;
@@ -30,8 +30,8 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
   };
 
   const success =
-    mutationData && mutationData.data && mutationData.data.updateEmail;
-  const error = mutationData && mutationData.error;
+    mutationData.data?.updateEmail;
+  const error = mutationData.error;
 
   if (mutationData.loading) return <Loading />;
 
@@ -69,7 +69,7 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
           aria-label={t('emailChangePlaceholder')}
           className="input-field-security"
           placeholder={t('emailChangePlaceholder')}
-          onChange={(e) => setUserEmail(e.target.value)}
+          onChange={(e) => { setUserEmail(e.target.value); }}
           value={userEmail}
           prefix={
             <FontAwesomeIcon icon={faEnvelope} size="lg" color="gainsboro" />

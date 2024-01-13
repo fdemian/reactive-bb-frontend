@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import './Toolbar.css';
 
-type VideoToolbarProps = {
+interface VideoToolbarProps {
   insertVideo: (t: string) => void;
   toggleToolbar: () => void;
   t: (key: string) => string;
-};
+}
 
 const VideoToolbar = ({ insertVideo, toggleToolbar, t }: VideoToolbarProps) => {
   const [videoURL, setVideoURL] = useState('');
@@ -22,7 +22,7 @@ const VideoToolbar = ({ insertVideo, toggleToolbar, t }: VideoToolbarProps) => {
           aria-label={t('toolbar.videoURL')}
           placeholder={t('toolbar.videoURL')}
           value={videoURL}
-          onChange={(e) => setVideoURL(e.target.value)}
+          onChange={(e) => { setVideoURL(e.target.value); }}
         />
         &nbsp;
         <span className="video-toolbar-buttons">

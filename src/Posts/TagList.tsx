@@ -1,8 +1,8 @@
 import Tag from 'antd/es/tag';
 
-type TagListProps = {
+interface TagListProps {
   tags: string;
-};
+}
 
 const TagList = ({ tags }: TagListProps) => {
   if (!tags) return null;

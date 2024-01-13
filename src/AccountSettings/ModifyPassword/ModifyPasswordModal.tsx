@@ -62,18 +62,18 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
 
   const { loading, error, data } = mutationData;
 
-  if (error || (data && data.updatePassword && !data.updatePassword.ok)) {
+  if (error || (data?.updatePassword && !data.updatePassword.ok)) {
     if (!errorState) {
       setErrorState(true);
       setMessage(t('passwordUpdateError'));
     }
   }
 
-  const newPasswordInputChangeFn = (e: any) => setNewPass(e.target.value);
+  const newPasswordInputChangeFn = (e: any) => { setNewPass(e.target.value); };
 
   if (loading) return <Loading />;
 
-  if (data && data.updatePassword.ok) {
+  if (data?.updatePassword.ok) {
     return (
       <h1>
         {t('passwordUpdateSuccess')} &nbsp;
@@ -98,7 +98,7 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
           name="passwordCurrent"
           className="input-field-security "
           placeholder={t('passwordInputPlaceholder')}
-          onChange={(e) => setCurrentPass(e.target.value)}
+          onChange={(e) => { setCurrentPass(e.target.value); }}
           value={currentPass}
           prefix={<FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />}
         />
@@ -126,7 +126,7 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
           role="input"
           name="passwordRepeat"
           placeholder={t('passwordConfirmPlaceholder')}
-          onChange={(e) => setNewPassRepeat(e.target.value)}
+          onChange={(e) => { setNewPassRepeat(e.target.value); }}
           type="password"
           value={newPassRepeat}
           prefix={<FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />}

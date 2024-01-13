@@ -9,11 +9,11 @@ const USER_TYPE = 'USER_TYPE';
 
 type FailFnType = () => void;
 
-export type BanStatusReturn = {
+export interface BanStatusReturn {
   banned: boolean;
   banReason: string | null;
   banExpires: string | null;
-};
+}
 
 export const getUserId = (): number | null => {
   const stringId = localStorage.getItem(USER_ID);
@@ -30,7 +30,7 @@ export const setLoginData = (id: number, username: string, ttl: number) => {
   localStorage.setItem(TOKEN_TTL, ttl.toString());
 };
 
-const clearTTL = (): void => localStorage.removeItem(TOKEN_TTL);
+const clearTTL = (): void => { localStorage.removeItem(TOKEN_TTL); };
 const getTTLForToken = (): number =>
   parseInt(localStorage.getItem(TOKEN_TTL) ?? '0', 10);
 
@@ -44,7 +44,7 @@ const removeCurrentTimeout = (): void => {
 };
 
 const saveTimeout = (id: string): void =>
-  localStorage.setItem(REFRESH_TIMEOUT, id);
+  { localStorage.setItem(REFRESH_TIMEOUT, id); };
 
 export const clearUser = (): void => {
   removeCurrentTimeout();

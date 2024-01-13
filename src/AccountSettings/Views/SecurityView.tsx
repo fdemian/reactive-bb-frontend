@@ -20,11 +20,11 @@ const SecurityView = () => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
 
-  const openPasswordModal = () => setShowPasswordModal(true);
-  const closePasswordModal = () => setShowPasswordModal(false);
+  const openPasswordModal = () => { setShowPasswordModal(true); };
+  const closePasswordModal = () => { setShowPasswordModal(false); };
 
-  const openEmailModal = () => setShowEmailModal(true);
-  const closeEmailModal = () => setShowEmailModal(false);
+  const openEmailModal = () => { setShowEmailModal(true); };
+  const closeEmailModal = () => { setShowEmailModal(false); };
 
   if (loading) return <Loading />;
 

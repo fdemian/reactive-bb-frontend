@@ -20,9 +20,9 @@ const BanUser = ({ user, goBack, t }: BanUserTypes) => {
   });
 
   const banUser = () => {
-    if (!containerRef || !containerRef.current || !user) return;
+    if (!containerRef.current || !user) return;
 
-    // @ts-ignore
+    // @ts-expect-error
     const reason = containerRef.current.getContent();
     const banDate =
       isPermanent || !banLimitDate ? null : new Date(banLimitDate);
@@ -99,7 +99,7 @@ const BanUser = ({ user, goBack, t }: BanUserTypes) => {
           className="checkbox-ban-permanent"
           checked={isPermanent}
           disabled={false}
-          onChange={(evt) => setIsPermanent(evt.target.checked)}
+          onChange={(evt) => { setIsPermanent(evt.target.checked); }}
         >
           <h2>{t('permanent')}</h2> &nbsp;
         </Checkbox>

@@ -3,25 +3,25 @@ import { useTranslation } from 'react-i18next';
 import { getIsMobile } from '../../App/utils';
 import './ExcalidrawModal.css';
 
-type ExcalidrawModalProps = {
+interface ExcalidrawModalProps {
   excalidrawComponent: JSX.Element;
   setExcalidrawAPI: (api: any) => void;
   discard: () => void;
   save: () => void;
   onChange: () => void;
   closeOnClickOutside?: boolean | undefined;
-  initialElements: ReadonlyArray<any>;
+  initialElements: readonly any[];
   initialAppState: any;
   initialFiles: any;
   isShown?: boolean | undefined;
   onClose: () => void;
   onDelete: () => void;
   onSave: (
-    elements: ReadonlyArray<any>,
+    elements: readonly any[],
     appState: Partial<any>,
     files: any
   ) => void;
-};
+}
 
 const ExcalidrawModal = (props: ExcalidrawModalProps) => {
   const {
@@ -67,10 +67,10 @@ const ExcalidrawModal = (props: ExcalidrawModalProps) => {
     >
       <div className="excalidraw-modal-row">
         {' '}
-        {/* @ts-ignore */}
+        {/* @ts-expect-error */}
         <Excalidraw
           onChange={onChange}
-          excalidrawAPI={(api: any) => setExcalidrawAPI(api)}
+          excalidrawAPI={(api: any) => { setExcalidrawAPI(api); }}
           initialData={{
             appState: initialAppState || { isLoading: false },
             elements: initialElements,

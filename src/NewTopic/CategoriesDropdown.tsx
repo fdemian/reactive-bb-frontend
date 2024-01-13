@@ -7,11 +7,11 @@ const Option = Select.Option;
 
 const colors: BadgeStatusTypes[] = ['success', 'error', 'default', 'warning'];
 
-type CategoriesDropdownProps = {
+interface CategoriesDropdownProps {
   category: CategoryType;
   updateCategoryFn: (val: CategoryType) => void;
   categories: CategoryType[];
-};
+}
 
 type BadgeStatusTypes =
   | 'success'
@@ -38,7 +38,7 @@ const CategoriesDropdown = ({
   updateCategoryFn,
   categories,
 }: CategoriesDropdownProps) => {
-  const handleChange = (value: CategoryType) => updateCategoryFn(value);
+  const handleChange = (value: CategoryType) => { updateCategoryFn(value); };
 
   return (
     <Select

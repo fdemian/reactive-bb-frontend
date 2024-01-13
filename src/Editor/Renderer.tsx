@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import './Editor.css';
 
-type RendererParse = { content: string | null };
+interface RendererParse { content: string | null }
 
 const Renderer = ({ content }: RendererParse) => {
   const containerRef = useRef(null);

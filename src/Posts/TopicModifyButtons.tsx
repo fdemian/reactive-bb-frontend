@@ -19,7 +19,7 @@ const TopicModifyButtons = (props: TopicModifyButtonsProps) => {
           key="closeTopicButton"
           type="primary"
           size="large"
-          onClick={() => reopenTopic()}
+          onClick={() => { reopenTopic(); }}
           style={{ marginLeft: 15 }}
         >
           <FontAwesomeIcon icon={faLock} />
@@ -34,7 +34,7 @@ const TopicModifyButtons = (props: TopicModifyButtonsProps) => {
           key="closeTopicButton"
           type="primary"
           size="large"
-          onClick={() => closeTopic()}
+          onClick={() => { closeTopic(); }}
           style={{ marginLeft: 15 }}
         >
           <FontAwesomeIcon icon={faTimes} />
@@ -49,7 +49,7 @@ const TopicModifyButtons = (props: TopicModifyButtonsProps) => {
         key="deleteTopicButton"
         type="primary"
         size="large"
-        onClick={() => deleteTopic()}
+        onClick={() => { deleteTopic(); }}
         style={{ marginLeft: 15 }}
       >
         <FontAwesomeIcon icon={faTimes} />

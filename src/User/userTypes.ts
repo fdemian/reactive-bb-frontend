@@ -1,20 +1,20 @@
-export type PostType = {
+export interface PostType {
   id: number;
   topicId: number;
   content: string;
-};
+}
 
-export type TopicType = {
+export interface TopicType {
   id: number;
   name: string;
-};
+}
 
-export type LikeType = {
+export interface LikeType {
   id: number;
   post: PostType;
-};
+}
 
-export type UserType = {
+export interface UserType {
   id: number;
   username: string;
   avatar: string;
@@ -26,4 +26,4 @@ export type UserType = {
   banned: boolean;
   banReason: string;
   banExpires: string;
-};
+}

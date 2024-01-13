@@ -7,10 +7,10 @@ import Renderer from '../Editor/Renderer';
 import { UserType, LikeType } from './userTypes';
 import { useQuery } from '@apollo/client';
 
-type UserLikesProps = {
+interface UserLikesProps {
   id: number;
   user: UserType;
-};
+}
 
 const UserLikes = ({ id, user }: UserLikesProps) => {
   const { loading, error, data } = useQuery(GET_LIKES_BY_USER, {

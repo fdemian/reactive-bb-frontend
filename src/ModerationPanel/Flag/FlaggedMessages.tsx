@@ -89,7 +89,7 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
       render: (_: any, record: FlaggedDataType) => (
         <Tooltip title="Go to post">
           <FontAwesomeIcon
-            onClick={() => navigate(`/postlink/${record.postId}`)}
+            onClick={() => { navigate(`/postlink/${record.postId}`); }}
             icon={faExternalLinkAlt}
             color="gainsboro"
             size="2x"
@@ -104,7 +104,7 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
       render: (_: any, record: FlaggedDataType) => (
         <Tooltip title="Remove this flag from post">
           <FontAwesomeIcon
-            onClick={() => removeFlag(record.postId, record.userId)}
+            onClick={() => { removeFlag(record.postId, record.userId); }}
             icon={faTrash}
             color="gainsboro"
             size="2x"

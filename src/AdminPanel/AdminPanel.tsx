@@ -27,7 +27,7 @@ export const Component = (): React.ReactElement => {
       <div
         role="button"
         aria-label={item.key}
-        onClick={() => setSelectKey(item.key)}
+        onClick={() => { setSelectKey(item.key); }}
       >
         {item.name}
       </div>

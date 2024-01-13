@@ -5,10 +5,10 @@ import { faBell, faBellSlash } from '@fortawesome/free-solid-svg-icons';
 import { NotificationType } from '../../navbarTypes';
 import './Notifications.css';
 
-type NotificationsHeaderParams = {
+interface NotificationsHeaderParams {
   notifications: NotificationType[];
   enabled: boolean;
-};
+}
 
 const NotificationsHeader = ({
   notifications,

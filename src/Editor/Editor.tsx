@@ -61,21 +61,21 @@ const Editor = (props: EditorProps) => {
     useState(false);
 
   const [tweetToolbarVisible, setTweetToolbar] = useState(false);
-  const toggleTweetToolbar = () => setTweetToolbar(!tweetToolbarVisible);
+  const toggleTweetToolbar = () => { setTweetToolbar(!tweetToolbarVisible); };
   const [tableToolbarVisible, setTableToolbar] = useState(false);
-  const toggleTableToolbar = () => setTableToolbar(!tableToolbarVisible);
+  const toggleTableToolbar = () => { setTableToolbar(!tableToolbarVisible); };
   const [videoToolbar, setVideoToolbar] = useState(false);
-  const toggleVideoToolbar = () => setVideoToolbar(!videoToolbar);
+  const toggleVideoToolbar = () => { setVideoToolbar(!videoToolbar); };
 
   // TODO: reorder and name this.
   const [equation, setEquation] = useState('f(x)');
   const [inline, setInline] = useState(true);
 
   // Toggle functions (utility functions).
-  const toggleImageModal = () => setImageModal(!imageModalVisible);
-  const toggleEquationModal = () => setEquationModal(!equationModalVisible);
-  const toggleBgColorModal = () => setBgColorModal(!bgColorModalVisible);
-  const toggleFontColorModal = () => setFontColorModal(!fontColorModalVisible);
+  const toggleImageModal = () => { setImageModal(!imageModalVisible); };
+  const toggleEquationModal = () => { setEquationModal(!equationModalVisible); };
+  const toggleBgColorModal = () => { setBgColorModal(!bgColorModalVisible); };
+  const toggleFontColorModal = () => { setFontColorModal(!fontColorModalVisible); };
   //const toggleExcalidrawModal = (status) => setExcalidrawModal(status === false ? status : !excalidrawModalVisible);
 
   const toggleExcalidrawModal = () => {

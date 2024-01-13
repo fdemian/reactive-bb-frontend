@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Input, Button, Checkbox, Select } from 'antd';
 import { $getNodeByKey } from 'kalliope';
 
-type UpdateEditorProps = {
+interface UpdateEditorProps {
   activeEditor?: any;
   nodeKey?: any;
   onClose: () => void;
   t: (key: string) => string;
-};
+}
 
 const UpdateInlineImageDialog = ({
   activeEditor,
@@ -21,8 +21,8 @@ const UpdateInlineImageDialog = ({
   const [showCaption, setShowCaption] = useState(node.getShowCaption());
   const [position, setPosition] = useState(node.getPosition());
 
-  const handleShowCaptionChange = (e: any) => setShowCaption(e.target.checked);
-  const handlePositionChange = (e: any) => setPosition(e);
+  const handleShowCaptionChange = (e: any) => { setShowCaption(e.target.checked); };
+  const handlePositionChange = (e: any) => { setPosition(e); };
 
   const handleOnConfirm = () => {
     const payload = { altText, position, showCaption };
@@ -59,7 +59,7 @@ const UpdateInlineImageDialog = ({
           placeholder={t('imageModal.altText')}
           style={{ width: 'calc(100% - 200px)' }}
           value={altText}
-          onChange={(e) => setAltText(e.target.value)}
+          onChange={(e) => { setAltText(e.target.value); }}
         />
       </div>
       <br />
@@ -87,7 +87,7 @@ const UpdateInlineImageDialog = ({
       <Button
         style={{ marginLeft: '5px' }}
         type="primary"
-        onClick={() => handleOnConfirm()}
+        onClick={() => { handleOnConfirm(); }}
       >
         {t('ok')}
       </Button>

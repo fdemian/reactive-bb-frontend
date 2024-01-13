@@ -26,7 +26,7 @@ const SearchUsersList = ({
               danger
               type="primary"
               key="ban-user-btn"
-              onClick={() => changeToBanScreen(user)}
+              onClick={() => { changeToBanScreen(user); }}
             >
               {user.banned ? t('reviewBan') : t('banUser')}
             </Button>,

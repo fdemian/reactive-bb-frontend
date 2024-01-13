@@ -4,23 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import './Toolbar.css';
 
-type TableSizeProps = {
+interface TableSizeProps {
   rows: number;
   columns: number;
-};
+}
 
-type TableToolbarProps = {
+interface TableToolbarProps {
   toggleToolbar: () => void;
   insertTable: (t: TableSizeProps) => void;
   t: (key: string) => string;
-};
+}
 
 const TableToolbar = ({ toggleToolbar, insertTable, t }: TableToolbarProps) => {
   const [tableSize, setTableSize] = useState({ rows: 1, columns: 1 });
   const setRowValue = (value: number | null) =>
-    setTableSize({ rows: value ?? 1, columns: tableSize.columns });
+    { setTableSize({ rows: value ?? 1, columns: tableSize.columns }); };
   const setColValue = (value: number | null) =>
-    setTableSize({ rows: tableSize.rows, columns: value ?? 1 });
+    { setTableSize({ rows: tableSize.rows, columns: value ?? 1 }); };
 
   return (
     <div className="toolbar">

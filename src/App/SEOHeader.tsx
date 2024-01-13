@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 
-type SEOParams = {
+interface SEOParams {
   title: string;
   description: string;
   name: string;
   type: string;
-};
+}
 
 const SEOHeader = ({ title, description, name, type }: SEOParams) => {
   return (

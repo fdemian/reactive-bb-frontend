@@ -11,14 +11,14 @@ import '../AccountSettings/Settings.css';
 import './Messages.css';
 import { UserType } from '../User/userTypes';
 
-type MessagesEditorProps = {
+interface MessagesEditorProps {
   containerRef: any;
   sendMessage: (user: number, p: boolean) => void;
   clearMessage: () => void;
   users: UserType[];
   userId: number;
   t: (key: string) => string;
-};
+}
 
 const ChatsList = (props: MessagesEditorProps) => {
   const { containerRef, sendMessage, clearMessage, users, userId, t } = props;
@@ -29,8 +29,8 @@ const ChatsList = (props: MessagesEditorProps) => {
     paramsUser !== null ? parseInt(paramsUser, 10) : users[0].id;
   const [selectedUser, setSelectedUser] = useState(initialSelectedUser);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const closeModal = () => setIsModalOpen(false);
-  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => { setIsModalOpen(false); };
+  const openModal = () => { setIsModalOpen(true); };
   const sendAndCloseModal = (user: number, newchat: boolean) => {
     sendMessage(user, newchat);
     closeModal();
@@ -45,7 +45,7 @@ const ChatsList = (props: MessagesEditorProps) => {
   const items = users.map((u) => ({
     key: u.id,
     label: (
-      <div onClick={() => setSelectedUser(u.id)}>
+      <div onClick={() => { setSelectedUser(u.id); }}>
         <UserAvatar
           size="large"
           shape="square"

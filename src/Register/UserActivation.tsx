@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client';
 import { VALIDATE_USER } from './Mutations';
 
 export const Component = () => {
-  let { token } = useParams();
+  const { token } = useParams();
   const [validateUser, { loading, data }] = useMutation(VALIDATE_USER);
 
   useEffect(() => {

@@ -12,22 +12,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-type MarkReadParams = {
+interface MarkReadParams {
   variables: {
     notifications: number[];
   };
   optimisticResponse: {
     markAsRead: NotificationType[];
   };
-};
+}
 
-type NotificationProps = {
+interface NotificationProps {
   notifications: NotificationType[];
   enabled: boolean;
   markAsRead: (p: MarkReadParams) => void;
   newSubscription: () => void;
   t: (key: string) => string;
-};
+}
 
 const NotificationsMenu = (props: NotificationProps) => {
   const { notifications, newSubscription, markAsRead, enabled, t } = props;

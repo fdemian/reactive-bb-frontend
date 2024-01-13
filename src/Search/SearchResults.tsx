@@ -4,18 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import Renderer from '../Editor/Renderer';
 
-type SearchResultsType = {
+interface SearchResultsType {
   id: number;
   text: string;
   topicId: number;
   topic: string;
   total: number;
-};
+}
 
-type SearchResultsData = {
+interface SearchResultsData {
   data: SearchResultsType[];
   t: (key: string) => string;
-};
+}
 
 const SearchResults = ({ data, t }: SearchResultsData) => {
   if (data.length === 0) return <h1>{t('noMatch')}</h1>;

@@ -1,41 +1,41 @@
 import { UserType } from '../User/userTypes';
 
-type InsertImageProps = {
+interface InsertImageProps {
   src: string;
   altText: string;
-};
+}
 
-type InsertImageInlineProps = {
+interface InsertImageInlineProps {
   altText: string;
   position: string;
   showCaption: boolean;
   src: string;
-};
+}
 
-export type EntryComponentTypes = {
+export interface EntryComponentTypes {
   option: {
     id: number;
     avatar?: string | null | undefined;
     name: string;
   };
-};
+}
 
-export type MentionType = {
+export interface MentionType {
   id: number;
   name: string;
   link: string;
-};
+}
 
-export type EditorProps = {
+export interface EditorProps {
   initialState: string | undefined;
   containerRef: any;
   user: UserType | null;
   mentions: MentionType[];
   setMentions: (mentions: MentionType[]) => void;
   isMobile: boolean;
-};
+}
 
-export type FooterProps = {
+export interface FooterProps {
   inlineModalUpdateVisible: boolean;
   setInlineModalUpdateVisible: (p: boolean) => void;
   inlineImagemodalProps:
@@ -52,14 +52,14 @@ export type FooterProps = {
   canUndo: boolean;
   canRedo: boolean;
   t: (key: string) => string;
-};
+}
 
-export type InsertEquationProps = {
+export interface InsertEquationProps {
   equation: string;
   inline: boolean;
-};
+}
 
-export type MobileDrawerProps = {
+export interface MobileDrawerProps {
   isMobile: boolean;
   equationModalVisible: boolean;
   equation: string;
@@ -80,9 +80,9 @@ export type MobileDrawerProps = {
   toggleVideoToolbar: () => void;
   insertImage: (val: InsertImageProps) => void;
   t: (key: string) => string;
-};
+}
 
-type FormatsType = {
+interface FormatsType {
   blockType: string;
   selectedElementKey: string;
   isLink: boolean;
@@ -103,16 +103,16 @@ type FormatsType = {
   fontColor: string;
   bgColor: string;
   fontFamily: string;
-};
+}
 
-export type InlineImageProps = {
+export interface InlineImageProps {
   altText: string;
   position: string;
   showCaption: boolean;
   src: string;
-};
+}
 
-export type ImageProps = {
+export interface ImageProps {
   altText: string;
   caption?: any;
   height?: number;
@@ -122,9 +122,9 @@ export type ImageProps = {
   src: string;
   width?: number;
   captionsEnabled?: boolean;
-};
+}
 
-export type ToolbarProps = {
+export interface ToolbarProps {
   equationModalVisible: boolean;
   equation: string;
   setEquation: (val: string) => void;
@@ -150,4 +150,4 @@ export type ToolbarProps = {
   toggleVideoToolbar: () => void;
   insertImage: (val: InsertImageProps) => void;
   t: (key: string) => string;
-};
+}

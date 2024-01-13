@@ -9,13 +9,13 @@ import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import './Composer.css';
 
-type ConfirmButtonProps = {
+interface ConfirmButtonProps {
   isDraft: boolean;
   editing: boolean;
   postStoryContent: () => void;
   postAsDraftFn: () => void;
   t: (key: string) => string;
-};
+}
 
 const ConfirmButtons = (props: ConfirmButtonProps) => {
   const {
@@ -41,7 +41,7 @@ const ConfirmButtons = (props: ConfirmButtonProps) => {
           type="primary"
           aria-label={t('cancel')}
           size="large"
-          onClick={() => navigate('/')}
+          onClick={() => { navigate('/'); }}
         >
           <FontAwesomeIcon icon={faClose} size="lg" />
           &nbsp; {t('cancel')}
@@ -80,7 +80,7 @@ const ConfirmButtons = (props: ConfirmButtonProps) => {
           danger
           type="primary"
           size="large"
-          onClick={() => navigate('/')}
+          onClick={() => { navigate('/'); }}
         >
           <FontAwesomeIcon icon={faClose} size="lg" />
           &nbsp; {t('cancel')}
@@ -116,7 +116,7 @@ const ConfirmButtons = (props: ConfirmButtonProps) => {
         className="cancel-button"
         danger
         size="large"
-        onClick={() => navigate('/')}
+        onClick={() => { navigate('/'); }}
       >
         <FontAwesomeIcon icon={faTimes} size="lg" />
         &nbsp; {t('cancel')}

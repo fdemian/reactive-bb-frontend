@@ -58,16 +58,16 @@ const UserProfile = () => {
   };
 
   const setStatus = (e: any) =>
-    setModalProps({
+    { setModalProps({
       ...modalProps,
       status: e.target.value,
-    });
+    }); };
 
   const setAbout = (e: any) =>
-    setModalProps({
+    { setModalProps({
       ...modalProps,
       about: e.target.value,
-    });
+    }); };
 
   return (
     <>

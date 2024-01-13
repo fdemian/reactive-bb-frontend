@@ -3,10 +3,10 @@ import { getPasswordScore, translateStrings, PASSWORD_COLORS } from './utils';
 
 type TranslationFn = (key: string) => string;
 
-type PasswordStrengthBarTypes = {
+interface PasswordStrengthBarTypes {
   password: string;
   t: TranslationFn;
-};
+}
 
 const PasswordStrengthBar = ({ password, t }: PasswordStrengthBarTypes) => {
   if (!password) return <br />;

@@ -7,7 +7,7 @@ const { Paragraph, Text, Link } = Typography;
 
 export const Component = (): React.ReactElement => {
   const { t } = useTranslation('register', { keyPrefix: 'register' });
-  let { mail } = useParams();
+  const { mail } = useParams();
   return (
     <Result status="info" title={t('activationInfoTitle')}>
       <Paragraph>

@@ -7,10 +7,10 @@ const disabledDate = (current: any) => {
   return current && current < endOfDay(new Date());
 };
 
-type BanDatePickerProps = {
+interface BanDatePickerProps {
   onChange: (v: any) => void;
   disabled: boolean;
-};
+}
 
 const BanDatePicker = ({ onChange, disabled }: BanDatePickerProps) => {
   return (

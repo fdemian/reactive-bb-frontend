@@ -6,15 +6,15 @@ const SearchUsers = lazy(() => import('./SearchUsers'));
 const BanUser = lazy(() => import('./BanUser'));
 const RemoveBan = lazy(() => import('./RemoveBan'));
 
-type UserBanPanelProps = {
+interface UserBanPanelProps {
   t: (key: string) => string;
-};
+}
 
 const UserBanPanel = ({ t }: UserBanPanelProps) => {
   const [screenType, setScreenType] = useState('search');
   const [userToBan, setUserToBan] = useState<UserType | null>(null);
 
-  const goBack = () => setScreenType('search');
+  const goBack = () => { setScreenType('search'); };
 
   if (screenType === 'search') {
     return (

@@ -11,17 +11,17 @@ const PaginationFooter = lazy(
   () => import('../PaginationFooter/PaginationFooter')
 );
 
-type ModerationLogProps = {
+interface ModerationLogProps {
   t: (key: string) => string;
-};
+}
 
-type PostEditType = {
+interface PostEditType {
   user: UserType;
   date: Date;
   previous: string;
   current: string;
   editsCount: number;
-};
+}
 
 const ModerationLog = ({ t }: ModerationLogProps) => {
   const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? '0', 10);

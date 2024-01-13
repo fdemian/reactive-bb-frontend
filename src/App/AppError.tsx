@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 const { Paragraph, Text } = Typography;
 
-type AppErrorParams = {
+interface AppErrorParams {
   error: ApolloError;
-};
+}
 
 const AppError = ({ error }: AppErrorParams) => {
   const stackStr = error.stack?.split('\n');
@@ -16,7 +16,7 @@ const AppError = ({ error }: AppErrorParams) => {
       <div className="desc" key="error-desc">
         <Paragraph key="error-desc-paragraph">
           <Text strong style={{ fontSize: 16 }} key="error-desc-paragraph-text">
-            {stackStr && stackStr.map((s) => <p key={s}>{s}</p>)}
+            {stackStr?.map((s) => <p key={s}>{s}</p>)}
           </Text>
         </Paragraph>
       </div>

@@ -10,17 +10,17 @@ const { Dragger } = Upload;
 
 const SIZE_P = '120px';
 
-type ImageModalProps = {
+interface ImageModalProps {
   imageURL: string | null;
   setImageURL: (p: string | null) => void;
   altText: string;
   setAltText: (p: string) => void;
   t: (key: string) => string;
-};
+}
 
-type OptionType = {
+interface OptionType {
   file: any;
-};
+}
 
 const ImageModal = (props: ImageModalProps) => {
   const { imageURL, setImageURL, altText, setAltText, t } = props;
@@ -127,7 +127,7 @@ const ImageModal = (props: ImageModalProps) => {
             placeholder={t('imageModal.altText')}
             style={{ width: 'calc(100% - 200px)' }}
             value={altText}
-            onChange={(e) => setAltText(e.target.value)}
+            onChange={(e) => { setAltText(e.target.value); }}
           />
         </Form.Item>
       </Form>

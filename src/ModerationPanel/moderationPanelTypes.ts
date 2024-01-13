@@ -1,41 +1,41 @@
 import { UserType } from '../User/userTypes';
 
-export type FlaggedDataType = {
+export interface FlaggedDataType {
   postId: number;
   userId: number;
   reasonId: number;
   reasonText: string;
-};
+}
 
 export type TranslationFn = (key: string) => string;
 
-export type FlaggedMessagesProps = {
+export interface FlaggedMessagesProps {
   t: TranslationFn;
-};
+}
 
-export type BanUserTypes = {
+export interface BanUserTypes {
   user: UserType | null;
   goBack: () => void;
   setScreenType: (p: any) => void;
   t: TranslationFn;
-};
+}
 
-export type SearchUserTypes = {
+export interface SearchUserTypes {
   setScreenType: (p: any) => void;
   setUserToBan: (u: UserType) => void;
   t: TranslationFn;
-};
+}
 
-export type SearchUserListProps = {
+export interface SearchUserListProps {
   users: UserType[];
   setScreenType: (p: any) => void;
   setUserToBan: (u: UserType) => void;
   t: TranslationFn;
-};
+}
 
-export type FlaggedPost = {
+export interface FlaggedPost {
   postId: number;
   userId: number;
   reasonId: number;
   reasonText: string;
-};
+}

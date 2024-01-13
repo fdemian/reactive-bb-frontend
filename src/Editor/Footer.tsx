@@ -41,7 +41,7 @@ const EditorFooter = (props: FooterProps) => {
   const [position, setPostion] = useState('left');
   const [showCaption, setShowCaption] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
-  const toggleModalVisible = () => setUploadModalVisible(!uploadModalVisible);
+  const toggleModalVisible = () => { setUploadModalVisible(!uploadModalVisible); };
 
   const SUPPORT_SPEECH_RECOGNITION =
     'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
@@ -151,7 +151,7 @@ const EditorFooter = (props: FooterProps) => {
           aria-label={t('toolbar.inlineImage')}
           className="toolbar-style-button"
           key="UPLOAD_inline_IMAGE"
-          onClick={() => setInlineImageModalVisible(true)}
+          onClick={() => { setInlineImageModalVisible(true); }}
         >
           <FontAwesomeIcon icon={faCloudArrowUp} size="lg" />
         </button>
@@ -198,7 +198,7 @@ const EditorFooter = (props: FooterProps) => {
         <Badge dot={true} status={isSpeechToText ? 'processing' : 'error'} />
         &nbsp; {isSpeechToText ? <strong>REC</strong> : <strong>OFF</strong>}
       </span>
-      <Modal {...modalButtonsText} {...modalMainProps['imageModal']}>
+      <Modal {...modalButtonsText} {...modalMainProps.imageModal}>
         <Suspense fallback={<Spin />}>
           <ImageModal
             t={t}
@@ -209,16 +209,16 @@ const EditorFooter = (props: FooterProps) => {
           />
         </Suspense>
       </Modal>
-      <Modal {...modalButtonsText} {...modalMainProps['inlineModalUpdate']}>
+      <Modal {...modalButtonsText} {...modalMainProps.inlineModalUpdate}>
         <Suspense fallback={<Spin />}>
           <UpdateInlineImageDialog
             {...inlineImagemodalProps}
-            onClose={() => setInlineModalUpdateVisible(false)}
+            onClose={() => { setInlineModalUpdateVisible(false); }}
             t={t}
           />
         </Suspense>
       </Modal>
-      <Modal {...modalButtonsText} {...modalMainProps['inlineImageModal']}>
+      <Modal {...modalButtonsText} {...modalMainProps.inlineImageModal}>
         <Suspense fallback={<Spin />}>
           <InlineImageModal
             imageURL={imageURL ?? ''}

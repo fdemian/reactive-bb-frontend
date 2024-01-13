@@ -5,9 +5,9 @@ import { Button, Result, Typography } from 'antd';
 const { Paragraph, Text } = Typography;
 
 export const Component = (): React.ReactElement => {
-  let { service } = useParams();
+  const { service } = useParams();
   const navigate = useNavigate();
-  const goToLoginPage = () => navigate('/login');
+  const goToLoginPage = () => { navigate('/login'); };
   const { t } = useTranslation('oauth', { keyPrefix: 'oauth' });
 
   return (

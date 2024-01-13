@@ -4,7 +4,7 @@ import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { TopicType } from './topicTypes';
 import './Topics.css';
 
-type PinnedIndicatorProps = { topic: TopicType };
+interface PinnedIndicatorProps { topic: TopicType }
 
 const PinnedIndicator = ({ topic }: PinnedIndicatorProps) => {
   return (

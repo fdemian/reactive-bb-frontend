@@ -8,12 +8,12 @@ import { faArrowsRotate, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { ChatsByUserResponse } from '../../navbarTypes';
 
-type MessagesMenuProps = {
+interface MessagesMenuProps {
   chatSubscription: () => void;
   enabled: boolean;
   messages: ChatsByUserResponse;
   t: (key: string) => string;
-};
+}
 
 const MessagesMenu = ({
   messages,

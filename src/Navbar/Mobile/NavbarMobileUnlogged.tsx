@@ -8,8 +8,8 @@ import DrawerToggleButton from './DrawerToggleButton';
 
 const NavbarMobileUnlogged = ({ t }: { t: (key: string) => string }) => {
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const closeDrawer = () => setDrawerVisible(false);
-  const openDrawer = () => setDrawerVisible(true);
+  const closeDrawer = () => { setDrawerVisible(false); };
+  const openDrawer = () => { setDrawerVisible(true); };
 
   const items: MenuProps['items'] = [
     {

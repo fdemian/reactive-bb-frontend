@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-type NavLogoProps = {
+interface NavLogoProps {
   mobile: boolean;
   name: string;
   logoURL: string;
-};
+}
 
 const NavLogo = ({
   mobile,

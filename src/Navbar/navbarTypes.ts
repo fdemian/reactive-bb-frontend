@@ -1,46 +1,46 @@
 import { ApolloError } from '@apollo/client';
 import { UserType } from '../User/userTypes';
 
-type UserNotificationType = {
+interface UserNotificationType {
   id: number;
   avatar: string;
   username: string;
-};
+}
 
-export type ChatType = {
+export interface ChatType {
   author: {
     id: number;
     avatar: string;
     username: string;
   };
   read: boolean;
-};
+}
 
-export type MessageType = {
+export interface MessageType {
   id: number;
   avatar: string;
   username: string;
   read: boolean;
-};
+}
 
-export type ChatsByUserResponse = {
+export interface ChatsByUserResponse {
   data: {
     chatsByUser: ChatType[];
   };
   loading: boolean;
   error?: ApolloError | undefined;
-};
+}
 
-type MarkReadParams = {
+interface MarkReadParams {
   variables: {
     notifications: number[];
   };
   optimisticResponse: {
     markAsRead: NotificationType[];
   };
-};
+}
 
-export type NavbarLoggedProps = {
+export interface NavbarLoggedProps {
   loading: boolean;
   userType: string | null;
   user: UserType;
@@ -52,13 +52,13 @@ export type NavbarLoggedProps = {
   logoutFn: () => void;
   markAsRead: (p: MarkReadParams) => void;
   t: (key: string) => string;
-};
+}
 
-export type NotificationType = {
+export interface NotificationType {
   id: number;
   link: string;
   type: 'like' | 'mention';
   read: boolean;
   originator: UserNotificationType;
   user: UserNotificationType;
-};
+}

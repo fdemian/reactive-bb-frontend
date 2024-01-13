@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 
-type GetItemReturnProps = {
+interface GetItemReturnProps {
   label: ReactElement;
   key: string;
   icon: any;
   children?: any[];
   disabled?: boolean;
-};
+}
 
 export function getItem(
   label: ReactElement,

@@ -3,16 +3,16 @@ import { Input, Form, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 
-type OkFnProps = {
+interface OkFnProps {
   src: string;
   altText: string;
-};
+}
 
-type InsertImageToolbarProps = {
+interface InsertImageToolbarProps {
   okFn: (p: OkFnProps) => void;
   cancelFn: () => void;
   t: (key: string) => string;
-};
+}
 
 const InsertImageToolbar = ({ okFn, cancelFn, t }: InsertImageToolbarProps) => {
   const [form] = Form.useForm();
@@ -38,7 +38,7 @@ const InsertImageToolbar = ({ okFn, cancelFn, t }: InsertImageToolbarProps) => {
           aria-label="URL"
           placeholder="URL"
           value={imageURL}
-          onChange={(e) => setImageURL(e.target.value)}
+          onChange={(e) => { setImageURL(e.target.value); }}
         />
       </Form.Item>
       <Form.Item label={t('imageModal.altText')} name="alttext" rules={[]}>
@@ -48,7 +48,7 @@ const InsertImageToolbar = ({ okFn, cancelFn, t }: InsertImageToolbarProps) => {
           aria-label={t('imageModal.altText')}
           placeholder={t('imageModal.altText')}
           value={altText}
-          onChange={(e) => setAltText(e.target.value)}
+          onChange={(e) => { setAltText(e.target.value); }}
         />
       </Form.Item>
       <span className="insert-image-buttons">
@@ -64,7 +64,7 @@ const InsertImageToolbar = ({ okFn, cancelFn, t }: InsertImageToolbarProps) => {
         &nbsp;
         <Button
           type="primary"
-          onClick={() => okFn({ src: imageURL, altText: altText })}
+          onClick={() => { okFn({ src: imageURL, altText: altText }); }}
         >
           <FontAwesomeIcon icon={faCheck} size="lg" />
           &nbsp; {t('toolbar.confirm')}

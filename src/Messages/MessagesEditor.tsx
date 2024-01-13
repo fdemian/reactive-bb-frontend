@@ -5,14 +5,14 @@ import { faTrash, faShare } from '@fortawesome/free-solid-svg-icons';
 import './Messages.css';
 import { getIsMobile } from '../App/utils';
 
-type MessagesEditorProps = {
+interface MessagesEditorProps {
   initialState: string | undefined;
   selectedUser: number;
   sendMessage: (user: number, p: boolean) => void;
   clearMessage: () => void;
   containerRef: any;
   t: (key: string) => string;
-};
+}
 
 const MessagesEditor = ({
   initialState,
@@ -46,7 +46,7 @@ const MessagesEditor = ({
           aria-label={t('send')}
           className="chats-send-button"
           type="primary"
-          onClick={() => sendMessage(selectedUser, false)}
+          onClick={() => { sendMessage(selectedUser, false); }}
         >
           {t('send')} &nbsp;
           <FontAwesomeIcon icon={faShare} />

@@ -7,12 +7,12 @@ import { GET_PROFILE } from '../../Queries';
 import { useMutation } from '@apollo/client';
 import './ProfileView.css';
 
-type AvatarViewProps = {
+interface AvatarViewProps {
   id: number;
   avatar: string;
   username: string;
   t: (key: string) => string;
-};
+}
 
 const uploadURL = '';
 

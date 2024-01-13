@@ -23,7 +23,7 @@ const MobileCategoryDrawer = (props: MobileCategoryDrawerProps) => {
       }
     >
       <>
-        <Button onClick={() => selectCategoriesMobile('all')}>
+        <Button onClick={() => { selectCategoriesMobile('all'); }}>
           <Badge status="processing" />
           &nbsp; {t('allCategories')}
         </Button>
@@ -31,7 +31,7 @@ const MobileCategoryDrawer = (props: MobileCategoryDrawerProps) => {
         <br />
         {categoriesData.map((c) => (
           <div key={`container-${c.name}`}>
-            <Button onClick={() => selectCategoriesMobile(c.name)} key={c.name}>
+            <Button onClick={() => { selectCategoriesMobile(c.name); }} key={c.name}>
               <Badge status="default" />
               &nbsp; {c.name}
             </Button>

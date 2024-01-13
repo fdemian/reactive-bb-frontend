@@ -19,7 +19,7 @@ const eraseUserTokensAndLogout = async (
   host: string,
   protocol: string
 ) => {
-  if (url.indexOf('logout') === -1) {
+  if (!url.includes('logout')) {
     await fetch(`${protocol}//${host}/api/logout`, { method: 'POST' });
     redirectToLogout();
   }
@@ -38,9 +38,9 @@ const getWSURL = (): string => {
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(
+      { console.log(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
+      ); }
     );
   }
 

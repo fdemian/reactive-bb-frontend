@@ -10,16 +10,16 @@ import { UserType } from '../User/userTypes';
 
 const { getMentions } = Mentions;
 
-type CreateMessageProps = {
+interface CreateMessageProps {
   sendMessage: (user: number, p: boolean) => void;
   containerRef: any;
   t: (key: string) => string;
-};
+}
 
-type UserMessageType = {
+interface UserMessageType {
   id: number;
   name: string;
-};
+}
 
 const CreateMessage = ({
   sendMessage,
@@ -131,7 +131,7 @@ const CreateMessage = ({
         <Mentions
           data-testid="mention-user-select"
           rows={1}
-          onSelect={(val: any) => mentionSelectChange(val)}
+          onSelect={(val: any) => { mentionSelectChange(val); }}
           placeholder={t('userMentionPlaceholder')}
           style={{ width: '400px' }}
           loading={loading}

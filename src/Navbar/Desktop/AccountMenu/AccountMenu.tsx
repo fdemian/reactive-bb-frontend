@@ -13,12 +13,12 @@ import {
 import { UserType } from '../../../User/userTypes';
 import './AccountMenu.css';
 
-type AccountMenuType = {
+interface AccountMenuType {
   userType: string | null;
   user: UserType;
   logoutFn: () => void;
   t: (key: string) => string;
-};
+}
 
 const AccountMenu = ({ userType, user, logoutFn, t }: AccountMenuType) => {
   if (user === undefined) return <Spin />;

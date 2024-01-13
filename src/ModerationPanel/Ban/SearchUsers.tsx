@@ -21,7 +21,7 @@ const SearchUsers = ({ setScreenType, setUserToBan, t }: SearchUserTypes) => {
     });
   };
 
-  const users = data && data.mentionCandidates ? data.mentionCandidates : [];
+  const users = data?.mentionCandidates ? data.mentionCandidates : [];
 
   return (
     <>

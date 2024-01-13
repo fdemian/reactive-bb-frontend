@@ -8,10 +8,10 @@ import Renderer from '../Editor/Renderer';
 import { useQuery } from '@apollo/client';
 import { UserType, PostType } from './userTypes';
 
-type UserPostsParams = {
+interface UserPostsParams {
   id: number;
   user: UserType;
-};
+}
 
 const UserPosts = ({ id, user }: UserPostsParams) => {
   const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {

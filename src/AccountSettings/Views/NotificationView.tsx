@@ -2,7 +2,7 @@ import { Radio, List } from 'antd';
 
 const NotificationView = () => {
   const Action = (
-    <Radio.Group onChange={() => console.log('change!')} value={1}>
+    <Radio.Group onChange={() => { console.log('change!'); }} value={1}>
       <Radio value={1}>Dont notify</Radio>
       <Radio value={2}>email</Radio>
       <Radio value={3}>popup</Radio>

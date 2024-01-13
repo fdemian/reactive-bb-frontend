@@ -17,7 +17,7 @@ export const Component = (): React.ReactElement => {
           type="primary"
           size="large"
           key="home"
-          onClick={() => navigate('/')}
+          onClick={() => { navigate('/'); }}
         >
           {t('home')}
         </Button>

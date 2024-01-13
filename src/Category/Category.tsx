@@ -16,7 +16,7 @@ export const Component = () => {
   const userType = getUserType();
 
   ///
-  let { id } = useParams();
+  const { id } = useParams();
   const { loading, error, data } = useQuery(GET_CATEGORY, {
     variables: { id: parseInt(id ?? '0', 10) },
   });

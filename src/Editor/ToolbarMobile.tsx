@@ -166,7 +166,7 @@ const Toolbar = (props: ToolbarProps) => {
   const formatItemsForMenu = DROPDOWN_FORMATS.map((s) => ({
     key: s.name,
     label: (
-      <span onClick={() => blockFormatChangeFn(s.value)}>
+      <span onClick={() => { blockFormatChangeFn(s.value); }}>
         <FontAwesomeIcon icon={s.icon} size="lg" />
         {'  '}
         &nbsp; {s.name}
@@ -176,12 +176,12 @@ const Toolbar = (props: ToolbarProps) => {
 
   const fontSizeMenuItems = FONT_SIZES.map((fs) => ({
     key: fs,
-    label: <span onClick={() => onFontSizeChange(fs)}>{fs}</span>,
+    label: <span onClick={() => { onFontSizeChange(fs); }}>{fs}</span>,
   }));
 
   const fontFamilyItems = FONT_FAMILIES.map((ff) => ({
     key: ff,
-    label: <span onClick={() => onFontFamilyChange(ff)}>{ff}</span>,
+    label: <span onClick={() => { onFontFamilyChange(ff); }}>{ff}</span>,
   }));
 
   if (getProperty('blockType', formats) === 'code') {
@@ -299,7 +299,7 @@ const Toolbar = (props: ToolbarProps) => {
             <Button
               key={t('toolbar.fontColor')}
               aria-label={t('toolbar.fontColor')}
-              /* @ts-ignore */
+              /* @ts-expect-error */
               onClick={toggleFontColorModal}
               type="default"
               className="dropdown-menu-toolbar"
@@ -317,7 +317,7 @@ const Toolbar = (props: ToolbarProps) => {
             <Button
               key={t('toolbar.bgColor')}
               aria-label={t('toolbar.bgColor')}
-              /* @ts-ignore */
+              /* @ts-expect-error */
               onClick={toggleBgColorModal}
               type="default"
               className="dropdown-menu-toolbar"
@@ -345,7 +345,7 @@ const Toolbar = (props: ToolbarProps) => {
           role="button"
           type="primary"
           onClick={() =>
-            setToolbarMode(toolbarMode === 'insert' ? 'format' : 'insert')
+            { setToolbarMode(toolbarMode === 'insert' ? 'format' : 'insert'); }
           }
         >
           <FontAwesomeIcon icon={faPlus} size="lg" color="gainsboro" />
@@ -383,7 +383,7 @@ const Toolbar = (props: ToolbarProps) => {
                   <button
                     className="toolbar-style-button"
                     key={b.text}
-                    /* @ts-ignore */
+                    /* @ts-expect-error */
                     onClick={b.onClick}
                     aria-label={b.text}
                   >

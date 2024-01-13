@@ -2,12 +2,12 @@ import { UserType } from '../User/userTypes';
 import { BanStatusReturn } from '../Login/authUtils';
 import { MentionType } from '../Editor/editorTypes';
 
-type CategoryType = {
+interface CategoryType {
   id: number;
   name: string;
-};
+}
 
-type TopicType = {
+interface TopicType {
   id: number;
   name: string;
   views: number;
@@ -17,28 +17,28 @@ type TopicType = {
   tags: string;
   user: UserType;
   category: CategoryType;
-};
+}
 
-export type PostToQuote = {
+export interface PostToQuote {
   id: number;
   content: string;
   user: UserType;
-};
+}
 
-export type LikeType = {
+export interface LikeType {
   id: number;
   userId: number;
   postId: number;
   __typename?: string | undefined;
-};
+}
 
-export type BookmarkType = {
+export interface BookmarkType {
   id: number;
   userId: number;
   postId: number;
-};
+}
 
-export type PostType = {
+export interface PostType {
   id: number;
   content: string;
   edited: boolean;
@@ -46,9 +46,9 @@ export type PostType = {
   likes: LikeType[];
   user: UserType;
   __ref?: string | undefined;
-};
+}
 
-export type TopicRepliesProps = {
+export interface TopicRepliesProps {
   userType: string;
   banStatus: BanStatusReturn;
   quotePost: (post: PostType) => void;
@@ -67,9 +67,9 @@ export type TopicRepliesProps = {
   containerRef: any;
   user: UserType;
   t: (key: string) => string;
-};
+}
 
-export type PostFooterProps = {
+export interface PostFooterProps {
   item: PostType;
   userId: number;
   topic: TopicType;
@@ -81,23 +81,23 @@ export type PostFooterProps = {
   replyAsNewPost: (item: PostType) => void;
   openFlagPostDialog: (id: number) => void;
   t: (key: string) => string;
-};
+}
 
-export type TopicModifyButtonsProps = {
+export interface TopicModifyButtonsProps {
   closed: boolean;
   reopenTopic: () => void;
   closeTopic: () => void;
   deleteTopic: () => void;
   userType: string;
   t: (key: string) => string;
-};
+}
 
-export type ReplyTitleProps = {
+export interface ReplyTitleProps {
   topic: TopicType;
   isMobile: boolean;
-};
+}
 
-export type ReplyDrawerProps = {
+export interface ReplyDrawerProps {
   createPost: () => void;
   onClose: () => void;
   open: boolean;
@@ -107,7 +107,7 @@ export type ReplyDrawerProps = {
   isMobile: boolean;
   mentions: MentionType[];
   setMentions: (p: MentionType[]) => void;
-};
+}
 
 /*
 

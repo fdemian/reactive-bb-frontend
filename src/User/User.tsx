@@ -12,7 +12,7 @@ import Loading from '../Loading/LoadingIndicator';
 import './User.css';
 
 export const Component = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const parsedId = parseInt(id ?? '5', 10);
   const queryOpts = { variables: { id: parsedId }, skip: !id };
   const { loading, error, data } = useQuery(GET_USER, queryOpts);

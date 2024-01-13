@@ -88,8 +88,8 @@ const PostsFile = (props: TopicRepliesProps) => {
                     <ModeratorPostControls
                       isEditing={item.id === editablePost}
                       t={t}
-                      onDelete={() => removePost(item.id)}
-                      onEdit={() => setEditablePost(item.id)}
+                      onDelete={() => { removePost(item.id); }}
+                      onEdit={() => { setEditablePost(item.id); }}
                     />
                   </Suspense>
                 ) : null
@@ -179,7 +179,7 @@ const PostsFile = (props: TopicRepliesProps) => {
                     key="cancelEditButtn"
                     type="primary"
                     size="large"
-                    onClick={() => setEditablePost(null)}
+                    onClick={() => { setEditablePost(null); }}
                   >
                     <FontAwesomeIcon icon={faTimes} />
                     &nbsp; {t('posts.mod.cancelEdit')}
@@ -191,7 +191,7 @@ const PostsFile = (props: TopicRepliesProps) => {
                     key="confirmEditBtn"
                     type="primary"
                     size="large"
-                    onClick={(val: any) => editUserPost(val)}
+                    onClick={(val: any) => { editUserPost(val); }}
                   >
                     {t('posts.mod.confirmEdit')}
                     &nbsp; <FontAwesomeIcon icon={faCheck} />

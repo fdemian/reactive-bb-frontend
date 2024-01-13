@@ -29,12 +29,12 @@ const App = () => {
   const { i18n, ready } = useTranslation('', { useSuspense: false });
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
-  const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn;
+  const isLoggedIn = loginQuery.data?.loggedIn;
 
   const banStatus = getBanStatus();
   const { banned } = banStatus;
   const { config, oauth } =
-    data && data.config ? data.config : { config: {}, oauth: {} };
+    data?.config ? data.config : { config: {}, oauth: {} };
   const {
     description,
     name,

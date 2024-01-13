@@ -3,18 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
 
-type DrawerUserType = {
+interface DrawerUserType {
   avatar: string;
   username: string;
-};
+}
 
-type DrawerToggleButtonProps = {
+interface DrawerToggleButtonProps {
   openDrawer: () => void;
   isLoggedIn: boolean;
   user: DrawerUserType | null;
   showBadge: boolean;
   t: (key: string) => string;
-};
+}
 
 const DrawerToggleButton = (props: DrawerToggleButtonProps) => {
   const { openDrawer, isLoggedIn, user, showBadge, t } = props;

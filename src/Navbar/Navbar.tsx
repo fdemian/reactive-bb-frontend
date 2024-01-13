@@ -27,13 +27,13 @@ const DesktopNavLogged = lazy(() => import('./Desktop/NavbarLogged'));
 const MobileNavUnlogged = lazy(() => import('./Mobile/NavbarMobileUnlogged'));
 const MobileNavLogged = lazy(() => import('./Mobile/NavbarMobileLogged'));
 
-type NavbarProps = {
+interface NavbarProps {
   mobile: boolean;
   name: string;
   logoURL: string;
   isLoading: boolean;
   isError: boolean;
-};
+}
 
 const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
   const { t } = useTranslation('navbar', { keyPrefix: 'navbar' });
@@ -43,7 +43,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
 
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
-  const setSearchValue = (e: any) => setSearchText(e.target.value);
+  const setSearchValue = (e: any) => { setSearchText(e.target.value); };
   const enterPress = () => {
     navigate('/search?term=' + searchText);
     setSearchText('');
@@ -119,7 +119,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
       document: CHATS_SUBSCRIPTION,
       variables: { user: id },
       updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data || !subscriptionData.data.chatAdded)
+        if (!subscriptionData.data?.chatAdded)
           return prev;
 
         const newChat = subscriptionData.data.chatAdded;
@@ -135,7 +135,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
     //logoutFn();
   }
 
-  const userResult = data && data.getUser ? data.getUser : null;
+  const userResult = data?.getUser ? data.getUser : null;
   const navbarProps = {
     userType: userType,
     name: name,

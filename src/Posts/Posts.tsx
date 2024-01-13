@@ -144,8 +144,8 @@ export const Component = () => {
   const [publishMentions] = useMutation(SET_MENTIONS);
   const [increaseViewCount] = useMutation(INCREASE_VIEW_COUNT);
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
-  const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn;
-  let { id, selectedPost } = useParams();
+  const isLoggedIn = loginQuery.data?.loggedIn;
+  const { id, selectedPost } = useParams();
 
   const handleFlagPost = () => {
     setFlagPostDialog(false);
@@ -200,7 +200,7 @@ export const Component = () => {
 
   const containerRef = useRef(null);
   const [visible, setVisible] = useState(false);
-  const showDrawer = () => setVisible(true);
+  const showDrawer = () => { setVisible(true); };
   const onClose = () => {
     setVisible(false);
     const editor: any = containerRef.current;
@@ -373,7 +373,7 @@ export const Component = () => {
   };
 
   const navigateToLogin = () =>
-    navigate('/login', { state: { from: location } });
+    { navigate('/login', { state: { from: location } }); };
   const { posts } = postsQuery.data;
 
   const replyActionButton = isLoggedIn ? (
@@ -449,7 +449,7 @@ export const Component = () => {
               )}
             </p>
             <TagList tags={topic.tags} />
-            {(banStatus === null || banStatus.banned === false) &&
+            {(banStatus === null || !banStatus.banned) &&
               replyActionButton}
           </>
           <span className="topic-statistics">
@@ -523,7 +523,7 @@ export const Component = () => {
           title="Flag post"
           open={flagPostDialog}
           onOk={handleFlagPost}
-          onCancel={() => setFlagPostDialog(false)}
+          onCancel={() => { setFlagPostDialog(false); }}
         >
           <FlagPostModal
             flagReasonValue={flagReasonValue}

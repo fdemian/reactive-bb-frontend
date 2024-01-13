@@ -1,13 +1,13 @@
-type Category = {
+interface Category {
   name: string;
-};
+}
 
-type BanStatus = {
+interface BanStatus {
   banned: boolean;
   banReason: string | null;
-};
+}
 
-export type TopicsHeaderParams = {
+export interface TopicsHeaderParams {
   isMobile: boolean;
   categories: Category[];
   categoryFilter: string;
@@ -16,20 +16,20 @@ export type TopicsHeaderParams = {
   tr: (key: string) => string;
   isLoggedIn: boolean;
   banStatus: BanStatus;
-};
+}
 
-type UserType = {
+interface UserType {
   id: number;
   avatar: string;
   username: string;
-};
+}
 
-export type CategoryType = {
+export interface CategoryType {
   id: number;
   name: string;
-};
+}
 
-export type TopicType = {
+export interface TopicType {
   id: number;
   name: string;
   views: number;
@@ -39,20 +39,20 @@ export type TopicType = {
   pinned: boolean;
   user: UserType;
   category: CategoryType;
-};
+}
 
-export type TopicsListParams = {
+export interface TopicsListParams {
   topics: TopicType[];
   pinnedTopics: TopicType[];
   isMobile: boolean;
   userType: string;
   t: (key: string) => string;
-};
+}
 
-export type MobileCategoryDrawerProps = {
+export interface MobileCategoryDrawerProps {
   categoriesData: CategoryType[];
   categoriesDrawer: boolean;
   toggleCategoriesDrawer: () => void;
   selectCategoriesMobile: (name: string) => void;
   t: (key: string) => string;
-};
+}

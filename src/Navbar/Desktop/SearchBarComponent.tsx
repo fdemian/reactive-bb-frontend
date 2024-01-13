@@ -1,12 +1,12 @@
 import { Input } from 'antd';
 import '../Navbar.css';
 
-type SearchBarProps = {
+interface SearchBarProps {
   searchText: string;
   setSearchValue: React.ChangeEventHandler<HTMLInputElement>;
   enterPress: () => void;
   t: (key: string) => string;
-};
+}
 
 const SearchBarComponent = ({
   searchText,

@@ -4,9 +4,9 @@ import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import KatexSelector from './KatexSelector';
 import KatexRenderer from './KatexRenderer';
 
-type OkFnProps = { equation: string; inline: boolean };
+interface OkFnProps { equation: string; inline: boolean }
 
-type EditorModalProps = {
+interface EditorModalProps {
   cancelFn: (p: any) => void;
   okFunction: (p: OkFnProps) => void;
   inline: boolean;
@@ -14,7 +14,7 @@ type EditorModalProps = {
   equation: string;
   setEquation: (p: string) => void;
   t: (key: string) => string;
-};
+}
 
 const EditorModal = ({
   cancelFn,
@@ -52,7 +52,7 @@ const EditorModal = ({
           <Button
             type="primary"
             aria-label={t('equationModal.insertEquationText')}
-            onClick={() => okFunction({ equation: equation, inline: inline })}
+            onClick={() => { okFunction({ equation: equation, inline: inline }); }}
           >
             {t('equationModal.insertEquationText')} &nbsp;
             <FontAwesomeIcon icon={faCheck} />

@@ -41,7 +41,7 @@ export const Component = () => {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [categoriesDrawer, setCategoriesDrawer] = useState<boolean>(false);
-  const toggleCategoriesDrawer = () => setCategoriesDrawer(!categoriesDrawer);
+  const toggleCategoriesDrawer = () => { setCategoriesDrawer(!categoriesDrawer); };
   const selectCategoriesMobile = (name: string) => {
     setCategoryFilter(name);
     toggleCategoriesDrawer();
@@ -76,7 +76,7 @@ export const Component = () => {
   const { categories } = categoriesQuery.data;
   const categoriesData = [defaultCategory].concat(categories);
   const filteredTopics = getFilteredTopics(topics, categoryFilter);
-  const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn;
+  const isLoggedIn = loginQuery.data?.loggedIn;
 
   if (topics.length === 0 && pinnedTopics.length === 0) {
     return (

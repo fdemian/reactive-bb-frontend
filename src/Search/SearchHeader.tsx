@@ -4,13 +4,13 @@ import { Divider, Input, Select, Form } from 'antd';
 const { Option } = Select;
 const { Search } = Input;
 
-type SearchHeaderProps = {
+interface SearchHeaderProps {
   setSearchIn: (value: string[]) => void;
   searchIn: string[];
   search: string;
   onSearch: (value: string) => void;
   t: (key: string) => string;
-};
+}
 
 const SearchHeader = ({
   setSearchIn,
@@ -19,7 +19,7 @@ const SearchHeader = ({
   onSearch,
   t,
 }: SearchHeaderProps) => {
-  const handleChange = (value: string[]) => setSearchIn(value);
+  const handleChange = (value: string[]) => { setSearchIn(value); };
   const onFinish = (values: string) => {
     console.log('Success:', values);
   };

@@ -12,11 +12,11 @@ import katex from 'katex';
 import { useEffect, useRef } from 'react';
 import 'katex/dist/katex.css';
 
-type KatexRendererProps = {
+interface KatexRendererProps {
   equation: string;
   inline: boolean;
   onClick: () => void;
-};
+}
 
 const KatexRenderer = ({ equation, inline, onClick }: KatexRendererProps) => {
   const katexElementRef = useRef(null);

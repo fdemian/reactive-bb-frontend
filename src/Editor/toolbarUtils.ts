@@ -375,7 +375,7 @@ export const onBGColorChange = (val: ColorVal, editor: any) => {
 };
 
 export const insertTweet = (url: string, editor: any) => {
-  const tweetId = url.split('status/')?.[1]?.split('?')?.[0];
+  const tweetId = url.split('status/')[1]?.split('?')?.[0];
   editor.executeCommand('INSERT_TWEET', tweetId);
 };
 

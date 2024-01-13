@@ -7,10 +7,10 @@ import { useQuery } from '@apollo/client';
 import format_title_string from '../utils/formats.js';
 import { UserType, TopicType } from './userTypes';
 
-type UserTopicsProps = {
+interface UserTopicsProps {
   id: number;
   user: UserType;
-};
+}
 
 const UserTopics = ({ id, user }: UserTopicsProps) => {
   const { loading, error, data } = useQuery(GET_TOPICS_BY_USER, {

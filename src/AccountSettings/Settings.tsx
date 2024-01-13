@@ -29,7 +29,7 @@ export const Settings = () => {
   const [selectKey, setSelectKey] = useState('profile');
   const items = menuMap.map((item) => ({
     key: item.key,
-    label: <div onClick={() => setSelectKey(item.key)}>{item.name}</div>,
+    label: <div onClick={() => { setSelectKey(item.key); }}>{item.name}</div>,
   }));
 
   const menuItem: any = menuMap.find((k) => k.key === selectKey);

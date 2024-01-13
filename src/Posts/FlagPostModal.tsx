@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 const { TextArea } = Input;
 
-type FlagPostProps = {
+interface FlagPostProps {
   flagReasonValue: number;
   setFlagReasonValue: (p: number) => void;
   setFlagTextValue: (p: any) => void;
-};
+}
 
 const FlagPostModal = ({
   flagReasonValue,

@@ -3,11 +3,11 @@ import { Input, Tabs, Tooltip } from 'antd';
 import KatexRenderer from './KatexRenderer';
 import './EquationModal.css';
 
-type KatexSelectorProps = {
+interface KatexSelectorProps {
   equation: string;
   setEquation: (p: string) => void;
   t: (key: string) => string;
-};
+}
 
 const KatexSelector = ({ equation, setEquation, t }: KatexSelectorProps) => {
   const POPULAR_INPUTS = [
@@ -161,7 +161,7 @@ const KatexSelector = ({ equation, setEquation, t }: KatexSelectorProps) => {
           <button
             aria-label={i.equation}
             className="equation-modal-button"
-            onClick={() => setEquation(i.equation)}
+            onClick={() => { setEquation(i.equation); }}
           >
             <KatexRenderer
               equation={i.equation}
@@ -184,7 +184,7 @@ const KatexSelector = ({ equation, setEquation, t }: KatexSelectorProps) => {
         aria-label="Equation input"
         style={{ width: '200px' }}
         value={equation}
-        onChange={(e) => setEquation(e.target.value)}
+        onChange={(e) => { setEquation(e.target.value); }}
       />
     </>
   );

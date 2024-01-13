@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import './Toolbar.css';
 
-type TweetToolbarProps = {
+interface TweetToolbarProps {
   insertTweet: (t: string) => void;
   toggleToolbar: () => void;
   t: (key: string) => string;
-};
+}
 
 const TweetToolbar = ({ insertTweet, toggleToolbar, t }: TweetToolbarProps) => {
   const [tweetURL, setTweetURL] = useState('');
@@ -22,7 +22,7 @@ const TweetToolbar = ({ insertTweet, toggleToolbar, t }: TweetToolbarProps) => {
           aria-label="Tweet URL"
           placeholder="https://twitter.com/<user>/status/<tweetId>"
           value={tweetURL}
-          onChange={(e) => setTweetURL(e.target.value)}
+          onChange={(e) => { setTweetURL(e.target.value); }}
         />
         &nbsp;
         <span className="tweet-toolbar-confirm-buttons">

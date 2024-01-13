@@ -184,7 +184,7 @@ const PostFooter = (props: PostFooterProps) => {
   const itemColor = bookmarkFilter !== undefined ? 'black' : 'gainsboro';
   const testId =
     bookmarkFilter !== undefined ? 'bookmarked-post-icon' : 'bookmark-icon';
-  const userBanned = banStatus !== null && banStatus.banned === true;
+  const userBanned = banStatus !== null && banStatus.banned;
 
   if (isMobile) {
     return (
@@ -194,7 +194,7 @@ const PostFooter = (props: PostFooterProps) => {
           color="gainsboro"
           icon={faQuoteLeft}
           size="2x"
-          onClick={() => quotePost(item)}
+          onClick={() => { quotePost(item); }}
           style={{ marginRight: '10px' }}
         />
         <Badge count={postLikes.length} overflowCount={99}>
@@ -204,14 +204,14 @@ const PostFooter = (props: PostFooterProps) => {
             icon={faHeart}
             size="2x"
             className="like-post-mobile"
-            onClick={() => bumpLikes(item)}
+            onClick={() => { bumpLikes(item); }}
             style={{ marginTop: '10px' }}
           />
         </Badge>
         <FontAwesomeIcon
           className="bookmark-post-mobile"
           data-testid="bookmark-icon-mobile"
-          onClick={() => bookmarkPost(item)}
+          onClick={() => { bookmarkPost(item); }}
           icon={faBookmark}
           size="2x"
           color={itemColor}
@@ -224,7 +224,7 @@ const PostFooter = (props: PostFooterProps) => {
   const items = [
     {
       label: (
-        <div onClick={() => replyAsNewPost(item)}>
+        <div onClick={() => { replyAsNewPost(item); }}>
           <FontAwesomeIcon icon={faReply} /> &nbsp;{' '}
           {t('posts.footer.replyAsTopic')}
         </div>
@@ -247,7 +247,7 @@ const PostFooter = (props: PostFooterProps) => {
         <Dropdown.Button
           type="primary"
           className="dropdown-button-quote"
-          onClick={() => quotePost(item)}
+          onClick={() => { quotePost(item); }}
           menu={{ items }}
         >
           <FontAwesomeIcon icon={faQuoteLeft} />
@@ -275,7 +275,7 @@ const PostFooter = (props: PostFooterProps) => {
               icon={faHeart}
               size="2x"
               className="like-post-icon"
-              onClick={() => bumpLikes(item)}
+              onClick={() => { bumpLikes(item); }}
             />
           </span>
         </Tooltip>
@@ -284,7 +284,7 @@ const PostFooter = (props: PostFooterProps) => {
         <span>
           <FontAwesomeIcon
             data-testid={testId}
-            onClick={() => bookmarkPost(item)}
+            onClick={() => { bookmarkPost(item); }}
             icon={faBookmark}
             size="2x"
             color={itemColor}

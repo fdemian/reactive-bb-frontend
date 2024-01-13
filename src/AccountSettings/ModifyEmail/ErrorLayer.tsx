@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ApolloError } from '@apollo/client';
 
-type ErrorLayerProps = {
+interface ErrorLayerProps {
   error: ApolloError | undefined;
   tr: (key: string) => string;
-};
+}
 
 const ErrorLayer = ({ error, tr }: ErrorLayerProps) => {
   if (!error) return null;

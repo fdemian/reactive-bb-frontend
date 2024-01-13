@@ -41,7 +41,7 @@ const routes = [
       {
         path: 'banned',
         async lazy() {
-          let { Banned } = await import('../Banned/Banned');
+          const { Banned } = await import('../Banned/Banned');
           const props = {
             requiresActiveUser: false,
             modRoute: false,
@@ -55,7 +55,7 @@ const routes = [
       {
         path: 'modcp',
         async lazy() {
-          let { Component } = await import(
+          const { Component } = await import(
             '../ModerationPanel/ModerationPanel'
           );
           const props = {
@@ -71,7 +71,7 @@ const routes = [
       {
         path: 'admincp',
         async lazy() {
-          let { Component } = await import('../AdminPanel/AdminPanel');
+          const { Component } = await import('../AdminPanel/AdminPanel');
           const props = {
             requiresActiveUser: true,
             modRoute: true,
@@ -85,7 +85,7 @@ const routes = [
       {
         path: 'topics/new',
         async lazy() {
-          let { Component } = await import('../NewTopic/TopicsComposer');
+          const { Component } = await import('../NewTopic/TopicsComposer');
           const props = {
             requiresActiveUser: true,
             modRoute: false,
@@ -123,7 +123,7 @@ const routes = [
       {
         path: 'users/:id/:username',
         async lazy() {
-          let { Component } = await import('../User/User');
+          const { Component } = await import('../User/User');
           const props = {
             requiresActiveUser: false,
             modRoute: false,
@@ -137,7 +137,7 @@ const routes = [
       {
         path: 'settings',
         async lazy() {
-          let { Settings } = await import('../AccountSettings/Settings');
+          const { Settings } = await import('../AccountSettings/Settings');
           const props = {
             requiresActiveUser: true,
             modRoute: false,
@@ -152,7 +152,7 @@ const routes = [
       {
         path: 'bookmarks',
         async lazy() {
-          let { Component } = await import('../Bookmarks/Bookmarks');
+          const { Component } = await import('../Bookmarks/Bookmarks');
           const props = {
             requiresActiveUser: false,
             modRoute: false,
@@ -166,7 +166,7 @@ const routes = [
       {
         path: 'search',
         async lazy() {
-          let { Component } = await import('../Search/Search');
+          const { Component } = await import('../Search/Search');
           const props = {
             requiresActiveUser: false,
             modRoute: false,
@@ -180,7 +180,7 @@ const routes = [
       {
         path: 'messages',
         async lazy() {
-          let { Component } = await import('../Messages/Messages');
+          const { Component } = await import('../Messages/Messages');
           const props = {
             requiresActiveUser: false,
             modRoute: false,
@@ -194,7 +194,7 @@ const routes = [
       {
         path: 'notifications',
         async lazy() {
-          let { Component } = await import('../Notifications/Notifications');
+          const { Component } = await import('../Notifications/Notifications');
           const props = {
             requiresActiveUser: false,
             modRoute: false,

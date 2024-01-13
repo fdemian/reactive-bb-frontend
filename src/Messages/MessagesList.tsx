@@ -9,11 +9,11 @@ import { formatDistance, format, parseISO } from 'date-fns';
 import './Messages.css';
 import { UserType } from '../User/userTypes';
 
-type ChatType = {
+interface ChatType {
   date: Date;
   content: string;
   author: UserType;
-};
+}
 
 const getDate = (date: Date) => format(new Date(date), 'MMM d yyyy h:mm');
 const getDateRelative = (date: string) =>

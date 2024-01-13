@@ -2,12 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'antd';
 
-type ModeratorPostControlsProps = {
+interface ModeratorPostControlsProps {
   t: (key: string) => string;
   onDelete: () => void;
   onEdit: () => void;
   isEditing: boolean;
-};
+}
 
 const ModeratorPostControls = ({
   t,

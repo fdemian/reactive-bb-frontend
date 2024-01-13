@@ -1,16 +1,16 @@
-type UserType = {
+interface UserType {
   id: number;
   username: string;
   avatar: string;
-};
+}
 
-type PostType = {
+interface PostType {
   id: number;
   content: string;
   user: UserType;
-};
+}
 
-type RemoveBookmarkFnProps = {
+interface RemoveBookmarkFnProps {
   variables: {
     user: number | null;
     post: number | null;
@@ -23,17 +23,17 @@ type RemoveBookmarkFnProps = {
       postId: number;
     };
   };
-};
+}
 
-export type BookmarkType = {
+export interface BookmarkType {
   __ref: string;
   id: number;
   post: PostType;
-};
+}
 
-export type BookmarkListProps = {
+export interface BookmarkListProps {
   bookmarks: BookmarkType[];
   userId: number | null;
   removeBookmark: (props: RemoveBookmarkFnProps) => void;
   t: (key: string) => string;
-};
+}

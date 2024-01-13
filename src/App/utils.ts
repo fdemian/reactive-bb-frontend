@@ -7,7 +7,7 @@ const DEFAULT_LOCALE = 'DEFAULT_LOCALE';
 const OAUTH_CONFIG = 'OAUTH_CONFIG';
 const CONFIG = 'CONFIG';
 
-const locales: { [key: string]: Locale } = {
+const locales: Record<string, Locale> = {
   es: es,
   en: enUS,
 };

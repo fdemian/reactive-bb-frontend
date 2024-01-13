@@ -4,11 +4,11 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { ChatType } from '../../navbarTypes';
 import './Messages.css';
 
-type MessagesHeaderProps = {
+interface MessagesHeaderProps {
   t: (key: string) => string;
   messages: ChatType[];
   enabled: boolean;
-};
+}
 
 const bellIconStyle = { marginTop: '23px' };
 
@@ -18,7 +18,7 @@ const MessagesHeader = ({ t, messages, enabled }: MessagesHeaderProps) => {
       <span className="message-icon-header header-enabled">
         <Badge
           count={
-            messages.filter((n: ChatType) => n['read'] !== undefined && !n.read)
+            messages.filter((n: ChatType) => n.read !== undefined && !n.read)
               .length
           }
           offset={[0, 9]}

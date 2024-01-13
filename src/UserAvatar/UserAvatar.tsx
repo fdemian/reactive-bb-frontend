@@ -1,20 +1,20 @@
 import { Avatar } from 'antd';
 
-type AvatarSizeType = {
+interface AvatarSizeType {
   xs: number;
   sm: number;
   md: number;
   lg: number;
   xl: number;
   xxl: number;
-};
+}
 
-type AccountAvatarTypes = {
+interface AccountAvatarTypes {
   avatar: string;
   username: string;
   size: number | AvatarSizeType | 'large' | 'small' | 'default';
   shape: 'circle' | 'square' | undefined;
-};
+}
 
 const AccountAvatar = ({
   avatar,

@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import UserAvatar from '../../../UserAvatar/UserAvatar';
 
-type MessageProps = {
+interface MessageProps {
   message: {
     id: number;
     avatar: string;
     username: string;
   };
-};
+}
 
 const Message = ({ message }: MessageProps) => {
   const { avatar, id, username } = message;

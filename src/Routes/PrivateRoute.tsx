@@ -4,12 +4,12 @@ import { SET_LOGIN, GET_IS_LOGGED_IN } from '../Login/queries';
 import { clearUser } from '../Login/authUtils';
 import { getBanStatus, getUserType } from '../Login/authUtils';
 
-type PrivateRouteProps = {
+interface PrivateRouteProps {
   component: () => React.ReactElement;
   requiresActiveUser: boolean;
   modRoute: boolean;
   adminRoute: boolean;
-};
+}
 
 const PrivateRoute = ({
   component: Component,

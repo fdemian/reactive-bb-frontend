@@ -7,21 +7,21 @@ const translationKeys = {
   like: 'likedPost',
 };
 
-type MarkReadParams = {
+interface MarkReadParams {
   variables: {
     notifications: number[];
   };
   optimisticResponse: {
     markAsRead: NotificationType[];
   };
-};
+}
 
-type NotificationProps = {
+interface NotificationProps {
   notification: NotificationType;
   notifications: NotificationType[];
   markAsRead: (p: MarkReadParams) => void;
   t: (key: string) => string;
-};
+}
 
 const Notification = ({
   t,

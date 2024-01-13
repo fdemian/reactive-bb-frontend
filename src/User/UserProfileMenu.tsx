@@ -6,10 +6,10 @@ import UserLikes from './UserLikes';
 import { UserType } from './userTypes';
 import './User.css';
 
-type UserProfileProps = {
+interface UserProfileProps {
   id: number;
   user: UserType;
-};
+}
 
 const UserProfileMenu = ({ id, user }: UserProfileProps) => {
   const menuMap = [

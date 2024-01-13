@@ -13,11 +13,11 @@ import { getIsMobile } from '../App/utils';
 import { useTranslation } from 'react-i18next';
 import './PaginationFooter.css';
 
-type PaginationFooterProps = {
+interface PaginationFooterProps {
   lastPage: number;
   currentPage: number;
   onChangePage: (p: number) => void;
-};
+}
 
 const PaginationFooter = ({
   lastPage,
@@ -37,11 +37,11 @@ const PaginationFooter = ({
     onChangePage(currentPage - 1);
   };
 
-  const toggleGoTo = () => setShowGoToPage(!showGoToPage);
-  const goToFirstPage = () => onChangePage(1);
-  const goToLastPage = () => onChangePage(lastPage);
+  const toggleGoTo = () => { setShowGoToPage(!showGoToPage); };
+  const goToFirstPage = () => { onChangePage(1); };
+  const goToLastPage = () => { onChangePage(lastPage); };
   const pageShortcutChangeBtn = (value: number | null) =>
-    setShortCutBtnPage(value ?? 0);
+    { setShortCutBtnPage(value ?? 0); };
   const pageShortCutClick = () => {
     setShowGoToPage(false);
     onChangePage(shortCutBtnPage);

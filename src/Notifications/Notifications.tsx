@@ -15,19 +15,19 @@ const getTranslationKey = (key: string): string => {
   return 'likedPost';
 };
 
-type UserType = {
+interface UserType {
   avatar: string;
   username: string;
-};
+}
 
-type NotificationType = {
+interface NotificationType {
   id: number;
   read: boolean;
   link: string;
   type: string;
   user: UserType;
   originator: UserType;
-};
+}
 
 export const Component = () => {
   const { t } = useTranslation('navbar', { keyPrefix: 'navbar' });

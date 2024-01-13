@@ -19,7 +19,7 @@ const { Dragger } = Upload;
 
 const SIZE_P = '120px';
 
-type InlineImageModalProps = {
+interface InlineImageModalProps {
   imageURL: string;
   setImageURL: (p: string | null) => void;
   altText: string;
@@ -29,7 +29,7 @@ type InlineImageModalProps = {
   showCaption: boolean;
   setShowCaption: (p: boolean) => void;
   t: (key: string) => string;
-};
+}
 
 const InlineImageModal = (props: InlineImageModalProps) => {
   const {
@@ -45,7 +45,7 @@ const InlineImageModal = (props: InlineImageModalProps) => {
   const [uploadImage] = useMutation(UPLOAD_IMAGE);
   const [uploading, setUploading] = useState(false);
 
-  const onCheckedChange = (e: any) => setShowCaption(e.target.checked);
+  const onCheckedChange = (e: any) => { setShowCaption(e.target.checked); };
 
   const uploadImageToServer = async (options: any) => {
     const { file } = options;
@@ -161,7 +161,7 @@ const InlineImageModal = (props: InlineImageModalProps) => {
             placeholder={t('imageModal.altText')}
             style={{ width: 'calc(100% - 200px)' }}
             value={altText}
-            onChange={(e) => setAltText(e.target.value)}
+            onChange={(e) => { setAltText(e.target.value); }}
           />
         </Form.Item>
       </Form>

@@ -11,10 +11,10 @@ import { TranslationFn } from '../utils/types';
 import { OAuthService, OAuthConfig } from '../App/types';
 import './Login.css';
 
-type OauthIconType = {
+interface OauthIconType {
   name: string;
   icon: any;
-};
+}
 
 const oauthIcons: OauthIconType[] = [
   {

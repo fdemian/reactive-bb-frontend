@@ -10,9 +10,9 @@ import { RESET_PASSWORD_REQUEST } from './Mutations';
 import Loading from '../Loading/LoadingIndicator';
 import './ResetPassword.css';
 
-type ResetPasswordValues = {
+interface ResetPasswordValues {
   email: string;
-};
+}
 
 export const Component = () => {
   const [resetInitiated, setResetInitiated] = useState(false);
@@ -53,7 +53,7 @@ export const Component = () => {
           type="primary"
           size="large"
           key="home"
-          onClick={() => navigate('/')}
+          onClick={() => { navigate('/'); }}
         >
           {t('home')}
         </Button>

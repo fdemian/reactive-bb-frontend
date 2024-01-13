@@ -33,7 +33,7 @@ const BookmarkPostList = ({
   };
 
   const goToBookmark = (bookmark: BookmarkType) =>
-    navigate(`/postlink/${bookmark.post.id}`);
+    { navigate(`/postlink/${bookmark.post.id}`); };
 
   return (
     <List
@@ -76,7 +76,7 @@ const BookmarkPostList = ({
             <Tooltip placement="bottomLeft" title={t('goToBookmark')}>
               <FontAwesomeIcon
                 data-testid="bookmark-icon"
-                onClick={() => goToBookmark(bookmark)}
+                onClick={() => { goToBookmark(bookmark); }}
                 icon={faArrowCircleUp}
                 size="2x"
                 color="gainsboro"
@@ -89,7 +89,7 @@ const BookmarkPostList = ({
             <Tooltip placement="bottomLeft" title={t('removeBookmark')}>
               <FontAwesomeIcon
                 data-testid="bookmark-icon"
-                onClick={() => deleteBookmark(bookmark)}
+                onClick={() => { deleteBookmark(bookmark); }}
                 icon={faTrash}
                 size="2x"
                 color="gainsboro"
