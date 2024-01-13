@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Divider, Input, Select, Form } from 'antd';
 
 const { Option } = Select;
@@ -20,9 +19,12 @@ const SearchHeader = ({
   t,
 }: SearchHeaderProps) => {
   const handleChange = (value: string[]) => { setSearchIn(value); };
+
   const onFinish = (values: string) => {
     console.log('Success:', values);
   };
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
@@ -85,14 +87,6 @@ const SearchHeader = ({
       <Divider />
     </>
   );
-};
-
-SearchHeader.propTypes = {
-  setSearchIn: PropTypes.func.isRequired,
-  searchIn: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
-  onSearch: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
 };
 
 export default SearchHeader;

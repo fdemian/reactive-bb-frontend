@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Input, Button, Alert } from 'antd';
 import Loading from '../../Loading/LoadingIndicator';
@@ -21,6 +20,7 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
   const [updateEmail, mutationData] = useMutation(UPDATE_EMAIL);
 
   const changeEmail = () => {
+    /* eslint-disable @typescript-eslint/no-floating-promises */
     updateEmail({
       variables: {
         id: user.id,
@@ -29,6 +29,8 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
     });
   };
 
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+  /* eslint-disable @typescript-eslint/no-unsafe-member-access */  
   const success =
     mutationData.data?.updateEmail;
   const error = mutationData.error;
@@ -90,18 +92,6 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
       <ErrorLayer error={error} tr={t} />
     </>
   );
-};
-
-ModifyEmailModal.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    username: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    status: PropTypes.string,
-    about: PropTypes.string,
-  }),
-  t: PropTypes.func.isRequired,
 };
 
 export default ModifyEmailModal;

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -17,10 +16,6 @@ const NavbarUnlogged = ({ t }: { t: (key: string) => string }) => {
       </Link>
     </>
   );
-};
-
-NavbarUnlogged.propTypes = {
-  t: PropTypes.func,
 };
 
 export default NavbarUnlogged;

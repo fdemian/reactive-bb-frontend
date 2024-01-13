@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { GET_POSTS_BY_USER } from './Queries';
 import Loading from '../Loading/LoadingIndicator';
 import Avatar from '../UserAvatar/UserAvatar';
@@ -14,15 +13,20 @@ interface UserPostsParams {
 }
 
 const UserPosts = ({ id, user }: UserPostsParams) => {
+
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {
     variables: { id: id },
   });
 
   if (error) return <p>Error</p>;
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
 
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+  /* eslint-disable @typescript-eslint/no-unsafe-member-access */
   const posts: PostType[] = data.postsByUser;
+  
   return (
     <List
       itemLayout="vertical"
@@ -51,20 +55,6 @@ const UserPosts = ({ id, user }: UserPostsParams) => {
       )}
     />
   );
-};
-
-UserPosts.propTypes = {
-  id: PropTypes.number.isRequired,
-  user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    username: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    fullname: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    about: PropTypes.string.isRequired,
-    banned: PropTypes.bool.isRequired,
-  }),
 };
 
 export default UserPosts;

@@ -15,15 +15,15 @@ import 'katex/dist/katex.css';
 interface KatexRendererProps {
   equation: string;
   inline: boolean;
-  onClick: () => void;
 }
 
-const KatexRenderer = ({ equation, inline, onClick }: KatexRendererProps) => {
+const KatexRenderer = ({ equation, inline }: KatexRendererProps) => {
   const katexElementRef = useRef(null);
 
   useEffect(() => {
     const katexElement = katexElementRef.current;
 
+    /* eslint-disable  @typescript-eslint/no-unnecessary-condition */
     if (katexElement !== null) {
       katex.render(equation, katexElement, {
         displayMode: !inline, // true === block display //
@@ -37,7 +37,7 @@ const KatexRenderer = ({ equation, inline, onClick }: KatexRendererProps) => {
   }, [equation, inline]);
 
   return (
-    <span role="button" tabIndex={-1} onClick={onClick} ref={katexElementRef} />
+    <span role="button" tabIndex={-1} ref={katexElementRef} />
   );
 };
 

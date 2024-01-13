@@ -1,5 +1,5 @@
 /* eslint react-refresh/only-export-components: 0 */ //
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { Context as ResponsiveContext } from 'react-responsive';
@@ -94,6 +94,7 @@ const TestingWrapper = (props) => {
   );
 };
 
+/*
 TestingWrapper.propTypes = {
   isMobile: PropTypes.bool,
   children: PropTypes.any,
@@ -111,6 +112,8 @@ TestingWrapper.propTypes = {
   isLoggedIn: PropTypes.bool,
   configMockOverride: PropTypes.shape({}),
 };
+
+*/
 
 const customRender = (ui, options) => {
   return render(ui, {

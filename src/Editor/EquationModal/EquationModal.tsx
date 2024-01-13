@@ -7,6 +7,7 @@ import KatexRenderer from './KatexRenderer';
 interface OkFnProps { equation: string; inline: boolean }
 
 interface EditorModalProps {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   cancelFn: (p: any) => void;
   okFunction: (p: OkFnProps) => void;
   inline: boolean;
@@ -37,7 +38,7 @@ const EditorModal = ({
           onChange={setInline}
           defaultChecked
         />
-        <KatexRenderer equation={equation} inline={false} onClick={() => {}} />
+        <KatexRenderer equation={equation} inline={false} />
         <div className="equation-confirmation-buttons">
           <Button
             danger

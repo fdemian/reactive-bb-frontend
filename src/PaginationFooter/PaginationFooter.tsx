@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState, Suspense } from 'react';
 import { Button, Radio, InputNumber, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -142,12 +141,6 @@ const PaginationFooter = ({
       </div>
     </Suspense>
   );
-};
-
-PaginationFooter.propTypes = {
-  lastPage: PropTypes.number,
-  currentPage: PropTypes.number,
-  onChangePage: PropTypes.func,
 };
 
 export default PaginationFooter;

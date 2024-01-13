@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Input, Tabs, Tooltip } from 'antd';
 import KatexRenderer from './KatexRenderer';
 import './EquationModal.css';
@@ -166,7 +165,6 @@ const KatexSelector = ({ equation, setEquation, t }: KatexSelectorProps) => {
             <KatexRenderer
               equation={i.equation}
               inline={true}
-              onClick={() => {}}
             />
           </button>
         </Tooltip>
@@ -188,12 +186,6 @@ const KatexSelector = ({ equation, setEquation, t }: KatexSelectorProps) => {
       />
     </>
   );
-};
-
-KatexSelector.propTypes = {
-  equation: PropTypes.string.isRequired,
-  setEquation: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
 };
 
 export default KatexSelector;

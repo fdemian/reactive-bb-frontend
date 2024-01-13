@@ -1,13 +1,15 @@
-import PropTypes from 'prop-types';
 import { DatePicker } from 'antd';
 import { endOfDay } from 'date-fns';
 
-const disabledDate = (current: any) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const disabledDate = (current: any):boolean => {
   // Can not select days before today and today
+  /* eslint-disable @typescript-eslint/no-unsafe-return */
   return current && current < endOfDay(new Date());
 };
 
 interface BanDatePickerProps {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   onChange: (v: any) => void;
   disabled: boolean;
 }
@@ -21,11 +23,6 @@ const BanDatePicker = ({ onChange, disabled }: BanDatePickerProps) => {
       onChange={onChange}
     />
   );
-};
-
-BanDatePicker.propTypes = {
-  disabled: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default BanDatePicker;

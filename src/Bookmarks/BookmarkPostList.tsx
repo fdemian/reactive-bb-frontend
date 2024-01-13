@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { List, Tooltip } from 'antd';
 import Avatar from '../UserAvatar/UserAvatar';
 import Renderer from '../Editor/Renderer';
@@ -104,13 +103,6 @@ const BookmarkPostList = ({
       )}
     />
   );
-};
-
-BookmarkPostList.propTypes = {
-  bookmarks: PropTypes.array.isRequired,
-  userId: PropTypes.number.isRequired,
-  removeBookmark: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
 };
 
 export default BookmarkPostList;

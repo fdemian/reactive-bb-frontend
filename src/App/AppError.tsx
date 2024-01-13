@@ -1,6 +1,5 @@
 import { ApolloError } from '@apollo/client';
 import { Result, Typography } from 'antd';
-import PropTypes from 'prop-types';
 
 const { Paragraph, Text } = Typography;
 
@@ -22,13 +21,6 @@ const AppError = ({ error }: AppErrorParams) => {
       </div>
     </Result>
   );
-};
-
-AppError.propTypes = {
-  error: PropTypes.shape({
-    stack: PropTypes.string,
-    message: PropTypes.string,
-  }),
 };
 
 export default AppError;
