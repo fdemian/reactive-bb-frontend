@@ -1,6 +1,7 @@
 /* eslint no-unused-vars: 0 */  //
 /* eslint react-refresh/only-export-components: 0 */  //
 import PropTypes from 'prop-types';
+import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { Context as ResponsiveContext } from 'react-responsive';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
