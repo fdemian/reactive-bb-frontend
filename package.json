@@ -15,13 +15,13 @@
     "postinstall": "husky install"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.9",
+    "@apollo/client": "^3.8.10",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "antd": "^5.13.1",
+    "antd": "^5.13.2",
     "apollo-upload-client": "^18.0.1",
     "date-fns": "^3.2.0",
     "emojibase-data": "^15.3.0",
@@ -38,12 +38,12 @@
     "react-helmet-async": "^2.0.4",
     "react-i18next": "^14.0.0",
     "react-responsive": "^9.0.2",
-    "react-router-dom": "^6.21.2",
+    "react-router-dom": "^6.21.3",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.1",
-    "@graphql-codegen/client-preset": "^4.2.0",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^6.2.0",
@@ -62,10 +62,10 @@
     "husky": "^8.0.3",
     "jsdom": "^23.2.0",
     "lint-staged": "^15.2.0",
-    "prettier": "3.2.2",
+    "prettier": "3.2.4",
     "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vitest": "^1.2.0"
+    "vite": "^5.0.12",
+    "vitest": "^1.2.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
