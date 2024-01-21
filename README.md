@@ -25,8 +25,8 @@ Run `yarn build`
 This frontend is written in typescript/javascript and uses the following technologies:
 
 - [Typescript](https://www.typescriptlang.org/) (Main language)
-- [React] (https://react.dev/) (UX Library)
-- [Vite] (https://vitejs.dev/) (Frontend tooling library)
+- [React](https://react.dev/) (UX Library)
+- [Vite](https://vitejs.dev/) (Frontend tooling library)
 - [Ant.Design](https://ant.design/) (UI Library)
 - [Apollo](https://www.apollographql.com/) (GraphQL library)
-- [Kalliope] (https://github.com/fdemian/kalliope) (WYSWYG Editor)
+- [Kalliope](https://github.com/fdemian/kalliope) (WYSWYG Editor)
