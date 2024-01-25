@@ -18,21 +18,8 @@ import {
   faListOl,
   faSquareCheck,
   faQuoteLeft,
-  faCode /*,
-    faRulerHorizontal,
-    faCaretRight,
-    faCaretDown,
-    faImage,
-    faDiagramProject,
-    faTable,
-    faCalculator,
-    faVideo,
-    faOutdent,
-    faIndent,
-    faFill,
-    faTextHeight*/,
+  faCode
 } from '@fortawesome/free-solid-svg-icons';
-//import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import type { ColorVal, TableType } from './utils';
 import { SIGN, getLinkIcon } from './utils';
 
@@ -71,9 +58,35 @@ export const recomendedColors = [
 
 type TranslationFn = (key: string) => string;
 
-// TODO: .... formats should be typed  ....
+interface CalliopeFormatTypes {
+  blockType: string;
+  selectedElementKey: string | null;
+  isLink: boolean;
+  isBold: boolean;
+  isSpoiler: boolean;
+  isKeyboard: boolean;
+  isItalic: boolean;
+  isUnderline: boolean;
+  isStrikethrough: boolean;
+  isSubscript: boolean;
+  isSuperscript: boolean;
+  isCode: boolean;
+  canUndo: boolean;
+  canRedo: boolean;
+  isRTL: boolean;
+  codeLanguage: string;
+  fontSize: string;
+  fontColor: string;
+  bgColor: string;
+  fontFamily: string;
+}
 
-const BOLD_ELEMENT = (t: TranslationFn, formats: any) => ({
+/* eslint-disable @typescript-eslint/no-explicit-any */
+interface EditorType {
+  executeCommand: (command:string, params?:any) => void;
+}
+
+const BOLD_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.bold'),
   text: `${t('toolbar.bold')} (${SIGN} + B)`,
   command: 'FORMAT',
@@ -82,7 +95,7 @@ const BOLD_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isBold,
 });
 
-const ITALIC_ELEMENT = (t: TranslationFn, formats: any) => ({
+const ITALIC_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.italic'),
   text: `${t('toolbar.italic')} (${SIGN} + I)`,
   command: 'FORMAT',
@@ -91,7 +104,7 @@ const ITALIC_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isItalic,
 });
 
-const UNDERLINE_ELEMENT = (t: TranslationFn, formats: any) => ({
+const UNDERLINE_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.underline'),
   text: `${t('toolbar.underline')} (${SIGN} + U)`,
   command: 'FORMAT',
@@ -100,7 +113,7 @@ const UNDERLINE_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isUnderline,
 });
 
-const STRIKETHROUGH_ELEMENT = (t: TranslationFn, formats: any) => ({
+const STRIKETHROUGH_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.strikethrough'),
   text: t('toolbar.strikethrough'),
   command: 'FORMAT',
@@ -109,7 +122,7 @@ const STRIKETHROUGH_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isStrikethrough,
 });
 
-const SUPERSCRIPT_ELEMENT = (t: TranslationFn, formats: any) => ({
+const SUPERSCRIPT_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.superscript'),
   text: t('toolbar.superscript'),
   command: 'FORMAT',
@@ -118,7 +131,7 @@ const SUPERSCRIPT_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isSuperscript,
 });
 
-const SUBSCRIPT_ELEMENT = (t: TranslationFn, formats: any) => ({
+const SUBSCRIPT_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.subscript'),
   text: t('toolbar.subscript'),
   command: 'FORMAT',
@@ -127,7 +140,7 @@ const SUBSCRIPT_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isSubscript,
 });
 
-const CODE_ELEMENT = (t: TranslationFn, formats: any) => ({
+const CODE_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.code'),
   text: t('toolbar.code'),
   command: 'FORMAT',
@@ -136,7 +149,7 @@ const CODE_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isCode,
 });
 
-const SPOILER_ELEMENT = (t: TranslationFn, formats: any) => ({
+const SPOILER_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.spoiler'),
   text: t('toolbar.spoiler'),
   command: 'SPOILER',
@@ -145,7 +158,7 @@ const SPOILER_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isSpoiler,
 });
 
-const KEYBOARD_ELEMENT = (t: TranslationFn, formats: any) => ({
+const KEYBOARD_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.keyboard'),
   text: t('toolbar.keyboard'),
   command: 'KEYBOARD',
@@ -154,7 +167,7 @@ const KEYBOARD_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isKeyboard,
 });
 
-const LINK_ELEMENT = (t: TranslationFn, formats: any) => ({
+const LINK_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: formats.isLink ? t('toolbar.removeLink') : t('toolbar.addLink'),
   text: formats.isLink ? t('toolbar.removeLink') : t('toolbar.addLink'),
   command: 'LINK',
@@ -163,8 +176,8 @@ const LINK_ELEMENT = (t: TranslationFn, formats: any) => ({
   isActive: formats.isLink,
 });
 
-/* @ts-expect-error */
-const ALIGN_LEFT = (t: TranslationFn, formats: any) => ({
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const ALIGN_LEFT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.alignLeft'),
   text: t('toolbar.alignLeft'),
   command: 'ALIGN',
@@ -174,8 +187,8 @@ const ALIGN_LEFT = (t: TranslationFn, formats: any) => ({
   isActive: true,
 });
 
-/* @ts-expect-error */
-const ALIGN_RIGHT = (t: TranslationFn, formats: any) => ({
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const ALIGN_RIGHT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.alignRight'),
   text: t('toolbar.alignRight'),
   command: 'ALIGN',
@@ -185,8 +198,8 @@ const ALIGN_RIGHT = (t: TranslationFn, formats: any) => ({
   isActive: true,
 });
 
-/* @ts-expect-error */
-const ALIGN_CENTER = (t: TranslationFn, formats: any) => ({
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const ALIGN_CENTER = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.alignCenter'),
   text: t('toolbar.alignCenter'),
   command: 'ALIGN',
@@ -196,8 +209,8 @@ const ALIGN_CENTER = (t: TranslationFn, formats: any) => ({
   isActive: true,
 });
 
-/* @ts-expect-error */
-const ALIGN_JUSTIFY = (t: TranslationFn, formats: any) => ({
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const ALIGN_JUSTIFY = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.alignJustify'),
   text: t('toolbar.alignJustify'),
   command: 'ALIGN',
@@ -284,11 +297,9 @@ export const getToolbarDropdownDesktop = (t: TranslationFn) => {
   ];
 };
 
-//name: getProperty('isLink', formats) ? t('toolbar.removeLink') : t('toolbar.addLink'),
-
 export const getButtonElementsToolbarDesktop = (
   t: TranslationFn,
-  formats: any
+  formats: CalliopeFormatTypes
 ) => {
   return [
     BOLD_ELEMENT(t, formats),
@@ -310,7 +321,7 @@ export const getButtonElementsToolbarDesktop = (
 
 export const getButtonElementsToolbarMobile = (
   t: (key: string) => string,
-  formats: any
+  formats: CalliopeFormatTypes
 ) => {
   return [
     BOLD_ELEMENT(t, formats),
@@ -349,40 +360,40 @@ export const FONT_SIZES = [
   '20px',
 ];
 
-//
-export const blockFormatChangeFn = (val: string, editor: any) => {
+
+export const blockFormatChangeFn = (val: string, editor: EditorType) => {
   editor.executeCommand(val);
 };
 
-export const onCodeLanguageSelect = (val: string, editor: any) => {
+export const onCodeLanguageSelect = (val: string, editor: EditorType) => {
   editor.executeCommand('CODE_LANGUAGE_CHANGE', val);
 };
 
-export const onFontSizeChange = (fs: string, editor: any) => {
+export const onFontSizeChange = (fs: string, editor: EditorType) => {
   editor.executeCommand('CHANGE_FONT_SIZE', fs);
 };
 
-export const onFontFamilyChange = (ff: string, editor: any) => {
+export const onFontFamilyChange = (ff: string, editor: EditorType) => {
   editor.executeCommand('CHANGE_FONT', ff);
 };
 
-export const onFontColorChange = (val: ColorVal, editor: any) => {
+export const onFontColorChange = (val: ColorVal, editor: EditorType) => {
   editor.executeCommand('CHANGE_FONT_COLOR', val.toHexString());
 };
 
-export const onBGColorChange = (val: ColorVal, editor: any) => {
+export const onBGColorChange = (val: ColorVal, editor: EditorType) => {
   editor.executeCommand('CHANGE_FONT_BG_COLOR', val.toHexString());
 };
 
-export const insertTweet = (url: string, editor: any) => {
+export const insertTweet = (url: string, editor: EditorType) => {
   const tweetId = url.split('status/')[1]?.split('?')?.[0];
   editor.executeCommand('INSERT_TWEET', tweetId);
 };
 
-export const insertTable = ({ columns, rows }: TableType, editor: any) => {
+export const insertTable = ({ columns, rows }: TableType, editor: EditorType) => {
   editor.executeCommand('INSERT_TABLE', { columns, rows });
 };
 
-export const insertVideo = (videoURL: string, editor: any) => {
+export const insertVideo = (videoURL: string, editor: EditorType) => {
   editor.executeCommand('INSERT_VIDEO', videoURL);
 };

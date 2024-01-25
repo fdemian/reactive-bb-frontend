@@ -28,10 +28,10 @@
     "eslint-plugin-react": "^7.33.2",
     "graphql": "^16.8.1",
     "graphql-ws": "^5.14.3",
-    "i18next": "^23.7.18",
+    "i18next": "^23.7.19",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-http-backend": "^2.4.2",
-    "kalliope": "^0.7.5",
+    "kalliope": "^0.7.6",
     "katex": "^0.16.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -59,7 +59,7 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "husky": "^8.0.3",
+    "husky": "^9.0.1",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.0",
     "prettier": "3.2.4",
@@ -67,8 +67,17 @@
     "vite": "^5.0.12",
     "vitest": "^1.2.1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{ts,tsx,js,css,md}": [
+      "prettier --write",
+      "git add",
+      "git commit"
+    ]
   }
 }
