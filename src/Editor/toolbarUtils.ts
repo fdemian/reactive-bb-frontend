@@ -18,7 +18,7 @@ import {
   faListOl,
   faSquareCheck,
   faQuoteLeft,
-  faCode
+  faCode,
 } from '@fortawesome/free-solid-svg-icons';
 import type { ColorVal, TableType } from './utils';
 import { SIGN, getLinkIcon } from './utils';
@@ -83,7 +83,7 @@ interface CalliopeFormatTypes {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface EditorType {
-  executeCommand: (command:string, params?:any) => void;
+  executeCommand: (command: string, params?: any) => void;
 }
 
 const BOLD_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
@@ -113,7 +113,10 @@ const UNDERLINE_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   isActive: formats.isUnderline,
 });
 
-const STRIKETHROUGH_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+const STRIKETHROUGH_ELEMENT = (
+  t: TranslationFn,
+  formats: CalliopeFormatTypes
+) => ({
   name: t('toolbar.strikethrough'),
   text: t('toolbar.strikethrough'),
   command: 'FORMAT',
@@ -122,7 +125,10 @@ const STRIKETHROUGH_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) =
   isActive: formats.isStrikethrough,
 });
 
-const SUPERSCRIPT_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+const SUPERSCRIPT_ELEMENT = (
+  t: TranslationFn,
+  formats: CalliopeFormatTypes
+) => ({
   name: t('toolbar.superscript'),
   text: t('toolbar.superscript'),
   command: 'FORMAT',
@@ -176,8 +182,7 @@ const LINK_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   isActive: formats.isLink,
 });
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-const ALIGN_LEFT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+const ALIGN_LEFT = (t: TranslationFn) => ({
   name: t('toolbar.alignLeft'),
   text: t('toolbar.alignLeft'),
   command: 'ALIGN',
@@ -187,8 +192,7 @@ const ALIGN_LEFT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   isActive: true,
 });
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-const ALIGN_RIGHT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+const ALIGN_RIGHT = (t: TranslationFn) => ({
   name: t('toolbar.alignRight'),
   text: t('toolbar.alignRight'),
   command: 'ALIGN',
@@ -198,8 +202,7 @@ const ALIGN_RIGHT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   isActive: true,
 });
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-const ALIGN_CENTER = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+const ALIGN_CENTER = (t: TranslationFn) => ({
   name: t('toolbar.alignCenter'),
   text: t('toolbar.alignCenter'),
   command: 'ALIGN',
@@ -209,8 +212,7 @@ const ALIGN_CENTER = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   isActive: true,
 });
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-const ALIGN_JUSTIFY = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+const ALIGN_JUSTIFY = (t: TranslationFn) => ({
   name: t('toolbar.alignJustify'),
   text: t('toolbar.alignJustify'),
   command: 'ALIGN',
@@ -312,10 +314,10 @@ export const getButtonElementsToolbarDesktop = (
     SPOILER_ELEMENT(t, formats),
     KEYBOARD_ELEMENT(t, formats),
     LINK_ELEMENT(t, formats),
-    ALIGN_LEFT(t, formats),
-    ALIGN_RIGHT(t, formats),
-    ALIGN_CENTER(t, formats),
-    ALIGN_JUSTIFY(t, formats),
+    ALIGN_LEFT(t),
+    ALIGN_RIGHT(t),
+    ALIGN_CENTER(t),
+    ALIGN_JUSTIFY(t),
   ];
 };
 
@@ -360,7 +362,6 @@ export const FONT_SIZES = [
   '20px',
 ];
 
-
 export const blockFormatChangeFn = (val: string, editor: EditorType) => {
   editor.executeCommand(val);
 };
@@ -390,7 +391,10 @@ export const insertTweet = (url: string, editor: EditorType) => {
   editor.executeCommand('INSERT_TWEET', tweetId);
 };
 
-export const insertTable = ({ columns, rows }: TableType, editor: EditorType) => {
+export const insertTable = (
+  { columns, rows }: TableType,
+  editor: EditorType
+) => {
   editor.executeCommand('INSERT_TABLE', { columns, rows });
 };
 
