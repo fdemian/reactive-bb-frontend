@@ -19,6 +19,8 @@ import {
   InsertEquationProps,
 } from './editorTypes';
 import './Editor.css';
+import { CalliopeFormatTypes } from './toolbarUtils';
+import { InlineImageModalProps } from "./InlineImageModal/InlineImageModal";
 
 const MobileDrawer = lazy(() => import('./MobileDrawer'));
 const Toolbar = lazy(() => import('./Toolbar'));
@@ -46,7 +48,7 @@ const Editor = (props: EditorProps) => {
   // All states.
   const initialMentions = mentions.length > 0 ? mentions : defaultMentions;
   //const [emojiData, setEmojiData] = useState(null);
-  const [formats, setFormats] = useState({});
+  const [formats, setFormats] = useState<CalliopeFormatTypes | null>(null);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [updatedList, setUpdatedList] = useState(false);
@@ -56,7 +58,7 @@ const Editor = (props: EditorProps) => {
   const [bgColorModalVisible, setBgColorModal] = useState(false);
   const [fontColorModalVisible, setFontColorModal] = useState(false);
   const [inlineImageModalVisible, setInlineImageModalVisible] = useState(false);
-  const [inlineImagemodalProps, setInlineImageModalProps] = useState({});
+  const [inlineImagemodalProps, setInlineImageModalProps] = useState<InlineImageModalProps | null>(null);
   const [inlineModalUpdateVisible, setInlineModalUpdateVisible] =
     useState(false);
 

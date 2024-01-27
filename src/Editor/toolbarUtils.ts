@@ -58,7 +58,7 @@ export const recomendedColors = [
 
 type TranslationFn = (key: string) => string;
 
-interface CalliopeFormatTypes {
+export interface CalliopeFormatTypes {
   blockType: string;
   selectedElementKey: string | null;
   isLink: boolean;
@@ -325,8 +325,12 @@ export const getButtonElementsToolbarDesktop = (
 
 export const getButtonElementsToolbarMobile = (
   t: (key: string) => string,
-  formats: CalliopeFormatTypes
+  formats: CalliopeFormatTypes | null
 ) => {
+
+  if(!formats)
+    return [];
+
   return [
     BOLD_ELEMENT(t, formats),
     ITALIC_ELEMENT(t, formats),

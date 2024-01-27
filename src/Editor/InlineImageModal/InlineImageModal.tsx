@@ -19,7 +19,7 @@ const { Dragger } = Upload;
 
 const SIZE_P = '120px';
 
-interface InlineImageModalProps {
+export interface InlineImageModalProps {
   imageURL: string;
   setImageURL: (p: string | null) => void;
   altText: string;

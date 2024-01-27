@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { CalliopeFormatTypes } from './toolbarUtils';
 import { UserType } from '../User/userTypes';
+import { InlineImageModalProps } from './InlineImageModal/InlineImageModal';
 
 interface InsertImageProps {
   src: string;
@@ -39,10 +41,7 @@ export interface EditorProps {
 export interface FooterProps {
   inlineModalUpdateVisible: boolean;
   setInlineModalUpdateVisible: (p: boolean) => void;
-  inlineImagemodalProps: {
-    activeEditor: any;
-    nodeKey: string;
-  } | null;
+  inlineImagemodalProps: InlineImageModalProps | null;
   insertImage: (p: InsertImageProps) => void;
   insertInlineImage: (p: InsertImageInlineProps) => void;
   inlineImageModalVisible: boolean;
@@ -66,7 +65,7 @@ export interface MobileDrawerProps {
   inline: boolean;
   setInline: (val: boolean) => void;
   editor: any;
-  formats: FormatsType | null;
+  formats: CalliopeFormatTypes | null;
   insertEquation: (val: InsertEquationProps) => void;
   toggleEquationModal: (val: boolean) => void;
   imageModalVisible: boolean;
@@ -79,29 +78,6 @@ export interface MobileDrawerProps {
   toggleVideoToolbar: () => void;
   insertImage: (val: InsertImageProps) => void;
   t: (key: string) => string;
-}
-
-interface FormatsType {
-  blockType: string;
-  selectedElementKey: string;
-  isLink: boolean;
-  isBold: boolean;
-  isSpoiler: boolean;
-  isKeyboard: boolean;
-  isItalic: boolean;
-  isUnderline: boolean;
-  isStrikethrough: boolean;
-  isSubscript: boolean;
-  isSuperscript: boolean;
-  isCode: boolean;
-  canUndo: boolean;
-  canRedo: boolean;
-  isRTL: boolean;
-  codeLanguage: string;
-  fontSize: string;
-  fontColor: string;
-  bgColor: string;
-  fontFamily: string;
 }
 
 export interface InlineImageProps {
@@ -130,7 +106,7 @@ export interface ToolbarProps {
   inline: boolean;
   setInline: (val: boolean) => void;
   editor: any;
-  formats: FormatsType | null;
+  formats: CalliopeFormatTypes | null;
   bgColorModalVisible: boolean;
   fontColorModalVisible: boolean;
   insertEquation: (val: InsertEquationProps) => void;
