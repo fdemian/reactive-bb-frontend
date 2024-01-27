@@ -301,8 +301,10 @@ export const getToolbarDropdownDesktop = (t: TranslationFn) => {
 
 export const getButtonElementsToolbarDesktop = (
   t: TranslationFn,
-  formats: CalliopeFormatTypes
+  formats: CalliopeFormatTypes | null
 ) => {
+  if (!formats) return [];
+
   return [
     BOLD_ELEMENT(t, formats),
     ITALIC_ELEMENT(t, formats),

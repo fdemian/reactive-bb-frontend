@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */ 
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -28,7 +28,6 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { ToolbarProps } from './editorTypes';
 import { getCodeLanguageOptions } from 'kalliope';
 import type { ColorVal } from './utils';
-import { getProperty } from './utils';
 import {
   getButtonElementsToolbarMobile,
   getToolbarDropdownDesktop,
@@ -163,7 +162,7 @@ const Toolbar = (props: ToolbarProps) => {
   ];
 
   const selectedBlock = DROPDOWN_FORMATS.find(
-    (b) => b.blockType === (getProperty('blockType', formats) as string)
+    (b) => b.blockType === formats?.blockType
   );
   const currentBlock =
     selectedBlock === undefined ? DROPDOWN_FORMATS[0] : selectedBlock;
@@ -171,7 +170,11 @@ const Toolbar = (props: ToolbarProps) => {
   const formatItemsForMenu = DROPDOWN_FORMATS.map((s) => ({
     key: s.name,
     label: (
-      <span onClick={() => { blockFormatChangeFn(s.value); }}>
+      <span
+        onClick={() => {
+          blockFormatChangeFn(s.value);
+        }}
+      >
         <FontAwesomeIcon icon={s.icon} size="lg" />
         {'  '}
         &nbsp; {s.name}
@@ -181,15 +184,31 @@ const Toolbar = (props: ToolbarProps) => {
 
   const fontSizeMenuItems = FONT_SIZES.map((fs) => ({
     key: fs,
-    label: <span onClick={() => { onFontSizeChange(fs); }}>{fs}</span>,
+    label: (
+      <span
+        onClick={() => {
+          onFontSizeChange(fs);
+        }}
+      >
+        {fs}
+      </span>
+    ),
   }));
 
   const fontFamilyItems = FONT_FAMILIES.map((ff) => ({
     key: ff,
-    label: <span onClick={() => { onFontFamilyChange(ff); }}>{ff}</span>,
+    label: (
+      <span
+        onClick={() => {
+          onFontFamilyChange(ff);
+        }}
+      >
+        {ff}
+      </span>
+    ),
   }));
 
-  if (getProperty('blockType', formats) === 'code') {
+  if (formats?.blockType === 'code') {
     return (
       <div className="toolbar-code" aria-label="TOOLBAR">
         <div className="toolbar-single"></div>
@@ -219,7 +238,7 @@ const Toolbar = (props: ToolbarProps) => {
           key="code-language-select"
           className="code-language-select"
           onChange={onCodeLanguageSelect}
-          value={getProperty('codeLanguage', formats)}
+          value={formats.codeLanguage}
         >
           {CODE_LANGUAGE_OPTIONS.map(([value, name]) => (
             <Option key={value} value={value}>
@@ -266,9 +285,7 @@ const Toolbar = (props: ToolbarProps) => {
             type="default"
             className="dropdown-menu-toolbar"
           >
-            {getProperty('fontFamily', formats)
-              ? getProperty('fontFamily', formats)
-              : FONT_FAMILIES[0]}{' '}
+            {formats?.fontFamily ? formats.fontFamily : FONT_FAMILIES[0]}{' '}
             &nbsp;
             <FontAwesomeIcon icon={faCaretDown} size="lg" />
           </Button>
@@ -288,19 +305,13 @@ const Toolbar = (props: ToolbarProps) => {
             type="default"
             className="dropdown-menu-toolbar"
           >
-            {getProperty('fontSize', formats)
-              ? getProperty('fontSize', formats)
-              : FONT_SIZES[0]}{' '}
-            &nbsp;
+            {formats?.fontSize ? formats.fontSize : FONT_SIZES[0]} &nbsp;
             <FontAwesomeIcon icon={faCaretDown} />
           </Button>
         </Dropdown>
         &nbsp;
         <Tooltip title={t('toolbar.fontColor')} placement="bottom">
-          <ColorPicker
-            value={getProperty('fontColor', formats)}
-            onChange={onFontColorChange}
-          >
+          <ColorPicker value={formats?.fontColor} onChange={onFontColorChange}>
             <Button
               key={t('toolbar.fontColor')}
               aria-label={t('toolbar.fontColor')}
@@ -314,10 +325,7 @@ const Toolbar = (props: ToolbarProps) => {
         </Tooltip>
         &nbsp;
         <Tooltip title={t('toolbar.bgColor')} placement="bottom">
-          <ColorPicker
-            value={getProperty('bgColor', formats)}
-            onChange={onBGColorChange}
-          >
+          <ColorPicker value={formats?.bgColor} onChange={onBGColorChange}>
             <Button
               key={t('toolbar.bgColor')}
               aria-label={t('toolbar.bgColor')}
@@ -347,9 +355,9 @@ const Toolbar = (props: ToolbarProps) => {
           aria-label="more-options-button"
           role="button"
           type="primary"
-          onClick={() =>
-            { setToolbarMode(toolbarMode === 'insert' ? 'format' : 'insert'); }
-          }
+          onClick={() => {
+            setToolbarMode(toolbarMode === 'insert' ? 'format' : 'insert');
+          }}
         >
           <FontAwesomeIcon icon={faPlus} size="lg" color="gainsboro" />
         </Button>

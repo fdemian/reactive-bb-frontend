@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserType } from '../User/userTypes';
 
 interface InsertImageProps {
@@ -38,12 +39,10 @@ export interface EditorProps {
 export interface FooterProps {
   inlineModalUpdateVisible: boolean;
   setInlineModalUpdateVisible: (p: boolean) => void;
-  inlineImagemodalProps:
-    | {
-        activeEditor: any;
-        nodeKey: string;
-      }
-    | {};
+  inlineImagemodalProps: {
+    activeEditor: any;
+    nodeKey: string;
+  } | null;
   insertImage: (p: InsertImageProps) => void;
   insertInlineImage: (p: InsertImageInlineProps) => void;
   inlineImageModalVisible: boolean;
@@ -67,7 +66,7 @@ export interface MobileDrawerProps {
   inline: boolean;
   setInline: (val: boolean) => void;
   editor: any;
-  formats: FormatsType | {};
+  formats: FormatsType | null;
   insertEquation: (val: InsertEquationProps) => void;
   toggleEquationModal: (val: boolean) => void;
   imageModalVisible: boolean;
@@ -131,7 +130,7 @@ export interface ToolbarProps {
   inline: boolean;
   setInline: (val: boolean) => void;
   editor: any;
-  formats: FormatsType | {};
+  formats: FormatsType | null;
   bgColorModalVisible: boolean;
   fontColorModalVisible: boolean;
   insertEquation: (val: InsertEquationProps) => void;

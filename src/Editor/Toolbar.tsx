@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Suspense, lazy } from 'react';
 import { Button, Tooltip, Dropdown, Select, Spin, ColorPicker } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,7 +32,6 @@ import {
   FONT_FAMILIES,
   FONT_SIZES,
 } from './toolbarUtils';
-import { getProperty } from './utils';
 
 import {
   blockFormatChangeFn,
@@ -128,10 +132,10 @@ const Toolbar = (props: ToolbarProps) => {
   ];
 
   const selectedBlock = DROPDOWN_FORMATS.find(
-    (b) => b.blockType === (getProperty('blockType', formats) as string)
+    b => b.blockType === formats?.blockType
   );
   const currentBlock =
-    selectedBlock === undefined ? DROPDOWN_FORMATS[0] : selectedBlock;
+    selectedBlock ?? DROPDOWN_FORMATS[0];
 
   const formatItemsForMenu = DROPDOWN_FORMATS.map((s) => ({
     key: s.name,
@@ -218,7 +222,7 @@ const Toolbar = (props: ToolbarProps) => {
     );
   }
 
-  if (getProperty('blockType', formats) === 'code') {
+  if (formats?.blockType === 'code') {
     return (
       <div
         className="toolbar-code"
@@ -250,7 +254,7 @@ const Toolbar = (props: ToolbarProps) => {
           key="code-language-select"
           className="code-language-select"
           onChange={(val) => { onCodeLanguageSelect(val, editor); }}
-          value={getProperty('codeLanguage', formats)}
+          value={formats.codeLanguage}
         >
           {CODE_LANGUAGE_OPTIONS.map(([value, name]) => (
             <Option key={value} value={value}>
@@ -330,8 +334,8 @@ const Toolbar = (props: ToolbarProps) => {
             type="default"
             className="dropdown-menu-toolbar"
           >
-            {getProperty('fontFamily', formats)
-              ? getProperty('fontFamily', formats)
+            {formats?.fontFamily
+              ? formats.fontFamily
               : FONT_FAMILIES[0]}{' '}
             &nbsp;
             <FontAwesomeIcon icon={faCaretDown} size="lg" />
@@ -351,8 +355,8 @@ const Toolbar = (props: ToolbarProps) => {
             type="default"
             className="dropdown-menu-toolbar"
           >
-            {getProperty('fontSize', formats)
-              ? getProperty('fontSize', formats)
+            {formats?.fontSize
+              ? formats.fontSize
               : FONT_SIZES[0]}{' '}
             &nbsp;
             <FontAwesomeIcon icon={faCaretDown} />
@@ -367,8 +371,8 @@ const Toolbar = (props: ToolbarProps) => {
                 colors: recomendedColors,
               },
             ]}
-            value={getProperty('fontColor', formats)}
-            onChange={(val) => { onFontColorChange(val, editor); }}
+            value={formats?.fontColor}
+            onChange={val => { onFontColorChange(val, editor); }}
           >
             <Button
               role="button"
@@ -391,7 +395,7 @@ const Toolbar = (props: ToolbarProps) => {
                 colors: recomendedColors,
               },
             ]}
-            value={getProperty('bgColor', formats)}
+            value={formats?.bgColor}
             onChange={(val) => { onBGColorChange(val, editor); }}
           >
             <Button
