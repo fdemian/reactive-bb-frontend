@@ -28,7 +28,7 @@
     "eslint-plugin-react": "^7.33.2",
     "graphql": "^16.8.1",
     "graphql-ws": "^5.14.3",
-    "i18next": "^23.7.19",
+    "i18next": "^23.7.20",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-http-backend": "^2.4.2",
     "kalliope": "^0.7.6",
@@ -42,8 +42,8 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.1",
-    "@graphql-codegen/client-preset": "^4.2.0",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^6.3.0",
@@ -65,7 +65,7 @@
     "prettier": "3.2.4",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
-    "vitest": "^1.2.1"
+    "vitest": "^1.2.2"
   },
   "husky": {
     "hooks": {
