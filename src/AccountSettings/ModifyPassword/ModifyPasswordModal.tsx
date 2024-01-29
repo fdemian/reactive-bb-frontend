@@ -71,7 +71,7 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
   const { loading, error, data } = mutationData;
 
   // Enabling this rule does not make sense here, since we are checking for something different.
-  /* eslint-disable  @typescript-eslint/prefer-nullish-coalescing */
+   
   if (error || (data?.updatePassword && !data.updatePassword.ok)) {
     if (!errorState) {
       setErrorState(true);

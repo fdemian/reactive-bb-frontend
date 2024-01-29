@@ -29,7 +29,7 @@ const RemoveBanScreen = ({ user, goBack, t }: BanUserTypes) => {
   if (!loading && data && data.removeUserBan === true)
     return (
       <Result
-        title={`${t('banRemoved')}`}
+        title={t('banRemoved')}
         extra={
           <>
             <div style={{ textAlign: 'center', marginTop: '20px' }}>

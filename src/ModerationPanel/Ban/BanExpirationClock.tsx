@@ -18,7 +18,7 @@ const BanExpirationClock = ({ lockoutTime, t }: BanClockProps) => {
     <Progress
       type="circle"
       percent={msDiff}
-      format={() => `${dateDiffString}`}
+      format={() => dateDiffString}
     />
   );
 };
