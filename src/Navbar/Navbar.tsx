@@ -6,12 +6,12 @@ import NavLogo from './NavLogo';
 import { useTranslation } from 'react-i18next';
 import { Row, Col, Card, Spin } from 'antd';
 import {
-  GET_USER,
   GET_NOTIFICATIONS,
   NOTIFICATIONS_SUBSCRIPTION,
   CHATS_SUBSCRIPTION,
   MARK_NOTIFICATIONS_READ,
 } from './Queries';
+import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import { GET_IS_LOGGED_IN, SET_LOGIN } from '../Login/queries';
 import './Navbar.css';

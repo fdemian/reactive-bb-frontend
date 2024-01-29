@@ -15,8 +15,8 @@ import cache from '../cache';
 import {
   GET_NOTIFICATIONS,
   NOTIFICATIONS_SUBSCRIPTION,
-  GET_USER,
 } from '../Navbar/Queries';
+import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 
 const navbarMocks = [

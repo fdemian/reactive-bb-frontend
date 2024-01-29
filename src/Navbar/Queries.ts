@@ -1,18 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const GET_USER = gql`
-  query GetUser($id: Int!) {
-    getUser(id: $id) {
-      id
-      username
-      avatar
-      type
-      banned
-      banReason
-    }
-  }
-`;
-
 export const GET_NOTIFICATIONS = gql`
   query Notifications($user: Int!) {
     notifications(user: $user) {

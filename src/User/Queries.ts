@@ -6,11 +6,13 @@ export const GET_USER = gql`
       id
       username
       avatar
+      type
       fullname
       email
       status
       about
       banned
+      banReason
     }
   }
 `;

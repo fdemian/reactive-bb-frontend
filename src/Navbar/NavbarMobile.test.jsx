@@ -1,9 +1,9 @@
 import {
-  GET_USER,
   GET_NOTIFICATIONS,
   NOTIFICATIONS_SUBSCRIPTION,
   CHATS_SUBSCRIPTION,
 } from './Queries';
+import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import { render, screen } from '../TestHelpers/testing-utils';
 import { vi, test, expect } from 'vitest';

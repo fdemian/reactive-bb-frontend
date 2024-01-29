@@ -6,7 +6,7 @@ import {
   REMOVE_BOOKMARK,
   REMOVE_LIKE,
 } from './Mutations';
-import { GET_USER } from '../Navbar/Queries';
+import { GET_USER } from '../User/Queries';
 
 const MOCK_POST =
   '{"editorState":{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"This is a test code (Post 1)","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"heading","version":1,"tag":"h1"},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Quoted text","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"quote","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}},"lastSaved":1656964749895,"source":"Playground","version":"0.3.6"}';

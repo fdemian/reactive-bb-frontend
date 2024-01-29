@@ -9,7 +9,7 @@ import cache from '../cache';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { GET_CONFIG } from '../App/Queries';
-import { GET_USER } from '../Navbar/Queries';
+import { GET_USER } from '../User/Queries';
 
 const _user = {
   id: 1,

@@ -1,7 +1,7 @@
 import CreateMessage from './CreateMessage';
 import { GET_ALL_CHATS, GET_CHAT, CHATS_SUBSCRIPTION } from './Queries';
 import { GET_MENTION_USERS } from '../Editor/Queries';
-import { GET_USER } from '../Navbar/Queries';
+import { GET_USER } from '../User/Queries';
 import { SEND_PM } from './Mutations';
 import { render, screen } from '../TestHelpers/testing-utils';
 import { render as renderSTL } from '../TestHelpers/testing-utils-standalone';

@@ -1,5 +1,6 @@
 import { render, screen } from '../TestHelpers/testing-utils';
-import { GET_USER, GET_NOTIFICATIONS } from './Queries';
+import { GET_NOTIFICATIONS } from './Queries';
+import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import { within } from '@testing-library/react';
 import { vi, test, expect } from 'vitest';
