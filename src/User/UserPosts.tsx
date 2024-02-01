@@ -14,7 +14,7 @@ interface UserPostsParams {
 
 const UserPosts = ({ id, user }: UserPostsParams) => {
 
-  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+   
   const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {
     variables: { id: id },
   });
@@ -23,8 +23,8 @@ const UserPosts = ({ id, user }: UserPostsParams) => {
 
   if (loading || !data) return <Loading />;
 
-  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-  /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+   
+   
   const posts: PostType[] = data.postsByUser;
   
   return (

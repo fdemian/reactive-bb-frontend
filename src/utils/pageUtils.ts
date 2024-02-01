@@ -1,5 +1,4 @@
 const isInvalidPagenumber = (n: string | null) =>
-  n === undefined ||
   n == null ||
   isNaN(parseInt(n, 10)) ||
   parseInt(n, 10) <= 0;

@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '../__generated__/gql';
 
-export const GET_NOTIFICATIONS = gql`
+export const GET_NOTIFICATIONS = gql(/* GraphQL */ `
   query Notifications($user: Int!) {
     notifications(user: $user) {
       id
@@ -19,9 +19,9 @@ export const GET_NOTIFICATIONS = gql`
       }
     }
   }
-`;
+`);
 
-export const NOTIFICATIONS_SUBSCRIPTION = gql`
+export const NOTIFICATIONS_SUBSCRIPTION = gql(/* GraphQL */ `
   subscription NotificationAdded($user: Int!) {
     notificationAdded(user: $user) {
       link
@@ -39,9 +39,9 @@ export const NOTIFICATIONS_SUBSCRIPTION = gql`
       }
     }
   }
-`;
+`);
 
-export const CHATS_SUBSCRIPTION = gql`
+export const CHATS_SUBSCRIPTION = gql(/* GraphQL */ `
   subscription ChatNotification($user: Int!) {
     chatNotification(user: $user) {
       read
@@ -57,10 +57,10 @@ export const CHATS_SUBSCRIPTION = gql`
       }
     }
   }
-`;
+`);
 
-export const MARK_NOTIFICATIONS_READ = gql`
+export const MARK_NOTIFICATIONS_READ = gql(/* GraphQL */ `
   mutation MarkNotificationsRead($notifications: [Int!]) {
     markNotificationsRead(notifications: $notifications)
   }
-`;
+`);

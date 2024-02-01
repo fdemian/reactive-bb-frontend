@@ -8,10 +8,15 @@ import './User.css';
 
 interface UserProfileProps {
   id: number;
-  user: UserType;
+  user?: UserType;
 }
 
 const UserProfileMenu = ({ id, user }: UserProfileProps) => {
+
+  const [selectIndex, setSelectIndex] = useState(0);
+
+  if (!user) return null;
+
   const menuMap = [
     {
       key: 'topics',
@@ -32,7 +37,6 @@ const UserProfileMenu = ({ id, user }: UserProfileProps) => {
       component: <UserLikes id={id} user={user} />,
     },
   ];
-  const [selectIndex, setSelectIndex] = useState(0);
 
   const setKey = ({ key }: { key: string }) => {
     const index = menuMap.findIndex((s) => s.key === key);
@@ -44,7 +48,6 @@ const UserProfileMenu = ({ id, user }: UserProfileProps) => {
   const selectKey = menuItem.key;
   const childComponent = menuItem.component;
 
-  if (!user) return null;
 
   return (
     <div className="info-main">

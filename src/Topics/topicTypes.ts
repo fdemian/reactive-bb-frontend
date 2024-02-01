@@ -11,8 +11,8 @@ export interface TopicsHeaderParams {
   isMobile: boolean;
   categories: Category[];
   categoryFilter: string;
-  setCategoryFilter: (value: any) => void;
-  toggleCategoriesDrawer: (value: any) => void;
+  setCategoryFilter: (value: string) => void;
+  toggleCategoriesDrawer: () => void;
   tr: (key: string) => string;
   isLoggedIn: boolean;
   banStatus: BanStatus;
@@ -38,7 +38,7 @@ export interface TopicType {
   closed: boolean;
   pinned: boolean;
   user: UserType;
-  category: CategoryType;
+  category: CategoryType | null;
 }
 
 export interface TopicsListParams {

@@ -1,6 +1,5 @@
 /* eslint no-undef: 0 */
 import '@testing-library/jest-dom';
-import { vi } from 'vitest';
 
 const OAUTH_CONFIG = {
   services: [
@@ -14,16 +13,6 @@ const OAUTH_CONFIG = {
   ],
   redirectURI: 'www.redirect.com',
 };
-
-global.matchMedia =
-  global.matchMedia ||
-  function () {
-    return {
-      matches: false,
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-    };
-  };
 
 global.localStorage.setItem('CONFIG', JSON.stringify({ name: 'TEST' }));
 global.localStorage.setItem('OAUTH_CONFIG', JSON.stringify(OAUTH_CONFIG));

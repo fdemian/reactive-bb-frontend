@@ -11,7 +11,7 @@ import {
   REOPEN_TOPIC,
   INCREASE_VIEW_COUNT,
 } from './Mutations';
-import { GET_USER } from '../Navbar/Queries';
+import { GET_USER } from '../User/Queries';
 import { GET_IS_LOGGED_IN } from '../Login/queries';
 import { SET_MENTIONS } from '../Editor/Queries';
 import {
@@ -261,7 +261,7 @@ export const Component = () => {
 
   if (error || postsQuery.error) return <p>Error :(</p>;
 
-  if (loading || postsQuery.loading) return <Loading />;
+  if (loading || postsQuery.loading || !data?.topic) return <Loading />;
 
   const { topic } = data;
 
@@ -289,6 +289,9 @@ export const Component = () => {
   const removePost = (postId: number) => {
     const userId = getUserId();
 
+    if(!userId)
+      return;
+
     deletePost({
       variables: {
         post: postId,
@@ -309,6 +312,9 @@ export const Component = () => {
     const editorContent = editor.getContent();
     const newPostContent = JSON.stringify(editorContent);
     const postId = editablePost;
+
+    if(!postId || !userId)
+      return;
 
     editPost({
       variables: {

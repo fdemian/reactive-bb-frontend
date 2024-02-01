@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '../__generated__/gql';
 
-export const GET_TOPICS = gql`
+export const GET_TOPICS = gql(/* GraphQL */ `
   query GetTopics($limit: Int!, $offset: Int!) {
     topics(limit: $limit, offset: $offset) {
       topics {
@@ -24,9 +24,9 @@ export const GET_TOPICS = gql`
       topicsCount
     }
   }
-`;
+`);
 
-export const GET_PINNED_TOPICS = gql`
+export const GET_PINNED_TOPICS = gql(/* GraphQL */ `
   query GetPinnedTopics {
     pinnedTopics {
       id
@@ -47,10 +47,10 @@ export const GET_PINNED_TOPICS = gql`
       }
     }
   }
-`;
+`);
 
-export const PIN_TOPIC = gql`
+export const PIN_TOPIC = gql(/* GraphQL */ `
   mutation PinTopic($topic: Int!) {
     pinTopic(topic: $topic)
   }
-`;
+`);

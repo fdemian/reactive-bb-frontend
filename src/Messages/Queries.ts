@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '../__generated__/gql';
 
-export const GET_ALL_CHATS = gql`
+export const GET_ALL_CHATS = gql(/* GraphQL */ `
   query GetChatsByUser($user: Int!) {
     chatsByUser(user: $user) {
       id
@@ -8,9 +8,9 @@ export const GET_ALL_CHATS = gql`
       username
     }
   }
-`;
+`);
 
-export const GET_CHAT = gql`
+export const GET_CHAT = gql(/* GraphQL */ `
   query GetChat($userA: Int!, $userB: Int!, $offset: Int!, $limit: Int!) {
     chat(userA: $userA, userB: $userB, offset: $offset, limit: $limit) {
       date
@@ -27,9 +27,9 @@ export const GET_CHAT = gql`
       }
     }
   }
-`;
+`);
 
-export const CHATS_SUBSCRIPTION = gql`
+export const CHATS_SUBSCRIPTION = gql(/* GraphQL */ `
   subscription ChatAdded($userA: Int!, $userB: Int!) {
     chatAdded(userA: $userA, userB: $userB) {
       date
@@ -46,4 +46,4 @@ export const CHATS_SUBSCRIPTION = gql`
       }
     }
   }
-`;
+`);

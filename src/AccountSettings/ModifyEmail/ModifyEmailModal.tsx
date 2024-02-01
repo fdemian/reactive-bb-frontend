@@ -20,7 +20,7 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
   const [updateEmail, mutationData] = useMutation(UPDATE_EMAIL);
 
   const changeEmail = () => {
-    /* eslint-disable @typescript-eslint/no-floating-promises */
+     
     updateEmail({
       variables: {
         id: user.id,
@@ -29,8 +29,8 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
     });
   };
 
-  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-  /* eslint-disable @typescript-eslint/no-unsafe-member-access */  
+   
+     
   const success =
     mutationData.data?.updateEmail;
   const error = mutationData.error;

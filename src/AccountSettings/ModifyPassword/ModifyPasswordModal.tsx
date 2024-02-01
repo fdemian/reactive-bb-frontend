@@ -19,7 +19,7 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
   const [updatePassword, mutationData] = useMutation(UPDATE_PASSWORD);
   const modifyPassword = (currentPass: string, newPass: string) => {
     const userId = getUserId();
-    /* eslint-disable  @typescript-eslint/no-floating-promises */
+     
     updatePassword({
       variables: {
         id: userId,
@@ -66,8 +66,8 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
     return true;
   }
 
-  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-  /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+   
+   
   const { loading, error, data } = mutationData;
 
   // Enabling this rule does not make sense here, since we are checking for something different.

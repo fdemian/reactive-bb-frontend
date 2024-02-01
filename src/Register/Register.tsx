@@ -90,7 +90,7 @@ export const Component = () => {
 
   const usernameTaken =
     usernameQueryResp.data &&
-    usernameQueryResp.data.checkUsername.exists === true;
+    usernameQueryResp.data.checkUsername.exists;
 
   const UserNameSuffix = usernameTaken ? (
     <Tooltip title={t('usernameTaken')}>

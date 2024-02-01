@@ -3,10 +3,12 @@ import { TopicType } from './topicTypes';
 export const getFilteredTopics = (
   topics: TopicType[],
   categoryFilter: string
-) => {
-  if (categoryFilter === 'all') return topics;
+): TopicType[] => {
+  const _categoryFilter = categoryFilter.toLocaleLowerCase();
+  
+  if (_categoryFilter === 'all') return topics;
 
-  if (categoryFilter.toLowerCase() === 'uncategorized')
+  if (_categoryFilter === 'uncategorized')
     return topics.filter((t) => t.category === null);
 
   return topics.filter((t) => t.category && t.category.name === categoryFilter);

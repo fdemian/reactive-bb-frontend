@@ -22,7 +22,7 @@ export const Component = () => {
 
   if (loading) return <Loading />;
 
-  if (error) return <p>Error</p>;
+  if (error || !data?.getUser) return <p>Error</p>;
 
   const { username, avatar, fullname, status, about, banned } = data.getUser;
 
@@ -63,7 +63,10 @@ export const Component = () => {
           </div>
         </div>
       </Card>
-      <UserProfileMenu id={parsedId} user={data.getUser} />
+      <UserProfileMenu 
+        id={parsedId} 
+        user={data.getUser} 
+      />
     </>
   );
 };

@@ -15,7 +15,6 @@ import {
   REMOVE_BOOKMARK,
 } from './Mutations';
 import { useMutation } from '@apollo/client';
-import Loading from '../Loading/LoadingIndicator';
 import { BookmarkType, LikeType, PostFooterProps, PostType } from './postTypes';
 
 const PostFooter = (props: PostFooterProps) => {
@@ -35,6 +34,7 @@ const PostFooter = (props: PostFooterProps) => {
 
   const [postLikes, setPostLikes] = useState<LikeType[]>(item.likes);
   const [addBookmark] = useMutation(BOOKMARK_POST, {
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
     update(cache, { data: { bookmarkPost } }) {
       cache.modify({
         fields: {
@@ -52,6 +52,7 @@ const PostFooter = (props: PostFooterProps) => {
   });
 
   const [removeBookmark] = useMutation(REMOVE_BOOKMARK, {
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
     update(cache, { data: { removeBookmark } }) {
       cache.modify({
         fields: {
@@ -177,14 +178,12 @@ const PostFooter = (props: PostFooterProps) => {
     );
   }
 
-  if (!bookmarksByPostList) return <Loading />;
-
   const bookmarks = bookmarksByPostList;
   const bookmarkFilter = bookmarks.find((l) => l.postId === item.id);
   const itemColor = bookmarkFilter !== undefined ? 'black' : 'gainsboro';
   const testId =
     bookmarkFilter !== undefined ? 'bookmarked-post-icon' : 'bookmark-icon';
-  const userBanned = banStatus !== null && banStatus.banned;
+  const userBanned = banStatus.banned;
 
   if (isMobile) {
     return (

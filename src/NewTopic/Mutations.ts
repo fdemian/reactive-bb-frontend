@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '../__generated__/gql';
 
-export const CREATE_POST = gql`
+export const CREATE_POST = gql(/* GraphQL */ `
   mutation CreateTopic(
     $user: Int!
     $name: String!
@@ -19,4 +19,4 @@ export const CREATE_POST = gql`
       ok
     }
   }
-`;
+`);

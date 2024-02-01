@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '../__generated__/gql';
 
-export const SEARCH_TERM = gql`
+export const SEARCH_TERM = gql(/* GraphQL */ `
   query GetSearch(
     $term: String!
     $where: [String!]
@@ -17,4 +17,4 @@ export const SEARCH_TERM = gql`
       total
     }
   }
-`;
+`);

@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '../__generated__/gql';
 
-export const GET_POST_EDITS = gql`
+export const GET_POST_EDITS = gql(/* GraphQL */ `
   query PostEdits($limit: Int!, $offset: Int!) {
     postEdits(limit: $limit, offset: $offset) {
       postEdits {
@@ -16,4 +16,4 @@ export const GET_POST_EDITS = gql`
       editsCount
     }
   }
-`;
+`);

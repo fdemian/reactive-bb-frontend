@@ -9,7 +9,15 @@ module.exports = {
     'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'node_modules'],
+  ignorePatterns: [
+    'dist', 
+    '.eslintrc.cjs', 
+    'vitest.config.ts', 
+    'vite.config.ts', 
+    'codegen.ts', 
+    '__generated__', 
+    'node_modules'
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: ['tsconfig.json'],
@@ -21,6 +29,9 @@ module.exports = {
       { allowConstantExport: true },
     ],
     '@typescript-eslint/prefer-nullish-coalescing': [
+      'off'
+    ],
+    '@typescript-eslint/no-floating-promises': [
       'off'
     ]
   },

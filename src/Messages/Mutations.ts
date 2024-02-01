@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '../__generated__/gql';
 
-export const SEND_PM = gql`
+export const SEND_PM = gql(/* GraphQL */ `
   mutation SendMessage(
     $author: Int!
     $recipient: Int!
@@ -14,4 +14,4 @@ export const SEND_PM = gql`
       newchat: $newchat
     )
   }
-`;
+`);

@@ -7,6 +7,12 @@ import SecurityView from './Views/SecurityView';
 //import NotificationView from './Views/NotificationView'
 import './Settings.css';
 
+interface MenuMapItem {
+  key: string;
+  name: string;
+  component: JSX.Element;
+}
+
 export const Settings = () => {
   const { t } = useTranslation('accountSettings', {
     keyPrefix: 'settings.options',
@@ -32,7 +38,11 @@ export const Settings = () => {
     label: <div onClick={() => { setSelectKey(item.key); }}>{item.name}</div>,
   }));
 
-  const menuItem: any = menuMap.find((k) => k.key === selectKey);
+  let menuItem:MenuMapItem | undefined = menuMap.find((k) => k.key === selectKey) ;
+
+  if(menuItem === undefined)
+     menuItem = menuMap[0];
+
   const title = menuItem.name;
   const childComponent = menuItem.component;
 

@@ -10,7 +10,7 @@ interface AvatarSizeType {
 }
 
 interface AccountAvatarTypes {
-  avatar: string;
+  avatar: string | null | undefined;
   username: string;
   size: number | AvatarSizeType | 'large' | 'small' | 'default';
   shape: 'circle' | 'square' | undefined;

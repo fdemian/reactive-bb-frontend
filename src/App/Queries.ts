@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client';
+import { gql } from '../__generated__/gql';
 
-export const GET_CONFIG = gql`
+export const GET_CONFIG = gql(/* GraphQL */ `
   query GetConfig {
     config {
       config
       oauth
     }
   }
-`;
+`);
