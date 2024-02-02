@@ -4,15 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faShare } from '@fortawesome/free-solid-svg-icons';
 import './Messages.css';
 import { getIsMobile } from '../App/utils';
+import { CalliopeContainerType } from 'kalliope';
+import { MentionType } from '../Editor/editorTypes';
 
 interface MessagesEditorProps {
   initialState: string | undefined;
   selectedUser: number;
   sendMessage: (user: number, p: boolean) => void;
   clearMessage: () => void;
-  containerRef: any;
+  containerRef: { current: CalliopeContainerType | null };
   t: (key: string) => string;
 }
+
+const emptyFn = (m: MentionType[]) => { console.log(m); };
 
 const MessagesEditor = ({
   initialState,
@@ -27,7 +31,7 @@ const MessagesEditor = ({
     <div className="messages-editor">
       <Editor
         containerRef={containerRef}
-        setMentions={() => {}}
+        setMentions={emptyFn}
         mentions={[]}
         user={null}
         initialState={initialState}
@@ -46,7 +50,9 @@ const MessagesEditor = ({
           aria-label={t('send')}
           className="chats-send-button"
           type="primary"
-          onClick={() => { sendMessage(selectedUser, false); }}
+          onClick={() => {
+            sendMessage(selectedUser, false);
+          }}
         >
           {t('send')} &nbsp;
           <FontAwesomeIcon icon={faShare} />

@@ -10,9 +10,10 @@ import CreateMessage from './CreateMessage';
 import '../AccountSettings/Settings.css';
 import './Messages.css';
 import { UserType } from '../User/userTypes';
+import { CalliopeContainerType } from 'kalliope';
 
 interface MessagesEditorProps {
-  containerRef: any;
+  containerRef: { current: CalliopeContainerType | null };
   sendMessage: (user: number, p: boolean) => void;
   clearMessage: () => void;
   users: UserType[];
@@ -29,8 +30,12 @@ const ChatsList = (props: MessagesEditorProps) => {
     paramsUser !== null ? parseInt(paramsUser, 10) : users[0].id;
   const [selectedUser, setSelectedUser] = useState(initialSelectedUser);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const closeModal = () => { setIsModalOpen(false); };
-  const openModal = () => { setIsModalOpen(true); };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
   const sendAndCloseModal = (user: number, newchat: boolean) => {
     sendMessage(user, newchat);
     closeModal();
@@ -45,7 +50,11 @@ const ChatsList = (props: MessagesEditorProps) => {
   const items = users.map((u) => ({
     key: u.id,
     label: (
-      <div onClick={() => { setSelectedUser(u.id); }}>
+      <div
+        onClick={() => {
+          setSelectedUser(u.id);
+        }}
+      >
         <UserAvatar
           size="large"
           shape="square"

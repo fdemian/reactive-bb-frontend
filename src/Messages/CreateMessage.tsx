@@ -1,18 +1,19 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { GET_MENTION_USERS } from '../Editor/Queries';
 import Editor from '../Editor/Editor';
-import { Button, Form, Mentions } from 'antd';
+import { Button, Form, Mentions, GetProp, MentionProps } from 'antd';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import { getIsMobile } from '../App/utils';
 import './Messages.css';
-import { UserType } from '../User/userTypes';
+import { CalliopeContainerType } from 'kalliope';
+import { MentionType } from '../Editor/editorTypes';
 
 const { getMentions } = Mentions;
 
 interface CreateMessageProps {
   sendMessage: (user: number, p: boolean) => void;
-  containerRef: any;
+  containerRef: { current: CalliopeContainerType | null };
   t: (key: string) => string;
 }
 
@@ -20,6 +21,10 @@ interface UserMessageType {
   id: number;
   name: string;
 }
+
+type MentionsOptionProps = GetProp<MentionProps, 'options'>[number];
+
+const emptyFn = (m: MentionType[]) => { console.log(m); };
 
 const CreateMessage = ({
   sendMessage,
@@ -29,21 +34,20 @@ const CreateMessage = ({
   const [updatedList, setUpdatedList] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [users, setUsers] = useState([]);
-  const ref = useRef();
   const isMobile = getIsMobile();
 
-  const mentionSelectChange = ({ value }: { value: string }) => {
-    const user: UserMessageType = users.filter(
-      (u: UserMessageType) => u.name === value
-    )[0];
-    if (!user) return;
+  const mentionSelectChange = ({ value }: MentionsOptionProps) => {
+    /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+    const filteredUser = users.filter((u: UserMessageType) => u.name === value);
+    if (!filteredUser) return;
+    const user: UserMessageType = filteredUser[0];
     const userIdCurrent = user.id;
     setSelectedUser(userIdCurrent);
   };
 
-  const checkMention = async (_: any, value: string) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const checkMention = (_: any, value: string) => {
     const mentions = getMentions(value);
-
     if (mentions.length > 1) {
       throw new Error(t('oneUserSelectedError'));
     }
@@ -54,6 +58,7 @@ const CreateMessage = ({
     sendMessage(selectedUser, true);
   };
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
@@ -61,8 +66,7 @@ const CreateMessage = ({
   const [getMentionCandidates, { data, loading }] =
     useLazyQuery(GET_MENTION_USERS);
 
-  const onSearch = (value: any) => {
-    ref.current = value;
+  const onSearch = (value: string) => {
     setUsers([]);
 
     getMentionCandidates({
@@ -75,8 +79,8 @@ const CreateMessage = ({
 
   if (data && !loading && updatedList) {
     const { mentionCandidates } = data;
-    if (mentionCandidates !== null) {
-      const _suggestions = mentionCandidates.map((u: UserType) => ({
+    if (mentionCandidates !== null && mentionCandidates !== undefined) {
+      const _suggestions = mentionCandidates.map((u) => ({
         id: u.id,
         name: u.username,
         link: `/users/${u.id}/${u.username}`,
@@ -131,7 +135,7 @@ const CreateMessage = ({
         <Mentions
           data-testid="mention-user-select"
           rows={1}
-          onSelect={(val: any) => { mentionSelectChange(val); }}
+          onSelect={mentionSelectChange}
           placeholder={t('userMentionPlaceholder')}
           style={{ width: '400px' }}
           loading={loading}
@@ -143,7 +147,7 @@ const CreateMessage = ({
       <Form.Item label={t('message')} name="message" rules={[]}>
         <Editor
           containerRef={containerRef}
-          setMentions={() => {}}
+          setMentions={emptyFn}
           mentions={[]}
           user={null}
           initialState={undefined}

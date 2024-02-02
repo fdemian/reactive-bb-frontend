@@ -1,6 +1,7 @@
 import { UserType } from '../User/userTypes';
 import { BanStatusReturn } from '../Login/authUtils';
 import { MentionType } from '../Editor/editorTypes';
+import { CalliopeContainerType } from 'kalliope';
 
 interface CategoryType {
   id: number;
@@ -64,7 +65,7 @@ export interface TopicRepliesProps {
   editablePost: number | null;
   setEditablePost: (id: number | null) => void;
   editUserPost: (id: number) => void;
-  containerRef: any;
+  containerRef: { current: CalliopeContainerType | null };
   user: UserType;
   t: (key: string) => string;
 }
@@ -103,7 +104,7 @@ export interface ReplyDrawerProps {
   open: boolean;
   user: UserType;
   topic: TopicType;
-  containerRef: any;
+  containerRef: { current: CalliopeContainerType | null };
   isMobile: boolean;
   mentions: MentionType[];
   setMentions: (p: MentionType[]) => void;

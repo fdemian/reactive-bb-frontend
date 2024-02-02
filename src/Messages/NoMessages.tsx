@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Button, Empty } from 'antd';
 import CreateMessage from './CreateMessage';
+import { CalliopeContainerType } from 'kalliope';
 import './Messages.css';
 
 interface NoMessageProps {
   userId: number;
   sendMessage: (user: number, p: boolean) => void;
-  containerRef: any;
+  containerRef: { current: CalliopeContainerType | null };
   t: (key: string) => string;
 }
 
@@ -30,7 +31,9 @@ const NoMessages = ({ sendMessage, containerRef, t }: NoMessageProps) => {
           aria-label={t('startConversation')}
           className="messages-create-conversation"
           type="primary"
-          onClick={() => { setConverstationVisible(true); }}
+          onClick={() => {
+            setConverstationVisible(true);
+          }}
         >
           {t('startConversation')}
         </Button>

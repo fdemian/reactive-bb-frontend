@@ -35,6 +35,12 @@ interface FormValues {
   email: string;
 }
 
+interface ElemType {
+  target: {
+    value: string;
+  };
+}
+
 export const Component = () => {
   const [form] = Form.useForm();
   const id = localStorage.getItem('ID');
@@ -44,7 +50,7 @@ export const Component = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [createUser, { loading, data }] = useMutation(CREATE_USER);
   const [checkUsername, usernameQueryResp] = useLazyQuery(CHECK_USERNAME);
-  const [passwordValue, setPasswordValue] = useState(null);
+  const [passwordValue, setPasswordValue] = useState<string | null>(null);
 
   const onFinish = (values: FormValues) => {
     if (passwordValue !== values.passwordrepeat) {
@@ -63,7 +69,7 @@ export const Component = () => {
     });
   };
 
-  const checkUsernameAvailability = async (e: any) => {
+  const checkUsernameAvailability = (e: ElemType) => {
     const username = e.target.value;
     if (username.length < 4) return;
     checkUsername({
@@ -73,6 +79,8 @@ export const Component = () => {
     });
   };
 
+  /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo.errorFields);
   };
@@ -89,8 +97,7 @@ export const Component = () => {
   }
 
   const usernameTaken =
-    usernameQueryResp.data &&
-    usernameQueryResp.data.checkUsername.exists;
+    usernameQueryResp.data && usernameQueryResp.data.checkUsername.exists;
 
   const UserNameSuffix = usernameTaken ? (
     <Tooltip title={t('usernameTaken')}>
@@ -183,7 +190,9 @@ export const Component = () => {
               <FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />
             }
             autoComplete="password"
-            onChange={(e: any) => { setPasswordValue(e.target.value); }}
+            onChange={(e: ElemType) => {
+              setPasswordValue(e.target.value);
+            }}
           />
           <PasswordStrengthBar password={passwordValue ?? ''} t={t} />
         </Form.Item>

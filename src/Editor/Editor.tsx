@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+
 import { useState, lazy, Suspense } from 'react';
 import { Spin, notification } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,7 +23,7 @@ import {
 } from './editorTypes';
 import './Editor.css';
 import { CalliopeFormatTypes } from './toolbarUtils';
-import { InlineImageModalProps } from "./InlineImageModal/InlineImageModal";
+import { InlineImageModalProps } from './InlineImageModal/InlineImageModal';
 
 const MobileDrawer = lazy(() => import('./MobileDrawer'));
 const Toolbar = lazy(() => import('./Toolbar'));
@@ -53,33 +54,48 @@ const Editor = (props: EditorProps) => {
   const [formats, setFormats] = useState<CalliopeFormatTypes | null>(null);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
-  const [updatedList, setUpdatedList] = useState(false);
+  const [updatedList, setUpdatedList] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState(initialMentions);
   const [equationModalVisible, setEquationModal] = useState(false);
   const [imageModalVisible, setImageModal] = useState(false);
   const [bgColorModalVisible, setBgColorModal] = useState(false);
   const [fontColorModalVisible, setFontColorModal] = useState(false);
   const [inlineImageModalVisible, setInlineImageModalVisible] = useState(false);
-  const [inlineImagemodalProps, setInlineImageModalProps] = useState<InlineImageModalProps | null>(null);
+  const [inlineImagemodalProps, setInlineImageModalProps] =
+    useState<InlineImageModalProps | null>(null);
   const [inlineModalUpdateVisible, setInlineModalUpdateVisible] =
     useState(false);
 
   const [tweetToolbarVisible, setTweetToolbar] = useState(false);
-  const toggleTweetToolbar = () => { setTweetToolbar(!tweetToolbarVisible); };
+  const toggleTweetToolbar = () => {
+    setTweetToolbar(!tweetToolbarVisible);
+  };
   const [tableToolbarVisible, setTableToolbar] = useState(false);
-  const toggleTableToolbar = () => { setTableToolbar(!tableToolbarVisible); };
+  const toggleTableToolbar = () => {
+    setTableToolbar(!tableToolbarVisible);
+  };
   const [videoToolbar, setVideoToolbar] = useState(false);
-  const toggleVideoToolbar = () => { setVideoToolbar(!videoToolbar); };
+  const toggleVideoToolbar = () => {
+    setVideoToolbar(!videoToolbar);
+  };
 
   // TODO: reorder and name this.
   const [equation, setEquation] = useState('f(x)');
   const [inline, setInline] = useState(true);
 
   // Toggle functions (utility functions).
-  const toggleImageModal = () => { setImageModal(!imageModalVisible); };
-  const toggleEquationModal = () => { setEquationModal(!equationModalVisible); };
-  const toggleBgColorModal = () => { setBgColorModal(!bgColorModalVisible); };
-  const toggleFontColorModal = () => { setFontColorModal(!fontColorModalVisible); };
+  const toggleImageModal = () => {
+    setImageModal(!imageModalVisible);
+  };
+  const toggleEquationModal = () => {
+    setEquationModal(!equationModalVisible);
+  };
+  const toggleBgColorModal = () => {
+    setBgColorModal(!bgColorModalVisible);
+  };
+  const toggleFontColorModal = () => {
+    setFontColorModal(!fontColorModalVisible);
+  };
   //const toggleExcalidrawModal = (status) => setExcalidrawModal(status === false ? status : !excalidrawModalVisible);
 
   const toggleExcalidrawModal = () => {
@@ -137,9 +153,8 @@ const Editor = (props: EditorProps) => {
 
   if (data && !loading && updatedList) {
     const { mentionCandidates } = data;
-
-    if (mentionCandidates !== null) {
-      const _suggestions = mentionCandidates.map((u: any) => ({
+    if (mentionCandidates !== null && mentionCandidates !== undefined) {
+      const _suggestions = mentionCandidates.map((u) => ({
         id: u.id,
         name: u.username,
         link: `/users/${u.id}/${u.username}`,
@@ -166,7 +181,7 @@ const Editor = (props: EditorProps) => {
     initialState: initialState,
     readOnly: false,
     autoFocus: true,
-    onError: (error: any) => {
+    onError: (error: Error) => {
       throw error;
     },
     plugins: [],
@@ -175,7 +190,7 @@ const Editor = (props: EditorProps) => {
       defaultCaptionText: t('internal.enterCaption'),
     },
     inlineImage: {
-      showModal: (modalProps: any) => {
+      showModal: (modalProps: InlineImageModalProps) => {
         setInlineModalUpdateVisible(true);
         setInlineImageModalProps(modalProps);
       },
@@ -239,13 +254,12 @@ const Editor = (props: EditorProps) => {
       emojiData: emojiData,
     },
     dragAndDropImage: {
-      handleDroppedFile: async (file: any) => {
+      handleDroppedFile: async (file: File) => {
         const uploadRet = await uploadImage({
           variables: { image: file },
         });
         if (uploadRet.data) {
-          const { src } = uploadRet.data.uploadImage;
-          if (src === null) {
+          if (!uploadRet.data?.uploadImage) {
             notification.error({
               message: 'Failed to upload File',
               description:
@@ -254,6 +268,7 @@ const Editor = (props: EditorProps) => {
             });
             return;
           }
+          const { src } = uploadRet.data.uploadImage;
           const imageSrc = `/static/uploads/${src}`;
           containerRef.current.executeCommand('INSERT_IMAGE', {
             src: imageSrc,
