@@ -24,6 +24,13 @@ const TopicListFooter = lazy(
 );
 const MobileCategoryDrawer = lazy(() => import('./MobileCategoryDrawer'));
 
+interface CategoriesQueryType {
+  __typename?: 'Category';
+  id: number;
+  name: string;
+  description: string;
+}
+
 export const Component = () => {
   // Topics translation.
   const { t } = useTranslation('topics', { keyPrefix: 'topics' });
@@ -62,16 +69,20 @@ export const Component = () => {
 
   if (error) return <p>Error</p>;
 
-  if (loading || categoriesQuery.loading || pinnedTopicsQuery.loading)
+  if (loading || categoriesQuery.loading || pinnedTopicsQuery.loading || !data)
     return <Loading />;
 
-  const defaultCategory = {
+  const defaultCategory:CategoriesQueryType = {    
     id: -1,
     name: 'Uncategorized',
     description: t('defaultCategory'),
   };
 
   const { topics, topicsCount } = data.topics;
+
+  if(!topics)
+    return <p>Error (no topics found)</p>;
+  
   const { pinnedTopics } = pinnedTopicsQuery.data;
   const { categories } = categoriesQuery.data;
   const categoriesData = [defaultCategory].concat(categories);

@@ -36,13 +36,13 @@ export const savePostReplyContent = (
 };
 
 export const getCategoryURL = (category: CategoryType) => {
-  if (!category) return '/categories/-1/uncategorized';
+  if (category.id === -1) return '/categories/-1/uncategorized';
 
   return `/categories/${category.id}/${format_title_string(category.name)}`;
 };
 
 export const getCategoryName = (category: CategoryType) =>
-  category ? category.name : 'Uncategorized';
+  category.id > -1 ? category.name : 'Uncategorized';
 
 export const getDate = (date: string) =>
   format(new Date(date), 'MMM d yyyy, h:mm');

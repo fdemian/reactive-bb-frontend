@@ -30,7 +30,7 @@ export const Component = () => {
 
   if (loading) return <Loading />;
 
-  if (data && !loading) {
+  if (data) {
     const { resetPassword } = data;
     if (resetPassword === true) {
       return (

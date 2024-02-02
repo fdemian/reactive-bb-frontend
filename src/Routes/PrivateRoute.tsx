@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { useApolloClient, useQuery } from '@apollo/client';
 import { SET_LOGIN, GET_IS_LOGGED_IN } from '../Login/queries';
@@ -27,7 +29,7 @@ const PrivateRoute = ({
   const logoutFn = async () => {
     clearUser();
     await client.resetStore();
-    await client.writeQuery({
+    client.writeQuery({
       query: SET_LOGIN,
       data: {
         loggedIn: false,

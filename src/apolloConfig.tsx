@@ -39,6 +39,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach(({ message, locations, path }) =>
       { console.log(
+        // eslint-disable @typescript-eslint/restrict-template-expressions
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path?.toString()}`
       ); }
     );
@@ -50,7 +51,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     const { href, host, protocol } = window.location;
     if (statusCode === 412) {
       eraseUserTokensAndLogout(href, host, protocol);
-      const onFail = () => eraseUserTokensAndLogout(href, host, protocol);
+      const onFail = () => { eraseUserTokensAndLogout(href, host, protocol); return; }
       refreshToken(onFail);
     }
   }

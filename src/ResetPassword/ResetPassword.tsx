@@ -29,6 +29,9 @@ export const Component = () => {
   const { t } = useTranslation('register', { keyPrefix: 'register' });
 
   const [resetPassword] = useMutation(RESET_PASSWORD_REQUEST);
+
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const { data, loading } = useQuery(GET_IS_LOGGED_IN);
 
   if (loading) return <Loading />;

@@ -14,7 +14,7 @@ const MobileCategoryDrawer = (props: MobileCategoryDrawerProps) => {
     <Drawer
       title="Pick a category"
       placement="bottom"
-      onClose={() => {}}
+      onClose={undefined}
       open={categoriesDrawer}
       extra={
         <Button type="primary" onClick={toggleCategoriesDrawer}>

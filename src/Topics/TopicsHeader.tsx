@@ -9,6 +9,16 @@ import './Topics.css';
 
 const Option = Select.Option;
 
+interface OptionType {
+  children: string; 
+  key:string; 
+  value:string;
+}
+
+const filterOption = (input: string, option?: OptionType):boolean =>
+  (option?.value ?? '').toLowerCase().includes(input.toLowerCase());
+
+
 const TopicsHeader = (props: TopicsHeaderParams) => {
   const {
     isMobile,
@@ -62,11 +72,7 @@ const TopicsHeader = (props: TopicsHeaderParams) => {
           placeholder={tr('categories')}
           optionFilterProp="children"
           defaultValue={categoryFilter}
-          filterOption={(input, option) =>
-            option !== undefined &&
-            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >=
-              0
-          }
+          filterOption={filterOption}
           onChange={setCategoryFilter}
         >
           <Option value="all">{tr('allCategories')}</Option>

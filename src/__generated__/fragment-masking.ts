@@ -27,17 +27,17 @@ export function useFragment<TType>(
 // return array of non-nullable if `fragmentType` is array of non-nullable
 export function useFragment<TType>(
   _documentNode: DocumentTypeDecoration<TType, any>,
-  fragmentType: readonly FragmentType<DocumentTypeDecoration<TType, any>>[]
-): readonly TType[];
+  fragmentType: ReadonlyArray<FragmentType<DocumentTypeDecoration<TType, any>>>
+): ReadonlyArray<TType>;
 // return array of nullable if `fragmentType` is array of nullable
 export function useFragment<TType>(
   _documentNode: DocumentTypeDecoration<TType, any>,
-  fragmentType: readonly FragmentType<DocumentTypeDecoration<TType, any>>[] | null | undefined
-): readonly TType[] | null | undefined;
+  fragmentType: ReadonlyArray<FragmentType<DocumentTypeDecoration<TType, any>>> | null | undefined
+): ReadonlyArray<TType> | null | undefined;
 export function useFragment<TType>(
   _documentNode: DocumentTypeDecoration<TType, any>,
-  fragmentType: FragmentType<DocumentTypeDecoration<TType, any>> | readonly FragmentType<DocumentTypeDecoration<TType, any>>[] | null | undefined
-): TType | readonly TType[] | null | undefined {
+  fragmentType: FragmentType<DocumentTypeDecoration<TType, any>> | ReadonlyArray<FragmentType<DocumentTypeDecoration<TType, any>>> | null | undefined
+): TType | ReadonlyArray<TType> | null | undefined {
   return fragmentType as any;
 }
 
@@ -59,7 +59,7 @@ export function isFragmentReady<TQuery, TFrag>(
   if (!deferredFields) return true;
 
   const fragDef = fragmentNode.definitions[0] as FragmentDefinitionNode | undefined;
-  const fragName = fragDef?.name.value;
+  const fragName = fragDef?.name?.value;
 
   const fields = (fragName && deferredFields[fragName]) || [];
   return fields.length > 0 && fields.every(field => data && field in data);
