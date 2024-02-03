@@ -4,7 +4,6 @@ import { getDefaultPageItems } from '../App/utils';
 import { Col, Row, Spin, Collapse, Divider } from 'antd';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import { GET_POST_EDITS } from './Queries';
-import { UserType } from '../User/userTypes';
 
 const Renderer = lazy(() => import('../Editor/Renderer'));
 const PaginationFooter = lazy(
@@ -13,14 +12,6 @@ const PaginationFooter = lazy(
 
 interface ModerationLogProps {
   t: (key: string) => string;
-}
-
-interface PostEditType {
-  user: UserType;
-  date: Date;
-  previous: string;
-  current: string;
-  editsCount: number;
 }
 
 const ModerationLog = ({ t }: ModerationLogProps) => {
@@ -52,18 +43,18 @@ const ModerationLog = ({ t }: ModerationLogProps) => {
     window.scroll(0, 0);
   };
 
-  if (loading) return <p>Loading</p>;
+  if (loading || !data || !data.postEdits) return <p>Loading</p>;
 
   const { editsCount, postEdits } = data.postEdits;
 
-  if (editsCount === 0)
+  if (editsCount === 0 || !postEdits)
     return <h2 style={{ textAlign: 'center' }}>{t('noModLogs')}</h2>;
 
   const numberOfPages = Math.ceil(editsCount / PAGE_LIMIT);
 
   return (
     <div>
-      {postEdits.map((postEdit: PostEditType) => (
+      {postEdits.map((postEdit) => (
         <>
           <Collapse
             bordered={false}

@@ -89,7 +89,7 @@ export const Component = () => {
 
   if (isLoggedIn) return <Navigate to="/" />;
 
-  if (data) {
+  if (data && data.createUser) {
     const { ok, email } = data.createUser;
     if (ok) {
       return <Navigate to={`/activationinfo/${email}`} />;

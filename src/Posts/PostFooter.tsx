@@ -32,14 +32,17 @@ const PostFooter = (props: PostFooterProps) => {
     t,
   } = props;
 
-  const [postLikes, setPostLikes] = useState<LikeType[]>(item.likes);
+
+  const [postLikes, setPostLikes] = useState<LikeType[]>(item.likes!);
   const [addBookmark] = useMutation(BOOKMARK_POST, {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-    update(cache, { data: { bookmarkPost } }) {
+    update(cache, { data }) {
       cache.modify({
         fields: {
           bookmarksByPostList(existingBookmarks = []) {
-            const { postId, userId } = bookmarkPost;
+            if(!data?.bookmarkPost)
+              return existingBookmarks;
+            const { postId, userId } = data?.bookmarkPost;
             return existingBookmarks.concat({
               id: 0,
               postId: postId,
@@ -53,11 +56,13 @@ const PostFooter = (props: PostFooterProps) => {
 
   const [removeBookmark] = useMutation(REMOVE_BOOKMARK, {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-    update(cache, { data: { removeBookmark } }) {
+    update(cache, { data }) {
       cache.modify({
         fields: {
           bookmarksByPostList(existingBookmarks = []) {
-            const { postId, userId } = removeBookmark;
+            if(!data?.removeBookmark)
+              return existingBookmarks;
+            const { postId, userId } = data?.removeBookmark;
             return existingBookmarks.filter(
               (b: BookmarkType) => b.postId !== postId && b.userId !== userId
             );

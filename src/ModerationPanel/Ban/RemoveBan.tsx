@@ -49,7 +49,7 @@ const RemoveBanScreen = ({ user, goBack, t }: BanUserTypes) => {
         }
       />
     );
-
+  
   //lockoutTime
   return (
     <div style={{ textAlign: 'center' }}>

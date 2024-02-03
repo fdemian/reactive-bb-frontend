@@ -15,24 +15,30 @@ const BookmarkPostList = ({
 }: BookmarkListProps) => {
   const navigate = useNavigate();
   const deleteBookmark = (bookmark: BookmarkType) => {
+    if(!bookmark || !bookmark.post)
+      return;
+
     removeBookmark({
       variables: {
-        user: userId,
+        user: userId ?? -1,
         post: bookmark.post.id,
       },
       optimisticResponse: {
         removeBookmark: {
           id: bookmark.id,
           ok: true,
-          userId: userId,
+          userId: userId ?? -1,
           postId: bookmark.post.id,
         },
       },
     });
   };
 
-  const goToBookmark = (bookmark: BookmarkType) =>
-    { navigate(`/postlink/${bookmark.post.id}`); };
+  const goToBookmark = (bookmark: BookmarkType) => {
+    if(!bookmark || !bookmark.post)
+      return;    
+    navigate(`/postlink/${bookmark.post.id}`); 
+  };
 
   return (
     <List
@@ -50,11 +56,11 @@ const BookmarkPostList = ({
             key={bookmark.id}
             avatar={
               <Link
-                to={`/users/${bookmark.post.user.id}/${bookmark.post.user.username}`}
+                to={`/users/${bookmark.post?.user.id}/${bookmark.post?.user.username}`}
               >
                 <Avatar
-                  avatar={bookmark.post.user.avatar}
-                  username={bookmark.post.user.username}
+                  avatar={bookmark.post?.user.avatar}
+                  username={bookmark.post?.user.username ?? ""}
                   shape="square"
                   size={60}
                 />
@@ -62,14 +68,14 @@ const BookmarkPostList = ({
             }
             title={
               <Link
-                to={`/users/${bookmark.post.user.id}/${bookmark.post.user.username}`}
+                to={`/users/${bookmark.post?.user.id}/${bookmark.post?.user.username}`}
               >
-                <p className="user-name">{bookmark.post.user.username}</p>
+                <p className="user-name">{bookmark.post?.user.username}</p>
               </Link>
             }
           />
           <br />
-          <Renderer content={bookmark.post.content} />
+          <Renderer content={bookmark.post?.content} />
           <br />
           <div style={{ marginLeft: '80%' }}>
             <Tooltip placement="bottomLeft" title={t('goToBookmark')}>

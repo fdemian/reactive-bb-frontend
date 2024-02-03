@@ -25,9 +25,13 @@ export const Component = () => {
 
   if (error) return <p>Error</p>;
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
 
-  const { categories } = data;
+  let { categories } = data;
+
+  if(!categories)
+    categories = [];
+
   const categoriesData = [defaultCategory].concat(categories);
 
   return (

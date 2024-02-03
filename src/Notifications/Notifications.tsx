@@ -8,17 +8,13 @@ import { GET_ALL_NOTIFICATIONS } from './Queries';
 import { MARK_NOTIFICATIONS_READ } from '../Navbar/Queries';
 import { getDefaultPageItems } from '../App/utils';
 import { useNavigate } from 'react-router-dom';
+import { UserType  } from '../User/userTypes';
 import './Notifications.css';
 
 const getTranslationKey = (key: string): string => {
   if (key === 'mention') return 'mentionUser';
   return 'likedPost';
 };
-
-interface UserType {
-  avatar: string;
-  username: string;
-}
 
 interface NotificationType {
   id: number;
@@ -36,11 +32,13 @@ export const Component = () => {
   const navigate = useNavigate();
 
   const [markAsRead] = useMutation(MARK_NOTIFICATIONS_READ, {
-    update(cache, { data: { markAsRead } }) {
+    update(cache, { data }) {
+      if(!data || !data.markNotificationsRead)
+        return;
       cache.modify({
         fields: {
           notifications() {
-            return markAsRead;
+            return data.markNotificationsRead;
           },
         },
       });
@@ -49,7 +47,7 @@ export const Component = () => {
 
   const { data, loading, error } = useQuery(GET_ALL_NOTIFICATIONS, {
     variables: {
-      user: id,
+      user: id ?? -1,
       limit: parseInt(limit ?? '5', 10),
       offset: 0,
     },
@@ -57,9 +55,11 @@ export const Component = () => {
 
   if (error) return <p>Error</p>;
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || !data) return <p>Loading...</p>;
 
-  const { allNotifications } = data;
+  let { allNotifications } = data;
+  if(!allNotifications)
+    allNotifications = [];
 
   return (
     <>
@@ -87,9 +87,7 @@ export const Component = () => {
                     notifications: [notification.id],
                   },
                   optimisticResponse: {
-                    markAsRead: allNotifications.filter(
-                      (n: NotificationType) => n.id !== notification.id
-                    ),
+                    markAsRead: allNotifications!.filter((n) => n.id !== notification.id),
                   },
                 });
                 navigate(notification.link);

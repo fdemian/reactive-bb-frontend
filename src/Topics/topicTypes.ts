@@ -2,6 +2,12 @@ interface Category {
   name: string;
 }
 
+type UserType = {
+  id: number;
+  avatar?: string | null | undefined;
+  username: string;
+};
+
 interface BanStatus {
   banned: boolean;
   banReason: string | null;
@@ -18,28 +24,23 @@ export interface TopicsHeaderParams {
   banStatus: BanStatus;
 }
 
-interface UserType {
-  id: number;
-  avatar: string;
-  username: string;
-}
-
 export interface CategoryType {
   id: number;
   name: string;
 }
 
 export interface TopicType {
-  id: number;
-  name: string;
-  views: number;
-  replies: number;
-  created: string;
-  closed: boolean;
-  pinned: boolean;
-  user: UserType;
-  category: CategoryType | null;
-}
+   __typename?: "Topic" | undefined; 
+   id: number; 
+   name: string; 
+   views: number; 
+   replies: number; 
+   created: string; 
+   pinned: boolean; 
+   closed: boolean; 
+   user: UserType; 
+   category?: CategoryType | undefined | null;
+};
 
 export interface TopicsListParams {
   topics: TopicType[];

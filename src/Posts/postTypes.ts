@@ -27,10 +27,10 @@ export interface PostToQuote {
 }
 
 export interface LikeType {
+  __typename?: "Like" | undefined;
   id: number;
   userId: number;
   postId: number;
-  __typename?: string | undefined;
 }
 
 export interface BookmarkType {
@@ -39,15 +39,15 @@ export interface BookmarkType {
   postId: number;
 }
 
-export interface PostType {
-  id: number;
-  content: string;
-  edited: boolean;
-  created: string;
-  likes: LikeType[];
-  user: UserType;
-  __ref?: string | undefined;
-}
+export interface PostType  {
+   __typename?: "Post" | undefined; 
+   id: number; content: string; 
+   edited: boolean; 
+   created: any;
+   user: UserType;
+   likes?: LikeType[];
+   __ref?: string;
+};
 
 export interface TopicRepliesProps {
   userType: string;
@@ -55,7 +55,7 @@ export interface TopicRepliesProps {
   quotePost: (post: PostType) => void;
   removePost: (post: number) => void;
   topic: TopicType;
-  replies: PostType[];
+  replies: PostType[] | undefined | null;
   isLoggedIn: boolean;
   userId: number;
   selectedPost: string;
@@ -66,7 +66,7 @@ export interface TopicRepliesProps {
   setEditablePost: (id: number | null) => void;
   editUserPost: (id: number) => void;
   containerRef: { current: CalliopeContainerType | null };
-  user: UserType;
+  user: UserType | null;
   t: (key: string) => string;
 }
 
@@ -102,7 +102,7 @@ export interface ReplyDrawerProps {
   createPost: () => void;
   onClose: () => void;
   open: boolean;
-  user: UserType;
+  user: UserType | null;
   topic: TopicType;
   containerRef: { current: CalliopeContainerType | null };
   isMobile: boolean;

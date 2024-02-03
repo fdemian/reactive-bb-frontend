@@ -100,7 +100,7 @@ const TopicsList = (props: TopicsListParams) => {
                   )}
                 </Link>
                 <Suspense fallback={<Spin />}>
-                  <CategoryLink category={item.category} isMobile={isMobile} />
+                  <CategoryLink category={item.category ?? null} isMobile={isMobile} />
                   <ClosedIcon closed={item.closed} />
                 </Suspense>
               </>

@@ -23,7 +23,7 @@ export const Component = () => {
 
   if (error) return <p>Error</p>;
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
 
   const { category } = data;
   const { description, name } = category;
@@ -39,7 +39,7 @@ export const Component = () => {
       <TopicList
         userType={userType ?? ''}
         pinnedTopics={[]}
-        topics={category.topics}
+        topics={category.topics ?? []}
         isMobile={isMobile}
         t={topicsTranslation.t}
       />

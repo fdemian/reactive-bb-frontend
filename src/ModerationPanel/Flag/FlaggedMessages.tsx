@@ -34,11 +34,13 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
   });
 
   const [removeFlagMutation] = useMutation(REMOVE_FLAG, {
-    update(cache, { data: { removeFlag } }) {
+    update(cache, { data }) {
+      if(!data || !data.removeFlag)
+        return;
       cache.modify({
         fields: {
           flaggedPosts(flaggedPosts = []) {
-            const { postId, userId } = removeFlag;
+            const { postId, userId } = data.removeFlag!;
             return flaggedPosts.filter(
               (f: FlaggedPost) => f.postId !== postId && f.userId !== userId
             );
@@ -56,7 +58,6 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
       },
       optimisticResponse: {
         removeFlag: {
-          ok: true,
           userId: userId,
           postId: postId,
         },
@@ -114,13 +115,13 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
     },
   ];
 
-  if (loading) return <Spin />;
+  if (loading || !data) return <Spin />;
 
   if (error) return <p>Error</p>;
 
   const { flaggedPosts } = data;
 
-  if (flaggedPosts.length === 0) {
+  if (!flaggedPosts || flaggedPosts.length === 0) {
     return (
       <h1
         role="presentation"
@@ -135,7 +136,10 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
   return (
     <div>
       <br />
-      <Table dataSource={flaggedPosts} columns={columns} />
+      <Table 
+        dataSource={flaggedPosts} 
+        columns={columns} 
+      />
     </div>
   );
 };

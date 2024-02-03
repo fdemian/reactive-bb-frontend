@@ -5,7 +5,7 @@ import { List } from 'antd';
 import { Link } from 'react-router-dom';
 import Renderer from '../Editor/Renderer';
 import { useQuery } from '@apollo/client';
-import { UserType, PostType } from './userTypes';
+import { UserType } from './userTypes';
 
 interface UserPostsParams {
   id: number;
@@ -13,8 +13,7 @@ interface UserPostsParams {
 }
 
 const UserPosts = ({ id, user }: UserPostsParams) => {
-
-   
+  
   const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {
     variables: { id: id },
   });
@@ -22,18 +21,16 @@ const UserPosts = ({ id, user }: UserPostsParams) => {
   if (error) return <p>Error</p>;
 
   if (loading || !data) return <Loading />;
-
-   
-   
-  const posts: PostType[] = data.postsByUser;
+      
+  const posts = data.postsByUser;
   
   return (
     <List
       itemLayout="vertical"
       size="large"
       data-testid="user-posts"
-      dataSource={posts}
-      renderItem={(item: PostType) => (
+      dataSource={posts ?? []}
+      renderItem={(item) => (
         <List.Item id={`post-${item.id}`} key={item.id}>
           <List.Item.Meta
             avatar={

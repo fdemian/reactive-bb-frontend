@@ -4,28 +4,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import Renderer from '../Editor/Renderer';
 
-interface SearchResultsType {
+type ResultType = {
+  __typename?: "SearchResult" | undefined;
   id: number;
   text: string;
   topicId: number;
   topic: string;
+};
+
+interface SearchResultsType {
+  __typename?: "SearchResponse" | undefined; 
   total: number;
+  results?: ResultType[] | null | undefined;
 }
 
 interface SearchResultsData {
-  data: SearchResultsType[];
+  data: SearchResultsType | undefined | null;
   t: (key: string) => string;
 }
 
-const SearchResults = ({ data, t }: SearchResultsData) => {
-  if (data.length === 0) return <h1>{t('noMatch')}</h1>;
+const SearchResults = ({ data, t }: SearchResultsData): JSX.Element => {
+  if (!data || !data.results || data.results.length === 0) return <h1>{t('noMatch')}</h1>;
 
   return (
     <List
       header={<div>Search results</div>}
       itemLayout="vertical"
-      dataSource={data}
-      renderItem={(item: SearchResultsType) => (
+      dataSource={data.results}
+      renderItem={(item) => (
         <List.Item key={item.id}>
           <List.Item.Meta
             description={

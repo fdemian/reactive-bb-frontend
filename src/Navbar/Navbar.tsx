@@ -53,11 +53,13 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
   const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn === true;
   const { loading, error, data } = useQuery(GET_USER,  { variables: { id: id ?? -1 }, skip: !id });
   const [markAsRead] = useMutation(MARK_NOTIFICATIONS_READ, {
-    update(cache, { data: { markAsRead } }) {
+    update(cache, { data }) {
+      if(!data || !data.markNotificationsRead)
+        return;
       cache.modify({
         fields: {
           notifications() {
-            return markAsRead;
+            return data.markNotificationsRead!;
           },
         },
       });
@@ -81,7 +83,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
 
   // Notifications query and subscriptions.
   const notificationsQuery = useQuery(GET_NOTIFICATIONS, {
-    variables: { user: id },
+    variables: { user: id ?? -1 },
     skip: !id,
   });
   const notifications = notificationsQuery.data
@@ -100,7 +102,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
           return prev;
         const newNotification = subscriptionData.data.notificationAdded;
         return {
-          notifications: [...prev.notifications, newNotification],
+          notifications: [...prev.notifications!, newNotification],
         };
       },
     });
@@ -108,7 +110,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
   //
   const chatsQuery = useQuery(GET_ALL_CHATS, {
     variables: {
-      user: id,
+      user: id ?? -1,
     },
     skip: !id,
   });
@@ -116,14 +118,14 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
   const newChatSubscription = () =>
     chatsQuerySubscribe({
       document: CHATS_SUBSCRIPTION,
-      variables: { user: id },
+      variables: { user: id ?? -1 },
       updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data.chatAdded)
+        if (!subscriptionData.data && !subscriptionData.data.chatAdded)
           return prev;
 
         const newChat = subscriptionData.data.chatAdded;
         return {
-          notifications: [...prev.chat, newChat],
+          notifications: [...prev.chatsByUser!, newChat],
         };
       },
     });

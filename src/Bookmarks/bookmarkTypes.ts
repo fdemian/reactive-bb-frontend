@@ -1,34 +1,35 @@
-interface UserType {
-  id: number;
-  username: string;
-  avatar: string;
-}
-
-interface PostType {
+interface PostTypeBookmark {
+  __typename?: "Post" | undefined;
   id: number;
   content: string;
-  user: UserType;
-}
+  user: {
+    __typename?: "User" | undefined;
+    id: number;
+    username: string;
+    avatar?: string | null | undefined;
+  };
+};
 
 interface RemoveBookmarkFnProps {
   variables: {
-    user: number | null;
-    post: number | null;
+    user: number;
+    post: number;
   };
   optimisticResponse: {
     removeBookmark: {
       id: number;
       ok: boolean;
-      userId: number | null;
+      userId: number;
       postId: number;
     };
   };
 }
 
 export interface BookmarkType {
-  __ref: string;
+  __typename?: "Bookmark" | undefined;
+  __ref?: string;
   id: number;
-  post: PostType;
+  post: PostTypeBookmark | null | undefined;
 }
 
 export interface BookmarkListProps {

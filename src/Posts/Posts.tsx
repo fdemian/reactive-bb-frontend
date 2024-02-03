@@ -56,6 +56,7 @@ import FlagPostModal from './FlagPostModal';
 import { PostToQuote, PostType } from './postTypes';
 import './Posts.css';
 import { MentionType } from '../Editor/editorTypes';
+import { CalliopeContainerType } from 'kalliope';
 
 const TopicReplies = lazy(() => import('./TopicReplies'));
 const ReplyDrawer = lazy(() => import('./ReplyDrawer'));
@@ -93,11 +94,13 @@ export const Component = () => {
   const [deleteTopicMut] = useMutation(DELETE_TOPIC);
   const [reopenTopicMut] = useMutation(REOPEN_TOPIC);
   const [addPost] = useMutation(ADD_POST, {
-    update(cache, { data: { createPost } }) {
+    update(cache, { data }) {
+      if(!data || !data.createPost)
+        return;
       cache.modify({
         fields: {
           posts(existingPosts = []) {
-            return existingPosts.concat(createPost);
+            return existingPosts.concat(data.createPost);
           },
         },
       });
@@ -105,11 +108,13 @@ export const Component = () => {
   });
 
   const [deletePost] = useMutation(DELETE_POST, {
-    update(cache, { data: { deletePost } }) {
+    update(cache, { data }) {
+      if(!data || !data.deletePost)
+        return;
       cache.modify({
         fields: {
           posts(existingPosts = []) {
-            const { id } = deletePost;
+            const { id } = data.deletePost!;
             return existingPosts.filter(
               (p: PostType) => p.__ref !== 'Post:' + id
             );
@@ -120,11 +125,13 @@ export const Component = () => {
   });
 
   const [editPost] = useMutation(EDIT_POST, {
-    update(cache, { data: { editPost } }) {
+    update(cache, { data }) {
+      if(!data || !data.editPost)
+      return;
       cache.modify({
         fields: {
           posts(existingPosts = []) {
-            const { id, content } = editPost;
+            const { id, content } = data.editPost!;
             return existingPosts.map((p: PostType) => {
               if (p.__ref !== 'Post:' + id) {
                 return {
@@ -201,7 +208,7 @@ export const Component = () => {
     }
   }, [increaseViewCount, id, isLoggedIn]);
 
-  const containerRef = useRef(null);
+  const containerRef = useRef<CalliopeContainerType>(null);
   const [visible, setVisible] = useState(false);
   const showDrawer = () => { setVisible(true); };
   const onClose = () => {
@@ -380,7 +387,7 @@ export const Component = () => {
         variables: {
           link: topicLink,
           user: userName ?? "",
-          mentioned: mentions,
+          mentioned: mentions.map(m => m.name),
         },
       });
     }
@@ -390,7 +397,7 @@ export const Component = () => {
 
   const navigateToLogin = () =>
     { navigate('/login', { state: { from: location } }); };
-  const { posts } = postsQuery.data;
+  const { posts } = postsQuery.data!;
 
   const replyActionButton = isLoggedIn ? (
     <div>
@@ -446,6 +453,8 @@ export const Component = () => {
     },
   ];
 
+  const userFromQuery = userQuery.data?.getUser === undefined ? null : userQuery.data?.getUser;
+
   return (
     <>
       <Helmet>
@@ -480,7 +489,7 @@ export const Component = () => {
             <h2>{t('posts.main.replies')}</h2>
           </Divider>
           <TopicReplies
-            user={userQuery.data ? userQuery.data.getUser : null}
+            user={userFromQuery}
             containerRef={containerRef}
             isClosed={topic.closed}
             quotePost={quotePost}
@@ -503,7 +512,7 @@ export const Component = () => {
         <Suspense fallback={<Spin />}>
           <ReplyDrawer
             topic={topic}
-            user={userQuery.data ? userQuery.data.getUser : null}
+            user={userFromQuery}
             containerRef={containerRef}
             onClose={onClose}
             open={visible}

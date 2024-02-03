@@ -53,7 +53,7 @@ const PostsFile = (props: TopicRepliesProps) => {
   const { data, loading, error } = useQuery(GET_BOOKMARKS_BY_POSTS, {
     variables: {
       user: userId,
-      posts: getPostsIdsMapped(replies),
+      posts: getPostsIdsMapped(replies ?? []),
     },
     skip: isNaN(userId) || userId === null,
   });
@@ -75,7 +75,7 @@ const PostsFile = (props: TopicRepliesProps) => {
       <List
         itemLayout="vertical"
         size="large"
-        dataSource={replies}
+        dataSource={replies ?? []}
         renderItem={(item) => (
           <Suspense fallback={<Skeleton avatar paragraph={{ rows: 4 }} />}>
             <List.Item
@@ -162,7 +162,7 @@ const PostsFile = (props: TopicRepliesProps) => {
                   userId={userId}
                   banStatus={banStatus}
                   item={item}
-                  bookmarksByPostList={data ? data.bookmarksByPostList : []}
+                  bookmarksByPostList={data ? data.bookmarksByPostList! : []}
                   isLoggedIn={isLoggedIn}
                   quotePost={quotePost}
                   replyAsNewPost={replyAsNewPost}

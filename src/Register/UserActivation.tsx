@@ -9,16 +9,18 @@ export const Component = () => {
   const [validateUser, { loading, data }] = useMutation(VALIDATE_USER);
 
   useEffect(() => {
-    validateUser({
-      variables: {
-        token: token,
-      },
-    });
+    if(token) {
+      validateUser({
+        variables: {
+          token: token,
+        },
+      });
+    }
   }, [validateUser, token]);
 
   if (loading || !data) return <Loading />;
 
-  if (!data.validateUser.ok) {
+  if (!data.validateUser || !data.validateUser.ok) {
     return <p>Error</p>;
   } else {
     return (

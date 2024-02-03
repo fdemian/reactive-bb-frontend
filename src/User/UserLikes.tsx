@@ -19,7 +19,7 @@ const UserLikes = ({ id, user }: UserLikesProps) => {
 
   if (error) return <p>Error</p>;
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
 
   const likes = data.likesByUser;
 
@@ -28,7 +28,7 @@ const UserLikes = ({ id, user }: UserLikesProps) => {
       itemLayout="vertical"
       size="large"
       data-testid="user-likes"
-      dataSource={likes}
+      dataSource={likes ?? []}
       renderItem={(item: LikeType) => (
         <List.Item id={`post-${item.id}`} key={item.id}>
           <List.Item.Meta

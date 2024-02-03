@@ -18,6 +18,10 @@ export const Component = () => {
   const sendMessage = (user: number, newchat: boolean) => {
     const editor: any = containerRef.current;
     const message = editor.getContent();
+
+    if(!userId)
+      return;
+
     sendPm({
       variables: {
         author: userId,
@@ -36,18 +40,18 @@ export const Component = () => {
 
   const { data, loading, error } = useQuery(GET_ALL_CHATS, {
     variables: {
-      user: userId,
+      user: userId ?? -1,
     },
     pollInterval: 500,
   });
 
-  if (loading) return <Spin />;
+  if (loading || !data) return <Spin />;
 
   if (error) return <p>Error</p>;
 
   const { chatsByUser } = data;
 
-  if (chatsByUser.length === 0)
+  if (!chatsByUser || chatsByUser.length === 0)
     return (
       <NoMessages
         userId={userId ?? 0}

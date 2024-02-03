@@ -14,18 +14,20 @@ export const Component = () => {
   const { t } = useTranslation('bookmarks', { keyPrefix: 'bookmarks' });
 
   const { data, loading, error } = useQuery(GET_BOOKMARKS_BY_USER, {
-    variables: { user: userId },
+    variables: { user: userId ?? -1 },
     skip: !userId,
   });
 
   const [removeBookmark] = useMutation(REMOVE_BOOKMARK, {
-    update(cache, { data: { removeBookmark } }) {
+    update(cache, { data }) {
       cache.modify({
         fields: {
           bookmarksByUser(bookmarksByUser = []) {
             // Workarround checking for __ref prop.
             // TODO: investigate why .filter(b => b.id !== id) is not working.
-            const { id } = removeBookmark;
+            if(!data?.removeBookmark)
+              return;
+            const { id } = data?.removeBookmark;
             return bookmarksByUser.filter(
               (b: BookmarkType) => b.__ref !== 'Bookmark:' + id
             );
@@ -35,7 +37,7 @@ export const Component = () => {
     },
   });
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
 
   if (error)
     return (
@@ -49,7 +51,7 @@ export const Component = () => {
 
   const { bookmarksByUser } = data;
 
-  if (bookmarksByUser.length === 0)
+  if (!bookmarksByUser || bookmarksByUser.length === 0)
     return (
       <>
         <Helmet>

@@ -9,14 +9,20 @@ import MessagesEditor from './MessagesEditor';
 import CreateMessage from './CreateMessage';
 import '../AccountSettings/Settings.css';
 import './Messages.css';
-import { UserType } from '../User/userTypes';
 import { CalliopeContainerType } from 'kalliope';
+
+type ChatByUserType = {
+  __typename?: "User" | undefined;
+id: number;
+  avatar?: string | null | undefined;
+  username: string;
+};
 
 interface MessagesEditorProps {
   containerRef: { current: CalliopeContainerType | null };
   sendMessage: (user: number, p: boolean) => void;
   clearMessage: () => void;
-  users: UserType[];
+  users: ChatByUserType[];
   userId: number;
   t: (key: string) => string;
 }

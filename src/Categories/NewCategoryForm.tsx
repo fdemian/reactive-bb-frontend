@@ -20,7 +20,9 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
   const [editing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
   const [createCategory] = useMutation(CREATE_CATEGORY, {
-    update(cache, { data: { createCategory } }) {
+    update(cache, { data }) {
+      if(!data || !data.createCategory)
+        return;
       cache.modify({
         fields: {
           categories(existingCategories = []) {

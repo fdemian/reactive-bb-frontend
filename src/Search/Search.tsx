@@ -32,7 +32,7 @@ export const Component = () => {
     SEARCH_TERM,
     {
       variables: {
-        term: search,
+        term: search ?? "",
         where: searchIn.length === 0 ? ['titles', 'posts'] : searchIn,
         limit: PAGE_LIMIT,
         offset: PAGE_OFFSET,
@@ -45,7 +45,7 @@ export const Component = () => {
       const where = searchIn.length === 0 ? ['titles', 'posts'] : searchIn;
       performSearch({
         variables: {
-          term: searchTerm,
+          term: searchTerm ?? "",
           where: where,
           limit: PAGE_LIMIT,
           offset: PAGE_OFFSET,
@@ -98,7 +98,7 @@ export const Component = () => {
 
   let numberOfPages = 1;
 
-  if (data?.search.total) {
+  if (data?.search && data?.search.total) {
     numberOfPages = Math.ceil(data.search.total / PAGE_LIMIT);
   }
 
@@ -110,7 +110,7 @@ export const Component = () => {
       title: <p>{t('search')}</p>,
     },
   ];
-
+  
   return (
     <Card>
       <Breadcrumb items={breadCrumbItems} />
@@ -134,7 +134,7 @@ export const Component = () => {
         t={t}
       />
       {(searchTerm || search) && data?.search ? (
-        <SearchResults t={t} data={data.search.results} />
+        <SearchResults t={t} data={data.search} />
       ) : null}
       <Suspense fallback={<Spin />}>
         <PaginationFooter

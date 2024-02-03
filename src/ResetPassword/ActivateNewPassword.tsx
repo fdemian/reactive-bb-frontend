@@ -20,6 +20,9 @@ export const Component = () => {
   const { token } = useParams();
 
   const onFinish = (values: ActivatePasswordValues) => {
+    if(!token)
+      return;
+    
     resetPassword({
       variables: {
         token: token,

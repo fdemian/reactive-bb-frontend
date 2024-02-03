@@ -1,8 +1,7 @@
 import AccountAvatar from '../../UserAvatar/UserAvatar';
 import { List, Button } from 'antd';
 import { getLockoutTimeStr } from './utils';
-import { SearchUserListProps } from '../moderationPanelTypes';
-import { UserType } from '../../User/userTypes';
+import { SearchUserListProps, MentionTypeUser } from '../moderationPanelTypes';
 
 const SearchUsersList = ({
   users,
@@ -10,7 +9,8 @@ const SearchUsersList = ({
   setUserToBan,
   t,
 }: SearchUserListProps) => {
-  const changeToBanScreen = (user: UserType) => {
+
+  const changeToBanScreen = (user: MentionTypeUser) => {
     setScreenType(user.banned ? 'removeban' : 'ban');
     setUserToBan(user);
   };
@@ -44,7 +44,7 @@ const SearchUsersList = ({
             title={<strong>{user.username}</strong>}
             description={
               user.banned
-                ? getLockoutTimeStr(user.banExpires, t)
+                ? getLockoutTimeStr(user.banExpires!, t)
                 : t('notBanned')
             }
           />

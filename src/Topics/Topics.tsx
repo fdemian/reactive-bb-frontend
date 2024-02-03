@@ -15,6 +15,13 @@ import { getBanStatus, getUserType } from '../Login/authUtils';
 import Loading from '../Loading/LoadingIndicator';
 import './Topics.css';
 
+interface DefaultCategoryType {
+  __typename?: 'Category' | undefined;
+  id: number;
+  name: string;
+  description: string;
+}
+
 // Lazy imports.
 const NoTopics = lazy(() => import('./NoTopics'));
 const TopicList = lazy(() => import('./TopicList'));
@@ -23,13 +30,6 @@ const TopicListFooter = lazy(
   () => import('../PaginationFooter/PaginationFooter')
 );
 const MobileCategoryDrawer = lazy(() => import('./MobileCategoryDrawer'));
-
-interface CategoriesQueryType {
-  __typename?: 'Category';
-  id: number;
-  name: string;
-  description: string;
-}
 
 export const Component = () => {
   // Topics translation.
@@ -72,7 +72,8 @@ export const Component = () => {
   if (loading || categoriesQuery.loading || pinnedTopicsQuery.loading || !data)
     return <Loading />;
 
-  const defaultCategory:CategoriesQueryType = {    
+  const defaultCategory:DefaultCategoryType = {    
+    __typename: 'Category',
     id: -1,
     name: 'Uncategorized',
     description: t('defaultCategory'),
@@ -80,16 +81,20 @@ export const Component = () => {
 
   const { topics, topicsCount } = data.topics;
 
-  if(!topics)
+  if(topics === null || topics === undefined)
     return <p>Error (no topics found)</p>;
   
-  const { pinnedTopics } = pinnedTopicsQuery.data;
-  const { categories } = categoriesQuery.data;
+  const { pinnedTopics } = pinnedTopicsQuery.data!;
+  let { categories } = categoriesQuery.data!;
+
+  if(!categories)
+    categories = [];
+
   const categoriesData = [defaultCategory].concat(categories);
   const filteredTopics = getFilteredTopics(topics, categoryFilter);
   const isLoggedIn = loginQuery.data?.loggedIn;
 
-  if (topics.length === 0 && pinnedTopics.length === 0) {
+  if (!pinnedTopics || (topics.length === 0 && pinnedTopics.length === 0)) {
     return (
       <Suspense fallback={<Spin />}>
         <NoTopics t={t} />

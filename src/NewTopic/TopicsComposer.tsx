@@ -39,7 +39,7 @@ export const Component = () => {
   const editorContainer = useRef(null);
 
   //
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState<string | null>(null);
   const [category, setCategory] = useState<CategoryType>(defaultCategory);
   const [tags, setTags] = useState<string[] | []>([]);
 
@@ -47,16 +47,18 @@ export const Component = () => {
     const id = getUserId();
     const editor: any = editorContainer.current;
     const _content = editor.getContent();
-    const _category = category.id === -1 ? null : category;
+
+    if(!title || !id)
+      return;
 
     const queryOpts = {
       variables: {
         name: title,
         content: JSON.stringify(_content),
         user: id,
-        category: _category,
+        category: category.id,
         tags: tags ? tags.join(',') : '',
-      },
+      }
     };
     createTopic(queryOpts);
   };
@@ -88,7 +90,7 @@ export const Component = () => {
   const updateTitleFn = (evt: any) => { setTitle(evt.target.value); };
   const updateTags = (tags: string[]) => { setTags(tags); };
 
-  if (loading || categoriesQuery.loading) return <Loading />;
+  if (loading || categoriesQuery.loading || !categoriesQuery.data) return <Loading />;
 
   if (data?.createTopic?.ok && title !== null) {
     return (
@@ -105,7 +107,11 @@ export const Component = () => {
 
   if (error || categoriesQuery.error) return <p>Error :(</p>;
 
-  const { categories } = categoriesQuery.data;
+  let { categories } = categoriesQuery.data;
+
+  if(!categories)
+    categories = [];
+
   const categoriesData = [defaultCategory].concat(categories);
 
   return (

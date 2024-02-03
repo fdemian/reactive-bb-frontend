@@ -27,4 +27,4 @@ export interface UserType {
   banReason?: string | null | undefined;
   banExpires?: string;
   __typename?: "User" | undefined;
-}
+};

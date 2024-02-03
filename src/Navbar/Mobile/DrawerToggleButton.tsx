@@ -2,16 +2,12 @@ import { Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
-
-interface DrawerUserType {
-  avatar: string;
-  username: string;
-}
+import { UserType } from '../../User/userTypes';
 
 interface DrawerToggleButtonProps {
   openDrawer: () => void;
   isLoggedIn: boolean;
-  user: DrawerUserType | null;
+  user: UserType | null;
   showBadge: boolean;
   t: (key: string) => string;
 }

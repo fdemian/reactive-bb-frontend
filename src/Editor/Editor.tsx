@@ -99,7 +99,7 @@ const Editor = (props: EditorProps) => {
   //const toggleExcalidrawModal = (status) => setExcalidrawModal(status === false ? status : !excalidrawModalVisible);
 
   const toggleExcalidrawModal = () => {
-    containerRef.current.executeCommand('INSERT_EXCALIDRAW', null);
+    containerRef.current?.executeCommand('INSERT_EXCALIDRAW', null);
   };
 
   const [getMentionCandidates, { data, loading, error }] =
@@ -118,14 +118,14 @@ const Editor = (props: EditorProps) => {
     */
 
   const insertEquation = (props: InsertEquationProps) => {
-    containerRef.current.focus();
-    containerRef.current.executeCommand('INSERT_EQUATION', props);
+    containerRef.current?.focus();
+    containerRef.current?.executeCommand('INSERT_EQUATION', props);
     toggleEquationModal();
   };
 
   const insertImage = (props: ImageProps) => {
-    containerRef.current.focus();
-    containerRef.current.executeCommand('INSERT_IMAGE', props);
+    containerRef.current?.focus();
+    containerRef.current?.executeCommand('INSERT_IMAGE', props);
     toggleImageModal();
   };
 
@@ -190,10 +190,10 @@ const Editor = (props: EditorProps) => {
       defaultCaptionText: t('internal.enterCaption'),
     },
     inlineImage: {
-      showModal: (modalProps: InlineImageModalProps) => {
+      showModal: (modalProps: InlineImageModalProps):void => {
         setInlineModalUpdateVisible(true);
         setInlineImageModalProps(modalProps);
-      },
+      }
     },
     excalidrawConfig: {
       modal: ExcalidrawModal,
@@ -270,7 +270,7 @@ const Editor = (props: EditorProps) => {
           }
           const { src } = uploadRet.data.uploadImage;
           const imageSrc = `/static/uploads/${src}`;
-          containerRef.current.executeCommand('INSERT_IMAGE', {
+          containerRef.current?.executeCommand('INSERT_IMAGE', {
             src: imageSrc,
             altText: imageSrc,
           });
