@@ -54,7 +54,7 @@ const InlineImageModal = (props: InlineImageModalProps) => {
     const uploadRet = await uploadImage({ variables: { image: file } });
     setUploading(false);
 
-    if (uploadRet.data) {
+    if (uploadRet.data && uploadRet.data.uploadImage) {
       const { src } = uploadRet.data.uploadImage;
       if (src === null) {
         notification.error({

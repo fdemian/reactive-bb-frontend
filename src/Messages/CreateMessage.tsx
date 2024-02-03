@@ -17,10 +17,15 @@ interface CreateMessageProps {
   t: (key: string) => string;
 }
 
-interface UserMessageType {
+interface UserMentionType {
+  __typename?: "User" | undefined;
   id: number;
-  name: string;
-}
+  username: string;
+  avatar?: string | null | undefined;
+  banned: boolean;
+  banReason?: string | null | undefined;
+  banExpires?: any;
+};
 
 type MentionsOptionProps = GetProp<MentionProps, 'options'>[number];
 
@@ -33,14 +38,14 @@ const CreateMessage = ({
 }: CreateMessageProps) => {
   const [updatedList, setUpdatedList] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<UserMentionType[]>([]);
   const isMobile = getIsMobile();
 
   const mentionSelectChange = ({ value }: MentionsOptionProps) => {
     /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-    const filteredUser = users.filter((u: UserMessageType) => u.name === value);
+    const filteredUser = users.filter((u: UserMentionType) => u.username === value);
     if (!filteredUser) return;
-    const user: UserMessageType = filteredUser[0];
+    const user = filteredUser[0];
     const userIdCurrent = user.id;
     setSelectedUser(userIdCurrent);
   };
@@ -85,25 +90,27 @@ const CreateMessage = ({
         name: u.username,
         link: `/users/${u.id}/${u.username}`,
         avatar: u.avatar,
+        username: u.username,
+        banned: u.banned
       }));
       setUsers(_suggestions);
     }
     setUpdatedList(false);
   }
 
-  const mentionOptions = users.map(({ name, avatar }) => {
+  const mentionOptions = users.map(({ username, avatar }) => {
     return {
-      value: name,
-      key: name,
+      value: username,
+      key: username,
       label: (
         <>
           <UserAvatar
             avatar={avatar}
-            username={name}
+            username={username}
             size={30}
             shape="circle"
           />
-          &nbsp; <span>{name}</span>
+          &nbsp; <span>{username}</span>
         </>
       ),
     };
