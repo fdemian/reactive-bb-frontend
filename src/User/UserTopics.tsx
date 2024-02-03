@@ -19,7 +19,7 @@ const UserTopics = ({ id, user }: UserTopicsProps) => {
 
   if (error) return <p>Error</p>;
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
 
   const topics = data.topicsByUser;
 
@@ -28,7 +28,7 @@ const UserTopics = ({ id, user }: UserTopicsProps) => {
       itemLayout="vertical"
       size="large"
       data-testid="user-topics"
-      dataSource={topics}
+      dataSource={topics ?? []}
       renderItem={(item: TopicType) => (
         <List.Item id={`post-${item.id}`} key={item.id}>
           <List.Item.Meta

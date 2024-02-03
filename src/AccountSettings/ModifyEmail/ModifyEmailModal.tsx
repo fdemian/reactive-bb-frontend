@@ -15,6 +15,7 @@ interface ModifyEmailModalProps {
 }
 
 const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
+  
   const { email } = user;
   const [userEmail, setUserEmail] = useState(email);
   const [updateEmail, mutationData] = useMutation(UPDATE_EMAIL);

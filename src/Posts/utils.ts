@@ -35,14 +35,14 @@ export const savePostReplyContent = (
   localStorage.setItem(REPLYING_POST_COMMENT_LINK, commentLink);
 };
 
-export const getCategoryURL = (category: CategoryType) => {
-  if (category.id === -1) return '/categories/-1/uncategorized';
+export const getCategoryURL = (category: CategoryType | null | undefined) => {
+  if (category === null || category === undefined || category.id === -1) return '/categories/-1/uncategorized';
 
   return `/categories/${category.id}/${format_title_string(category.name)}`;
 };
 
-export const getCategoryName = (category: CategoryType) =>
-  category.id > -1 ? category.name : 'Uncategorized';
+export const getCategoryName = (category: CategoryType | null | undefined) =>
+(category === null || category === undefined || category.id === -1) ? 'Uncategorized': category.name;
 
 export const getDate = (date: string) =>
   format(new Date(date), 'MMM d yyyy, h:mm');

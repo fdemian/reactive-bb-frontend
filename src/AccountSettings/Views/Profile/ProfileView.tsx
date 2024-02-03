@@ -25,29 +25,32 @@ const UserProfile = () => {
   const [updateProfile, mutationData] = useMutation(UPDATE_PROFILE);
   const { loading, error, data } = useQuery(GET_PROFILE, {
     variables: {
-      id: userId,
+      id: userId ?? -1,
     },
     skip: !userId,
   });
   const [form] = Form.useForm();
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
 
-  if (error) return <p>Error</p>;
+  if (error || !data.getUser) return <p>Error</p>;
 
   const { username, avatar, status, about } = data.getUser;
 
   if (status !== null && about !== null) {
     if (modalProps.avatar === '') {
       setModalProps({
-        avatar: avatar,
-        status: status,
-        about: about,
+        avatar: avatar ?? "",
+        status: status ?? "",
+        about: about ?? "",
       });
     }
   }
 
   const updateProfileInfo = () => {
+    if(!data.getUser)
+      return;
+
     updateProfile({
       variables: {
         id: data.getUser.id,
@@ -110,7 +113,7 @@ const UserProfile = () => {
         <div className="right">
           <AvatarView
             id={data.getUser.id}
-            avatar={data.getUser.avatar}
+            avatar={data.getUser.avatar ?? ""}
             username={username}
             t={t}
           />

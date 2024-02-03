@@ -51,8 +51,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
 
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
   const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn === true;
-  const queryOpts = { variables: { id: id }, skip: !id };
-  const { loading, error, data } = useQuery(GET_USER, queryOpts);
+  const { loading, error, data } = useQuery(GET_USER,  { variables: { id: id ?? -1 }, skip: !id });
   const [markAsRead] = useMutation(MARK_NOTIFICATIONS_READ, {
     update(cache, { data: { markAsRead } }) {
       cache.modify({
@@ -92,7 +91,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
   const newSubscription = () =>
     subscribeToMore({
       document: NOTIFICATIONS_SUBSCRIPTION,
-      variables: { user: id },
+      variables: { user: id ?? -1 },
       updateQuery: (prev, { subscriptionData }) => {
         if (
           !subscriptionData.data ||

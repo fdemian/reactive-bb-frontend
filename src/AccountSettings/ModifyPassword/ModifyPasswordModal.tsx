@@ -19,7 +19,11 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
   const [updatePassword, mutationData] = useMutation(UPDATE_PASSWORD);
   const modifyPassword = (currentPass: string, newPass: string) => {
     const userId = getUserId();
-     
+    
+    // TODO: show error message?
+    if(!userId)
+      return;
+
     updatePassword({
       variables: {
         id: userId,
@@ -83,7 +87,7 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
 
   if (loading) return <Loading />;
 
-  if (data?.updatePassword.ok) {
+  if (data?.updatePassword?.ok) {
     return (
       <h1>
         {t('passwordUpdateSuccess')} &nbsp;

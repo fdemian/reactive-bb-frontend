@@ -151,6 +151,9 @@ export const Component = () => {
     setFlagPostDialog(false);
     const userId = getUserId();
 
+    if(!flaggedPostId || !userId)
+      return;
+
     flagPost({
       variables: {
         post: flaggedPostId,
@@ -255,7 +258,7 @@ export const Component = () => {
   });
 
   const userQuery = useQuery(GET_USER, {
-    variables: { id: userId },
+    variables: { id: userId ?? -1 },
     skip: userId === null || isNaN(userId),
   });
 
@@ -327,7 +330,7 @@ export const Component = () => {
           id: postId,
           ok: true,
           content: newPostContent,
-          __typename: 'Post',
+          __typename: 'EditPostResponse',
         },
       },
     });
@@ -337,12 +340,19 @@ export const Component = () => {
   };
 
   const createPost = () => {
-    const editor: any = containerRef.current;
+    const editor = containerRef.current;
+
+    if(!editor)
+      return;
+
     const postContent = editor.getContent();
     const jsonContent = JSON.stringify(postContent);
     const topicId = parseInt(id ?? '0', 10);
     const userId = getUserId();
     const userName = getUserName();
+
+    if(!userId || !userQuery.data || !userQuery.data.getUser)
+      return;
 
     addPost({
       variables: {
@@ -355,7 +365,7 @@ export const Component = () => {
           createPost: {
             id: 0,
             content: jsonContent,
-            user: userQuery.data.user,
+            user: userQuery.data.getUser,
             __ref: 'Post:0',
           },
         },
@@ -369,7 +379,7 @@ export const Component = () => {
       publishMentions({
         variables: {
           link: topicLink,
-          user: userName,
+          user: userName ?? "",
           mentioned: mentions,
         },
       });
@@ -454,7 +464,7 @@ export const Component = () => {
                 <FontAwesomeIcon icon={faLock} size="1x" color="gainsboro" />
               )}
             </p>
-            <TagList tags={topic.tags} />
+            <TagList tags={topic.tags ?? ""} />
             {(banStatus === null || !banStatus.banned) &&
               replyActionButton}
           </>

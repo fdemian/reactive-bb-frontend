@@ -14,8 +14,7 @@ const SecurityView = () => {
   });
 
   const userId = getUserId();
-  const queryOpts = { variables: { id: userId }, skip: !userId };
-  const { loading, error, data } = useQuery(GET_PROFILE, queryOpts);
+  const { loading, error, data } = useQuery(GET_PROFILE, { variables: { id: userId ?? -1 }, skip: !userId });
 
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -26,7 +25,7 @@ const SecurityView = () => {
   const openEmailModal = () => { setShowEmailModal(true); };
   const closeEmailModal = () => { setShowEmailModal(false); };
 
-  if (loading) return <Loading />;
+  if (loading || !data || !data.getUser) return <Loading />;
 
   if (error) return <p>Error</p>;
 

@@ -17,13 +17,14 @@ export interface LikeType {
 export interface UserType {
   id: number;
   username: string;
-  avatar: string;
+  avatar?: string | null | undefined;
   fullname: string;
   email: string;
-  status: string;
-  about: string;
+  status?: string | null | undefined;
+  about?: string | null | undefined;
   type: string;
   banned: boolean;
-  banReason: string;
-  banExpires: string;
+  banReason?: string | null | undefined;
+  banExpires?: string;
+  __typename?: "User" | undefined;
 }

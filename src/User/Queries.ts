@@ -12,6 +12,7 @@ export const GET_USER = gql(/* GraphQL */ `
       status
       about
       banned
+      banExpires
       banReason
     }
   }

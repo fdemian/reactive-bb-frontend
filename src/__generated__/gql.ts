@@ -66,7 +66,7 @@ const documents = {
     "\n  query GetTopics($limit: Int!, $offset: Int!) {\n    topics(limit: $limit, offset: $offset) {\n      topics {\n        id\n        name\n        views\n        replies\n        created\n        closed\n        pinned\n        user {\n          id\n          avatar\n          username\n        }\n        category {\n          id\n          name\n        }\n      }\n      topicsCount\n    }\n  }\n": types.GetTopicsDocument,
     "\n  query GetPinnedTopics {\n    pinnedTopics {\n      id\n      name\n      views\n      replies\n      created\n      closed\n      pinned\n      user {\n        id\n        avatar\n        username\n      }\n      category {\n        id\n        name\n      }\n    }\n  }\n": types.GetPinnedTopicsDocument,
     "\n  mutation PinTopic($topic: Int!) {\n    pinTopic(topic: $topic)\n  }\n": types.PinTopicDocument,
-    "\n  query GetUser($id: Int!) {\n    getUser(id: $id) {\n      id\n      username\n      avatar\n      type\n      fullname\n      email\n      status\n      about\n      banned\n      banReason\n    }\n  }\n": types.GetUserDocument,
+    "\n  query GetUser($id: Int!) {\n    getUser(id: $id) {\n      id\n      username\n      avatar\n      type\n      fullname\n      email\n      status\n      about\n      banned\n      banExpires\n      banReason\n    }\n  }\n": types.GetUserDocument,
     "\n  query GetLikesByUser($id: Int!) {\n    likesByUser(id: $id) {\n      id\n      post {\n        id\n        topicId\n        content\n      }\n    }\n  }\n": types.GetLikesByUserDocument,
     "\n  query GetTopicsByUser($id: Int!) {\n    topicsByUser(id: $id) {\n      id\n      name\n    }\n  }\n": types.GetTopicsByUserDocument,
     "\n  query GetPostsByUser($id: Int!) {\n    postsByUser(id: $id) {\n      id\n      content\n      topicId\n    }\n  }\n": types.GetPostsByUserDocument,
@@ -301,7 +301,7 @@ export function gql(source: "\n  mutation PinTopic($topic: Int!) {\n    pinTopic
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetUser($id: Int!) {\n    getUser(id: $id) {\n      id\n      username\n      avatar\n      type\n      fullname\n      email\n      status\n      about\n      banned\n      banReason\n    }\n  }\n"): (typeof documents)["\n  query GetUser($id: Int!) {\n    getUser(id: $id) {\n      id\n      username\n      avatar\n      type\n      fullname\n      email\n      status\n      about\n      banned\n      banReason\n    }\n  }\n"];
+export function gql(source: "\n  query GetUser($id: Int!) {\n    getUser(id: $id) {\n      id\n      username\n      avatar\n      type\n      fullname\n      email\n      status\n      about\n      banned\n      banExpires\n      banReason\n    }\n  }\n"): (typeof documents)["\n  query GetUser($id: Int!) {\n    getUser(id: $id) {\n      id\n      username\n      avatar\n      type\n      fullname\n      email\n      status\n      about\n      banned\n      banExpires\n      banReason\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
