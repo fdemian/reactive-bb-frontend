@@ -7,13 +7,6 @@ import UserAvatar from '../UserAvatar/UserAvatar';
 import Renderer from '../Editor/Renderer';
 import { formatDistance, format, parseISO } from 'date-fns';
 import './Messages.css';
-import { UserType } from '../User/userTypes';
-
-interface ChatType {
-  date: Date;
-  content: string;
-  author: UserType;
-}
 
 const getDate = (date: Date) => format(new Date(date), 'MMM d yyyy h:mm');
 const getDateRelative = (date: string) =>
@@ -60,14 +53,14 @@ const MessagesList = ({
 
   if (loading || !data) return <Spin />;
 
-  const { chat } = data;
+  let { chat } = data;
 
   return (
     <List
       className="comment-list"
       itemLayout="vertical"
-      dataSource={chat}
-      renderItem={(item: ChatType) => (
+      dataSource={chat ?? []}
+      renderItem={(item) => (
         <List.Item>
           <List.Item.Meta
             avatar={

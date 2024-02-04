@@ -3,6 +3,7 @@ import { CalliopeFormatTypes } from './toolbarUtils';
 import { UserType } from '../User/userTypes';
 import { InlineImageModalProps } from './InlineImageModal/InlineImageModal';
 import { CalliopeContainerType } from 'kalliope';
+import { MentionTypeUser } from '../ModerationPanel/moderationPanelTypes';
 
 interface InsertImageProps {
   src: string;
@@ -33,7 +34,7 @@ export interface MentionType {
 export interface EditorProps {
   initialState: string | undefined;
   containerRef: { current: CalliopeContainerType | null };
-  user: UserType | null;
+  user: UserType | MentionTypeUser | null;
   mentions: MentionType[];
   setMentions: (mentions: MentionType[]) => void;
   isMobile: boolean;

@@ -120,7 +120,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
       document: CHATS_SUBSCRIPTION,
       variables: { user: id ?? -1 },
       updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data && !subscriptionData.data.chatAdded)
+        if (!subscriptionData.data || !subscriptionData.data.chatAdded)
           return prev;
 
         const newChat = subscriptionData.data.chatAdded;

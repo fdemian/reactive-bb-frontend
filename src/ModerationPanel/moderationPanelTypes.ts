@@ -1,5 +1,3 @@
-import { UserType } from '../User/userTypes';
-
 export interface MentionTypeUser {
   __typename?: "User" | undefined;
   id: number;
@@ -25,7 +23,7 @@ export interface FlaggedMessagesProps {
 }
 
 export interface BanUserTypes {
-  user: UserType | null;
+  user: MentionTypeUser | null;
   goBack: () => void;
   setScreenType: (p: any) => void;
   t: TranslationFn;

@@ -3,11 +3,19 @@ interface PostTypeBookmark {
   id: number;
   content: string;
   user: {
-    __typename?: "User" | undefined;
-    id: number;
-    username: string;
-    avatar?: string | null | undefined;
-  };
+      __typename?: "User" | undefined;
+      id: number;
+      username: string;
+      avatar?: string | null| undefined;
+  }
+};
+
+
+export interface BookmarkType {
+  __typename?: "Bookmark" | undefined;
+  id: number;
+  post?: PostTypeBookmark | undefined | null;
+  __ref?: string;
 };
 
 interface RemoveBookmarkFnProps {
@@ -23,13 +31,6 @@ interface RemoveBookmarkFnProps {
       postId: number;
     };
   };
-}
-
-export interface BookmarkType {
-  __typename?: "Bookmark" | undefined;
-  __ref?: string;
-  id: number;
-  post: PostTypeBookmark | null | undefined;
 }
 
 export interface BookmarkListProps {
