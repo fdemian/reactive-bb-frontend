@@ -109,16 +109,3 @@ export interface ReplyDrawerProps {
   mentions: MentionType[];
   setMentions: (p: MentionType[]) => void;
 }
-
-/*
-
-PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            avatar: PropTypes.string,
-            username: PropTypes.string.isRequired,
-            banned: PropTypes.bool.isRequired,
-            banReason: PropTypes.string
-        })
-    ),
-*/
