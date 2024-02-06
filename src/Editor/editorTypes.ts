@@ -4,6 +4,7 @@ import { UserType } from '../User/userTypes';
 import { InlineImageModalProps } from './InlineImageModal/InlineImageModal';
 import { CalliopeContainerType } from 'kalliope';
 import { MentionTypeUser } from '../ModerationPanel/moderationPanelTypes';
+import { UserTypePost } from '../Posts/postTypes';
 
 interface InsertImageProps {
   src: string;
@@ -34,11 +35,12 @@ export interface MentionType {
 export interface EditorProps {
   initialState: string | undefined;
   containerRef: { current: CalliopeContainerType | null };
-  user: UserType | MentionTypeUser | null;
+  user: UserType | MentionTypeUser | UserTypePost | null;
   mentions: MentionType[];
   setMentions: (mentions: MentionType[]) => void;
   isMobile: boolean;
 }
+
 
 export interface FooterProps {
   inlineModalUpdateVisible: boolean;

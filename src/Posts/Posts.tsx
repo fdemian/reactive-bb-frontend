@@ -368,14 +368,10 @@ export const Component = () => {
         topic: topicId,
       },
       optimisticResponse: {
-        addPost: {
-          createPost: {
-            id: 0,
+        createPost: {
             content: jsonContent,
             user: userQuery.data.getUser,
-            __ref: 'Post:0',
           },
-        },
       },
     });
     onClose();

@@ -1,5 +1,5 @@
 import { CategoryType } from '../Topics/topicTypes';
-import { UserType } from '../User/userTypes';
+import { UserTypePost } from './postTypes';
 import format_title_string from '../utils/formats';
 import { format, formatDistance, parseISO } from 'date-fns';
 
@@ -26,7 +26,7 @@ export const clearPostReplyContent = () => {
 
 export const savePostReplyContent = (
   content: string,
-  user: UserType,
+  user: UserTypePost,
   commentLink: string
 ) => {
   localStorage.setItem(REPLYING_POST_CONTENT, content);

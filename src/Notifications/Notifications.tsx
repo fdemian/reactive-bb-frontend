@@ -8,7 +8,6 @@ import { GET_ALL_NOTIFICATIONS } from './Queries';
 import { MARK_NOTIFICATIONS_READ } from '../Navbar/Queries';
 import { getDefaultPageItems } from '../App/utils';
 import { useNavigate } from 'react-router-dom';
-import { UserType  } from '../User/userTypes';
 import './Notifications.css';
 
 const getTranslationKey = (key: string): string => {
@@ -16,14 +15,27 @@ const getTranslationKey = (key: string): string => {
   return 'likedPost';
 };
 
-interface NotificationType {
-  id: number;
-  read: boolean;
-  link: string;
-  type: string;
-  user: UserType;
-  originator: UserType;
-}
+interface NotificationType  {
+    __typename?: "NotificationResponse" | undefined;
+    id: number;
+    link: string;
+    type: string;
+    read: boolean;
+    originator: {
+        __typename?: "User" | undefined;
+        id: number;
+        avatar?: string | null | undefined;
+        username: string;
+    };
+    user: {
+      __typename?: "User" | undefined;
+      id: number;
+      avatar?: string | null | undefined;
+      username: string;
+    };
+};
+
+const getAllNotifications = (allNotifications:NotificationType[] | null | undefined, notification:NotificationType):number[] => allNotifications !== null && allNotifications !== undefined ? allNotifications.filter((n) => n.id !== notification.id).map(n=> n.id) : [];
 
 export const Component = () => {
   const { t } = useTranslation('navbar', { keyPrefix: 'navbar' });
@@ -38,6 +50,9 @@ export const Component = () => {
       cache.modify({
         fields: {
           notifications() {
+            if(data.markNotificationsRead === undefined)
+              return [];
+            
             return data.markNotificationsRead;
           },
         },
@@ -70,7 +85,7 @@ export const Component = () => {
         bordered
         header={<h1>{t('notifications')}</h1>}
         dataSource={allNotifications}
-        renderItem={(notification: NotificationType) => (
+        renderItem={(notification) => (
           <List.Item
             actions={[
               <Typography.Text key="read-indicator" mark>
@@ -87,7 +102,7 @@ export const Component = () => {
                     notifications: [notification.id],
                   },
                   optimisticResponse: {
-                    markAsRead: allNotifications!.filter((n) => n.id !== notification.id),
+                    markNotificationsRead: getAllNotifications(allNotifications, notification)
                   },
                 });
                 navigate(notification.link);

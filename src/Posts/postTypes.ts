@@ -1,4 +1,3 @@
-import { UserType } from '../User/userTypes';
 import { BanStatusReturn } from '../Login/authUtils';
 import { MentionType } from '../Editor/editorTypes';
 import { CalliopeContainerType } from 'kalliope';
@@ -8,22 +7,31 @@ interface CategoryType {
   name: string;
 }
 
+export interface UserTypePost { 
+  __typename?: "User" | undefined; 
+  id: number; 
+  avatar?: string | null | undefined; 
+  username: string; 
+  status?: string | null | undefined; 
+};
+
 interface TopicType {
+  __typename?: "Topic" | undefined;
   id: number;
   name: string;
   views: number;
   replies: number;
   created: Date;
   closed: boolean;
-  tags: string;
-  user: UserType;
-  category: CategoryType;
+  tags?: string | null | undefined;
+  user: UserTypePost;
+  category?: CategoryType | null;
 }
 
 export interface PostToQuote {
   id: number;
   content: string;
-  user: UserType;
+  user: UserTypePost;
 }
 
 export interface LikeType {
@@ -44,8 +52,8 @@ export interface PostType  {
    id: number; content: string; 
    edited: boolean; 
    created: any;
-   user: UserType;
-   likes?: LikeType[];
+   user: UserTypePost;
+   likes?: LikeType[] | null;
    __ref?: string;
 };
 
@@ -66,12 +74,12 @@ export interface TopicRepliesProps {
   setEditablePost: (id: number | null) => void;
   editUserPost: (id: number) => void;
   containerRef: { current: CalliopeContainerType | null };
-  user: UserType | null;
+  user: UserTypePost | null;
   t: (key: string) => string;
 }
 
 export interface PostFooterProps {
-  item: PostType;
+  item: PostType;//
   userId: number;
   topic: TopicType;
   banStatus: BanStatusReturn;
@@ -102,7 +110,7 @@ export interface ReplyDrawerProps {
   createPost: () => void;
   onClose: () => void;
   open: boolean;
-  user: UserType | null;
+  user: UserTypePost | null;
   topic: TopicType;
   containerRef: { current: CalliopeContainerType | null };
   isMobile: boolean;
