@@ -4,7 +4,7 @@ import UserAvatar from '../../../UserAvatar/UserAvatar';
 interface MessageProps {
   message: {
     id: number;
-    avatar: string;
+    avatar: string | null | undefined;
     username: string;
   };
 }

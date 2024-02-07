@@ -97,12 +97,24 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
       updateQuery: (prev, { subscriptionData }) => {
         if (
           !subscriptionData.data ||
-          subscriptionData.data.notificationAdded === null
+          subscriptionData.data.notificationAdded === null || 
+          subscriptionData.data.notificationAdded === undefined || 
+          !prev.notifications
         )
-          return prev;
+        return prev;
+
         const newNotification = subscriptionData.data.notificationAdded;
+
+        if(!newNotification)
+          return prev;
+
+        const _newNotification = {
+          id: 0,
+          ...newNotification
+        };
+
         return {
-          notifications: [...prev.notifications!, newNotification],
+          notifications: [...prev.notifications, _newNotification],
         };
       },
     });
@@ -120,12 +132,12 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
       document: CHATS_SUBSCRIPTION,
       variables: { user: id ?? -1 },
       updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data || !subscriptionData.data.chatAdded)
+        if (!subscriptionData.data || !subscriptionData.data.chatNotification || !prev.chatsByUser)
           return prev;
 
-        const newChat = subscriptionData.data.chatAdded;
+        const newChat = subscriptionData.data.chatNotification;
         return {
-          notifications: [...prev.chatsByUser!, newChat],
+          chatsByUser: [...prev.chatsByUser, newChat.author],
         };
       },
     });

@@ -27,7 +27,7 @@ const MessagesMenu = ({
 
   const { data, loading, error } = messages;
 
-  if (loading) return <Spin />;
+  if (loading || !data) return <Spin />;
 
   if (error) return <p>Error</p>;
 
@@ -37,12 +37,12 @@ const MessagesMenu = ({
         <div>
           <FontAwesomeIcon
             icon={faArrowsRotate}
-            spin={data.chatsByUser.length > 0}
+            spin={data.chatsByUser!.length > 0}
           />
           &nbsp; {t('dismissMessages')}
         </div>
       ),
-      disabled: data.chatsByUser.length === 0,
+      disabled: data.chatsByUser!.length === 0,
       key: 'dismiss-messages',
     },
     {
@@ -59,7 +59,7 @@ const MessagesMenu = ({
     },
   ];
   const messageItems =
-    data.chatsByUser.length === 0
+    data.chatsByUser!.length === 0
       ? [
           {
             label: <Empty description={t('noMessages')} />,
@@ -67,8 +67,8 @@ const MessagesMenu = ({
             disabled: true,
           },
         ]
-      : data.chatsByUser.map((m, index) => ({
-          label: <Message message={m.author} />,
+      : data.chatsByUser!.map((m, index) => ({
+          label: <Message message={{id: m.id, avatar: m.avatar, username: m.username}} />,
           key: 'message-' + index,
           disabled: false,
         }));
@@ -83,7 +83,7 @@ const MessagesMenu = ({
       <span>
         <MessageMenuHeader
           t={t}
-          messages={data.chatsByUser}
+          messages={data.chatsByUser!}
           enabled={enabled}
         />
       </span>

@@ -1,26 +1,32 @@
 import { Badge, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { ChatType } from '../../navbarTypes';
 import './Messages.css';
+
+interface MessageType {
+  __typename?: "User" | undefined;
+  id: number;
+  avatar?: string | null | undefined;
+  username: string;
+};
 
 interface MessagesHeaderProps {
   t: (key: string) => string;
-  messages: ChatType[];
+  messages: MessageType[];
   enabled: boolean;
 }
 
+
 const bellIconStyle = { marginTop: '23px' };
+
 
 const MessagesHeader = ({ t, messages, enabled }: MessagesHeaderProps) => {
   if (enabled) {
     return (
       <span className="message-icon-header header-enabled">
         <Badge
-          count={
-            messages.filter((n: ChatType) => n.read !== undefined && !n.read)
-              .length
-          }
+         // TODO: messages.filter((n) => n !== undefined && !n.read).length . Messages read props.
+          count={messages.length}
           offset={[0, 9]}
           size="small"
         >

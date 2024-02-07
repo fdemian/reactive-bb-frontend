@@ -1,9 +1,7 @@
 interface ChatType {
-  author: {
     id: number;
-    avatar: string;
+    avatar?: string | null | undefined;
     username: string;
-  };
 }
 
 interface ChatMobileProps {
@@ -12,7 +10,7 @@ interface ChatMobileProps {
 }
 
 const ChatMobile = ({ t, chat }: ChatMobileProps) => {
-  return <div>{`${t('chatWith')} ${chat.author.username}`}</div>;
+  return <div>{`${t('chatWith')} ${chat.username}`}</div>;
 };
 
 export default ChatMobile;

@@ -32,7 +32,7 @@ const NavbarLogged = (props: NavbarLoggedProps) => {
         role="button"
       >
         <Notifications
-          notifications={notifications}
+          notifications={notifications!}
           newSubscription={newSubscription}
           markAsRead={markAsRead}
           enabled={true}
@@ -47,7 +47,7 @@ const NavbarLogged = (props: NavbarLoggedProps) => {
         >
           <Messages
             chatSubscription={chatSubscription}
-            messages={chats}
+            messages={chats!}
             enabled={true}
             t={t}
           />

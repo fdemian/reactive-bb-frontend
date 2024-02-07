@@ -49,20 +49,85 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
   };
 
   const dismissNotifications = () => {
+    if(notifications === null || notifications === undefined)
+      return;
+
     const notificationIds = notifications.map((n) => n.id);
     markAsRead({
       variables: {
         notifications: notificationIds,
       },
       optimisticResponse: {
-        markAsRead: [],
+        markNotificationsRead: [],
       },
     });
   };
 
-  if (!user || !chats.data) return <Spin />;
+  if (!user || !chats?.data) return <Spin />;
 
-  const chatsDisabled = chats.data && chats.data.chatsByUser.length === 0;
+  const chatsDisabled = chats.data && chats.data.chatsByUser?.length === 0;
+
+  
+  const notificationsItem = getItem(
+    <>
+      <strong>
+        {t(
+          notificationsEnabled ? 'notifications' : 'notificationsDisabled'
+        )}
+      </strong>
+      &nbsp;
+      <Badge
+        offset={[10, -3]}
+        className="notifications-count-badge"
+        count={notifications!.length}
+      />
+    </>,
+    'notifications',
+    <FontAwesomeIcon
+      icon={notificationsEnabled ? faBell : faBellSlash}
+      size="lg"
+      color={notifications!.length > 0 ? '1890ff' : 'gainsboro'}
+    />,
+    notifications!
+      .map((notification) =>
+        getItem(
+          <NotificationMobile
+            t={t}
+            markAsRead={markAsRead}
+            notification={notification}
+            notifications={notifications!}
+          />,
+          `notification-${notification.id}`,
+          <AccountAvatar
+            avatar={notification.user.avatar}
+            username={notification.user.username}
+            size={20}
+            shape="square"
+          />
+        )
+      )
+      .concat(
+        getItem(
+          <span
+            className="notification-title"
+            onClick={dismissNotifications}
+          >
+            &nbsp; {t('markAllNotificationsRead')}
+          </span>,
+          'dismiss-notifications',
+          <FontAwesomeIcon
+            icon={faArrowsRotate}
+            size="lg"
+            color={notifications && notifications.length > 0 ? 'black' : 'gainsboro'}
+            spin={notifications !== null && notifications !== undefined && notifications.length > 9}
+          />,
+          undefined,
+          notifications===undefined || notifications===null || notifications.length === 0
+        )
+      ),
+      notifications===undefined || notifications===null || notifications.length === 0
+  );
+
 
   const items = user
     ? [
@@ -112,71 +177,13 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
             ),
           ]
         ),
-        getItem(
-          <>
-            <strong>
-              {t(
-                notificationsEnabled ? 'notifications' : 'notificationsDisabled'
-              )}
-            </strong>
-            &nbsp;
-            <Badge
-              offset={[10, -3]}
-              className="notifications-count-badge"
-              count={notifications.length}
-            />
-          </>,
-          'notifications',
-          <FontAwesomeIcon
-            icon={notificationsEnabled ? faBell : faBellSlash}
-            size="lg"
-            color={notifications.length > 0 ? '1890ff' : 'gainsboro'}
-          />,
-          notifications
-            .map((notification) =>
-              getItem(
-                <NotificationMobile
-                  t={t}
-                  markAsRead={markAsRead}
-                  notification={notification}
-                  notifications={notifications}
-                />,
-                `notification-${notification.id}`,
-                <AccountAvatar
-                  avatar={notification.user.avatar}
-                  username={notification.user.username}
-                  size={20}
-                  shape="square"
-                />
-              )
-            )
-            .concat(
-              getItem(
-                <span
-                  className="notification-title"
-                  onClick={dismissNotifications}
-                >
-                  &nbsp; {t('markAllNotificationsRead')}
-                </span>,
-                'dismiss-notifications',
-                <FontAwesomeIcon
-                  icon={faArrowsRotate}
-                  size="lg"
-                  color={notifications.length > 0 ? 'black' : 'gainsboro'}
-                  spin={notifications.length > 9}
-                />,
-                undefined,
-                notifications.length === 0
-              )
-            ),
-          notifications.length === 0
-        ),
+        notifications !== null && notifications !== undefined ? notificationsItem : null,
         getItem(
           <>
             <strong>{t('chats')}</strong>
             <Badge
               count={
-                chatsDisabled || !chats.data ? 0 : chats.data.chatsByUser.length
+                chatsDisabled || !chats.data ? 0 : chats.data.chatsByUser?.length
               }
             />
           </>,
@@ -186,13 +193,13 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
             size="lg"
             color={chatsDisabled ? 'gainsboro' : '1890ff'}
           />,
-          chats.data.chatsByUser.map((chat) =>
+          chats.data.chatsByUser!.map((chat) =>
             getItem(
               <ChatMobile t={t} chat={chat} />,
-              `chat-${chat.author.id}`,
+              `chat-${chat.id}`,
               <AccountAvatar
-                avatar={chat.author.avatar}
-                username={chat.author.username}
+                avatar={chat.avatar}
+                username={chat.username}
                 size={20}
                 shape="square"
               />
@@ -216,7 +223,7 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
           t={t}
           openDrawer={openDrawer}
           isLoggedIn={true}
-          showBadge={notifications.length > 0}
+          showBadge={notifications !== undefined && notifications !== null && notifications.length > 0}
           user={user}
         />
       </span>

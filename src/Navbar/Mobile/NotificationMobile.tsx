@@ -1,25 +1,16 @@
 import { Badge } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { NotificationType } from '../navbarTypes';
+import { NotificationType, MarkNotificationsMutation } from '../navbarTypes';
 import '../Navbar.css';
 
-const translationKeys = {
-  mention: 'mentionUser',
-  like: 'likedPost',
+const getTranslationKey = (key: string): string => {
+  if (key === 'mention') return 'mentionUser';
+  return 'likedPost';
 };
-
-interface MarkReadParams {
-  variables: {
-    notifications: number[];
-  };
-  optimisticResponse: {
-    markAsRead: NotificationType[];
-  };
-}
 
 interface NotificationParams {
   t: (key: string) => string;
-  markAsRead: (p: MarkReadParams) => void;
+  markAsRead: MarkNotificationsMutation;
   notification: NotificationType;
   notifications: NotificationType[];
 }
@@ -37,7 +28,7 @@ const NotificationMobile = (props: NotificationParams) => {
         notifications: [notification.id],
       },
       optimisticResponse: {
-        markAsRead: notifications.filter((n) => n.id !== notification.id),
+        markNotificationsRead: notifications.filter((n) => n.id !== notification.id).map(n => n.id),
       },
     });
     navigate(notification.link);
@@ -48,7 +39,7 @@ const NotificationMobile = (props: NotificationParams) => {
       className="notification-title"
       onClick={() => { markNotificationAsRead(notification, notifications); }}
     >
-      {`${notification.user.username} ${t(translationKeys[notification.type])}`}
+      {`${notification.user.username} ${t(getTranslationKey(notification.type))}`}
       <Badge status="processing" className="new-notification-icon" />
     </span>
   );

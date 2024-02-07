@@ -1,25 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { NotificationType } from '../../navbarTypes';
+import { NotificationType, MarkNotificationsMutation } from '../../navbarTypes';
 import UserAvatar from '../../../UserAvatar/UserAvatar';
 
-const translationKeys = {
-  mention: 'mentionUser',
-  like: 'likedPost',
+const getTranslationKey = (key: string): string => {
+  if (key === 'mention') return 'mentionUser';
+  return 'likedPost';
 };
-
-interface MarkReadParams {
-  variables: {
-    notifications: number[];
-  };
-  optimisticResponse: {
-    markAsRead: NotificationType[];
-  };
-}
 
 interface NotificationProps {
   notification: NotificationType;
   notifications: NotificationType[];
-  markAsRead: (p: MarkReadParams) => void;
+  markAsRead: MarkNotificationsMutation;
   t: (key: string) => string;
 }
 
@@ -39,7 +30,7 @@ const Notification = ({
             notifications: [notification.id],
           },
           optimisticResponse: {
-            markAsRead: notifications.filter((n) => n.id !== notification.id),
+            markNotificationsRead: notifications.filter((n) => n.id !== notification.id).map(n => n.id),
           },
         });
         navigate(notification.link);
@@ -54,7 +45,7 @@ const Notification = ({
       &nbsp; &nbsp;
       <strong>{notification.originator.username}</strong>
       &nbsp;
-      {t(translationKeys[notification.type])}
+      {t(getTranslationKey(notification.type))}
     </div>
   );
 };
