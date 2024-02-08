@@ -48,7 +48,9 @@ export const Component = () => {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [categoriesDrawer, setCategoriesDrawer] = useState<boolean>(false);
-  const toggleCategoriesDrawer = () => { setCategoriesDrawer(!categoriesDrawer); };
+  const toggleCategoriesDrawer = () => {
+    setCategoriesDrawer(!categoriesDrawer);
+  };
   const selectCategoriesMobile = (name: string) => {
     setCategoryFilter(name);
     toggleCategoriesDrawer();
@@ -69,10 +71,17 @@ export const Component = () => {
 
   if (error) return <p>Error</p>;
 
-  if (loading || categoriesQuery.loading || pinnedTopicsQuery.loading || !data)
+  if (
+    loading ||
+    categoriesQuery.loading ||
+    pinnedTopicsQuery.loading ||
+    !data ||
+    !categoriesQuery.data ||
+    !pinnedTopicsQuery.data
+  )
     return <Loading />;
 
-  const defaultCategory:DefaultCategoryType = {    
+  const defaultCategory: DefaultCategoryType = {
     __typename: 'Category',
     id: -1,
     name: 'Uncategorized',
@@ -81,20 +90,26 @@ export const Component = () => {
 
   const { topics, topicsCount } = data.topics;
 
-  if(topics === null || topics === undefined)
+  if (topics === null || topics === undefined)
     return <p>Error (no topics found)</p>;
-  
-  const { pinnedTopics } = pinnedTopicsQuery.data!;
-  let { categories } = categoriesQuery.data!;
 
-  if(!categories)
-    categories = [];
+  const { pinnedTopics } = pinnedTopicsQuery.data;
+  let { categories } = categoriesQuery.data;
+
+  if (categories === null || categories === undefined) categories = [];
 
   const categoriesData = [defaultCategory].concat(categories);
   const filteredTopics = getFilteredTopics(topics, categoryFilter);
+
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+  /* eslint-disable @typescript-eslint/no-unsafe-member-access */
   const isLoggedIn = loginQuery.data?.loggedIn;
 
-  if (!pinnedTopics || (topics.length === 0 && pinnedTopics.length === 0)) {
+  if (
+    pinnedTopics === undefined ||
+    pinnedTopics === null ||
+    (topics.length === 0 && pinnedTopics.length === 0)
+  ) {
     return (
       <Suspense fallback={<Spin />}>
         <NoTopics t={t} />
@@ -137,7 +152,7 @@ export const Component = () => {
           isMobile ? null : <p className="topics-header-title">{t('topics')}</p>
         }
         style={{ marginTop: 24 }}
-        bodyStyle={{ padding: '0 32px 40px 32px' }}
+        styles={{ body: { padding: '0 32px 40px 32px' } }}
         extra={
           <Suspense fallback={<Spin />}>
             <TopicsHeader

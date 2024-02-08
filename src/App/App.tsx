@@ -5,7 +5,7 @@ import { ConfigProvider, Layout, Card, Spin, Affix } from 'antd';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 import { GET_CONFIG } from './Queries';
-import { GET_IS_LOGGED_IN } from '../Login/queries';
+import { GET_IS_LOGGED_IN } from '../Login/queries.ts';
 import {
   setIsMobile,
   setDefaultPageItems,
@@ -29,12 +29,17 @@ const App = () => {
   const { i18n, ready } = useTranslation('', { useSuspense: false });
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
-  const isLoggedIn = loginQuery.data?.loggedIn;
+
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+  /* eslint-disable @typescript-eslint/no-unsafe-argument */
+  /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+  const isLoggedIn: boolean = loginQuery.data?.loggedIn;
 
   const banStatus = getBanStatus();
   const { banned } = banStatus;
-  const { config, oauth } =
-    data?.config ? data.config : { config: {}, oauth: {} };
+  const { config, oauth } = data?.config
+    ? data.config
+    : { config: {}, oauth: {} };
   const {
     description,
     name,
@@ -90,7 +95,7 @@ const App = () => {
                 <header role="banner">
                   <Navbar
                     isLoading={loading}
-                    isError={error !== null && error !== undefined}
+                    isError={error !== undefined}
                     mobile={isMobile}
                     name={name}
                     logoURL={logoURL}
@@ -102,7 +107,7 @@ const App = () => {
               ) : (
                 <div data-testid="content-container">
                   <Card bordered={false}>
-                    {isLoggedIn && banStatus && banned && (
+                    {isLoggedIn && banned && (
                       <Suspense fallback={<Spin />}>
                         <BanStatusBanner />
                       </Suspense>

@@ -18,6 +18,13 @@ import { getIsMobile } from '../App/utils.js';
 import { getQuoteStateFromProps } from './utils';
 import './Composer.css';
 import { CategoryType } from '../Topics/topicTypes.js';
+import { CalliopeContainerType } from 'kalliope';
+
+interface EventType {
+  target: {
+    value: string;
+  };
+}
 
 const defaultCategory = {
   id: -1,
@@ -36,7 +43,7 @@ export const Component = () => {
   const mobile = getIsMobile();
   const [createTopic, { loading, error, data }] = useMutation(CREATE_POST);
   const categoriesQuery = useQuery(GET_CATEGORIES);
-  const editorContainer = useRef(null);
+  const editorContainer = useRef<CalliopeContainerType>(null);
 
   //
   const [title, setTitle] = useState<string | null>(null);
@@ -45,26 +52,29 @@ export const Component = () => {
 
   const postStoryFn = () => {
     const id = getUserId();
-    const editor: any = editorContainer.current;
-    const _content = editor.getContent();
+    const editor = editorContainer.current;
+    const _content = editor?.getContent();
 
-    if(!title || !id)
-      return;
+    console.clear();
+    console.log(category);
+
+    if (!title || !id) return;
 
     const queryOpts = {
       variables: {
         name: title,
         content: JSON.stringify(_content),
         user: id,
-        category: category.id,
+        /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+        category: category.id !== -1 ? category.id : null,
         tags: tags ? tags.join(',') : '',
-      }
+      },
     };
     createTopic(queryOpts);
   };
 
   const clearEditorContent = () => {
-    const editor: any = editorContainer.current;
+    const editor = editorContainer.current;
     if (editor) {
       editor.clear();
     }
@@ -87,10 +97,15 @@ export const Component = () => {
     postStoryFn();
   };
 
-  const updateTitleFn = (evt: any) => { setTitle(evt.target.value); };
-  const updateTags = (tags: string[]) => { setTags(tags); };
+  const updateTitleFn = (evt: EventType) => {
+    setTitle(evt.target.value);
+  };
+  const updateTags = (tags: string[]) => {
+    setTags(tags);
+  };
 
-  if (loading || categoriesQuery.loading || !categoriesQuery.data) return <Loading />;
+  if (loading || categoriesQuery.loading || !categoriesQuery.data)
+    return <Loading />;
 
   if (data?.createTopic?.ok && title !== null) {
     return (
@@ -102,15 +117,18 @@ export const Component = () => {
 
   const mobileClass = mobile ? 'Mobile' : 'Desktop';
   const isDraft = !editing; //(!editing || story.isDraft === true);
-  const postStoryAdDraft = () => { postStoryContent(/*true*/); };
-  const postContentFn = () => { postStoryContent(/*false*/); };
+  const postStoryAdDraft = () => {
+    postStoryContent(/*true*/);
+  };
+  const postContentFn = () => {
+    postStoryContent(/*false*/);
+  };
 
   if (error || categoriesQuery.error) return <p>Error :(</p>;
 
   let { categories } = categoriesQuery.data;
 
-  if(!categories)
-    categories = [];
+  if (!categories) categories = [];
 
   const categoriesData = [defaultCategory].concat(categories);
 
@@ -137,7 +155,9 @@ export const Component = () => {
               placeholder={t('titlePlaceholder')}
               className="TitleInput"
               defaultValue={title === null ? '' : title}
-              onChange={(value) => { updateTitleFn(value); }}
+              onChange={(value) => {
+                updateTitleFn(value);
+              }}
               aria-label="Title Input"
             />
           </span>
@@ -157,7 +177,9 @@ export const Component = () => {
             containerRef={editorContainer}
             user={null}
             mentions={[]}
-            setMentions={(m) => { console.log(m); }}
+            setMentions={(m) => {
+              console.log(m);
+            }}
             isMobile={mobile}
           />
         </div>

@@ -38,7 +38,11 @@ const CategoriesDropdown = ({
   updateCategoryFn,
   categories,
 }: CategoriesDropdownProps) => {
-  const handleChange = (value: CategoryType) => { updateCategoryFn(value); };
+  const handleChange = (value: CategoryType) => {
+    console.clear();
+    console.log(value);
+    updateCategoryFn(value);
+  };
 
   return (
     <Select
