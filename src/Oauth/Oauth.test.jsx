@@ -44,7 +44,7 @@ test('Oauth > User authenticated correctly', async () => {
 
   // If the user has correctly logged in, it should redirect to the home URL.
   await waitFor(() => {
-    expect(mockedUsedNavigate).toHaveBeenCalledWith(-2);
+    expect(mockedUsedNavigate).toHaveBeenCalledWith("/autherror/testservice");
   });
 });
 
