@@ -19,6 +19,14 @@ export const mockUser = {
   avatar: null,
   username: 'rulo',
   status: 'By demons driven!',
+  type: 'U',
+  banned: false,
+  banReason: null,
+  fullname: '',
+  email: 'user@emai.com',
+  avatar: 'avatar.png',
+  about: '',
+  banExpires: null,
 };
 
 export const mockUser2 = {
@@ -26,6 +34,13 @@ export const mockUser2 = {
   avatar: 'avatar.png',
   username: 'user',
   status: '',
+  type: 'U',
+  banned: false,
+  banReason: null,
+  fullname: '',
+  email: 'user@emai.com',
+  about: '',
+  banExpires: null,
 };
 
 export const mockCategory = {

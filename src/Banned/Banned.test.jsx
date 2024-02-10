@@ -1,3 +1,4 @@
+import React from 'react';
 import { expect, test, vi } from 'vitest';
 import { render, screen } from '../TestHelpers/testing-utils';
 const date = new Date();

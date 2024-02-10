@@ -54,9 +54,16 @@ const App = () => {
   if (items_per_page) {
     setDefaultPageItems(items_per_page);
   }
-  setConfig(config);
+
+  if (config) {
+    setConfig(config);
+  }
+
   setIsMobile(isMobile);
-  setOauthConfig(oauth);
+
+  if (oauth) {
+    setOauthConfig(oauth);
+  }
 
   const { language } = i18n;
 
@@ -82,13 +89,13 @@ const App = () => {
         <Helmet>
           <link
             rel="icon"
-            type={faviconType}
-            href={faviconURL}
+            type={faviconType ?? ''}
+            href={faviconURL ?? ''}
             data-rh="true"
           />
           <meta name="content-type" content="text/html; charset=UTF-8" />
-          <meta name="description" content={description} />
-          <title>{name}</title>
+          <meta name="description" content={description ?? ''} />
+          <title>{name ?? ''}</title>
         </Helmet>
 
         <main role="main">

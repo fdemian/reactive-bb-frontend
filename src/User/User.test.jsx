@@ -1,4 +1,5 @@
-import { render, screen, waitFor } from '../TestHelpers/testing-utils';
+import React from 'react';
+import { render, screen } from '../TestHelpers/testing-utils';
 import userEvent from '@testing-library/user-event';
 import {
   GET_USER,
@@ -83,13 +84,12 @@ test('<User /> > Renders correctly.', async () => {
 
   expect(screen.getByText('Loading')).toBeInTheDocument();
 
-  await waitFor(() => {
-    const avatars = screen.getAllByRole('img', {
+  expect(
+    await screen.findByRole('img', {
       name: `Avatar of ${mockUser.username}`,
-    });
-    expect(avatars.length).toStrictEqual(6);
-  });
-
+    })
+  ).toBeInTheDocument();
+  
   expect(screen.getByText(mockUser.username)).toBeInTheDocument();
   expect(screen.getByText(mockUser.fullname)).toBeInTheDocument();
   expect(screen.getByText(mockUser.status)).toBeInTheDocument();

@@ -1,3 +1,4 @@
+import React from 'react';
 import Loading from './LoadingIndicator';
 import { render, screen } from '../TestHelpers/testing-utils-standalone';
 import { test, expect } from 'vitest';

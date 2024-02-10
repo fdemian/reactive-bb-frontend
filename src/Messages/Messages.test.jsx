@@ -1,3 +1,4 @@
+import React from 'react';
 import CreateMessage from './CreateMessage';
 import { GET_ALL_CHATS, GET_CHAT, CHATS_SUBSCRIPTION } from './Queries';
 import { GET_MENTION_USERS } from '../Editor/Queries';
@@ -7,6 +8,8 @@ import { render, screen } from '../TestHelpers/testing-utils';
 import { render as renderSTL } from '../TestHelpers/testing-utils-standalone';
 import { vi, test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
+
 
 vi.mock('../Login/authUtils', async () => {
   const actual = await vi.importActual('../Login/authUtils');
@@ -30,6 +33,13 @@ const user1 = {
   type: 'U',
   banned: false,
   banReason: null,
+  fullname: "",
+  email: "user@emai.com",
+  avatar: 'avatar.png',
+  status: "",
+  about: "", 
+  banExpires: null,
+  type: 'U',
 };
 
 const user2 = {
@@ -39,24 +49,32 @@ const user2 = {
   type: 'U',
   banned: false,
   banReason: null,
+  fullname: "",
+  email: "user@emai.com",
+  avatar: 'avatar.png',
+  status: "",
+  about: "", 
+  banExpires: null,
+  type: 'U',
 };
 
 const chat = {
   author: user1,
   recipient: user2,
   content: {},
-  date: '2022-09-18T13:49:12.767267',
+  date: new Date('2022-09-18T13:49:12.767267'),
 };
 
 const chat2 = {
   author: user1,
   recipient: user2,
   content: {},
-  date: '2022-10-18T13:49:12.767267',
+  date: new Date('2022-10-18T13:49:12.767267'),
 };
 
 vi.mock('kalliope', () => {
   return {
+    getCodeLanguageOptions: () => [],
     default: ({ containerRef }) => {
       /* eslint-disable */
       const react = require('react');
@@ -77,37 +95,28 @@ vi.mock('kalliope', () => {
   };
 });
 
+
+const getChatsRequest = {
+  request: {
+    query: GET_ALL_CHATS,
+    variables: {
+      user: 1,
+    },
+  },
+  result: {
+    loading: false,
+    error: false,
+    data: {
+      chatsByUser: [],
+    },
+  },
+};
+
 const noMessageMocks = [
-  {
-    request: {
-      query: GET_ALL_CHATS,
-      variables: {
-        user: 1,
-      },
-    },
-    result: {
-      loading: false,
-      error: false,
-      data: {
-        chatsByUser: [],
-      },
-    },
-  },
-  {
-    request: {
-      query: GET_USER,
-      variables: {
-        id: 1,
-      },
-    },
-    result: {
-      loading: false,
-      error: false,
-      data: {
-        getUser: user1,
-      },
-    },
-  },
+  getChatsRequest,
+  getChatsRequest,
+  getChatsRequest,
+  getChatsRequest,
   {
     request: {
       query: GET_CHAT,
@@ -278,13 +287,15 @@ test('<Messages /> > No messages.', async () => {
 
 // Test rendering when there are messages.
 test('Messages editor > Render', async () => {
-  const user = userEvent.setup();
+  //const user = userEvent.setup();
 
-  render({
-    isMobile: false,
-    isLoggedIn: true,
-    mocks: messagesMock,
-    initialEntries: ['/messages?user=1'],
+  act(() => {
+    render({
+      isMobile: false,
+      isLoggedIn: true,
+      mocks: messagesMock,
+      initialEntries: ['/messages?user=1'],
+    });
   });
 
   expect(screen.getByText('Loading')).toBeInTheDocument();
@@ -311,14 +322,20 @@ test('Messages editor > Render', async () => {
 
 // Test interaction when there are messages.
 test('<Messages /> > Messages editor > Interaction', async () => {
-  render({
-    isMobile: false,
-    isLoggedIn: true,
-    mocks: messagesMock,
-    initialEntries: ['/messages'],
+
+  act(() => {
+    render({
+      isMobile: false,
+      isLoggedIn: true,
+      mocks: messagesMock,
+      initialEntries: ['/messages'],
+    });
   });
 
   expect(screen.getByText('Loading')).toBeInTheDocument();
+
+  screen.debug(undefined, 300000000000);
+
   expect(await screen.findByText('chats.title')).toBeInTheDocument();
 
   expect(screen.getByText('chats.clear')).toBeInTheDocument();

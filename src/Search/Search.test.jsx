@@ -1,3 +1,4 @@
+import React from 'react';
 import { SEARCH_TERM } from './Queries';
 import { render, screen, waitFor } from '../TestHelpers/testing-utils';
 import { vi, test, expect } from 'vitest';

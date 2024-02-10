@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, waitFor } from '../TestHelpers/testing-utils';
 import { loggedInMocks, mockTopic, mockPosts } from './testData';
 import { expect, test, vi } from 'vitest';
@@ -85,9 +86,7 @@ test('<Posts /> > Logged in > Test render (MOBILE)', async () => {
     await screen.findByText('Post 1', { exact: false })
   ).toBeInTheDocument();
   expect(screen.getByText('Post 2', { exact: false })).toBeInTheDocument();
-
-  screen.debug(undefined, 300000000);
-
+  
   // Post footer icons.
   const postQuoteBtn = await screen.findAllByRole('button', {
     name: 'posts.footer.quote',

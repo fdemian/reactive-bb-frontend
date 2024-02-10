@@ -7,6 +7,9 @@ export const mockUser = {
   status: 'A status',
   about: 'A bout',
   banned: false,
+  banReason: null,
+  banExpires: null,
+  type: 'U',
 };
 
 export const mockTopics = [

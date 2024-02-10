@@ -1,8 +1,8 @@
+import React from 'react';
 import { GET_BOOKMARKS_BY_USER } from './Queries';
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import { render, screen } from '../TestHelpers/testing-utils';
-//import { getUserId } from '../Login/authUtils';
 import { mockBookmarks } from './testData';
 import { vi, test, expect } from 'vitest';
 

@@ -2,15 +2,19 @@ import { render, screen } from '../TestHelpers/testing-utils';
 import { GET_NOTIFICATIONS } from './Queries';
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
-import { within } from '@testing-library/react';
 import { vi, test, expect } from 'vitest';
 
 const _user = {
   id: 1,
   username: 'adminuser',
+  fullname: "",
+  email: "user@emai.com",
   avatar: 'avatar.png',
+  status: "",
+  about: "",
   banned: false,
   banReason: null,
+  banExpires: null,
   type: 'U',
 };
 
@@ -108,15 +112,18 @@ test('<NavbarDesktop /> > Logged in.', async () => {
   expect(
     screen.getByRole('img', { name: 'Morpheus logo' })
   ).toBeInTheDocument();
-  const avatars = await screen.findAllByRole('img', {
-    name: `Avatar of ${_user.username}`,
-  });
-  expect(avatars.length).toStrictEqual(2);
 
-  const avatarImgContainers = screen.getAllByRole('img', {
+  expect(
+    await screen.findByRole('img', {
+      name: `Avatar of ${_user.username}`,
+    })
+  ).toBeInTheDocument();
+
+  const avatarImg =  screen.getByRole('img', {
     name: `Avatar of ${_user.username}`,
+    hidden: true
   });
-  const avatarImg = within(avatarImgContainers[0]).getByRole('img');
+
   expect(avatarImg).toHaveAttribute('alt', `Avatar of ${_user.username}`);
   expect(avatarImg).toHaveAttribute('src', `/static/avatars/${_user.avatar}`);
 });

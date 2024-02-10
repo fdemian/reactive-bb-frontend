@@ -1,3 +1,4 @@
+import React from 'react';
 import Editor from './Editor';
 import { UPLOAD_IMAGE } from './Queries';
 import { render, screen } from '../TestHelpers/testing-utils-standalone';

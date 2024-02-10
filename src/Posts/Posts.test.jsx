@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, waitFor } from '../TestHelpers/testing-utils';
 import userEvent from '@testing-library/user-event';
 import { loggedInMocks, mockPosts, mockTopic } from './testData';

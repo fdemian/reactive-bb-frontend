@@ -25,7 +25,6 @@ const routes = [
         path: 'register',
         lazy: () => import('../Register/Register'),
       },
-
       {
         path: 'registersuccess/:id',
         lazy: () => import('../Register/RegisterSuccess'),
