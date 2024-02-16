@@ -12,6 +12,10 @@ import './ProfileView.css';
 
 const FormItem = Form.Item;
 
+interface TargetValue {
+  target: { value: string };
+}
+
 const UserProfile = () => {
   const { t } = useTranslation('accountSettings', {
     keyPrefix: 'settings.profile',
@@ -37,7 +41,7 @@ const UserProfile = () => {
 
   const { username, avatar, status, about } = data.getUser;
 
-  if (status !== null && about !== null) {
+  if (status !== null && about !== null && avatar !== null) {
     if (modalProps.avatar === '') {
       setModalProps({
         avatar: avatar ?? "",
@@ -60,18 +64,18 @@ const UserProfile = () => {
     });
   };
 
-  const setStatus = (e: any) =>
+  const setStatus = (e: TargetValue) =>
     { setModalProps({
       ...modalProps,
       status: e.target.value,
     }); };
 
-  const setAbout = (e: any) =>
+  const setAbout = (e: TargetValue) =>
     { setModalProps({
       ...modalProps,
       about: e.target.value,
     }); };
-
+  
   return (
     <>
       <Helmet>
