@@ -98,9 +98,9 @@ const App = () => {
           <title>{name ?? ''}</title>
         </Helmet>
 
-        <main role="main">
+        <main role="main" data-testid="app-layout">
           <Suspense fallback={<Spin />}>
-            <Layout data-testid="app-layout">
+            <Layout>
               <Affix offsetTop={0}>
                 <header role="banner">
                   <Navbar

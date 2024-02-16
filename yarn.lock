@@ -8213,7 +8213,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router@npm:6.22.0":
+"react-router@npm:6.22.0, react-router@npm:^6.22.0":
   version: 6.22.0
   resolution: "react-router@npm:6.22.0"
   dependencies:
@@ -8290,6 +8290,7 @@ __metadata:
     react-helmet-async: ^2.0.4
     react-i18next: ^14.0.5
     react-responsive: ^9.0.2
+    react-router: ^6.22.0
     react-router-dom: ^6.22.0
     typescript: ^5.3.3
     vite: ^5.1.3

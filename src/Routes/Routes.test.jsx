@@ -1,16 +1,6 @@
 import { render, screen } from '../TestHelpers/testing-utils';
 import { vi, test, expect, afterEach, beforeEach } from 'vitest';
 
-beforeEach(() => {
-  vi.clearAllMocks();
-  vi.resetAllMocks();
-});
-
-afterEach(() => {
-  vi.clearAllMocks();
-  vi.resetAllMocks();
-});
-
 test('Routes > <NoMatchRoute />', async () => {
   render({
     mocks: [],
@@ -20,9 +10,13 @@ test('Routes > <NoMatchRoute />', async () => {
   });
 
   expect(
-    await screen.findByText('nomatch.pageDoesNotExist')
+    await screen.findByText('nomatch.home')
   ).toBeInTheDocument();
-  expect(screen.getByText('nomatch.home')).toBeInTheDocument();
+  
+  expect(
+    screen.getByText('nomatch.pageDoesNotExist')
+  ).toBeInTheDocument();
+
 });
 
 test('Routes > <PrivateRoute /> > Logged in > Private route. Renders private route.', async () => {
