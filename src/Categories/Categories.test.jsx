@@ -161,6 +161,9 @@ test('<Categories /> > New category > Create category.', async () => {
 
   await _user.click(screen.getByText('categories.create'));
   expect(await screen.findByText(newCategory.name)).toBeInTheDocument();
+
+  
+
   expect(screen.getByText(newCategory.description)).toBeInTheDocument();
 });
 

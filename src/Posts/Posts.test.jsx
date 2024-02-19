@@ -119,7 +119,7 @@ test('<Posts /> > Logged in > Test interaction.', async () => {
   // Like and remove like.
   await user.click(screen.getAllByTestId('like-icon')[0]);
   expect(screen.getByText(`1 posts.footer.likes`)).toBeInTheDocument();
-  await user.click(screen.getAllByTestId('like-badge')[0]);
+  await user.click(screen.getAllByTestId('like-icon')[0]);
   expect(screen.queryByText(`1 posts.footer.likes`)).not.toBeInTheDocument();
 
   await user.hover(screen.getAllByTestId('bookmark-icon')[0]);
