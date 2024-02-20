@@ -21,12 +21,14 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
   const [form] = Form.useForm();
   const [createCategory] = useMutation(CREATE_CATEGORY, {
     update(cache, { data }) {
-      if(!data || !data.createCategory)
-        return;
+      if (!data?.createCategory) return;
       cache.modify({
         fields: {
+          /* eslint-disable @typescript-eslint/no-unsafe-return */
+          /* eslint-disable @typescript-eslint/no-unsafe-call */
+          /* eslint-disable @typescript-eslint/no-unsafe-member-access */
           categories(existingCategories = []) {
-            return existingCategories.concat(createCategory);
+            return existingCategories.concat(data.createCategory);
           },
         },
       });
@@ -35,9 +37,7 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
 
   // Finished checking login values.
   const onFinish = (values: ValuesType) => {
-    form.resetFields();
     setIsEditing(false);
-
     // Submit form
     const { name, description } = values;
 
@@ -54,6 +54,7 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
         },
       },
     });
+    form.resetFields();
   };
 
   const clearForm = () => {
@@ -67,7 +68,10 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
   if (!editing)
     return (
       <Button
-        onClick={() => { setIsEditing(true); }}
+        role="button"
+        onClick={() => {
+          setIsEditing(true);
+        }}
         type="primary"
         className="new-category-button"
         aria-label={t('newCategory')}
@@ -86,7 +90,9 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
         role="form"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={() => { console.log('FAILED!'); }}
+        onFinishFailed={() => {
+          console.log('FAILED!');
+        }}
       >
         <Form.Item
           label={t('name')}
@@ -137,7 +143,7 @@ const NewCategoryForm = ({ isLoggedIn, t }: NewCategoryFormProps) => {
             &nbsp;
             <FontAwesomeIcon icon={faClose} />
           </Button>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" aria-label={t('create')}>
             {t('create')}
             &nbsp;
             <FontAwesomeIcon icon={faCheck} />

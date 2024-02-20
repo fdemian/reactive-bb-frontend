@@ -43,7 +43,7 @@ const ModerationLog = ({ t }: ModerationLogProps) => {
     window.scroll(0, 0);
   };
 
-  if (loading || !data || !data.postEdits) return <p>Loading</p>;
+  if (loading || !data?.postEdits) return <p>Loading</p>;
 
   const { editsCount, postEdits } = data.postEdits;
 
@@ -59,19 +59,26 @@ const ModerationLog = ({ t }: ModerationLogProps) => {
           <Collapse
             bordered={false}
             expandIcon={() => (
-              <UserAvatar
-                avatar={postEdit.user.avatar}
-                username={postEdit.user.username}
-                size="large"
-                shape="circle"
-              />
+            <span role="button" aria-label="Expand button">
+                <UserAvatar
+                  avatar={postEdit.user.avatar}
+                  username={postEdit.user.username}
+                  size="large"
+                  shape="circle"
+                />
+              </span>
             )}
             items={[
               {
+                /* eslint-disable @typescript-eslint/no-unsafe-call */
+                /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+                /* eslint-disable @typescript-eslint/no-unsafe-member-access */
                 key: postEdit.date.toString(),
                 label: (
                   <span>
                     &nbsp; {postEdit.user.username}{' '}
+                    {/* eslint-disable @typescript-eslint/no-unsafe-member-access */}
+                    {/* eslint-disable @typescript-eslint/no-unsafe-assignment */}
                     <strong>({postEdit.date.toString()})</strong>
                   </span>
                 ),

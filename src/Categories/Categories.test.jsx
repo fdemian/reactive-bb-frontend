@@ -152,18 +152,18 @@ test('<Categories /> > New category > Create category.', async () => {
     newCategory.description
   );
 
-  expect(await screen.findByText('categories.create')).toBeInTheDocument();
+  expect(
+    await screen.findByRole("button", { name: 'categories.create'})
+   ).toBeInTheDocument();
 
   expect(screen.getByRole('form')).toHaveFormValues({
     name: newCategory.name,
     description: newCategory.description,
   });
 
-  await _user.click(screen.getByText('categories.create'));
-  expect(await screen.findByText(newCategory.name)).toBeInTheDocument();
-
+  await _user.click(screen.getByRole("button", { name: 'categories.create'}));
   
-
+  expect(await screen.findByText(newCategory.name)).toBeInTheDocument();
   expect(screen.getByText(newCategory.description)).toBeInTheDocument();
 });
 
