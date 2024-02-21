@@ -138,7 +138,7 @@ test('<Register /> > Register screen > Form interaction > Error', async () => {
 
   await user.click(screen.getByRole('button', { name: 'register.register' }));
 
-  screen.debug(undefined, 3000000);
+  //screen.debug(undefined, 3000000);
 
   expect(await screen.findByText('register.passNoMatch')).toBeInTheDocument();
 });

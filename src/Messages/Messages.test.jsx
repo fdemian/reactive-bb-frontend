@@ -334,8 +334,6 @@ test('<Messages /> > Messages editor > Interaction', async () => {
 
   expect(screen.getByText('Loading')).toBeInTheDocument();
 
-  screen.debug(undefined, 300000000000);
-
   expect(await screen.findByText('chats.title')).toBeInTheDocument();
 
   expect(screen.getByText('chats.clear')).toBeInTheDocument();

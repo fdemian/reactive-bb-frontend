@@ -1,8 +1,5 @@
 import { render, screen } from '../TestHelpers/testing-utils';
-import { vi, test, expect, beforeAll } from 'vitest';
-beforeAll(() => {
-  vi.clearAllMocks();
-});
+import { test, expect } from 'vitest';
 
 test('Routes > Logged out > Private route. Renders login component.', async () => {
   render({

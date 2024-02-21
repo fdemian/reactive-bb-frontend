@@ -18,9 +18,7 @@ test('<Logout /> > Renders correctly.', async () => {
     isMobile: false,
     initialEntries: ['/logout'],
   });
-
-  screen.debug(undefined, 300000);
-
+  
   expect(
     await screen.findByText(i18t('timedOutSession'), { exact: false })
   ).toBeInTheDocument();
