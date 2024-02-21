@@ -11,7 +11,7 @@ const i18t = (x) => 'editor.' + x;
 window.SpeechRecognition = true;
 
 vi.mock('kalliope', () => ({
-  default: ({ containerRef }) => {
+  default: ({ containerRef, setFormats }) => {
     /* eslint-disable */
     const react = require('react');
     react.useState(() => {
@@ -24,6 +24,25 @@ vi.mock('kalliope', () => ({
         executeCommand: containerRef.current.executeCommand,
       };
       containerRef.current = currentContainerRef;
+      const _formats = {
+        isLink: false,
+        blockType: "normal",
+        selectedElementKey: "",
+        codeLanguage: "",
+        isBold: false,
+        isItalic: false,
+        isUnderline: false,
+        isStrikethrough: false,
+        isSubscript: false,
+        isSuperscript: false,
+        isCode: false,
+        isRTL: false,
+        fontSize: '',
+        fontColor: '',
+        bgColor: '',
+        fontFamily: ''
+      };
+      setFormats(_formats)
     }, []);
 
     const updateRef = (evt) => console.log(evt.target.value);
@@ -101,7 +120,7 @@ test('<Editor /> > Toolbar and buttons render correctly', async () => {
 
   for (const buttonName of buttonNames) {
     expect(
-      screen.getByRole('button', { name: i18t('toolbar.' + buttonName) })
+      await screen.findByRole('button', { name: i18t('toolbar.' + buttonName) })
     ).toBeInTheDocument();
   }
 
@@ -616,18 +635,20 @@ test('<Editor /> > Table toolbar', async () => {
     screen.getByRole('spinbutton', { name: 'COLS INPUT' })
   ).toBeInTheDocument();
 
-  await user.clear(screen.getByRole('spinbutton', { name: 'ROWS INPUT' }));
-  await user.clear(screen.getByRole('spinbutton', { name: 'COLS INPUT' }));
+  // Input COLS and ROWS.
 
-  await user.type(
-    screen.getByRole('spinbutton', { name: 'ROWS INPUT' }),
-    ROWS.toString()
+  await user.click(screen.getByRole('spinbutton', { name: 'ROWS INPUT' }));
+  await user.keyboard(
+    `{Delete}{Backspace}{Clear}{${ROWS.toString()}}`,
+    screen.getByRole('spinbutton', { name: 'ROWS INPUT' })
   );
 
-  await user.type(
-    screen.getByRole('spinbutton', { name: 'COLS INPUT' }),
-    COLS.toString()
-  );
+  await user.click(screen.getByRole('spinbutton', { name: 'COLS INPUT' }));
+  await user.keyboard(
+    `{Delete}{Backspace}{Clear}{${COLS.toString()}}`,
+    screen.getByRole('spinbutton', { name: 'COLS INPUT' })
+  )
+  //
 
   await user.click(
     await screen.findByRole('button', { name: i18t('toolbar.confirm') })
