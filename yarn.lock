@@ -5669,21 +5669,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-http-backend@npm:^2.4.3":
-  version: 2.4.3
-  resolution: "i18next-http-backend@npm:2.4.3"
+"i18next-http-backend@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "i18next-http-backend@npm:2.5.0"
   dependencies:
     cross-fetch: 4.0.0
-  checksum: 8abd3966475828d677f5f5351eee93ba6412a2d3e4e663966af0762ea98a605d4b8dce6966650d28acf5411e39fd44cc8aae87ed94b39b627791eeba22a1e73e
+  checksum: 4586b3332984a18641f1acca2d0cf440d6259d14a5164dd561d4932f3d6c1606291df295d3b15bf6d7a9fa607e63a683c4a7cff3a5f05abbf108dc7ad026a910
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.9.0":
-  version: 23.9.0
-  resolution: "i18next@npm:23.9.0"
+"i18next@npm:^23.10.0":
+  version: 23.10.0
+  resolution: "i18next@npm:23.10.0"
   dependencies:
     "@babel/runtime": ^7.23.2
-  checksum: 4e897a5953223f23e6fcfe24d7a4d8b31694229cc716b07fab6c5748ba174c6a35d6301263f0437ec5fa27533a31793b4d0787b749c0e24cceac1989bb30560f
+  checksum: 7b476071787c2b909517c86828b17ca7a7ae98c848a052a1c55f9cff114c2307975dcf8dcc30e43ca64389fb24cd2b76382d002d5c3ed0a9a900563813f61863
   languageName: node
   linkType: hard
 
@@ -8508,9 +8508,9 @@ __metadata:
     graphql: ^16.8.1
     graphql-ws: ^5.15.0
     husky: ^9.0.11
-    i18next: ^23.9.0
+    i18next: ^23.10.0
     i18next-browser-languagedetector: ^7.2.0
-    i18next-http-backend: ^2.4.3
+    i18next-http-backend: ^2.5.0
     jsdom: ^24.0.0
     kalliope: ^0.8.1
     katex: ^0.16.9
