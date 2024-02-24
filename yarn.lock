@@ -1034,10 +1034,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.56.0":
-  version: 8.56.0
-  resolution: "@eslint/js@npm:8.56.0"
-  checksum: 5804130574ef810207bdf321c265437814e7a26f4e6fac9b496de3206afd52f533e09ec002a3be06cd9adcc9da63e727f1883938e663c4e4751c007d5b58e539
+"@eslint/js@npm:8.57.0":
+  version: 8.57.0
+  resolution: "@eslint/js@npm:8.57.0"
+  checksum: 315dc65b0e9893e2bff139bddace7ea601ad77ed47b4550e73da8c9c2d2766c7a575c3cddf17ef85b8fd6a36ff34f91729d0dcca56e73ca887c10df91a41b0bb
   languageName: node
   linkType: hard
 
@@ -1807,14 +1807,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.11.13":
-  version: 0.11.13
-  resolution: "@humanwhocodes/config-array@npm:0.11.13"
+"@humanwhocodes/config-array@npm:^0.11.14":
+  version: 0.11.14
+  resolution: "@humanwhocodes/config-array@npm:0.11.14"
   dependencies:
-    "@humanwhocodes/object-schema": ^2.0.1
-    debug: ^4.1.1
+    "@humanwhocodes/object-schema": ^2.0.2
+    debug: ^4.3.1
     minimatch: ^3.0.5
-  checksum: f8ea57b0d7ed7f2d64cd3944654976829d9da91c04d9c860e18804729a33f7681f78166ef4c761850b8c324d362f7d53f14c5c44907a6b38b32c703ff85e4805
+  checksum: 861ccce9eaea5de19546653bccf75bf09fe878bc39c3aab00aeee2d2a0e654516adad38dd1098aab5e3af0145bbcbf3f309bdf4d964f8dab9dcd5834ae4c02f2
   languageName: node
   linkType: hard
 
@@ -1825,10 +1825,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/object-schema@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@humanwhocodes/object-schema@npm:2.0.1"
-  checksum: 24929487b1ed48795d2f08346a0116cc5ee4634848bce64161fb947109352c562310fd159fc64dda0e8b853307f5794605191a9547f7341158559ca3c8262a45
+"@humanwhocodes/object-schema@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@humanwhocodes/object-schema@npm:2.0.2"
+  checksum: 2fc11503361b5fb4f14714c700c02a3f4c7c93e9acd6b87a29f62c522d90470f364d6161b03d1cc618b979f2ae02aed1106fd29d302695d8927e2fc8165ba8ee
   languageName: node
   linkType: hard
 
@@ -2272,9 +2272,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rc-component/color-picker@npm:~1.5.1":
-  version: 1.5.1
-  resolution: "@rc-component/color-picker@npm:1.5.1"
+"@rc-component/color-picker@npm:~1.5.2":
+  version: 1.5.2
+  resolution: "@rc-component/color-picker@npm:1.5.2"
   dependencies:
     "@babel/runtime": ^7.23.6
     "@ctrl/tinycolor": ^3.6.1
@@ -2283,7 +2283,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: b8997f4844e6dcd6b5e66a2ed2d17d0906642a155a0e8d6e276d1b9c0bb052d7336a3ca1dd990e9ed7e10345cb266eeb7e56c7030b6be0e0aca211b04e5876a1
+  checksum: c3f24896f512bb883ee33b264133a749a4193cfe06273b1d6a0bbf2faa404913a995606ec6f5ca625689740cf6d11cf27e532c888ac8bd709703b85ebdb98b9c
   languageName: node
   linkType: hard
 
@@ -2846,14 +2846,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.57":
-  version: 18.2.57
-  resolution: "@types/react@npm:18.2.57"
+"@types/react@npm:^18.2.58":
+  version: 18.2.58
+  resolution: "@types/react@npm:18.2.58"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 01e7a3424162468428f3b28acec5e5c6cd1e26775ff605d0f46c883dea2d835924873d36b9ea0b75e40c9593aa78ca56a8ccde66bd58dbf6ecb0dd95af28609d
+  checksum: 42551e30c8a54161a11b2ecd11406782ddba4472a4471d45034c551295263d56f06234f283526d0c0420352ce9ce9675b2a6c65db7a287d9613643d3ceaaf1f0
   languageName: node
   linkType: hard
 
@@ -3340,16 +3340,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^5.14.1":
-  version: 5.14.1
-  resolution: "antd@npm:5.14.1"
+"antd@npm:^5.14.2":
+  version: 5.14.2
+  resolution: "antd@npm:5.14.2"
   dependencies:
     "@ant-design/colors": ^7.0.2
     "@ant-design/cssinjs": ^1.18.4
     "@ant-design/icons": ^5.3.0
     "@ant-design/react-slick": ~1.0.2
     "@ctrl/tinycolor": ^3.6.1
-    "@rc-component/color-picker": ~1.5.1
+    "@rc-component/color-picker": ~1.5.2
     "@rc-component/mutate-observer": ^1.1.0
     "@rc-component/tour": ~1.12.3
     "@rc-component/trigger": ^1.18.3
@@ -3372,7 +3372,7 @@ __metadata:
     rc-motion: ^2.9.0
     rc-notification: ~5.3.0
     rc-pagination: ~4.0.4
-    rc-picker: ~4.1.1
+    rc-picker: ~4.1.4
     rc-progress: ~3.5.1
     rc-rate: ~2.12.0
     rc-resize-observer: ^1.4.0
@@ -3388,13 +3388,13 @@ __metadata:
     rc-tree: ~5.8.5
     rc-tree-select: ~5.17.0
     rc-upload: ~4.5.2
-    rc-util: ^5.38.1
+    rc-util: ^5.38.2
     scroll-into-view-if-needed: ^3.1.0
     throttle-debounce: ^5.0.0
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: ada1a2aa04e389eb5c86cfa410d4c5503d6892f946274de13d9f6ea6eecd89c84258ab800333e98d691c2ac8fb7713091baa336761eed31c14b8802391cc71b4
+  checksum: f894c67114bbd920c110aba35e40b85ff6de4f6b3b9b6608437a6db9c9d1fb7cc51aec33482ec725a7faed847aa1bab4affac2f84681c5adadb5c211bfcf97da
   languageName: node
   linkType: hard
 
@@ -4836,15 +4836,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.56.0":
-  version: 8.56.0
-  resolution: "eslint@npm:8.56.0"
+"eslint@npm:^8.57.0":
+  version: 8.57.0
+  resolution: "eslint@npm:8.57.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.4
-    "@eslint/js": 8.56.0
-    "@humanwhocodes/config-array": ^0.11.13
+    "@eslint/js": 8.57.0
+    "@humanwhocodes/config-array": ^0.11.14
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
     "@ungap/structured-clone": ^1.2.0
@@ -4880,7 +4880,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 883436d1e809b4a25d9eb03d42f584b84c408dbac28b0019f6ea07b5177940bf3cca86208f749a6a1e0039b63e085ee47aca1236c30721e91f0deef5cc5a5136
+  checksum: 3a48d7ff85ab420a8447e9810d8087aea5b1df9ef68c9151732b478de698389ee656fd895635b5f2871c89ee5a2652b3f343d11e9db6f8486880374ebc74a2d9
   languageName: node
   linkType: hard
 
@@ -7998,9 +7998,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-picker@npm:~4.1.1":
-  version: 4.1.1
-  resolution: "rc-picker@npm:4.1.1"
+"rc-picker@npm:~4.1.4":
+  version: 4.1.4
+  resolution: "rc-picker@npm:4.1.4"
   dependencies:
     "@babel/runtime": ^7.10.1
     "@rc-component/trigger": ^1.5.0
@@ -8024,7 +8024,7 @@ __metadata:
       optional: true
     moment:
       optional: true
-  checksum: 0d9e566c210048f684114afe6ee09e0517edd59991e2863b7713fc566e1052f83b74f940950639d67a14c7552f226adc5b891fa6c8d9b4c26a88962231b50c4a
+  checksum: 5976cfd5c0c6eaad775f29fa1f0a5ebbd51cebc907e6e71d6bb20c48e8a784e9e231fa993163bef27b961df9ea5a41428b8f2f48d1440f1d130ef9ff91705f49
   languageName: node
   linkType: hard
 
@@ -8286,6 +8286,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rc-util@npm:^5.38.2":
+  version: 5.38.2
+  resolution: "rc-util@npm:5.38.2"
+  dependencies:
+    "@babel/runtime": ^7.18.3
+    react-is: ^18.2.0
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 104a76bb013e0ebe456e6ad6a0af0abe2e10a782f9e8a7802709f254ff5181142cc5c4c877cc05e4faccf2a30b94cc053d211dda88d8a29b118baceacc128c5a
+  languageName: node
+  linkType: hard
+
 "rc-virtual-list@npm:^3.11.1, rc-virtual-list@npm:^3.5.1, rc-virtual-list@npm:^3.5.2":
   version: 3.11.3
   resolution: "rc-virtual-list@npm:3.11.3"
@@ -8490,18 +8503,18 @@ __metadata:
     "@testing-library/react": ^14.2.1
     "@testing-library/user-event": ^14.5.2
     "@types/katex": ^0.16.7
-    "@types/react": ^18.2.57
+    "@types/react": ^18.2.58
     "@types/react-dom": ^18.2.19
     "@types/zxcvbn": ^4.4.4
     "@typescript-eslint/eslint-plugin": ^7.0.2
     "@typescript-eslint/parser": ^7.0.2
     "@vitejs/plugin-react-swc": ^3.6.0
     "@vitest/coverage-v8": ^1.3.1
-    antd: ^5.14.1
+    antd: ^5.14.2
     apollo-upload-client: ^18.0.1
     date-fns: ^3.3.1
     emojibase-data: ^15.3.0
-    eslint: ^8.56.0
+    eslint: ^8.57.0
     eslint-plugin-react: ^7.33.2
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-react-refresh: ^0.4.5
