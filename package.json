@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "test": "vitest --config ./vitest.config.ts --retry=3",
+    "test": "vitest --config ./vitest.config.ts --retry=1",
     "test:coverage": "vitest --retry=3 --coverage",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w",
