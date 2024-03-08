@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.09% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.09% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -90,19 +90,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Link } from 'react-router-dom';
@@ -110,20 +110,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import '../Navbar.css';
 &nbsp;
-const NavbarUnlogged = <span class="fstat-no" title="function not covered" >({ t }: { t: (key: string) =&gt; string }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;Link to="/login" className="navbar-link-button"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;span className="login-link-text"&gt;{t('login')} &amp;nbsp;&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;FontAwesomeIcon color="0618EC" icon={faSignInAlt} size="2x" /&gt;{' '}</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/Link&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;Link to="/register" className="navbar-link-button navbar-register-link"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;span className="register-link-text"&gt;{t('register')} &amp;nbsp;&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;FontAwesomeIcon color="0618EC" icon={faUserPlus} size="2x" /&gt;{' '}</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/Link&gt;</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/&gt;</span>
-<span class="cstat-no" title="statement not covered" >  );</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+const NavbarUnlogged = ({ t }: { t: (key: string) =&gt; string }) =&gt; {
+  return (
+    &lt;&gt;
+      &lt;Link to="/login" className="navbar-link-button"&gt;
+        &lt;span className="login-link-text"&gt;{t('login')} &amp;nbsp;&lt;/span&gt;
+        &lt;FontAwesomeIcon color="0618EC" icon={faSignInAlt} size="2x" /&gt;{' '}
+      &lt;/Link&gt;
+      &lt;Link to="/register" className="navbar-link-button navbar-register-link"&gt;
+        &lt;span className="register-link-text"&gt;{t('register')} &amp;nbsp;&lt;/span&gt;
+        &lt;FontAwesomeIcon color="0618EC" icon={faUserPlus} size="2x" /&gt;{' '}
+      &lt;/Link&gt;
+    &lt;/&gt;
+  );
+};
 &nbsp;
 export default NavbarUnlogged;
 &nbsp;</pre></td></tr></table></pre>
@@ -133,7 +133,7 @@ export default NavbarUnlogged;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-20T02:42:52.856Z
+                at 2024-02-28T13:14:56.133Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
