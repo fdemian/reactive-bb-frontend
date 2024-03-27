@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getUserId } from '../Login/authUtils';
 
-interface NoTopicProps { t: (key: string) => string }
+interface NoTopicProps {
+  t: (key: string) => string;
+}
 
 const NoTopics = ({ t }: NoTopicProps) => {
   const loggedIn = getUserId() !== null;
@@ -16,7 +18,7 @@ const NoTopics = ({ t }: NoTopicProps) => {
         loggedIn ? (
           <Link to="/topics/new">
             <Button type="primary" size="large">
-              Create new topic &nbsp;
+              {t('createTopic')} &nbsp;
               <FontAwesomeIcon icon={faPlus} />
             </Button>
           </Link>
