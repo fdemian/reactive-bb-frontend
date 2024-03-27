@@ -22,7 +22,7 @@ const AccountAvatar = ({
   size,
   shape,
 }: AccountAvatarTypes) => {
-  if (avatar === null || avatar === undefined)
+  if (avatar === null || avatar === undefined || avatar.trim() === '')
     return (
       <Avatar
         shape={shape === undefined ? 'circle' : shape}
