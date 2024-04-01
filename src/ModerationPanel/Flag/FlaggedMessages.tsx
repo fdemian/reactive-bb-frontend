@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useNavigate } from 'react-router-dom';
 import { Table, Spin, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,11 +19,11 @@ const getReasonText = (
   reasonId: number,
   flaggedData: FlaggedDataType,
   t: TranslationFn
-) => {
-  if (reasonId === 4) {
+):string => {
+  if (reasonId === 4 && flaggedData.reasonText) {
     return flaggedData.reasonText;
   }
-  return t('flagReason-' + reasonId);
+  return t('flagReason-' + reasonId.toString());
 };
 
 const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
@@ -35,12 +38,15 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
 
   const [removeFlagMutation] = useMutation(REMOVE_FLAG, {
     update(cache, { data }) {
-      if(!data || !data.removeFlag)
+      if(!data?.removeFlag)
         return;
       cache.modify({
         fields: {
           flaggedPosts(flaggedPosts = []) {
-            const { postId, userId } = data.removeFlag!;
+            if(!data.removeFlag)
+              return flaggedPosts;
+            
+            const { postId, userId } = data.removeFlag;
             return flaggedPosts.filter(
               (f: FlaggedPost) => f.postId !== postId && f.userId !== userId
             );
@@ -68,29 +74,25 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
   const columns = [
     {
       title: 'Post #',
-      dataIndex: 'postId',
       key: 'postId',
     },
     {
       title: 'User',
-      dataIndex: 'userId',
       key: 'userId',
     },
     {
       title: 'Reason',
-      dataIndex: 'reasonId',
       key: 'reasonId',
       render: (reasonId: number, flaggedData: FlaggedDataType) =>
         getReasonText(reasonId, flaggedData, t),
     },
     {
       title: '',
-      dataIndex: '',
       key: '',
-      render: (_: any, record: FlaggedDataType) => (
+      render: (_: string, record: FlaggedDataType) => (
         <Tooltip title="Go to post">
           <FontAwesomeIcon
-            onClick={() => { navigate(`/postlink/${record.postId}`); }}
+            onClick={() => { navigate(`/postlink/${record.postId.toString()}`); }}
             icon={faExternalLinkAlt}
             color="gainsboro"
             size="2x"
@@ -100,9 +102,8 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
     },
     {
       title: '',
-      dataIndex: '',
       key: '',
-      render: (_: any, record: FlaggedDataType) => (
+      render: (_: string, record: FlaggedDataType) => (
         <Tooltip title="Remove this flag from post">
           <FontAwesomeIcon
             onClick={() => { removeFlag(record.postId, record.userId); }}
