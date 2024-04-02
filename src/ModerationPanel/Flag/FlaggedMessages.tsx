@@ -14,13 +14,26 @@ import {
   FlaggedPost,
 } from '../moderationPanelTypes';
 import '../ModerationPanel.css';
+import type { TableColumnsType } from 'antd';
+
+interface DataType {
+  __typename?: 'FlaggedPost' | undefined;
+  postId: number;
+  userId: number;
+  reasonId: number;
+  reasonText?: string | null | undefined;
+}
 
 const getReasonText = (
   reasonId: number,
   flaggedData: FlaggedDataType,
   t: TranslationFn
 ): string => {
-  if (reasonId === 4 && flaggedData.reasonText) {
+  if (
+    reasonId === 4 &&
+    flaggedData.reasonText !== null &&
+    flaggedData.reasonText !== undefined
+  ) {
     return flaggedData.reasonText;
   }
   return t('flagReason-' + reasonId.toString());
@@ -69,7 +82,7 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
     });
   };
 
-  const columns = [
+  const columns: TableColumnsType<DataType> = [
     {
       title: 'Post #',
       key: 'postId',
@@ -84,13 +97,13 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
       title: 'Reason',
       key: 'reasonId',
       dataIndex: 'reasonId',
-      render: (reasonId: number, flaggedData: FlaggedDataType) =>
-        getReasonText(reasonId, flaggedData, t),
+      render: (reasonId: number, flaggedData: FlaggedDataType) => (
+        <p>{getReasonText(reasonId, flaggedData, t)}</p>
+      ),
     },
     {
       title: '',
-      key: '',
-      dataIndex: '',
+      key: 'gotopostlink',
       render: (_: string, record: FlaggedDataType) => (
         <Tooltip title="Go to post">
           <FontAwesomeIcon
@@ -106,7 +119,7 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
     },
     {
       title: '',
-      key: '',
+      key: 'removeflaglink',
       render: (_: string, record: FlaggedDataType) => (
         <Tooltip title="Remove this flag from post">
           <FontAwesomeIcon
