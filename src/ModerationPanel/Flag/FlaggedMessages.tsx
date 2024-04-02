@@ -19,7 +19,7 @@ const getReasonText = (
   reasonId: number,
   flaggedData: FlaggedDataType,
   t: TranslationFn
-):string => {
+): string => {
   if (reasonId === 4 && flaggedData.reasonText) {
     return flaggedData.reasonText;
   }
@@ -38,14 +38,12 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
 
   const [removeFlagMutation] = useMutation(REMOVE_FLAG, {
     update(cache, { data }) {
-      if(!data?.removeFlag)
-        return;
+      if (!data?.removeFlag) return;
       cache.modify({
         fields: {
           flaggedPosts(flaggedPosts = []) {
-            if(!data.removeFlag)
-              return flaggedPosts;
-            
+            if (!data.removeFlag) return flaggedPosts;
+
             const { postId, userId } = data.removeFlag;
             return flaggedPosts.filter(
               (f: FlaggedPost) => f.postId !== postId && f.userId !== userId
@@ -75,24 +73,30 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
     {
       title: 'Post #',
       key: 'postId',
+      dataIndex: 'postId',
     },
     {
       title: 'User',
       key: 'userId',
+      dataIndex: 'userId',
     },
     {
       title: 'Reason',
       key: 'reasonId',
+      dataIndex: 'reasonId',
       render: (reasonId: number, flaggedData: FlaggedDataType) =>
         getReasonText(reasonId, flaggedData, t),
     },
     {
       title: '',
       key: '',
+      dataIndex: '',
       render: (_: string, record: FlaggedDataType) => (
         <Tooltip title="Go to post">
           <FontAwesomeIcon
-            onClick={() => { navigate(`/postlink/${record.postId.toString()}`); }}
+            onClick={() => {
+              navigate(`/postlink/${record.postId.toString()}`);
+            }}
             icon={faExternalLinkAlt}
             color="gainsboro"
             size="2x"
@@ -106,7 +110,9 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
       render: (_: string, record: FlaggedDataType) => (
         <Tooltip title="Remove this flag from post">
           <FontAwesomeIcon
-            onClick={() => { removeFlag(record.postId, record.userId); }}
+            onClick={() => {
+              removeFlag(record.postId, record.userId);
+            }}
             icon={faTrash}
             color="gainsboro"
             size="2x"
@@ -137,10 +143,7 @@ const FlaggedMessages = ({ t }: FlaggedMessagesProps) => {
   return (
     <div>
       <br />
-      <Table 
-        dataSource={flaggedPosts} 
-        columns={columns} 
-      />
+      <Table dataSource={flaggedPosts} columns={columns} />
     </div>
   );
 };
