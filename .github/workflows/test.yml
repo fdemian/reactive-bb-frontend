@@ -25,5 +25,4 @@ jobs:
     - name: Build
       run: |
         yarn install
-        yarn cache clean
         yarn test
