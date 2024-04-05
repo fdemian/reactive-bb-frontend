@@ -79,5 +79,6 @@
     "*.{ts,tsx,js,css,md}": [
       "prettier --write"
     ]
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
