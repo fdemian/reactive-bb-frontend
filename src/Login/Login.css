@@ -173,3 +173,20 @@
     margin-left: 25% !important;
   }
 }
+
+/* ----- Ultrawide monitors ----- */
+
+/* 3440 monitiros and up (3K ultrawides) */
+@media (min-width: 3440px) {
+  .login-form {
+    margin-left: 45%;
+  }
+
+  .oauth-icons {
+    margin-left: 45% !important;
+  }
+
+  .oauth-logins-text {
+    margin-left: 45% !important;
+  }
+}
