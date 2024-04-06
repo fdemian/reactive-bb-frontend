@@ -59,7 +59,7 @@ export const recomendedColors = [
 type TranslationFn = (key: string) => string;
 
 export interface CalliopeFormatTypes {
-  blockType: string;
+  blockType: string | null;
   selectedElementKey: string | null;
   isLink: boolean;
   isBold: boolean;
