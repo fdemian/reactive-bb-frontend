@@ -36,10 +36,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.4",
-    "react-i18next": "^14.1.0",
+    "react-i18next": "^14.1.1",
     "react-responsive": "^10.0.0",
-    "react-router": "^6.22.3",
-    "react-router-dom": "^6.22.3",
+    "react-router": "^6.23.0",
+    "react-router-dom": "^6.23.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
@@ -48,7 +48,7 @@
     "@graphql-typed-document-node/core": "^3.2.0",
     "@testing-library/dom": "^10.0.0",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^15.0.2",
+    "@testing-library/react": "^15.0.4",
     "@testing-library/user-event": "^14.5.2",
     "@types/katex": "^0.16.7",
     "@types/react": "^18.2.79",
