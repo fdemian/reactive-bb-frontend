@@ -150,6 +150,23 @@ const bannedMocks = [
       },
     },
   },
+  {
+    request: {
+      query: BAN_USER,
+      variables: {
+        user: 1,
+        expires: null,
+        reason: "{\"root\":{\"children\":[{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}"
+      },
+    },
+    result: {
+      loading: false,
+      error: false,
+      data: {
+        banUser: true,
+      },
+    },
+  },
 ];
 
 const emptyMocks = [
@@ -349,11 +366,15 @@ test('<ModerationPanel /> > <BanPanel /> > Ban user', async () => {
   expect(
     await screen.findByRole('checkbox', { name: 'modcp.permanent' })
   ).toBeChecked();
+  
   await user.click(screen.getByRole('button', { name: 'modcp.banUser' }));
+
+  screen.debug(undefined, 3000000000000000);
 
   expect(
     await screen.findByText('modcp.successfulBan', { exact: false })
   ).toBeInTheDocument();
+
 });
 
 test('<ModerationPanel /> > Renders flagged users correctly.', async () => {
