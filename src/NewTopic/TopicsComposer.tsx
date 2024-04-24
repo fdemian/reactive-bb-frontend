@@ -7,7 +7,7 @@ import { Input } from 'antd';
 import CategoriesDropdown from './CategoriesDropdown.jsx';
 import EditableTagGroup from './EditableTagGroup.jsx';
 import Loading from '../Loading/LoadingIndicator.js';
-import Editor from '../Editor/Editor.js';
+import Editor from '../Editor/Editor';
 import { Helmet } from 'react-helmet-async';
 import ConfirmButtons from './ConfirmButtons.jsx';
 import { CREATE_POST } from './Mutations.js';
@@ -152,6 +152,7 @@ export const Component = () => {
         <div className={'ComposerHeadContainer ' + mobileClass}>
           <span className="TitleInputContainer">
             <Input
+              role="textbox"
               placeholder={t('titlePlaceholder')}
               className="TitleInput"
               defaultValue={title === null ? '' : title}
