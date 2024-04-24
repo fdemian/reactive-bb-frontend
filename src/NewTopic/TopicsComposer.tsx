@@ -153,13 +153,14 @@ export const Component = () => {
           <span className="TitleInputContainer">
             <Input
               role="textbox"
+              aria-label="Title Input"
+              value={title ?? ""}
               placeholder={t('titlePlaceholder')}
               className="TitleInput"
               defaultValue={title === null ? '' : title}
               onChange={(value) => {
                 updateTitleFn(value);
               }}
-              aria-label="Title Input"
             />
           </span>
           <span className="CategoriesContainer">

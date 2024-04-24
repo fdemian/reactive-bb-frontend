@@ -67,8 +67,6 @@ const newTopicMocks = [
 
 
 test('<NewTopic /> > Renders correctly', async () => {
-    const user = userEvent.setup();
-
     render({
       mocks: newTopicMocks,
       isLoggedIn: true,
@@ -99,7 +97,7 @@ test('<NewTopic /> > Renders correctly', async () => {
     expect(await screen.findByTestId('calliope-editor')).toBeInTheDocument();
 });
 
-/*
+
 test('<NewTopic /> > Create topic', async () => {
     const user = userEvent.setup();
 
@@ -109,11 +107,19 @@ test('<NewTopic /> > Create topic', async () => {
       isMobile: false,
       initialEntries: ['/topics/new'],
     });
-    
+
+    expect(screen.getByText('Loading')).toBeInTheDocument();
+
     expect(
         await screen.findByRole("textbox", { name: "Title Input" })
     ).toBeInTheDocument();
     expect(await screen.findByTestId('calliope-editor')).toBeInTheDocument();
 
-    awiat user.type()
-});*/
+    // Fill in title and editor.
+    await user.type(screen.getByRole("textbox", { name: "Title Input" }), "Test");
+    expect(await screen.findByRole("textbox", { name: "Title Input" })).toHaveAttribute("value", "Test");
+    
+    //
+    //await user.type(screen.getByTestId('calliope-editor'), "INPUT_FROM_TEST");
+    //expect(screen.getByTestId('calliope-editor')).toHaveValue("INPUT_FROM_TEST");
+});
