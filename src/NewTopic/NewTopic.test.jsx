@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '../TestHelpers/testing-utils';
+import { render, screen, waitFor } from '../TestHelpers/testing-utils.jsx';
 //import { CREATE_POST } from './Mutations.js';
 import { GET_CATEGORIES } from '../Categories/Queries.js';
 import userEvent from '@testing-library/user-event';
