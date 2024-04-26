@@ -67,12 +67,6 @@ export const Component = () => {
         tags: tags ? tags.join(',') : '',
       },
     };
-
-    console.clear();
-    console.log("------SEND------");
-    console.log(queryOpts);
-    console.log("------SEND------");
-
     createTopic(queryOpts);
   };
 

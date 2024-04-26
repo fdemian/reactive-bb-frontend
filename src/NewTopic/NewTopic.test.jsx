@@ -8,6 +8,14 @@ import { afterEach } from 'node:test';
 
 window.scrollTo = () => {};
 
+vi.mock('../Login/authUtils', async () => {
+  const actual = await vi.importActual('../Login/authUtils');
+  return {
+    ...actual,
+    getUserId: () => 1,
+  };
+});
+
 vi.mock('kalliope', () => ({
     default: ({ containerRef, setFormats }) => {
       /* eslint-disable */
@@ -68,13 +76,12 @@ const newTopicMocks = [
     {
       request: {
         query: CREATE_POST,
-        variables: {
-          user: 1,
-          name: "Test",
-          content: "INPUT_FROM_TEST",
-          category: -1,
-          tags: []
-
+        variables:  {
+          name:"Test",
+          content:"\"CALLIOPE_EDITOR_MOCK_CONTENT\"",
+          user:1,
+          category:null,
+          tags:"Tag"
         },
       },
       result: {
@@ -164,13 +171,10 @@ test('<NewTopic /> > Create topic', async () => {
     //
     await user.click(screen.getByRole("button", { name: "topicsComposer.createTopic"}));
    
-    /*    
     await waitFor(() => {
       expect(mockNavigateComp).toHaveBeenCalledWith({
         to: `/topics/1/test`,
-        replace: true,
       });
     });
-    */ 
 
 });
