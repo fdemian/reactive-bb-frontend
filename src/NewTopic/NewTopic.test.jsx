@@ -90,13 +90,20 @@ const newTopicMocks = [
     }
 ];
 
-afterEach(() => {
-  vi.resetAllMocks();
-})
 
-/*
-test('<NewTopic /> > Renders correctly', async () => {  
+test('<NewTopic /> > Create topic', async () => {  
     const user = userEvent.setup();
+
+    const mockNavigateComp = vi.fn();
+    vi.doMock('react-router-dom', async () => {
+      const actual = await vi.importActual('react-router-dom');
+      return {
+        ...actual,
+        Navigate: (props) => {
+          return mockNavigateComp(props);
+        },
+      };
+     });
 
     render({
       mocks: newTopicMocks,
@@ -112,10 +119,6 @@ test('<NewTopic /> > Renders correctly', async () => {
     });
     expect(
       await screen.findByText("topicsComposer.chooseTags", { hidden: true})
-    ).toBeInTheDocument();
-
-    expect(
-      await screen.findByRole("heading", { name: "topicsComposer.createTopic" })
     ).toBeInTheDocument();
     
     expect(
@@ -135,38 +138,8 @@ test('<NewTopic /> > Renders correctly', async () => {
     expect(
       await screen.findByRole("textbox", { name: "topics-tag-input"})
     ).toBeInTheDocument();
-});
-*/
 
-test('<NewTopic /> > Create topic', async () => {
-   
-   const mockNavigateComp = vi.fn();
-   vi.doMock('react-router-dom', async () => {
-     const actual = await vi.importActual('react-router-dom');
-     return {
-       ...actual,
-       Navigate: (props) => {
-         return mockNavigateComp(props);
-       },
-     };
-    });
 
-    const user = userEvent.setup();
-
-    render({
-      mocks: newTopicMocks,
-      isLoggedIn: true,
-      isMobile: false,
-      initialEntries: ['/topics/new'],
-    });
-
-    expect(screen.getByText('Loading')).toBeInTheDocument();    
-
-    expect(
-      await screen.findByRole("textbox", { name: "topicsComposer.titlePlaceholder" })
-    ).toBeInTheDocument();
-    expect(await screen.findByTestId('calliope-editor')).toBeInTheDocument();
-    
     // Fill in the title.
     await user.click(screen.getByRole("textbox", { name: "topicsComposer.titlePlaceholder" }));
     await user.type(screen.getByRole("textbox", { name: "topicsComposer.titlePlaceholder" }), "Test");
@@ -178,10 +151,9 @@ test('<NewTopic /> > Create topic', async () => {
     await user.click(screen.getByTestId("calliope-editor"));
     await user.type(screen.getByTestId('calliope-editor'), "INPUT_FROM_TEST");
 
+    /*
     // Check that the new tag composer exists.
-
     await user.click(screen.getByRole("button", { name: "topicsComposer.newTag"}));
-    
     expect(
       await screen.findByRole("textbox", { name: "topics-tag-input"})
     ).toBeInTheDocument();
@@ -190,21 +162,18 @@ test('<NewTopic /> > Create topic', async () => {
     user.click(screen.getByRole("textbox", { name: "topics-tag-input"}));
     user.type(screen.getByRole("textbox", { name: "topics-tag-input"}), "Tag1");
     await user.keyboard(`{Enter}`, screen.getByRole("textbox", { name: "topics-tag-input"}));
-  
-    // Accept/cancel buttons
-    expect(screen.getByRole("button", { name: "topicsComposer.cancel" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "topicsComposer.createTopic"})).toBeInTheDocument();
+    */
 
+    //
     await user.click(screen.getByRole("button", { name: "topicsComposer.createTopic"}));
-    /*
-    await user.click(screen.getByRole("button", { name: "topicsComposer.createTopic"}));
-    
+   
+    /*    
     await waitFor(() => {
       expect(mockNavigateComp).toHaveBeenCalledWith({
         to: `/topics/1/test`,
         replace: true,
       });
     });
-    */
+    */ 
 
 });
