@@ -151,9 +151,7 @@ test('<NewTopic /> > Create topic', async () => {
     await user.click(screen.getByTestId("calliope-editor"));
     await user.type(screen.getByTestId('calliope-editor'), "INPUT_FROM_TEST");
 
-    /*
     // Check that the new tag composer exists.
-    await user.click(screen.getByRole("button", { name: "topicsComposer.newTag"}));
     expect(
       await screen.findByRole("textbox", { name: "topics-tag-input"})
     ).toBeInTheDocument();
@@ -162,7 +160,6 @@ test('<NewTopic /> > Create topic', async () => {
     user.click(screen.getByRole("textbox", { name: "topics-tag-input"}));
     user.type(screen.getByRole("textbox", { name: "topics-tag-input"}), "Tag1");
     await user.keyboard(`{Enter}`, screen.getByRole("textbox", { name: "topics-tag-input"}));
-    */
 
     //
     await user.click(screen.getByRole("button", { name: "topicsComposer.createTopic"}));
