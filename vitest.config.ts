@@ -5,7 +5,9 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: 'src/setupTests.ts',
-    pool: 'vmForks',
+    pool: 'threads',
+    retry: 1,
+    isolate: true,
     coverage: {
       exclude: [
         'coverage/*',

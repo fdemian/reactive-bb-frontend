@@ -55,9 +55,6 @@ export const Component = () => {
     const editor = editorContainer.current;
     const _content = editor?.getContent();
 
-    console.clear();
-    console.log(category);
-
     if (!title || !id) return;
 
     const queryOpts = {
@@ -70,6 +67,12 @@ export const Component = () => {
         tags: tags ? tags.join(',') : '',
       },
     };
+
+    console.clear();
+    console.log("------SEND------");
+    console.log(queryOpts);
+    console.log("------SEND------");
+
     createTopic(queryOpts);
   };
 
@@ -153,7 +156,7 @@ export const Component = () => {
           <span className="TitleInputContainer">
             <Input
               role="textbox"
-              aria-label="Title Input"
+              aria-label={t('titlePlaceholder')}
               value={title ?? ""}
               placeholder={t('titlePlaceholder')}
               className="TitleInput"
