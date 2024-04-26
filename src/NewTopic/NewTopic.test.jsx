@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '../TestHelpers/testing-utils.jsx';
-//import { CREATE_POST } from './Mutations.js';
+import { CREATE_POST } from './Mutations';
 import { GET_CATEGORIES } from '../Categories/Queries';
 import userEvent from '@testing-library/user-event';
 import { vi, test, expect, beforeEach } from 'vitest';
@@ -63,7 +63,30 @@ const newTopicMocks = [
           categories: [],
         },
       },
-    }
+    },
+    {
+      request: {
+        query: CREATE_POST,
+        variables: {
+          user: 1,
+          name: "Test",
+          content: "INPUT_FROM_TEST",
+          category: -1,
+          tags: ["Tag1"]
+
+        },
+      },
+      result: {
+        loading: false,
+        error: false,
+        data: {
+          topic: {
+            id: 1,
+            ok: true
+          },
+        },
+      },
+    }    
 ];
 
 test('<NewTopic /> > Renders correctly', async () => {  
@@ -133,22 +156,34 @@ test('<NewTopic /> > Create topic', async () => {
       await screen.findByRole("button", { name: "topicsComposer.newTag"})
     ).toBeInTheDocument();
 
-    // Fill in title and editor.
+    // Fill in the title.
     await user.click(screen.getByRole("textbox", { name: "Title Input" }));
     await user.type(screen.getByRole("textbox", { name: "Title Input" }), "Test");
     expect(
       await screen.findByRole("textbox", { name: "Title Input" })
     ).toHaveAttribute("value", "Test");
     
-    //
+    // Fill in the editor.
     await user.click(screen.getByTestId("calliope-editor"));
     await user.type(screen.getByTestId('calliope-editor'), "INPUT_FROM_TEST");
 
-    
+    // Check that the new tag composer exists.
     await user.click(screen.getByRole("button", { name: "topicsComposer.newTag"}));
     
+
     expect(
       await screen.findByRole("textbox", { name: "topics-tag-input"})
     ).toBeInTheDocument();
+
+    // Type the first tag.
+    user.click(screen.getByRole("textbox", { name: "topics-tag-input"}));
+    user.type(screen.getByRole("textbox", { name: "topics-tag-input"}), "Tag1");
+    await user.keyboard(`{Enter}`, screen.getByRole("textbox", { name: "topics-tag-input"}));
+
+    // Accept/cancel buttons
+    expect(screen.getByRole("button", { name: "topicsComposer.cancel" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "topicsComposer.createTopic"})).toBeInTheDocument();
+    
+    user.click(screen.getByRole("button", { name: "topicsComposer.createTopic"}));
 
 });
