@@ -80,7 +80,7 @@ const newTopicMocks = [
         loading: false,
         error: false,
         data: {
-          topic: {
+          createTopic: {
             id: 1,
             ok: true
           },
@@ -125,17 +125,22 @@ test('<NewTopic /> > Renders correctly', async () => {
     ).toBeInTheDocument();
     
     await user.click(screen.getByRole("button", { name: "topicsComposer.newTag"}));
-    
-    /*
-    expect(
-      await screen.findByRole("input", { name: "topics-tag-input"})
-    ).toBeInTheDocument();
-    */
-
 });
 
 
 test('<NewTopic /> > Create topic', async () => {
+   
+   const mockNavigateComp = vi.fn();
+   vi.doMock('react-router-dom', async () => {
+     const actual = await vi.importActual('react-router-dom');
+     return {
+       ...actual,
+       Navigate: (props) => {
+         return mockNavigateComp(props);
+       },
+     };
+    });
+
     const user = userEvent.setup();
 
     render({
@@ -145,17 +150,17 @@ test('<NewTopic /> > Create topic', async () => {
       initialEntries: ['/topics/new'],
     });
 
-    expect(screen.getByText('Loading')).toBeInTheDocument();
-
-    expect(
-      await screen.findByRole("textbox", { name: "Title Input" })
-    ).toBeInTheDocument();
-    expect(await screen.findByTestId('calliope-editor')).toBeInTheDocument();
+    expect(screen.getByText('Loading')).toBeInTheDocument();    
 
     expect(
       await screen.findByRole("button", { name: "topicsComposer.newTag"})
     ).toBeInTheDocument();
 
+    expect(
+      await screen.findByRole("textbox", { name: "Title Input" })
+    ).toBeInTheDocument();
+    expect(await screen.findByTestId('calliope-editor')).toBeInTheDocument();
+    
     // Fill in the title.
     await user.click(screen.getByRole("textbox", { name: "Title Input" }));
     await user.type(screen.getByRole("textbox", { name: "Title Input" }), "Test");
@@ -170,7 +175,6 @@ test('<NewTopic /> > Create topic', async () => {
     // Check that the new tag composer exists.
     await user.click(screen.getByRole("button", { name: "topicsComposer.newTag"}));
     
-
     expect(
       await screen.findByRole("textbox", { name: "topics-tag-input"})
     ).toBeInTheDocument();
@@ -186,4 +190,10 @@ test('<NewTopic /> > Create topic', async () => {
     
     user.click(screen.getByRole("button", { name: "topicsComposer.createTopic"}));
 
+    await waitFor(() => {
+      expect(mockNavigateComp).toHaveBeenCalledWith({
+        to: `/topics/1/test`,
+        replace: true,
+      });
+    });
 });
