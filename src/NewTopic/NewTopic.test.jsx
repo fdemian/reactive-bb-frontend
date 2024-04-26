@@ -1,8 +1,9 @@
+import React from 'react';
 import { render, screen, waitFor } from '../TestHelpers/testing-utils.jsx';
 //import { CREATE_POST } from './Mutations.js';
-import { GET_CATEGORIES } from '../Categories/Queries.js';
+import { GET_CATEGORIES } from '../Categories/Queries';
 import userEvent from '@testing-library/user-event';
-import { vi, test, expect } from 'vitest';
+import { vi, test, expect, beforeEach } from 'vitest';
 
 window.scrollTo = () => {};
 
@@ -65,8 +66,9 @@ const newTopicMocks = [
     }
 ];
 
+test('<NewTopic /> > Renders correctly', async () => {  
+    const user = userEvent.setup();
 
-test('<NewTopic /> > Renders correctly', async () => {
     render({
       mocks: newTopicMocks,
       isLoggedIn: true,
@@ -86,8 +88,7 @@ test('<NewTopic /> > Renders correctly', async () => {
     expect(
       await screen.findByRole("heading", { name: "topicsComposer.createTopic" })
     ).toBeInTheDocument();
-
-
+    
     expect(
         await screen.findByRole("textbox", { name: "Title Input" })
     ).toBeInTheDocument();
@@ -95,6 +96,19 @@ test('<NewTopic /> > Renders correctly', async () => {
     expect(screen.getByRole("button", { name: "topicsComposer.cancel" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "topicsComposer.createTopic"})).toBeInTheDocument();
     expect(await screen.findByTestId('calliope-editor')).toBeInTheDocument();
+
+    expect(
+      await screen.findByRole("button", { name: "topicsComposer.newTag"})
+    ).toBeInTheDocument();
+    
+    await user.click(screen.getByRole("button", { name: "topicsComposer.newTag"}));
+    
+    /*
+    expect(
+      await screen.findByRole("input", { name: "topics-tag-input"})
+    ).toBeInTheDocument();
+    */
+
 });
 
 
@@ -111,15 +125,30 @@ test('<NewTopic /> > Create topic', async () => {
     expect(screen.getByText('Loading')).toBeInTheDocument();
 
     expect(
-        await screen.findByRole("textbox", { name: "Title Input" })
+      await screen.findByRole("textbox", { name: "Title Input" })
     ).toBeInTheDocument();
     expect(await screen.findByTestId('calliope-editor')).toBeInTheDocument();
 
+    expect(
+      await screen.findByRole("button", { name: "topicsComposer.newTag"})
+    ).toBeInTheDocument();
+
     // Fill in title and editor.
+    await user.click(screen.getByRole("textbox", { name: "Title Input" }));
     await user.type(screen.getByRole("textbox", { name: "Title Input" }), "Test");
-    expect(await screen.findByRole("textbox", { name: "Title Input" })).toHaveAttribute("value", "Test");
+    expect(
+      await screen.findByRole("textbox", { name: "Title Input" })
+    ).toHaveAttribute("value", "Test");
     
     //
-    //await user.type(screen.getByTestId('calliope-editor'), "INPUT_FROM_TEST");
-    //expect(screen.getByTestId('calliope-editor')).toHaveValue("INPUT_FROM_TEST");
+    await user.click(screen.getByTestId("calliope-editor"));
+    await user.type(screen.getByTestId('calliope-editor'), "INPUT_FROM_TEST");
+
+    
+    await user.click(screen.getByRole("button", { name: "topicsComposer.newTag"}));
+    
+    expect(
+      await screen.findByRole("textbox", { name: "topics-tag-input"})
+    ).toBeInTheDocument();
+
 });

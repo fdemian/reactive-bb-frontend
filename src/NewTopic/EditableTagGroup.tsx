@@ -53,6 +53,7 @@ const EditableTagGroup = (props: EditableTagGroupProps) => {
     }
   };
 
+  
   return (
     <div className="TagContainer">
       {tags.map((tag) => {
@@ -72,7 +73,7 @@ const EditableTagGroup = (props: EditableTagGroupProps) => {
       })}
       {inputVisible && (
         <Input
-          aria-label="Topic tags"
+          aria-label="topics-tag-input"
           ref={input}
           type="text"
           size="large"
@@ -86,6 +87,7 @@ const EditableTagGroup = (props: EditableTagGroupProps) => {
       )}
       {!inputVisible && (
         <Button
+          role="button"
           aria-label={t('newTag')}
           size="large"
           type="dashed"
