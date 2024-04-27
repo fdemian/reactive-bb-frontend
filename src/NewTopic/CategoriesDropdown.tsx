@@ -38,10 +38,8 @@ const CategoriesDropdown = ({
   updateCategoryFn,
   categories,
 }: CategoriesDropdownProps) => {
-  const handleChange = (value: CategoryType) => {
-    console.clear();
-    console.log(value);
-    updateCategoryFn(value);
+  const handleChange = (value: number) => {
+    updateCategoryFn(categories.filter(p => p.id == value)[0]);
   };
 
   return (
@@ -57,7 +55,7 @@ const CategoriesDropdown = ({
       }
       optionFilterProp="children"
       onChange={handleChange}
-      value={category}
+      value={category.id}
     >
       {categories.map((category, i) => (
         <Option

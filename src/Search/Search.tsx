@@ -119,8 +119,8 @@ export const Component = () => {
       </h1>
       {search ? (
         <h2>
-          {t('searchedFor')} <code>{search}</code> {t('in')}{' '}
-          <strong>{t('topics')}</strong>.
+          {t('searchedFor')} <code>{search}</code> {t('in')}{': '}
+          <strong>{searchIn.map(s => `${t(s)} `).join(', ')}</strong>.
         </h2>
       ) : (
         <h2>{t('noSearch')}</h2>

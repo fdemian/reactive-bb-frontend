@@ -56,7 +56,7 @@ export const Component = () => {
     const _content = editor?.getContent();
 
     if (!title || !id) return;
-
+    
     const queryOpts = {
       variables: {
         name: title,
