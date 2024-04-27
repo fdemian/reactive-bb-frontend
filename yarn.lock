@@ -7020,9 +7020,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kalliope@npm:^0.8.7":
-  version: 0.8.7
-  resolution: "kalliope@npm:0.8.7"
+"kalliope@npm:^0.8.8":
+  version: 0.8.8
+  resolution: "kalliope@npm:0.8.8"
   dependencies:
     "@excalidraw/excalidraw": "npm:^0.17.6"
     "@excalidraw/utils": "npm:^0.1.2"
@@ -7045,11 +7045,11 @@ __metadata:
     emojibase-data: "npm:15.3.0"
     katex: "npm:^0.16.10"
     lexical: "npm:0.14.5"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-color: "npm:^2.19.3"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-player: "npm:^2.16.0"
-  checksum: 10c0/b3b035b4379ad4a3e6a25365f30865c5301a1fcfa264d87c0b9a1b1abf151dc68d52fa6461bd825976d913542341a64974a5e732b687e584ee41cbb060405a21
+  checksum: 10c0/0a8402fa8a7171348c0bd78c78bbe8b68fbcaff259ce29f412ed946e09fe6512c348072e3ee792d8201354c3b5d9ef1e40e100b3b0daf7f1d17cc9440c97044b
   languageName: node
   linkType: hard
 
@@ -8943,18 +8943,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react-dom@npm:18.2.0"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.0"
-  peerDependencies:
-    react: ^18.2.0
-  checksum: 10c0/66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:^18.3.1":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
@@ -9091,15 +9079,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10c0/b562d9b569b0cb315e44b48099f7712283d93df36b19a39a67c254c6686479d3980b7f013dc931f4a5a3ae7645eae6386b4aa5eea933baa54ecd0f9acb0902b8
-  languageName: node
-  linkType: hard
-
 "react@npm:^18.3.1":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
@@ -9158,7 +9137,7 @@ __metadata:
     i18next-browser-languagedetector: "npm:^7.2.1"
     i18next-http-backend: "npm:^2.5.1"
     jsdom: "npm:^24.0.0"
-    kalliope: "npm:^0.8.7"
+    kalliope: "npm:^0.8.8"
     katex: "npm:^0.16.10"
     lint-staged: "npm:^15.2.2"
     prettier: "npm:3.2.5"
@@ -9635,15 +9614,6 @@ __metadata:
   dependencies:
     xmlchars: "npm:^2.2.0"
   checksum: 10c0/3847b839f060ef3476eb8623d099aa502ad658f5c40fd60c105ebce86d244389b0d76fcae30f4d0c728d7705ceb2f7e9b34bb54717b6a7dbedaf5dad2d9a4b74
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.23.0":
-  version: 0.23.0
-  resolution: "scheduler@npm:0.23.0"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10c0/b777f7ca0115e6d93e126ac490dbd82642d14983b3079f58f35519d992fa46260be7d6e6cede433a92db70306310c6f5f06e144f0e40c484199e09c1f7be53dd
   languageName: node
   linkType: hard
 
