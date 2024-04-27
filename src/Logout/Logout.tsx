@@ -5,6 +5,7 @@ import { SET_LOGIN } from '../Login/queries';
 import { clearBanStatus } from '../Login/authUtils';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Result, Typography, Button } from 'antd';
+import { useEffect } from 'react';
 
 const { Paragraph, Text } = Typography;
 
@@ -28,7 +29,12 @@ export const Component = () => {
       status: false,
     },
   });
-  fetch('/api/logout', { method: 'POST' });
+
+  useEffect(() => {
+    fetch('/api/logout', { method: 'POST' });
+  }, []);
+
+
 
   const goToLoginPage = () => { navigate('/login', { state: { from: location } }); };
   const goToMainPage = () => { navigate('/'); };
