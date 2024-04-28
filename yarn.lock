@@ -3584,9 +3584,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^5.16.4":
-  version: 5.16.4
-  resolution: "antd@npm:5.16.4"
+"antd@npm:^5.16.5":
+  version: 5.16.5
+  resolution: "antd@npm:5.16.5"
   dependencies:
     "@ant-design/colors": "npm:^7.0.2"
     "@ant-design/cssinjs": "npm:^1.18.5"
@@ -3617,13 +3617,13 @@ __metadata:
     rc-motion: "npm:^2.9.0"
     rc-notification: "npm:~5.4.0"
     rc-pagination: "npm:~4.0.4"
-    rc-picker: "npm:~4.4.1"
+    rc-picker: "npm:~4.4.2"
     rc-progress: "npm:~4.0.0"
     rc-rate: "npm:~2.12.0"
     rc-resize-observer: "npm:^1.4.0"
     rc-segmented: "npm:~2.3.0"
     rc-select: "npm:~14.13.1"
-    rc-slider: "npm:~10.6.1"
+    rc-slider: "npm:~10.6.2"
     rc-steps: "npm:~6.0.1"
     rc-switch: "npm:~4.1.0"
     rc-table: "npm:~7.45.4"
@@ -3639,7 +3639,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 10c0/bb691cd9bbb82ce0c5f46c211b57a6c2ead9c97176492825dabbf357ea1d39f901e18a0135bb741e558aff7e4d0cfac79a707502ccb8ff0b55b37595664bcb91
+  checksum: 10c0/bd65586f2ca546d912c8038bd6702c1cff9ba89c11ac3ac42b37f03a2bf0aaeef5e9473ce9d508112ec281bce546379244b8887cfafe50244bc9c9b14173699a
   languageName: node
   linkType: hard
 
@@ -8592,9 +8592,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-picker@npm:~4.4.1":
-  version: 4.4.1
-  resolution: "rc-picker@npm:4.4.1"
+"rc-picker@npm:~4.4.2":
+  version: 4.4.2
+  resolution: "rc-picker@npm:4.4.2"
   dependencies:
     "@babel/runtime": "npm:^7.10.1"
     "@rc-component/trigger": "npm:^2.0.0"
@@ -8618,7 +8618,7 @@ __metadata:
       optional: true
     moment:
       optional: true
-  checksum: 10c0/9a711418f18073de7c7d3d6fd92cee9add1851c04d789e4ca28478f2b48d35b6abef64ae1f83378979e583eae176047391e263ab1b0fea9957ed64a9eeee5af0
+  checksum: 10c0/ccde5f6ebdd32c4411c2fa4f3b227775df329c6fe8262c0d43c00e43f84c151d677733e4faf3c058fbd3aeb6d729cc5d11671b176821fa0a1e1572f65ba62d64
   languageName: node
   linkType: hard
 
@@ -8716,7 +8716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-slider@npm:~10.6.1":
+"rc-slider@npm:~10.6.2":
   version: 10.6.2
   resolution: "rc-slider@npm:10.6.2"
   dependencies:
@@ -9122,7 +9122,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.7.1"
     "@vitejs/plugin-react-swc": "npm:^3.6.0"
     "@vitest/coverage-v8": "npm:^1.5.2"
-    antd: "npm:^5.16.4"
+    antd: "npm:^5.16.5"
     apollo-upload-client: "npm:^18.0.1"
     date-fns: "npm:^3.6.0"
     emojibase-data: "npm:^15.3.0"

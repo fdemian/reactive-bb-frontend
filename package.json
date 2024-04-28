@@ -21,7 +21,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "antd": "^5.16.4",
+    "antd": "^5.16.5",
     "apollo-upload-client": "^18.0.1",
     "date-fns": "^3.6.0",
     "emojibase-data": "^15.3.0",
