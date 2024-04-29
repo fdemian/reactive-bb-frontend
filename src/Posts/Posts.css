@@ -71,6 +71,10 @@
   vertical-align: sub;
 }
 
+.dropdown-button-quote > button {
+  vertical-align: middle;
+}
+
 .like-post-icon,
 .bookmark-post-icon {
   vertical-align: middle;
