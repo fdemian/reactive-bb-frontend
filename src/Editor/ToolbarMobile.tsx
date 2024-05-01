@@ -24,7 +24,7 @@ import {
   faFill,
   faTextHeight,
 } from '@fortawesome/free-solid-svg-icons';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { ToolbarProps } from './editorTypes';
 import { getCodeLanguageOptions } from 'kalliope';
 import type { ColorVal } from './utils';
@@ -49,6 +49,7 @@ const Toolbar = (props: ToolbarProps) => {
     toggleFontColorModal,
     toggleImageModal,
     toggleTweetToolbar,
+    toggleInstagramToolbar,
     toggleTableToolbar,
     toggleVideoToolbar,
     t,
@@ -106,6 +107,16 @@ const Toolbar = (props: ToolbarProps) => {
       text: t('toolbar.insertTweet'),
       onClick: toggleTweetToolbar,
       icon: faTwitter,
+    },
+    {
+      text: t('toolbar.insertTweet'),
+      onClick: toggleTweetToolbar,
+      icon: faTwitter,
+    },
+    {
+      text: t('toolbar.insertInstagram'),
+      onClick: toggleInstagramToolbar,
+      icon: faInstagram,
     },
     {
       text: t('toolbar.excalidraw'),

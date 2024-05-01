@@ -6,6 +6,7 @@ const EquationModal = lazy(() => import('./EquationModal/EquationModal'));
 const TweetToolbar = lazy(() => import('./TweetToolbar'));
 const TableToolbar = lazy(() => import('./TableToolbar'));
 const VideoToolbar = lazy(() => import('./VideoToolbar'));
+const InstagramToolbar = lazy(() => import('./InstagramToolbar'));
 const InsertImageToolbar = lazy(
   () => import('./ImageModal/InsertImageToolbar')
 );
@@ -25,6 +26,9 @@ const MobileDrawer = (props: MobileDrawerProps) => {
     toggleImageModal,
     tweetToolbarVisible,
     toggleTweetToolbar,
+    instagramToolbarVisible,
+    insertInstagram,
+    toggleInstagramToolbar,
     tableToolbarVisible,
     toggleTableToolbar,
     videoToolbar,
@@ -65,6 +69,7 @@ const MobileDrawer = (props: MobileDrawerProps) => {
   const open =
     equationModalVisible ||
     tweetToolbarVisible ||
+    instagramToolbarVisible ||
     tableToolbarVisible ||
     videoToolbar ||
     imageModalVisible;
@@ -86,6 +91,13 @@ const MobileDrawer = (props: MobileDrawerProps) => {
         <TweetToolbar
           insertTweet={insertTweet}
           toggleToolbar={toggleTweetToolbar}
+          t={t}
+        />
+      ) : null}
+      {instagramToolbarVisible ? (
+        <InstagramToolbar
+          insertInstagram={insertInstagram}
+          toggleToolbar={toggleInstagramToolbar}
           t={t}
         />
       ) : null}

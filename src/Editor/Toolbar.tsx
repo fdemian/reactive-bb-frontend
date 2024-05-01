@@ -21,7 +21,7 @@ import {
   faFill,
   faTextHeight,
 } from '@fortawesome/free-solid-svg-icons';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Toolbar.css';
 import { ToolbarProps } from './editorTypes';
 import { recomendedColors } from './toolbarUtils';
@@ -37,6 +37,7 @@ import {
   blockFormatChangeFn,
   onCodeLanguageSelect,
   insertTweet,
+  insertInstagram,
   insertTable,
   insertVideo,
   onFontSizeChange,
@@ -49,6 +50,7 @@ const { Option } = Select;
 
 const EquationModal = lazy(() => import('./EquationModal/EquationModal'));
 const TweetToolbar = lazy(() => import('./TweetToolbar'));
+const InstagramToolbar = lazy(() => import('./InstagramToolbar'));
 const TableToolbar = lazy(() => import('./TableToolbar'));
 const VideoToolbar = lazy(() => import('./VideoToolbar'));
 const InsertImageToolbar = lazy(
@@ -73,6 +75,8 @@ const Toolbar = (props: ToolbarProps) => {
     toggleImageModal,
     tweetToolbarVisible,
     toggleTweetToolbar,
+    instagramToolbarVisible,
+    toggleInstagramToolbar,
     toggleExcalidrawModal,
     tableToolbarVisible,
     toggleTableToolbar,
@@ -81,6 +85,8 @@ const Toolbar = (props: ToolbarProps) => {
     insertImage,
     t,
   } = props;
+
+ 
 
   const CODE_LANGUAGE_OPTIONS: [string, string][] = getCodeLanguageOptions();
 
@@ -108,6 +114,11 @@ const Toolbar = (props: ToolbarProps) => {
       text: t('toolbar.insertTweet'),
       onClick: toggleTweetToolbar,
       icon: faTwitter,
+    },
+    {
+      text: t('toolbar.insertInstagram'),
+      onClick: toggleInstagramToolbar,
+      icon: faInstagram
     },
     {
       text: t('toolbar.excalidraw'),
@@ -164,6 +175,18 @@ const Toolbar = (props: ToolbarProps) => {
         <TweetToolbar
           insertTweet={(t) => { insertTweet(t, editor); }}
           toggleToolbar={toggleTweetToolbar}
+          t={t}
+        />
+      </Suspense>
+    );
+  }
+
+  if(instagramToolbarVisible) {
+    return (
+      <Suspense fallback={<Spin />}>
+        <InstagramToolbar
+          insertInstagram={(t) => { insertInstagram(t, editor); }}
+          toggleToolbar={toggleInstagramToolbar}
           t={t}
         />
       </Suspense>

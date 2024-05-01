@@ -78,6 +78,9 @@ export interface MobileDrawerProps {
   toggleTweetToolbar: () => void;
   tableToolbarVisible: boolean;
   toggleTableToolbar: () => void;
+  instagramToolbarVisible: boolean;
+  insertInstagram: (t:string) => void;
+  toggleInstagramToolbar: () => void;
   videoToolbar: boolean;
   toggleVideoToolbar: () => void;
   insertImage: (val: InsertImageProps) => void;
@@ -122,6 +125,8 @@ export interface ToolbarProps {
   toggleImageModal: () => void;
   tweetToolbarVisible: boolean;
   toggleTweetToolbar: () => void;
+  toggleInstagramToolbar: () => void;
+  instagramToolbarVisible: boolean;
   toggleExcalidrawModal: () => void;
   tableToolbarVisible: boolean;
   toggleTableToolbar: () => void;

@@ -1,5 +1,4 @@
 import {
-  /*faTrash,*/
   faBold,
   faItalic,
   faUnderline,
@@ -396,6 +395,12 @@ export const insertTweet = (url: string, editor: EditorType) => {
   const tweetId = url.split('status/')[1]?.split('?')?.[0];
   editor.executeCommand('INSERT_TWEET', tweetId);
 };
+
+export const insertInstagram = (url: string, editor: EditorType) => { 
+  const BASE_IG_URL = "https://www.instagram.com/p/";
+  const igUrl = BASE_IG_URL + url?.split("p/")[1] + "embed/";
+  editor.executeCommand("INSERT_INSTAGRAM_POST", igUrl);
+}
 
 export const insertTable = (
   { columns, rows }: TableType,

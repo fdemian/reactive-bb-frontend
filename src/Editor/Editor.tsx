@@ -70,6 +70,12 @@ const Editor = (props: EditorProps) => {
   const toggleTweetToolbar = () => {
     setTweetToolbar(!tweetToolbarVisible);
   };
+
+  const [instagramToolbarVisible, setInstagramToolbar] = useState(false);
+  const toggleInstagramToolbar = () => {
+    setInstagramToolbar(!instagramToolbarVisible);
+  };
+
   const [tableToolbarVisible, setTableToolbar] = useState(false);
   const toggleTableToolbar = () => {
     setTableToolbar(!tableToolbarVisible);
@@ -288,6 +294,7 @@ const Editor = (props: EditorProps) => {
           formats={formats}
           tweetToolbarVisible={tweetToolbarVisible}
           toggleTweetToolbar={toggleTweetToolbar}
+          toggleInstagramToolbar={toggleInstagramToolbar}
           tableToolbarVisible={tableToolbarVisible}
           toggleTableToolbar={toggleTableToolbar}
           videoToolbar={videoToolbar}
@@ -298,6 +305,7 @@ const Editor = (props: EditorProps) => {
           bgColorModalVisible={bgColorModalVisible}
           fontColorModalVisible={fontColorModalVisible}
           equationModalVisible={equationModalVisible}
+          instagramToolbarVisible={instagramToolbarVisible}
           imageModalVisible={imageModalVisible}
           toggleImageModal={toggleImageModal}
           toggleBgColorModal={toggleBgColorModal}
