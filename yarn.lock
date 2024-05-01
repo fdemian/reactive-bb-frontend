@@ -7036,9 +7036,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kalliope@npm:^0.8.8":
-  version: 0.8.8
-  resolution: "kalliope@npm:0.8.8"
+"kalliope@npm:^0.8.9":
+  version: 0.8.9
+  resolution: "kalliope@npm:0.8.9"
   dependencies:
     "@excalidraw/excalidraw": "npm:^0.17.6"
     "@excalidraw/utils": "npm:^0.1.2"
@@ -7065,7 +7065,7 @@ __metadata:
     react-color: "npm:^2.19.3"
     react-dom: "npm:^18.3.1"
     react-player: "npm:^2.16.0"
-  checksum: 10c0/0a8402fa8a7171348c0bd78c78bbe8b68fbcaff259ce29f412ed946e09fe6512c348072e3ee792d8201354c3b5d9ef1e40e100b3b0daf7f1d17cc9440c97044b
+  checksum: 10c0/d8799bfcfbd2dd268d60ab81b7773bb11bbb2fdb0585d3c6e74278396a3d420aa6a5e541c6c174ebf8b8866b60c3c46e9a7177158619e6a841f775093a2745be
   languageName: node
   linkType: hard
 
@@ -9153,7 +9153,7 @@ __metadata:
     i18next-browser-languagedetector: "npm:^7.2.1"
     i18next-http-backend: "npm:^2.5.1"
     jsdom: "npm:^24.0.0"
-    kalliope: "npm:^0.8.8"
+    kalliope: "npm:^0.8.9"
     katex: "npm:^0.16.10"
     lint-staged: "npm:^15.2.2"
     prettier: "npm:3.2.5"
