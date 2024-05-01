@@ -1,6 +1,10 @@
 import { lazy } from 'react';
 import { Drawer } from 'antd';
 import { MobileDrawerProps } from './editorTypes';
+import {
+  insertTweet,
+  insertInstagram,
+} from './toolbarUtils';
 
 const EquationModal = lazy(() => import('./EquationModal/EquationModal'));
 const TweetToolbar = lazy(() => import('./TweetToolbar'));
@@ -27,7 +31,6 @@ const MobileDrawer = (props: MobileDrawerProps) => {
     tweetToolbarVisible,
     toggleTweetToolbar,
     instagramToolbarVisible,
-    insertInstagram,
     toggleInstagramToolbar,
     tableToolbarVisible,
     toggleTableToolbar,
@@ -38,11 +41,6 @@ const MobileDrawer = (props: MobileDrawerProps) => {
   } = props;
 
   if (!isMobile) return null;
-
-  const insertTweet = (url: string) => {
-    const tweetId = url.split('status/')[1]?.split('?')?.[0];
-    editor.executeCommand('INSERT_TWEET', tweetId);
-  };
 
   const insertTable = ({
     columns,
@@ -89,14 +87,14 @@ const MobileDrawer = (props: MobileDrawerProps) => {
       ) : null}
       {tweetToolbarVisible ? (
         <TweetToolbar
-          insertTweet={insertTweet}
+          insertTweet={(t) => { insertTweet(t, editor); }}
           toggleToolbar={toggleTweetToolbar}
           t={t}
         />
       ) : null}
       {instagramToolbarVisible ? (
         <InstagramToolbar
-          insertInstagram={insertInstagram}
+          insertInstagram={(t) => { insertInstagram(t, editor); }}
           toggleToolbar={toggleInstagramToolbar}
           t={t}
         />

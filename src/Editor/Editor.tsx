@@ -355,6 +355,8 @@ const Editor = (props: EditorProps) => {
           insertEquation={insertEquation}
           equationModalVisible={equationModalVisible}
           imageModalVisible={imageModalVisible}
+          instagramToolbarVisible={instagramToolbarVisible}
+          toggleInstagramToolbar={toggleInstagramToolbar}
           toggleImageModal={toggleImageModal}
           insertImage={insertImage}
           t={t}

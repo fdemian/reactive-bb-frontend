@@ -79,7 +79,6 @@ export interface MobileDrawerProps {
   tableToolbarVisible: boolean;
   toggleTableToolbar: () => void;
   instagramToolbarVisible: boolean;
-  insertInstagram: (t:string) => void;
   toggleInstagramToolbar: () => void;
   videoToolbar: boolean;
   toggleVideoToolbar: () => void;
