@@ -309,7 +309,7 @@ test('Messages editor > Render', async () => {
   expect(
     screen.getByRole('button', { name: 'chats.newConversation' })
   ).toBeInTheDocument();
-  expect(screen.getAllByText('userx').length).toStrictEqual(5);
+  expect(screen.getAllByText('userx').length).toStrictEqual(4);
   expect(screen.getByText('chats.clear')).toBeInTheDocument();
   expect(screen.getByText('chats.send')).toBeInTheDocument();
 

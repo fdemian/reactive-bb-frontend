@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest --config ./vitest.config.ts",
-    "test:coverage": "vitest --retry=3 --coverage",
+    "test:coverage": "vitest --coverage",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w",
     "build": "tsc && vite build",
@@ -28,7 +28,7 @@
     "eslint-plugin-react": "^7.34.1",
     "graphql": "^16.8.1",
     "graphql-ws": "^5.16.0",
-    "i18next": "^23.11.3",
+    "i18next": "^23.11.4",
     "i18next-browser-languagedetector": "^7.2.1",
     "i18next-http-backend": "^2.5.1",
     "kalliope": "^0.8.9",
@@ -38,8 +38,8 @@
     "react-helmet-async": "^2.0.5",
     "react-i18next": "^14.1.1",
     "react-responsive": "^10.0.0",
-    "react-router": "^6.23.0",
-    "react-router-dom": "^6.23.0",
+    "react-router": "^6.23.1",
+    "react-router-dom": "^6.23.1",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
@@ -60,7 +60,7 @@
     "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^9.2.0",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.6",
+    "eslint-plugin-react-refresh": "^0.4.7",
     "husky": "^9.0.11",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
