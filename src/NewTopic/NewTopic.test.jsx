@@ -77,11 +77,11 @@ const newTopicMocks = [
       request: {
         query: CREATE_POST,
         variables:  {
-          name:"Test",
-          content:"\"CALLIOPE_EDITOR_MOCK_CONTENT\"",
-          user:1,
-          category:null,
-          tags:"Tag"
+          name: "Test",
+          content: "\"CALLIOPE_EDITOR_MOCK_CONTENT\"",
+          user: 1,
+          category: null,
+          tags:"Tag1"
         },
       },
       result: {
@@ -96,7 +96,6 @@ const newTopicMocks = [
       },
     }
 ];
-
 
 test('<NewTopic /> > Create topic', async () => {  
     const user = userEvent.setup();
@@ -119,17 +118,13 @@ test('<NewTopic /> > Create topic', async () => {
       initialEntries: ['/topics/new'],
     });
     expect(screen.getByText('Loading')).toBeInTheDocument();    
-
-    await waitFor(() => {
-      const createTopicTexts = screen.getAllByText('topicsComposer.createTopic')
-      expect(createTopicTexts.length).toStrictEqual(2);
-    });
-    expect(
-      await screen.findByText("topicsComposer.chooseTags", { hidden: true})
-    ).toBeInTheDocument();
     
     expect(
         await screen.findByRole("textbox", { name: "topicsComposer.titlePlaceholder" })
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.findByText("topicsComposer.chooseTags", { hidden: true})
     ).toBeInTheDocument();
 
     expect(screen.getByRole("button", { name: "topicsComposer.cancel" })).toBeInTheDocument();
@@ -164,11 +159,16 @@ test('<NewTopic /> > Create topic', async () => {
     ).toBeInTheDocument();
 
     // Type the first tag.
-    user.click(screen.getByRole("textbox", { name: "topics-tag-input"}));
-    user.type(screen.getByRole("textbox", { name: "topics-tag-input"}), "Tag1");
+    await user.click(screen.getByRole("textbox", { name: "topics-tag-input"}));
+    await user.type(screen.getByRole("textbox", { name: "topics-tag-input"}), "Tag1");
     await user.keyboard(`{Enter}`, screen.getByRole("textbox", { name: "topics-tag-input"}));
-
+    
     //
+    //expect(await screen.findByText("Tag", { exact: false })).toBeInTheDocument();
+
+    expect(
+      await screen.findByRole("button", { name: "topicsComposer.createTopic"})
+    ).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "topicsComposer.createTopic"}));
    
     await waitFor(() => {

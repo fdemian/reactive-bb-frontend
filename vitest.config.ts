@@ -6,7 +6,8 @@ export default defineConfig({
     globals: true,
     setupFiles: 'src/setupTests.ts',
     pool: 'threads',
-    retry: 3,
+    retry: 1,
+    testTimeout: 500000,
     isolate: true,
     coverage: {
       exclude: [

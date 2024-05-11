@@ -109,11 +109,6 @@ const Toolbar = (props: ToolbarProps) => {
       icon: faTwitter,
     },
     {
-      text: t('toolbar.insertTweet'),
-      onClick: toggleTweetToolbar,
-      icon: faTwitter,
-    },
-    {
       text: t('toolbar.insertInstagram'),
       onClick: toggleInstagramToolbar,
       icon: faInstagram,
