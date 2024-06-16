@@ -41,7 +41,7 @@
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
     "zxcvbn": "^4.4.2"
-  },
+  }, 
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.3.0",

@@ -5,7 +5,8 @@ import FlaggedMessages from './Flag/FlaggedMessages';
 import UserbanPanel from './Ban/UserBanPanel';
 import './ModerationPanel.css';
 
-export const Component = () => {
+
+export const Component = (): React.ReactElement => {
   const { t } = useTranslation('modcp', { keyPrefix: 'modcp' });
 
   const menuMap = [

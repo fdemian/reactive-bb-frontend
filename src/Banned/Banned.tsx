@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { getBanStatus } from '../Login/authUtils';
 import './Banned.css';
 
-export const Banned = () => {
+
+export const Component = (): React.ReactElement => {
   const banStatus = getBanStatus();
   const { banned, banExpires, banReason } = banStatus;
   const { t } = useTranslation('banned', { keyPrefix: 'banned' });
