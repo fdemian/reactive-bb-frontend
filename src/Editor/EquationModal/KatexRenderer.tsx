@@ -11,7 +11,7 @@
 import katex from 'katex';
 import { useEffect, useRef } from 'react';
 import 'katex/dist/katex.css';
-
+import './Katex.css'
 interface KatexRendererProps {
   equation: string;
   inline: boolean;
@@ -37,7 +37,7 @@ const KatexRenderer = ({ equation, inline }: KatexRendererProps) => {
   }, [equation, inline]);
 
   return (
-    <span role="button" tabIndex={-1} ref={katexElementRef} />
+    <span role="button" className="katex-display-btn" tabIndex={-1} ref={katexElementRef} />
   );
 };
 

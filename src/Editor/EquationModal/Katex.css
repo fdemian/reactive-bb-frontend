@@ -1,0 +1,5 @@
+@media (min-width: 3440px) {
+ span.katex-display-btn {
+    display: flex;
+ }
+}

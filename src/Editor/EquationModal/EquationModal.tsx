@@ -28,7 +28,7 @@ const EditorModal = ({
 }: EditorModalProps) => {
   return (
     <>
-      <div>
+      <div className="equation-selector-modal">
         <KatexSelector equation={equation} setEquation={setEquation} t={t} />
         &nbsp;
         <Switch

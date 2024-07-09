@@ -35,3 +35,10 @@
     margin-top: 35px;
   }
 }
+
+
+@media (min-width: 3440px) {
+  .equation-confirmation-buttons {
+    margin-left: 0%;
+  }
+}
