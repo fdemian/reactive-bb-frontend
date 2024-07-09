@@ -71,3 +71,17 @@
 .forum-name-mobile {
   color: #0618ec;
 }
+
+@media (min-width: 3440px) {
+  .account-nav-items {
+    margin-left: 114px;
+  }
+
+  .navbar-link-button {
+    margin-left: 99px;
+  }
+
+  .search-bar-navbar {
+    margin-left: 80%;
+  }
+}
