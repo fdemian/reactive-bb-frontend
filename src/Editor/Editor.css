@@ -63,6 +63,18 @@
   border: 1px solid rgba(0, 0, 0, 0.45);
 }
 
+.dropdown {
+  z-index: 9999999;
+}
+
+.calliope-editor-table-add-columns,
+.calliope-editor-table-add-rows,
+.draggable-block-menu,
+.calliope-table-cell-resizer {
+  z-index: 9999999;
+  top: 0px;
+}
+
 .source-link-component {
   margin-left: 90%;
 }
