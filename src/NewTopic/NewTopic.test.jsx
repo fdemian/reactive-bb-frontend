@@ -2,6 +2,12 @@ import React from 'react';
 import { render, screen, waitFor } from '../TestHelpers/testing-utils.jsx';
 import { CREATE_POST } from './Mutations';
 import { GET_CATEGORIES } from '../Categories/Queries';
+import {
+  GET_NOTIFICATIONS,
+  NOTIFICATIONS_SUBSCRIPTION,
+  CHATS_SUBSCRIPTION,
+} from '../Navbar/Queries';
+
 import userEvent from '@testing-library/user-event';
 import { vi, test, expect, beforeEach } from 'vitest';
 import { afterEach } from 'node:test';
@@ -60,6 +66,49 @@ vi.mock('kalliope', () => ({
 }));  
 
 const newTopicMocks = [
+    {
+      request: {
+        query: NOTIFICATIONS_SUBSCRIPTION,
+        variables: { user: 1},
+      },
+      result: {
+        loading: false,
+        error: false,
+        data: {
+          notificationAdded: [],
+        },
+      },
+    },
+    {
+      request: {
+        query: GET_NOTIFICATIONS,
+        variables: {
+          user: 1,
+        },
+      },
+      result: {
+        loading: false,
+        error: false,
+        data: {
+          notifications: [],
+        },
+      },
+    },
+    {
+      request: {
+        query: CHATS_SUBSCRIPTION,
+        variables: {
+          user: 1,
+        },
+      },
+      result: {
+        loading: true,
+        error: false,
+        data: {
+          chatAdded: null,
+        },
+      },
+    },
     {
       request: {
         query: GET_CATEGORIES,
