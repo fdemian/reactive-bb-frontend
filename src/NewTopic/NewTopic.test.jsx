@@ -105,7 +105,7 @@ const newTopicMocks = [
         loading: true,
         error: false,
         data: {
-          chatAdded: null,
+          chatAdded: { chatNotification: []},
         },
       },
     },
