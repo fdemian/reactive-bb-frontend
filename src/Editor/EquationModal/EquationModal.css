@@ -18,7 +18,7 @@
 }
 
 .equation-confirmation-buttons {
-  margin-left: 73%;
+  margin-left: 71%;
 }
 
 .visualization-title {
@@ -35,7 +35,6 @@
     margin-top: 35px;
   }
 }
-
 
 @media (min-width: 3440px) {
   .equation-confirmation-buttons {

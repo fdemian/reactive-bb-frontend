@@ -10,19 +10,25 @@ interface InstagramToolbarProps {
   t: (key: string) => string;
 }
 
-const InstagramToolbar = ({ insertInstagram, toggleToolbar, t }: InstagramToolbarProps) => {
+const InstagramToolbar = ({
+  insertInstagram,
+  toggleToolbar,
+  t,
+}: InstagramToolbarProps) => {
   const [igUrl, setIgUrl] = useState('');
 
   return (
     <div className="toolbar">
       <div className="toolbar-single">
         <Input
-          className="tweet-toolbar-url-input"
+          className="instagram-toolbar-url-input"
           role="textbox"
-          aria-label="Tweet URL"
+          aria-label="Instagram URL"
           placeholder="https://www.instagram.com/p/<igId>/"
           value={igUrl}
-          onChange={(e) => { setIgUrl(e.target.value); }}
+          onChange={(e) => {
+            setIgUrl(e.target.value);
+          }}
         />
         &nbsp;
         <span className="tweet-toolbar-confirm-buttons">
