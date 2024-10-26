@@ -6,7 +6,7 @@ export default defineConfig({
     globals: true,
     setupFiles: 'src/setupTests.ts',
     pool: 'forks',
-    retry: 3,
+    retry: 1,
     testTimeout: 5000000,
     isolate: true,
     coverage: {

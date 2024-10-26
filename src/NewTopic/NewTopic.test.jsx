@@ -7,10 +7,8 @@ import {
   NOTIFICATIONS_SUBSCRIPTION,
   CHATS_SUBSCRIPTION,
 } from '../Navbar/Queries';
-
 import userEvent from '@testing-library/user-event';
-import { vi, test, expect, beforeEach } from 'vitest';
-import { afterEach } from 'node:test';
+import { vi, test, expect } from 'vitest';
 
 window.scrollTo = () => {};
 
