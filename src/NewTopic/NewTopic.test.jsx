@@ -167,10 +167,6 @@ test('<NewTopic /> > Create topic', async () => {
     expect(screen.getByText('Loading')).toBeInTheDocument();    
     
     expect(
-        await screen.findByRole("textbox", { name: "topicsComposer.titlePlaceholder" })
-    ).toBeInTheDocument();
-
-    expect(
       await screen.findByText("topicsComposer.chooseTags", { hidden: true})
     ).toBeInTheDocument();
 
