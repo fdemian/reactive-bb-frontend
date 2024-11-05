@@ -27,6 +27,13 @@ vi.mock('../../Editor/Editor', () => ({
   },
 }));
 
+window.ResizeObserver = window.ResizeObserver ||
+  vi.fn().mockImplementation(() => ({
+    disconnect: vi.fn(),
+    observe: vi.fn(),
+    unobserve: vi.fn()
+}));  
+
 const banContentReason =
   '{\"root\":{\"children\":[{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}';
 const datePlus2Years = addYears(new Date(), 2);
@@ -263,7 +270,7 @@ test('<ModerationPanel /> > <BanPanel /> > Go back', async () => {
   expect(
     await screen.findByRole('input', { name: 'modcp.searchUsers' })
   ).toBeInTheDocument();
-  expect(screen.getByText('No data')).toBeInTheDocument();
+  expect(screen.getAllByText('No data').length).toStrictEqual(2);
 
   // Clear and type username.
   await user.pointer({
@@ -322,7 +329,7 @@ test('<ModerationPanel /> > <BanPanel /> > Go back', async () => {
   expect(
     await screen.findByRole('input', { name: 'modcp.searchUsers' })
   ).toBeInTheDocument();
-  expect(screen.getByText('No data')).toBeInTheDocument();
+  expect(screen.getAllByText('No data').length).toStrictEqual(2);
 });
 
 test('<ModerationPanel /> > <BanPanel /> > Ban user', async () => {
@@ -338,7 +345,7 @@ test('<ModerationPanel /> > <BanPanel /> > Ban user', async () => {
   expect(
     await screen.findByRole('input', { name: 'modcp.searchUsers' })
   ).toBeInTheDocument();
-  expect(screen.getByText('No data')).toBeInTheDocument();
+  expect(screen.getAllByText('No data').length).toStrictEqual(2);
 
   await user.pointer({
     element: screen.getByRole('input', { name: 'modcp.searchUsers' }),
