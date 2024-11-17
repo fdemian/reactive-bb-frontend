@@ -3,9 +3,11 @@
 Reactive BB is a modern forum application for the next generation.
 This repository houses the frontend of the React application.
 
+Build
 ![Build](https://img.shields.io/github/actions/workflow/status/fdemian/reactive-bb-frontend/.github/workflows/build.yml)
-![Test](https://img.shields.io/github/actions/workflow/status/fdemian/reactive-bb-frontend/.github/workflows/test.yml)
 
+Tests
+![Test](https://img.shields.io/github/actions/workflow/status/fdemian/reactive-bb-frontend/.github/workflows/test.yml)
 
 ## Installation instructions
 
