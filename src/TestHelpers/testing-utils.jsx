@@ -144,7 +144,11 @@ const TestingWrapper = (props) => {
   const router = createMemoryRouter(routes, {
     initialEntries: initialEntries,
     initialIndex: 0,
+    future: {
+      v7_fetcherPersist: true,
+    },
   });
+  
   const configMock = configMockOverride
     ? configMockOverride
     : configSettingsMock;
