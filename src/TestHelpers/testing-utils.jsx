@@ -4,7 +4,7 @@
 import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { Context as ResponsiveContext } from 'react-responsive';
-import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import { render } from '@testing-library/react';
@@ -141,12 +141,9 @@ const TestingWrapper = (props) => {
       },
     },
   };
-  const router = createMemoryRouter(routes, {
+  const router = createBrowserRouter(routes, {
     initialEntries: initialEntries,
     initialIndex: 0,
-    future: {
-      v7_fetcherPersist: true,
-    },
   });
   
   const configMock = configMockOverride
