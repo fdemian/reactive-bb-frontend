@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import './Editor.css';
 
-interface RendererParse { content: string | null | undefined }
+interface RendererParse {
+  content: string | null | undefined;
+}
 
 const Renderer = ({ content }: RendererParse) => {
   const containerRef = useRef(null);
@@ -21,6 +23,7 @@ const Renderer = ({ content }: RendererParse) => {
 
   const config = {
     placeholderText: '',
+    selectionAlwaysOnDisplay: false,
     initialState: parsedContent ?? undefined,
     readOnly: true,
     autoFocus: false,
@@ -62,6 +65,7 @@ const Renderer = ({ content }: RendererParse) => {
     mentions: {
       onSearchChange: () => {},
       onAddMention: () => {},
+      onRemoveMention: () => {},
       entryComponent: () => {},
       mentionsData: [],
     },
