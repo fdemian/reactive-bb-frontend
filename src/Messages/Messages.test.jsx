@@ -27,7 +27,6 @@ vi.mock('../Login/authUtils', async () => {
 });
 
 const user1 = {
-  avatar: null,
   id: 1,
   username: 'userx',
   type: 'U',
@@ -44,7 +43,6 @@ const user1 = {
 
 const user2 = {
   id: 2,
-  avatar: null,
   username: 'rulo',
   type: 'U',
   banned: false,

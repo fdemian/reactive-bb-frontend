@@ -161,7 +161,7 @@ const TestingWrapper = (props) => {
           resolvers={resolvers}
           addTypename={true}
         >
-          <RouterProvider router={router} fallbackElement={<p>Loading</p>} />
+          <RouterProvider router={router} hydrateFallbackElement={<p>Loading</p>} />
         </MockedProvider>
       </ResponsiveContext.Provider>
     </I18nextProvider>

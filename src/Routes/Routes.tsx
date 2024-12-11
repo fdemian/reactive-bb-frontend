@@ -7,6 +7,7 @@ const routes = [
     path: '/',
     element: <App />,
     errorElement: <ErrorBoundary />,
+    hydrateFallbackElement: <div>Loading</div>,
     children: [
       {
         path: '/',
@@ -36,7 +37,7 @@ const routes = [
       {
         path: 'activation/:token',
         lazy: () => import('../Register/UserActivation'),
-      },/**/
+      } /**/,
       {
         path: 'banned',
         async lazy() {
@@ -50,7 +51,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'modcp',
         async lazy() {
@@ -66,7 +67,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'admincp',
         async lazy() {
@@ -80,7 +81,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'topics/new',
         async lazy() {
@@ -94,7 +95,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'topics/:id/:postName/:selectedPost',
         lazy: () => import('../Posts/Posts'),
@@ -118,7 +119,7 @@ const routes = [
       {
         path: 'categories/:id/*',
         lazy: () => import('../Category/Category'),
-      },/**/
+      } /**/,
       {
         path: 'users/:id/:username',
         async lazy() {
@@ -132,7 +133,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'settings',
         async lazy() {
@@ -146,7 +147,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Settings} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'bookmarks',
         async lazy() {
@@ -160,7 +161,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'search',
         async lazy() {
@@ -174,7 +175,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'messages',
         async lazy() {
@@ -188,7 +189,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'notifications',
         async lazy() {
@@ -202,7 +203,7 @@ const routes = [
             Component: () => <PrivateRoute {...props} component={Component} />,
           };
         },
-      },/**/
+      } /**/,
       {
         path: 'oauth/:service',
         lazy: () => import('../Oauth/Oauth'),
