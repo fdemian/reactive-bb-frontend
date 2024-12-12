@@ -37,8 +37,6 @@ const ErrorBoundary = ({ error }: any) => {
       </Result>
     );
   } else {
-    console.log('@@@@@@@@@@@@@');
-    console.log(error);
     // Unknown error.
     return (
       <Result
