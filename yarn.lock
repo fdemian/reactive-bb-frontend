@@ -137,9 +137,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/client@npm:^3.12.2":
-  version: 3.12.2
-  resolution: "@apollo/client@npm:3.12.2"
+"@apollo/client@npm:^3.12.3":
+  version: 3.12.3
+  resolution: "@apollo/client@npm:3.12.3"
   dependencies:
     "@graphql-typed-document-node/core": "npm:^3.1.1"
     "@wry/caches": "npm:^1.0.0"
@@ -170,7 +170,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: 10c0/c2c0c3a7ff0bed78c150ede12e927a6e94c5816db824ff247bb76154c25edde4836db777c626777cbdb44ffccf9c1aa0a3e30b34f3c019a1322dff1d099305b0
+  checksum: 10c0/fea18d712de44f46898f8ee39ce5e80b7c3c0a3caa69285971133dbdfc21970f35c156ad1e4e4fcb2da5e72f57d3719cfabefc9d41b55957ff9a70a6bc867fdc
   languageName: node
   linkType: hard
 
@@ -9074,9 +9074,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^15.1.4":
-  version: 15.1.4
-  resolution: "react-i18next@npm:15.1.4"
+"react-i18next@npm:^15.2.0":
+  version: 15.2.0
+  resolution: "react-i18next@npm:15.2.0"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
     html-parse-stringify: "npm:^3.0.1"
@@ -9088,7 +9088,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 10c0/6c1b053fc530c3a750c8cb0a090a54cd3580cbe2103bea26579a2855a6c0a8be7e1cbffda732d4ec9c9aa8724569783dc340564855e1fe76f48c24683fe0b3d4
+  checksum: 10c0/e6dfd3f04a070777231ea50e750d74ed7a72c56e3f2da238e8666db65431c805482706bbc76bdb69e5196c4125ff4c955ea4166a1788997a679c3a5c03590654
   languageName: node
   linkType: hard
 
@@ -9201,7 +9201,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "reactive-bb-frontend@workspace:."
   dependencies:
-    "@apollo/client": "npm:^3.12.2"
+    "@apollo/client": "npm:^3.12.3"
     "@fortawesome/fontawesome-svg-core": "npm:^6.7.1"
     "@fortawesome/free-brands-svg-icons": "npm:^6.7.1"
     "@fortawesome/free-regular-svg-icons": "npm:^6.7.1"
@@ -9244,7 +9244,7 @@ __metadata:
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-helmet-async: "npm:^2.0.5"
-    react-i18next: "npm:^15.1.4"
+    react-i18next: "npm:^15.2.0"
     react-responsive: "npm:^10.0.0"
     react-router: "npm:^7.0.2"
     react-router-dom: "npm:^7.0.2"
