@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import Renderer from '../Editor/Renderer';
+import { ReactElement } from 'react';
 
 type ResultType = {
-  __typename?: "SearchResult" | undefined;
+  __typename?: 'SearchResult' | undefined;
   id: number;
   text: string;
   topicId: number;
@@ -13,7 +14,7 @@ type ResultType = {
 };
 
 interface SearchResultsType {
-  __typename?: "SearchResponse" | undefined; 
+  __typename?: 'SearchResponse' | undefined;
   total: number;
   results?: ResultType[] | null | undefined;
 }
@@ -23,8 +24,9 @@ interface SearchResultsData {
   t: (key: string) => string;
 }
 
-const SearchResults = ({ data, t }: SearchResultsData): JSX.Element => {
-  if (!data || !data.results || data.results.length === 0) return <h1>{t('noMatch')}</h1>;
+const SearchResults = ({ data, t }: SearchResultsData): ReactElement => {
+  if (!data || !data.results || data.results.length === 0)
+    return <h1>{t('noMatch')}</h1>;
 
   return (
     <List

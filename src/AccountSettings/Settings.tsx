@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { Menu } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ProfileView from './Views/Profile/ProfileView';
@@ -10,7 +10,7 @@ import './Settings.css';
 interface MenuMapItem {
   key: string;
   name: string;
-  component: JSX.Element;
+  component: ReactElement;
 }
 
 export const Settings = () => {
@@ -35,13 +35,22 @@ export const Settings = () => {
   const [selectKey, setSelectKey] = useState('profile');
   const items = menuMap.map((item) => ({
     key: item.key,
-    label: <div onClick={() => { setSelectKey(item.key); }}>{item.name}</div>,
+    label: (
+      <div
+        onClick={() => {
+          setSelectKey(item.key);
+        }}
+      >
+        {item.name}
+      </div>
+    ),
   }));
 
-  let menuItem:MenuMapItem | undefined = menuMap.find((k) => k.key === selectKey) ;
+  let menuItem: MenuMapItem | undefined = menuMap.find(
+    (k) => k.key === selectKey
+  );
 
-  if(menuItem === undefined)
-     menuItem = menuMap[0];
+  if (menuItem === undefined) menuItem = menuMap[0];
 
   const title = menuItem.name;
   const childComponent = menuItem.component;

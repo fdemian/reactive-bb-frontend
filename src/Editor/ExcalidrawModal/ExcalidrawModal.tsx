@@ -2,9 +2,10 @@ import { Modal, Drawer, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { getIsMobile } from '../../App/utils';
 import './ExcalidrawModal.css';
+import { ReactElement } from 'react';
 
 interface ExcalidrawModalProps {
-  excalidrawComponent: JSX.Element;
+  excalidrawComponent: ReactElement;
   setExcalidrawAPI: (api: any) => void;
   discard: () => void;
   save: () => void;
@@ -70,7 +71,9 @@ const ExcalidrawModal = (props: ExcalidrawModalProps) => {
         {/* @ts-expect-error */}
         <Excalidraw
           onChange={onChange}
-          excalidrawAPI={(api: any) => { setExcalidrawAPI(api); }}
+          excalidrawAPI={(api: any) => {
+            setExcalidrawAPI(api);
+          }}
           initialData={{
             appState: initialAppState || { isLoading: false },
             elements: initialElements,
