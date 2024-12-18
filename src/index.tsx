@@ -8,11 +8,7 @@ import 'antd/dist/reset.css';
 
 const ReactiveBB = () => {
   const client = useNewClient();
-  const router = createBrowserRouter(routes, {
-    future: {
-      v7_fetcherPersist: true,
-    },
-  });
+  const router = createBrowserRouter(routes);
 
   return (
     <ApolloProvider client={client}>

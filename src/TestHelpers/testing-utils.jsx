@@ -145,7 +145,7 @@ const TestingWrapper = (props) => {
     initialEntries: initialEntries,
     initialIndex: 0,
   });
-  
+
   const configMock = configMockOverride
     ? configMockOverride
     : configSettingsMock;
@@ -161,7 +161,7 @@ const TestingWrapper = (props) => {
           resolvers={resolvers}
           addTypename={true}
         >
-          <RouterProvider router={router} hydrateFallbackElement={<p>Loading</p>} />
+          <RouterProvider router={router} />
         </MockedProvider>
       </ResponsiveContext.Provider>
     </I18nextProvider>

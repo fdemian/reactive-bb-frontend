@@ -112,7 +112,6 @@ TestingWrapper.propTypes = {
   isLoggedIn: PropTypes.bool,
   configMockOverride: PropTypes.shape({}),
 };
-
 */
 
 const customRender = (ui, options) => {
