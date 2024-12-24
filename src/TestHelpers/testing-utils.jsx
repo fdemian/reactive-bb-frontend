@@ -1,16 +1,17 @@
 /* eslint no-unused-vars: 0 */ //
 /* eslint react-refresh/only-export-components: 0 */ //
 //import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { Context as ResponsiveContext } from 'react-responsive';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { createRoutesStub } from "react-router";
+import {BrowserRouter} from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { GET_CONFIG } from '../App/Queries';
-import routes from '../Routes/Routes';
+import routes from '../Routes/RoutesForTesting';
 import cache from '../cache';
 import {
   GET_NOTIFICATIONS,
@@ -18,6 +19,8 @@ import {
 } from '../Navbar/Queries';
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
+import { Await } from "react-router";
+import App from '../App/App';
 
 const navbarMocks = [
   {
@@ -141,11 +144,9 @@ const TestingWrapper = (props) => {
       },
     },
   };
-  const router = createBrowserRouter(routes, {
-    initialEntries: initialEntries,
-    initialIndex: 0,
-  });
 
+  const Stub = createRoutesStub(routes);
+  
   const configMock = configMockOverride
     ? configMockOverride
     : configSettingsMock;
@@ -153,6 +154,7 @@ const TestingWrapper = (props) => {
   const finalMocks = providerMocks.concat(navbarMocks);
 
   return (
+  <BrowserRouter>
     <I18nextProvider i18n={i18n}>
       <ResponsiveContext.Provider value={{ width: isMobile ? 300 : 1900 }}>
         <MockedProvider
@@ -161,10 +163,15 @@ const TestingWrapper = (props) => {
           resolvers={resolvers}
           addTypename={true}
         >
-          <RouterProvider router={router} />
+          <App>
+            <Suspense fallback={<p>Loading</p>}>
+              <Stub initialEntries={initialEntries} hydrateFallbackElement={<div>Loading</div>} />
+            </Suspense>
+          </App>
         </MockedProvider>
       </ResponsiveContext.Provider>
     </I18nextProvider>
+  </BrowserRouter>    
   );
 };
 

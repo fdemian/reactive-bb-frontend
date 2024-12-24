@@ -141,7 +141,7 @@ test('<TopicsList /> > Renders category.', async () => {
     initialEntries: ['/categories/1/:name'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  expect(await screen.findByText('Loading')).toBeInTheDocument();
 
   expect(await screen.findByText(mockCategory.name)).toBeInTheDocument();
 
