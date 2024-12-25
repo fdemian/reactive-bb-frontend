@@ -1,11 +1,11 @@
 /* eslint no-unused-vars: 0 */ //
 /* eslint react-refresh/only-export-components: 0 */ //
 //import PropTypes from 'prop-types';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { Context as ResponsiveContext } from 'react-responsive';
 import { createRoutesStub } from "react-router";
-import {BrowserRouter} from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import { render } from '@testing-library/react';
@@ -19,8 +19,7 @@ import {
 } from '../Navbar/Queries';
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
-import { Await } from "react-router";
-import App from '../App/App';
+import Loading from '../Loading/LoadingIndicator';
 
 const navbarMocks = [
   {
@@ -154,7 +153,7 @@ const TestingWrapper = (props) => {
   const finalMocks = providerMocks.concat(navbarMocks);
 
   return (
-  <BrowserRouter>
+  <HelmetProvider>
     <I18nextProvider i18n={i18n}>
       <ResponsiveContext.Provider value={{ width: isMobile ? 300 : 1900 }}>
         <MockedProvider
@@ -163,15 +162,11 @@ const TestingWrapper = (props) => {
           resolvers={resolvers}
           addTypename={true}
         >
-          <App>
-            <Suspense fallback={<p>Loading</p>}>
-              <Stub initialEntries={initialEntries} hydrateFallbackElement={<div>Loading</div>} />
-            </Suspense>
-          </App>
+          <Stub initialEntries={initialEntries} hydrateFallbackElement={<Loading />} />
         </MockedProvider>
       </ResponsiveContext.Provider>
     </I18nextProvider>
-  </BrowserRouter>    
+  </HelmetProvider>
   );
 };
 

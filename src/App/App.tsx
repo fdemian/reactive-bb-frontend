@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { getBanStatus } from '../Login/authUtils';
 import enUS from 'antd/locale/en_US';
 import { DirectionType } from 'antd/es/config-provider';
+import Loading from '../Loading/LoadingIndicator';
 
 const CONTENT_DIRECTION: DirectionType = 'ltr';
 
@@ -87,6 +88,7 @@ const App = () => {
     <HelmetProvider>
       <ConfigProvider {...appConfigProps}>
         <Helmet>
+          <html lang={language} />
           <link
             rel="icon"
             type={faviconType ?? ''}
@@ -99,7 +101,7 @@ const App = () => {
         </Helmet>
 
         <main role="main" data-testid="app-layout">
-          <Suspense fallback={<Spin />}>
+          <Suspense fallback={<Loading />}>
             <Layout>
               <Affix offsetTop={0}>
                 <header role="banner">
@@ -123,9 +125,7 @@ const App = () => {
                       </Suspense>
                     )}
                     <br />
-                    <Suspense fallback={<Spin />}>
-                      <Outlet />
-                    </Suspense>
+                    <Outlet />
                   </Card>
                 </div>
               )}

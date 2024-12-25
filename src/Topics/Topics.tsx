@@ -140,6 +140,7 @@ export const Component = () => {
   return (
     <>
       <Helmet>
+        <html lang="en" />
         <title>{config.name}</title>
       </Helmet>
 
