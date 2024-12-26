@@ -20,6 +20,7 @@ import {
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import Loading from '../Loading/LoadingIndicator';
+import App from '../App/App';
 
 const navbarMocks = [
   {
@@ -162,7 +163,9 @@ const TestingWrapper = (props) => {
           resolvers={resolvers}
           addTypename={true}
         >
-          <Stub initialEntries={initialEntries} hydrateFallbackElement={<Loading />} />
+          <main role="main" data-testid="app-layout">
+             <Stub initialEntries={initialEntries} hydrateFallbackElement={<Loading />} />
+          </main>
         </MockedProvider>
       </ResponsiveContext.Provider>
     </I18nextProvider>

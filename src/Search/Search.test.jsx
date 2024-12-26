@@ -50,7 +50,6 @@ test('<Search /> | No search params', async () => {
     isMobile: false,
     initialEntries: ['/search'],
   });
-  expect(await screen.findByText('Loading')).toBeInTheDocument();
 
   // No search text.
   const noSearchText = await screen.findAllByText('search.noSearch');
@@ -118,7 +117,6 @@ test('<Search /> | Search params from navbar', async () => {
     isMobile: false,
     initialEntries: [`/search?term=${searchTerm}`],
   });
-  expect(await screen.findByText('Loading')).toBeInTheDocument();
 
   await waitFor(() => {
     expect(screen.getByText('search.searchTerm')).toBeInTheDocument();

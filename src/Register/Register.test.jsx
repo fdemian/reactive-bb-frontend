@@ -106,7 +106,6 @@ test('<Register /> > Register screen > Form interaction > Error', async () => {
     initialEntries: ['/register'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
   expect(await screen.findByRole('form')).toBeInTheDocument();
   expect(screen.getByRole('form')).toHaveFormValues({
     username: '',

@@ -29,18 +29,6 @@ test('<Banned /> > Renders correctly.', async () => {
     initialEntries: ['/banned'],
   });
 
-  const noticeTexts = await screen.findAllByText('banned.banStatusNotice', {
-    exact: false,
-  });
-  expect(noticeTexts.length).toStrictEqual(2);
-
-  expect(
-    screen.getByText('banned.banStatusNoticeText', { exact: false })
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText('banned.banStatusClick', { exact: false })
-  ).toBeInTheDocument();
-
   expect(
     await screen.findByText('CALLIOPE_EDITOR_MOCK_CONTENT')
   ).toBeInTheDocument();

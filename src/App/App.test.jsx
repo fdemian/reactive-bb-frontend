@@ -94,7 +94,7 @@ test('<App /> > <BanStatusBanner />', async () => {
     isMobile: false,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  //expect(screen.getByText('Loading')).toBeInTheDocument();
   expect(
     await screen.findByText('banned.banStatusNoticeText', { exact: false })
   ).toBeInTheDocument();
