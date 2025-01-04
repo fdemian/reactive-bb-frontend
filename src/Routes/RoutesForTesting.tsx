@@ -176,7 +176,7 @@ const routes = [
           };
           return <PrivateRoute {...props} component={Search} />;
         },
-      } /**/,
+      },
       {
         path: 'messages',
         Component: () => {

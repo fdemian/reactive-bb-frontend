@@ -31,5 +31,5 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 global.localStorage.setItem('DEFAULT_PAGE_ITEMS', '5');
-global.localStorage.setItem('CONFIG', JSON.stringify({ name: 'TEST' }));
+global.localStorage.setItem('CONFIG', JSON.stringify({ name: 'Morpheus' }));
 global.localStorage.setItem('OAUTH_CONFIG', JSON.stringify(OAUTH_CONFIG));
