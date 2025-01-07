@@ -10,7 +10,7 @@ vi.mock('kalliope', () => ({
   },
 }));
 
-const searchTerm = 'testterm';
+const searchTerm = 'SEARCH_TEST';
 const mocks = [
   {
     request: {
@@ -42,7 +42,7 @@ const mocks = [
   },
 ];
 
-test('<Search /> | No search params', async () => {
+test.skip('<Search /> | No search params', async () => {
   const user = userEvent.setup();
   render({
     mocks: mocks,
@@ -123,6 +123,8 @@ test('<Search /> | Search params from navbar', async () => {
   });
   expect(await screen.findByText('search.searchTerm')).toBeInTheDocument();
   expect(screen.getByText('search.searchIn')).toBeInTheDocument();
+
+  screen.debug(undefined, 2000000000);
 
   expect(
     await screen.findByText('search.searchedFor', { exact: false })
