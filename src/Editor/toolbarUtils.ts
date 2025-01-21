@@ -18,6 +18,9 @@ import {
   faSquareCheck,
   faQuoteLeft,
   faCode,
+  faA,
+  faArrowUpZA,
+  faArrowDownAZ,
 } from '@fortawesome/free-solid-svg-icons';
 import type { ColorVal, TableType } from './utils';
 import { SIGN, getLinkIcon } from './utils';
@@ -69,6 +72,9 @@ export interface CalliopeFormatTypes {
   isStrikethrough: boolean;
   isSubscript: boolean;
   isSuperscript: boolean;
+  isLowercase: boolean;
+  isUppercase: boolean;
+  isCapitalize: boolean;
   isCode: boolean;
   canUndo: boolean;
   canRedo: boolean;
@@ -284,6 +290,33 @@ const FORMAT_CODE_BLOCK = (t: TranslationFn) => ({
   value: 'CODE_BLOCK',
 });
 
+const UPPERCASE = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+  name: t('toolbar.uppercase'),
+  text: `${t('toolbar.uppercase')}`,
+  command: 'FORMAT',
+  props: 'uppercase',
+  icon: faArrowUpZA,
+  isActive: formats.isUppercase,
+});
+
+const LOWERCASE = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+  name: t('toolbar.lowercase'),
+  text: `${t('toolbar.lowercase')}`,
+  command: 'FORMAT',
+  props: 'lowercase',
+  icon: faArrowDownAZ,
+  isActive: formats.isLowercase,
+});
+
+const CAPITALIZE = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
+  name: t('toolbar.capitalize'),
+  text: `${t('toolbar.capitalize')}`,
+  command: 'FORMAT',
+  props: 'capitalize',
+  icon: faA,
+  isActive: formats.isCapitalize,
+});
+
 export const getToolbarDropdownDesktop = (t: TranslationFn) => {
   return [
     FORMAT_TOOLBAR_NORMAL(t),
@@ -319,6 +352,9 @@ export const getButtonElementsToolbarDesktop = (
     ALIGN_RIGHT(t),
     ALIGN_CENTER(t),
     ALIGN_JUSTIFY(t),
+    UPPERCASE(t, formats),
+    LOWERCASE(t, formats),
+    CAPITALIZE(t, formats),
   ];
 };
 
@@ -326,9 +362,7 @@ export const getButtonElementsToolbarMobile = (
   t: (key: string) => string,
   formats: CalliopeFormatTypes | null
 ) => {
-
-  if(!formats)
-    return [];
+  if (!formats) return [];
 
   return [
     BOLD_ELEMENT(t, formats),
@@ -396,11 +430,11 @@ export const insertTweet = (url: string, editor: EditorType) => {
   editor.executeCommand('INSERT_TWEET', tweetId);
 };
 
-export const insertInstagram = (url: string, editor: EditorType) => { 
-  const BASE_IG_URL = "https://www.instagram.com/p/";
-  const igUrl = BASE_IG_URL + url?.split("p/")[1] + "embed/";
-  editor.executeCommand("INSERT_INSTAGRAM_POST", igUrl);
-}
+export const insertInstagram = (url: string, editor: EditorType) => {
+  const BASE_IG_URL = 'https://www.instagram.com/p/';
+  const igUrl = BASE_IG_URL + url?.split('p/')[1] + 'embed/';
+  editor.executeCommand('INSERT_INSTAGRAM_POST', igUrl);
+};
 
 export const insertTable = (
   { columns, rows }: TableType,
