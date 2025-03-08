@@ -51,7 +51,6 @@ const App = () => {
   } = config;
 
   // Set paramaters.
-
   if (items_per_page) {
     setDefaultPageItems(items_per_page);
   }

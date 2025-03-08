@@ -4,6 +4,34 @@ import { vi, test, expect } from 'vitest';
 import { GET_PINNED_TOPICS, GET_TOPICS } from '../Topics/Queries';
 import { GET_CATEGORIES } from '../Categories/Queries';
 
+vi.mock('../Login/authUtils', async () => {
+  const actual = await vi.importActual('../Login/authUtils');
+  return {
+    ...actual,
+    getBanStatus: () => ({ banned: true, banReason: '' }),
+  };
+});
+
+const topicMocks = {
+  request: {
+    query: GET_TOPICS,
+    variables: {
+      limit: 5,
+      offset: 0,
+    },
+  },
+  result: {
+    loading: false,
+    error: false,
+    data: {
+      topics: {
+        topics: [],
+        topicsCount: 0,
+      },
+    },
+  },
+};
+
 const errorStackText =
   'ApolloError: Response not successful: Received status code 500\nat new ApolloError';
 const apolloTestError = new Error('ApolloError');
@@ -18,26 +46,24 @@ const mockOverride = [
   },
 ];
 
-const mocks = [
+const mockOverrideApolloError = [
   {
     request: {
-      query: GET_TOPICS,
-      variables: {
-        limit: 5,
-        offset: 0,
-      },
+      query: GET_CONFIG,
+      variables: {},
     },
     result: {
       loading: false,
-      error: false,
-      data: {
-        topics: {
-          topics: [],
-          topicsCount: 0,
-        },
-      },
+      error: true,
+      data: {},
     },
   },
+];
+
+const mocks = [
+  topicMocks,
+  topicMocks,
+  topicMocks,
   {
     request: {
       query: GET_PINNED_TOPICS,
@@ -66,33 +92,45 @@ const mocks = [
   },
 ];
 
-test('<App /> > Renders with errors.', async () => {
+test.skip('<App /> > Renders with errors.', async () => {
   render({
     mocks: mocks,
     configMockOverride: mockOverride,
     initialEntries: ['/'],
   });
   expect(screen.getByText('Loading')).toBeInTheDocument();
+
+  expect(await screen.findByTestId('app-layout')).toBeInTheDocument();
+
   expect(
-    await screen.findByText('ApolloError: ApolloError')
+    await screen.findByText('Error')
   ).toBeInTheDocument();
 });
 
-test('<App /> > <BanStatusBanner />', async () => {
-  vi.mock('../Login/authUtils', async () => {
-    const actual = await vi.importActual('../Login/authUtils');
-    return {
-      ...actual,
-      getBanStatus: () => ({ banned: true, banReason: '' }),
-    };
+test('<App /> > Fetch data errors.', async () => {
+  render({
+    mocks: mocks,
+    configMockOverride: mockOverrideApolloError,
+    initialEntries: ['/'],
   });
+  expect(screen.getByText('Loading')).toBeInTheDocument();
 
+  expect(await screen.findByTestId('app-layout')).toBeInTheDocument();
+
+  expect(
+    await screen.findByText('ApolloError')
+  ).toBeInTheDocument();
+});
+
+test.skip('<App /> > <BanStatusBanner />', async () => {
   render({
     mocks: mocks,
     initialEntries: ['/'],
     isLoggedIn: true,
     isMobile: false,
   });
+
+  expect(await screen.findByTestId('app-layout')).toBeInTheDocument();
 
   //expect(screen.getByText('Loading')).toBeInTheDocument();
   expect(

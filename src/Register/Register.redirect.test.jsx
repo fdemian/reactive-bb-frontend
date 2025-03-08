@@ -4,6 +4,8 @@ import { CREATE_USER, VALIDATE_USER } from './Mutations';
 import { CHECK_USERNAME } from './Queries';
 import { vi, test, expect } from 'vitest';
 
+let mockNavigateComp;
+
 vi.doMock('../App/utils', async () => {
   const actual = await vi.importActual('../App/utils');
   return {
@@ -94,12 +96,15 @@ vi.clearAllMocks();
 
 test('<Register /> > Register screen > Form interaction > Success', async () => {
   const user = userEvent.setup();
-  const mockNavigateComp = vi.fn();
-  vi.doMock('react-router-dom', async () => {
+  mockNavigateComp = vi.fn();
+  vi.mock('react-router-dom', async () => {
     const actual = await vi.importActual('react-router-dom');
     return {
       ...actual,
       Navigate: (props) => {
+        console.clear();
+        console.log(props);
+        console.log("@@@@@@@@@@@----->");
         return mockNavigateComp(props);
       },
     };
@@ -153,8 +158,8 @@ test('<Register /> > Register screen > Form interaction > Success', async () => 
 });
 
 test('<Register /> > User activation screen > ActivationSuccess', async () => {
-  const mockNavigateComp = vi.fn();
-  vi.doMock('react-router-dom', async () => {
+  mockNavigateComp = vi.fn();
+  vi.mock('react-router-dom', async () => {
     const actual = await vi.importActual('react-router-dom');
     return {
       ...actual,
