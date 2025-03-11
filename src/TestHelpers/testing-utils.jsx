@@ -162,9 +162,7 @@ const TestingWrapper = (props) => {
           resolvers={resolvers}
           addTypename={true}
         >
-          <main role="main" data-testid="app-layout">
-             <Stub initialEntries={initialEntries} hydrateFallbackElement={<Loading />} />
-          </main>
+          <Stub initialEntries={initialEntries} hydrateFallbackElement={<Loading />} />
         </MockedProvider>
       </ResponsiveContext.Provider>
     </I18nextProvider>

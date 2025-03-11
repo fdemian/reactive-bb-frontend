@@ -172,10 +172,6 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
     t: t,
   };
 
-  console.clear();
-  console.log(navbarProps);
-  console.log('@@@@@@');
-
   return (
     <nav role="navigation">
       <Card>

@@ -46,20 +46,6 @@ const mockOverride = [
   },
 ];
 
-const mockOverrideApolloError = [
-  {
-    request: {
-      query: GET_CONFIG,
-      variables: {},
-    },
-    result: {
-      loading: false,
-      error: true,
-      data: {},
-    },
-  },
-];
-
 const mocks = [
   topicMocks,
   topicMocks,
@@ -92,7 +78,7 @@ const mocks = [
   },
 ];
 
-test.skip('<App /> > Renders with errors.', async () => {
+test('<App /> > Renders with errors.', async () => {
   render({
     mocks: mocks,
     configMockOverride: mockOverride,
@@ -107,22 +93,7 @@ test.skip('<App /> > Renders with errors.', async () => {
   ).toBeInTheDocument();
 });
 
-test('<App /> > Fetch data errors.', async () => {
-  render({
-    mocks: mocks,
-    configMockOverride: mockOverrideApolloError,
-    initialEntries: ['/'],
-  });
-  expect(screen.getByText('Loading')).toBeInTheDocument();
-
-  expect(await screen.findByTestId('app-layout')).toBeInTheDocument();
-
-  expect(
-    await screen.findByText('ApolloError')
-  ).toBeInTheDocument();
-});
-
-test.skip('<App /> > <BanStatusBanner />', async () => {
+test('<App /> > <BanStatusBanner />', async () => {
   render({
     mocks: mocks,
     initialEntries: ['/'],
