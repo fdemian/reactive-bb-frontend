@@ -111,16 +111,21 @@ test('<Bookmarks /> > Renders correctly', async () => {
   }
 
   const pageLinks = screen.getAllByRole('link');
-  expect(pageLinks.length).toStrictEqual(4);
+  expect(pageLinks.length).toStrictEqual(5);
+  
   expect(pageLinks[1]).toHaveAttribute(
     'href',
     `/users/${user1.id}/${user1.username}`
   );
   expect(pageLinks[2]).toHaveAttribute(
     'href',
-    `/users/${user2.id}/${user2.username}`
+    `/users/${user1.id}/${user1.username}`
   );
   expect(pageLinks[3]).toHaveAttribute(
+    'href',
+    `/users/${user2.id}/${user2.username}`
+  );
+  expect(pageLinks[4]).toHaveAttribute(
     'href',
     `/users/${user2.id}/${user2.username}`
   );

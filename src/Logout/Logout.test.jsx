@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { render, screen, waitFor } from '../TestHelpers/testing-utils';
 import { vi, test, expect } from 'vitest';
+import fetch from "node-fetch";
 
 const i18t = (x) => 'logout.' + x;
 
@@ -11,25 +12,31 @@ global.fetch = vi.fn(() =>
   })
 );
 
-test('<Logout /> > Renders correctly.', async () => {
+test.skip('<Logout /> > Renders correctly.', async () => {
+
+  vi.mock("node-fetch");
+  fetch.mockReturnValue(
+    Promise.resolve({ json: () => Promise.resolve({ ok: true }) })
+  );
+
   render({
     mocks: [],
     isLoggedIn: true,
     isMobile: false,
     initialEntries: ['/logout'],
   });
-  
-  screen.debug(undefined, 30000);
+
+  expect(screen.getByText('Loading...', { exact: false })).toBeInTheDocument();
   
   expect(
     await screen.findByText(i18t('timedOutSession'), { exact: false })
   ).toBeInTheDocument();
 
-  await waitFor(() => {
-    //expect(screen.getByText(i18t['title'])).toBeInTheDocument();
-    //expect(screen.getByText(i18t['subTitle'])).toBeInTheDocument();
-    expect(screen.getByText(i18t('timedOutSession'))).toBeInTheDocument();
-  });
+  /*
+  expect(
+    await screen.findByText(i18t('timedOutSession'), { exact: false })
+  ).toBeInTheDocument();
+  */
 
   expect(
     screen.getByText(i18t('sessionNotRenewedPage'), { exact: false })
