@@ -22,6 +22,17 @@ vi.doMock('../App/utils', async () => {
   };
 });
 
+const mockNavigateComp = vi.fn();
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    Navigate: (props) => {
+      return mockNavigateComp(props);
+    },
+  };
+});
+
 const RESPONSE = {
   id: 1,
   ok: true,
@@ -32,17 +43,6 @@ const RESPONSE = {
 };
 
 test("<Login /> > Login > Logged in (redirects to '/').", async () => {
-  const mockNavigateComp = vi.fn();
-  vi.doMock('react-router-dom', async () => {
-    const actual = await vi.importActual('react-router-dom');
-    return {
-      ...actual,
-      Navigate: (props) => {
-        return mockNavigateComp(props);
-      },
-    };
-  });
-
   render({
     mocks: [],
     initialEntries: ['/login'],
