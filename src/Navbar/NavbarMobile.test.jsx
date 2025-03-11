@@ -5,6 +5,8 @@ import {
 } from './Queries';
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
+import { GET_PINNED_TOPICS, GET_TOPICS } from '../Topics/Queries';
+import { GET_CATEGORIES } from '../Categories/Queries';
 import { render, screen } from '../TestHelpers/testing-utils';
 import { vi, test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
@@ -61,12 +63,138 @@ const notification2 = {
   user: _user,
 };
 
+const topicMocks = [
+  {
+    request: {
+      query: GET_TOPICS,
+      variables: {
+        limit: 5,
+        offset: 0,
+      },
+    },
+    result: {
+      loading: false,
+      error: false,
+      data: {
+        topics: {
+          topics: [],
+          topicsCount: 0,
+        },
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_PINNED_TOPICS,
+      variables: {},
+    },
+    result: {
+      loading: false,
+      error: false,
+      data: {
+        pinnedTopics: [],
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_CATEGORIES,
+      variables: {},
+    },
+    result: {
+      loading: false,
+      error: false,
+      data: {
+        categories: [],
+      },
+    },
+  }
+];
+
+const mocks = [
+  ...topicMocks,
+  ...topicMocks,
+  {
+    request: {
+      query: GET_USER,
+      variables: {
+        id: 1,
+      },
+    },
+    result: {
+      loading: false,
+      error: false,
+      data: {
+        getUser: _user,
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_NOTIFICATIONS,
+      variables: {
+        user: 1,
+      },
+    },
+    result: {
+      loading: false,
+      error: false,
+      data: {
+        notifications: [notification1],
+      },
+    },
+  },
+  {
+    request: {
+      query: NOTIFICATIONS_SUBSCRIPTION,
+      variables: {},
+    },
+    result: {
+      loading: false,
+      error: false,
+      data: {
+        notificationAdded: [notification2],
+      },
+    },
+  },
+  {
+    request: {
+      query: CHATS_SUBSCRIPTION,
+      variables: {
+        user: 1,
+      },
+    },
+    result: {
+      loading: true,
+      error: false,
+      data: {
+        chatAdded: null,
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_ALL_CHATS,
+      variables: {
+        user: 1,
+      },
+    },
+    result: {
+      loading: false,
+      error: false,
+      data: {
+        chatsByUser: [],
+      },
+    },
+  },
+];
+
 test('<Navbar /> > Mobile > Not logged in.', async () => {
   const user = userEvent.setup();
   render({
     isMobile: true,
     isLoggedIn: false,
-    mocks: [],
+    mocks: mocks,
     initialEntries: ['/login'],
   });
 
@@ -90,81 +218,6 @@ test('<Navbar /> > Mobile > Not logged in.', async () => {
 
 test('<Navbar /> > Mobile > Logged in.', async () => {
   const user = userEvent.setup();
-  const mocks = [
-    {
-      request: {
-        query: GET_USER,
-        variables: {
-          id: 1,
-        },
-      },
-      result: {
-        loading: false,
-        error: false,
-        data: {
-          getUser: _user,
-        },
-      },
-    },
-    {
-      request: {
-        query: GET_NOTIFICATIONS,
-        variables: {
-          user: 1,
-        },
-      },
-      result: {
-        loading: false,
-        error: false,
-        data: {
-          notifications: [notification1],
-        },
-      },
-    },
-    {
-      request: {
-        query: NOTIFICATIONS_SUBSCRIPTION,
-        variables: {},
-      },
-      result: {
-        loading: false,
-        error: false,
-        data: {
-          notificationAdded: [notification2],
-        },
-      },
-    },
-    {
-      request: {
-        query: CHATS_SUBSCRIPTION,
-        variables: {
-          user: 1,
-        },
-      },
-      result: {
-        loading: true,
-        error: false,
-        data: {
-          chatAdded: null,
-        },
-      },
-    },
-    {
-      request: {
-        query: GET_ALL_CHATS,
-        variables: {
-          user: 1,
-        },
-      },
-      result: {
-        loading: false,
-        error: false,
-        data: {
-          chatsByUser: [],
-        },
-      },
-    },
-  ];
 
   render({
     isMobile: true,

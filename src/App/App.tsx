@@ -61,7 +61,7 @@ const App = () => {
 
   setIsMobile(isMobile);
 
-  if (oauth) {
+  if (oauth && !loading && !error) {
     setOauthConfig(oauth);
   }
 

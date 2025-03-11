@@ -20,7 +20,6 @@ import {
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import Loading from '../Loading/LoadingIndicator';
-import App from '../App/App';
 
 const navbarMocks = [
   {
@@ -104,7 +103,7 @@ const navbarMocks = [
 const TestingWrapper = (props) => {
   const { isMobile, mocks, initialEntries, isLoggedIn, configMockOverride } =
     props;
-
+  
   const configRequestMock = {
     request: {
       query: GET_CONFIG,
@@ -123,9 +122,9 @@ const TestingWrapper = (props) => {
             faviconURL: '',
             faviconType: '',
           },
-          oauth: JSON.parse(
+          oauth:
             '{"services":[{"name":"google","scope":"email profile","clientId":"<CLIENT_ID>","link":"https://accounts.google.com/o/oauth2/v2/auth","extraParams":"&prompt=consent&access_type=offline"},{"name":"github","scope":"user:email","clientId":"<CLIENT_ID>","link":"https://github.com/login/oauth/authorize","extraParams":""}],"redirectURI":"www.redirect.com"}'
-          ),
+          ,
         },
       },
     },

@@ -43,7 +43,9 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
 
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
-  const setSearchValue = (e: any) => { setSearchText(e.target.value); };
+  const setSearchValue = (e: any) => {
+    setSearchText(e.target.value);
+  };
   const enterPress = () => {
     navigate('/search?term=' + searchText);
     setSearchText('');
@@ -51,11 +53,13 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
 
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
   const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn === true;
-  const { loading, error, data } = useQuery(GET_USER,  { variables: { id: id ?? -1 }, skip: !id });
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { id: id ?? -1 },
+    skip: !id,
+  });
   const [markAsRead] = useMutation(MARK_NOTIFICATIONS_READ, {
     update(cache, { data }) {
-      if(!data || !data.markNotificationsRead)
-        return;
+      if (!data || !data.markNotificationsRead) return;
       cache.modify({
         fields: {
           notifications() {
@@ -97,20 +101,19 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
       updateQuery: (prev, { subscriptionData }) => {
         if (
           !subscriptionData.data ||
-          subscriptionData.data.notificationAdded === null || 
-          subscriptionData.data.notificationAdded === undefined || 
+          subscriptionData.data.notificationAdded === null ||
+          subscriptionData.data.notificationAdded === undefined ||
           !prev.notifications
         )
-        return prev;
+          return prev;
 
         const newNotification = subscriptionData.data.notificationAdded;
 
-        if(!newNotification)
-          return prev;
+        if (!newNotification) return prev;
 
         const _newNotification = {
           id: 0,
-          ...newNotification
+          ...newNotification,
         };
 
         return {
@@ -132,7 +135,11 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
       document: CHATS_SUBSCRIPTION,
       variables: { user: id ?? -1 },
       updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data || !subscriptionData.data.chatNotification || !prev.chatsByUser)
+        if (
+          !subscriptionData.data ||
+          !subscriptionData.data.chatNotification ||
+          !prev.chatsByUser
+        )
           return prev;
 
         const newChat = subscriptionData.data.chatNotification;
@@ -164,6 +171,10 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
     markAsRead: markAsRead,
     t: t,
   };
+
+  console.clear();
+  console.log(navbarProps);
+  console.log('@@@@@@');
 
   return (
     <nav role="navigation">

@@ -8,10 +8,6 @@ interface AppErrorParams {
 }
 
 const AppError = ({ error }: AppErrorParams) => {
-  console.clear();
-  console.log(error);
-  console.log('@@@@@');
-
   const stackStr = error.stack?.split('\n');
 
   return (

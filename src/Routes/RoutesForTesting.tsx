@@ -32,6 +32,7 @@ import PrivateRoute from './PrivateRoute';
 const routes = [
   {
     path: '/',
+    Component: App,
     element: <App />,
     errorElement: <ErrorBoundary />,
     hydrateFallbackElement: <div>Loading</div>,
