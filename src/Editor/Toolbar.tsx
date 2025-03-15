@@ -21,7 +21,7 @@ import {
   faFill,
   faTextHeight,
 } from '@fortawesome/free-solid-svg-icons';
-import { faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Toolbar.css';
 import { ToolbarProps } from './editorTypes';
 import { recomendedColors } from './toolbarUtils';
@@ -86,8 +86,6 @@ const Toolbar = (props: ToolbarProps) => {
     t,
   } = props;
 
- 
-
   const CODE_LANGUAGE_OPTIONS: [string, string][] = getCodeLanguageOptions();
 
   //
@@ -113,16 +111,18 @@ const Toolbar = (props: ToolbarProps) => {
     {
       text: t('toolbar.insertTweet'),
       onClick: toggleTweetToolbar,
-      icon: faTwitter,
+      icon: faXTwitter,
     },
     {
       text: t('toolbar.insertInstagram'),
       onClick: toggleInstagramToolbar,
-      icon: faInstagram
+      icon: faInstagram,
     },
     {
       text: t('toolbar.excalidraw'),
-      onClick: () => { toggleExcalidrawModal(); },
+      onClick: () => {
+        toggleExcalidrawModal();
+      },
       icon: faDiagramProject,
     },
     {
@@ -143,15 +143,18 @@ const Toolbar = (props: ToolbarProps) => {
   ];
 
   const selectedBlock = DROPDOWN_FORMATS.find(
-    b => b.blockType === formats?.blockType
+    (b) => b.blockType === formats?.blockType
   );
-  const currentBlock =
-    selectedBlock ?? DROPDOWN_FORMATS[0];
+  const currentBlock = selectedBlock ?? DROPDOWN_FORMATS[0];
 
   const formatItemsForMenu = DROPDOWN_FORMATS.map((s) => ({
     key: s.name,
     label: (
-      <span onClick={() => { blockFormatChangeFn(s.value, editor); }}>
+      <span
+        onClick={() => {
+          blockFormatChangeFn(s.value, editor);
+        }}
+      >
         <FontAwesomeIcon icon={s.icon} size="lg" />
         {'  '}
         &nbsp; {s.name}
@@ -161,19 +164,37 @@ const Toolbar = (props: ToolbarProps) => {
 
   const fontSizeMenuItems = FONT_SIZES.map((fs) => ({
     key: fs,
-    label: <span onClick={() => { onFontSizeChange(fs, editor); }}>{fs}</span>,
+    label: (
+      <span
+        onClick={() => {
+          onFontSizeChange(fs, editor);
+        }}
+      >
+        {fs}
+      </span>
+    ),
   }));
 
   const fontFamilyItems = FONT_FAMILIES.map((ff) => ({
     key: ff,
-    label: <span onClick={() => { onFontFamilyChange(ff, editor); }}>{ff}</span>,
+    label: (
+      <span
+        onClick={() => {
+          onFontFamilyChange(ff, editor);
+        }}
+      >
+        {ff}
+      </span>
+    ),
   }));
 
   if (tweetToolbarVisible) {
     return (
       <Suspense fallback={<Spin />}>
         <TweetToolbar
-          insertTweet={(t) => { insertTweet(t, editor); }}
+          insertTweet={(t) => {
+            insertTweet(t, editor);
+          }}
           toggleToolbar={toggleTweetToolbar}
           t={t}
         />
@@ -181,11 +202,13 @@ const Toolbar = (props: ToolbarProps) => {
     );
   }
 
-  if(instagramToolbarVisible) {
+  if (instagramToolbarVisible) {
     return (
       <Suspense fallback={<Spin />}>
         <InstagramToolbar
-          insertInstagram={(t) => { insertInstagram(t, editor); }}
+          insertInstagram={(t) => {
+            insertInstagram(t, editor);
+          }}
           toggleToolbar={toggleInstagramToolbar}
           t={t}
         />
@@ -197,7 +220,9 @@ const Toolbar = (props: ToolbarProps) => {
     return (
       <Suspense fallback={<Spin />}>
         <TableToolbar
-          insertTable={(t) => { insertTable(t, editor); }}
+          insertTable={(t) => {
+            insertTable(t, editor);
+          }}
           toggleToolbar={toggleTableToolbar}
           t={t}
         />
@@ -209,7 +234,9 @@ const Toolbar = (props: ToolbarProps) => {
     return (
       <Suspense fallback={<Spin />}>
         <VideoToolbar
-          insertVideo={(val) => { insertVideo(val, editor); }}
+          insertVideo={(val) => {
+            insertVideo(val, editor);
+          }}
           toggleToolbar={toggleVideoToolbar}
           t={t}
         />
@@ -276,7 +303,9 @@ const Toolbar = (props: ToolbarProps) => {
         <Select
           key="code-language-select"
           className="code-language-select"
-          onChange={(val) => { onCodeLanguageSelect(val, editor); }}
+          onChange={(val) => {
+            onCodeLanguageSelect(val, editor);
+          }}
           value={formats.codeLanguage}
         >
           {CODE_LANGUAGE_OPTIONS.map(([value, name]) => (
@@ -357,10 +386,7 @@ const Toolbar = (props: ToolbarProps) => {
             type="default"
             className="dropdown-menu-toolbar"
           >
-            {formats?.fontFamily
-              ? formats.fontFamily
-              : FONT_FAMILIES[0]}{' '}
-            &nbsp;
+            {formats?.fontFamily ? formats.fontFamily : FONT_FAMILIES[0]} &nbsp;
             <FontAwesomeIcon icon={faCaretDown} size="lg" />
           </Button>
         </Dropdown>
@@ -378,10 +404,7 @@ const Toolbar = (props: ToolbarProps) => {
             type="default"
             className="dropdown-menu-toolbar"
           >
-            {formats?.fontSize
-              ? formats.fontSize
-              : FONT_SIZES[0]}{' '}
-            &nbsp;
+            {formats?.fontSize ? formats.fontSize : FONT_SIZES[0]} &nbsp;
             <FontAwesomeIcon icon={faCaretDown} />
           </Button>
         </Dropdown>
@@ -395,7 +418,9 @@ const Toolbar = (props: ToolbarProps) => {
               },
             ]}
             value={formats?.fontColor}
-            onChange={val => { onFontColorChange(val, editor); }}
+            onChange={(val) => {
+              onFontColorChange(val, editor);
+            }}
           >
             <Button
               role="button"
@@ -419,7 +444,9 @@ const Toolbar = (props: ToolbarProps) => {
               },
             ]}
             value={formats?.bgColor}
-            onChange={(val) => { onBGColorChange(val, editor); }}
+            onChange={(val) => {
+              onBGColorChange(val, editor);
+            }}
           >
             <Button
               role="button"

@@ -3,7 +3,7 @@ import {
   faGoogle,
   faGithub,
   faFacebook,
-  faTwitter,
+  faXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { Tooltip } from 'antd';
 import { getOauthConfig } from '../App/utils';
@@ -31,7 +31,7 @@ const oauthIcons: OauthIconType[] = [
   },
   {
     name: 'twitter',
-    icon: faTwitter,
+    icon: faXTwitter,
   },
 ];
 

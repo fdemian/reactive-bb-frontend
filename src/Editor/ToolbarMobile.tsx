@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
- 
+
 import { useState } from 'react';
 import { Button, Tooltip, Dropdown, Select, ColorPicker } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,7 +24,7 @@ import {
   faFill,
   faTextHeight,
 } from '@fortawesome/free-solid-svg-icons';
-import { faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { ToolbarProps } from './editorTypes';
 import { getCodeLanguageOptions } from 'kalliope';
 import type { ColorVal } from './utils';
@@ -106,7 +106,7 @@ const Toolbar = (props: ToolbarProps) => {
     {
       text: t('toolbar.insertTweet'),
       onClick: toggleTweetToolbar,
-      icon: faTwitter,
+      icon: faXTwitter,
     },
     {
       text: t('toolbar.insertInstagram'),
@@ -291,8 +291,7 @@ const Toolbar = (props: ToolbarProps) => {
             type="default"
             className="dropdown-menu-toolbar"
           >
-            {formats?.fontFamily ? formats.fontFamily : FONT_FAMILIES[0]}{' '}
-            &nbsp;
+            {formats?.fontFamily ? formats.fontFamily : FONT_FAMILIES[0]} &nbsp;
             <FontAwesomeIcon icon={faCaretDown} size="lg" />
           </Button>
         </Dropdown>
