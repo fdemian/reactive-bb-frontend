@@ -8,7 +8,7 @@ import { render, screen } from '../TestHelpers/testing-utils';
 import { render as renderSTL } from '../TestHelpers/testing-utils-standalone';
 import { vi, test, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
+import { act } from "react";
 
 
 vi.mock('../Login/authUtils', async () => {
