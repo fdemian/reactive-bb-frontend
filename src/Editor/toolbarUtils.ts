@@ -84,6 +84,7 @@ export interface CalliopeFormatTypes {
   fontColor: string;
   bgColor: string;
   fontFamily: string;
+  elementFormatType: string;
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -187,44 +188,44 @@ const LINK_ELEMENT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   isActive: formats.isLink,
 });
 
-const ALIGN_LEFT = (t: TranslationFn) => ({
+const ALIGN_LEFT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.alignLeft'),
   text: t('toolbar.alignLeft'),
   command: 'ALIGN',
   icon: faAlignLeft,
   props: 'left',
   directCommand: true,
-  isActive: true,
+  isActive: formats.elementFormatType === 'left',
 });
 
-const ALIGN_RIGHT = (t: TranslationFn) => ({
+const ALIGN_RIGHT = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.alignRight'),
   text: t('toolbar.alignRight'),
   command: 'ALIGN',
   icon: faAlignRight,
   props: 'right',
   directCommand: true,
-  isActive: true,
+  isActive: formats.elementFormatType === 'right',
 });
 
-const ALIGN_CENTER = (t: TranslationFn) => ({
+const ALIGN_CENTER = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.alignCenter'),
   text: t('toolbar.alignCenter'),
   command: 'ALIGN',
   icon: faAlignCenter,
   props: 'center',
   directCommand: true,
-  isActive: true,
+  isActive: formats.elementFormatType === 'center',
 });
 
-const ALIGN_JUSTIFY = (t: TranslationFn) => ({
+const ALIGN_JUSTIFY = (t: TranslationFn, formats: CalliopeFormatTypes) => ({
   name: t('toolbar.alignJustify'),
   text: t('toolbar.alignJustify'),
   command: 'ALIGN',
   icon: faAlignJustify,
   props: 'justify',
   directCommand: true,
-  isActive: true,
+  isActive: formats.elementFormatType === 'justify',
 });
 
 const FORMAT_TOOLBAR_NORMAL = (t: TranslationFn) => ({
@@ -337,6 +338,8 @@ export const getButtonElementsToolbarDesktop = (
 ) => {
   if (!formats) return [];
 
+  console.log(formats);
+
   return [
     BOLD_ELEMENT(t, formats),
     ITALIC_ELEMENT(t, formats),
@@ -348,10 +351,10 @@ export const getButtonElementsToolbarDesktop = (
     SPOILER_ELEMENT(t, formats),
     KEYBOARD_ELEMENT(t, formats),
     LINK_ELEMENT(t, formats),
-    ALIGN_LEFT(t),
-    ALIGN_RIGHT(t),
-    ALIGN_CENTER(t),
-    ALIGN_JUSTIFY(t),
+    ALIGN_LEFT(t, formats),
+    ALIGN_RIGHT(t, formats),
+    ALIGN_CENTER(t, formats),
+    ALIGN_JUSTIFY(t, formats),
     UPPERCASE(t, formats),
     LOWERCASE(t, formats),
     CAPITALIZE(t, formats),

@@ -34,6 +34,7 @@ vi.mock('kalliope', () => ({
         isItalic: false,
         isUnderline: false,
         isStrikethrough: false,
+        elementFormatType: 'left',
         isSubscript: false,
         isSuperscript: false,
         isCode: false,
