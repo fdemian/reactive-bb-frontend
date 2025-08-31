@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Alert, Spin } from 'antd';
 import { SET_LOGIN } from '../Login/queries';
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient } from '@apollo/client/react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { refreshToken, setLoginData } from '../Login/authUtils';
 import { useTranslation } from 'react-i18next';

@@ -3,7 +3,7 @@ import Loading from '../Loading/LoadingIndicator.js';
 import Avatar from '../UserAvatar/UserAvatar.js';
 import { List } from 'antd';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import format_title_string from '../utils/formats.js';
 import { UserType, TopicType } from './userTypes';
 

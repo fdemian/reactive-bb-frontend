@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { UPLOAD_AVATAR, REMOVE_AVATAR } from '../../Mutations';
 import { GET_PROFILE } from '../../Queries';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import './ProfileView.css';
 
 interface AvatarViewProps {

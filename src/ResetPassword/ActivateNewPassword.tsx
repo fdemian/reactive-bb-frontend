@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 import Loading from '../Loading/LoadingIndicator';
 import { RESET_PASSWORD } from './Mutations';
@@ -20,9 +20,8 @@ export const Component = () => {
   const { token } = useParams();
 
   const onFinish = (values: ActivatePasswordValues) => {
-    if(!token)
-      return;
-    
+    if (!token) return;
+
     resetPassword({
       variables: {
         token: token,
@@ -53,7 +52,9 @@ export const Component = () => {
               type="primary"
               size="large"
               key="home"
-              onClick={() => { navigate('/'); }}
+              onClick={() => {
+                navigate('/');
+              }}
             >
               {t('home')}
             </Button>
@@ -77,7 +78,9 @@ export const Component = () => {
               type="primary"
               size="large"
               key="home"
-              onClick={() => { navigate('/'); }}
+              onClick={() => {
+                navigate('/');
+              }}
             >
               {t('home')}
             </Button>
@@ -88,7 +91,9 @@ export const Component = () => {
               type="primary"
               size="large"
               key="resetpass"
-              onClick={() => { navigate('/forgotpass'); }}
+              onClick={() => {
+                navigate('/forgotpass');
+              }}
             >
               {t('resetPass')}
             </Button>

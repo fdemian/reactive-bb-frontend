@@ -4,7 +4,7 @@ import Avatar from '../UserAvatar/UserAvatar';
 import { List } from 'antd';
 import { Link } from 'react-router-dom';
 import Renderer from '../Editor/Renderer';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { UserType } from './userTypes';
 
 interface UserPostsParams {
@@ -13,7 +13,6 @@ interface UserPostsParams {
 }
 
 const UserPosts = ({ id, user }: UserPostsParams) => {
-  
   const { loading, error, data } = useQuery(GET_POSTS_BY_USER, {
     variables: { id: id },
   });
@@ -21,9 +20,9 @@ const UserPosts = ({ id, user }: UserPostsParams) => {
   if (error) return <p>Error</p>;
 
   if (loading || !data) return <Loading />;
-      
+
   const posts = data.postsByUser;
-  
+
   return (
     <List
       itemLayout="vertical"

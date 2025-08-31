@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client/react';
 import { Helmet } from 'react-helmet-async';
 import { List, Badge, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -15,27 +15,33 @@ const getTranslationKey = (key: string): string => {
   return 'likedPost';
 };
 
-interface NotificationType  {
-    __typename?: "NotificationResponse" | undefined;
+interface NotificationType {
+  __typename?: 'NotificationResponse' | undefined;
+  id: number;
+  link: string;
+  type: string;
+  read: boolean;
+  originator: {
+    __typename?: 'User' | undefined;
     id: number;
-    link: string;
-    type: string;
-    read: boolean;
-    originator: {
-        __typename?: "User" | undefined;
-        id: number;
-        avatar?: string | null | undefined;
-        username: string;
-    };
-    user: {
-      __typename?: "User" | undefined;
-      id: number;
-      avatar?: string | null | undefined;
-      username: string;
-    };
-};
+    avatar?: string | null | undefined;
+    username: string;
+  };
+  user: {
+    __typename?: 'User' | undefined;
+    id: number;
+    avatar?: string | null | undefined;
+    username: string;
+  };
+}
 
-const getAllNotifications = (allNotifications:NotificationType[] | null | undefined, notification:NotificationType):number[] => allNotifications !== null && allNotifications !== undefined ? allNotifications.filter((n) => n.id !== notification.id).map(n=> n.id) : [];
+const getAllNotifications = (
+  allNotifications: NotificationType[] | null | undefined,
+  notification: NotificationType
+): number[] =>
+  allNotifications !== null && allNotifications !== undefined
+    ? allNotifications.filter((n) => n.id !== notification.id).map((n) => n.id)
+    : [];
 
 export const Component = () => {
   const { t } = useTranslation('navbar', { keyPrefix: 'navbar' });
@@ -45,14 +51,12 @@ export const Component = () => {
 
   const [markAsRead] = useMutation(MARK_NOTIFICATIONS_READ, {
     update(cache, { data }) {
-      if(!data || !data.markNotificationsRead)
-        return;
+      if (!data || !data.markNotificationsRead) return;
       cache.modify({
         fields: {
           notifications() {
-            if(data.markNotificationsRead === undefined)
-              return [];
-            
+            if (data.markNotificationsRead === undefined) return [];
+
             return data.markNotificationsRead;
           },
         },
@@ -73,8 +77,7 @@ export const Component = () => {
   if (loading || !data) return <p>Loading...</p>;
 
   let { allNotifications } = data;
-  if(!allNotifications)
-    allNotifications = [];
+  if (!allNotifications) allNotifications = [];
 
   return (
     <>
@@ -102,7 +105,10 @@ export const Component = () => {
                     notifications: [notification.id],
                   },
                   optimisticResponse: {
-                    markNotificationsRead: getAllNotifications(allNotifications, notification)
+                    markNotificationsRead: getAllNotifications(
+                      allNotifications,
+                      notification
+                    ),
                   },
                 });
                 navigate(notification.link);

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Input, Form, Upload, Spin, Image, message, notification } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { UPLOAD_IMAGE } from '../Queries';
 import './ImageModal.css';
 
@@ -127,7 +127,9 @@ const ImageModal = (props: ImageModalProps) => {
             placeholder={t('imageModal.altText')}
             style={{ width: 'calc(100% - 200px)' }}
             value={altText}
-            onChange={(e) => { setAltText(e.target.value); }}
+            onChange={(e) => {
+              setAltText(e.target.value);
+            }}
           />
         </Form.Item>
       </Form>

@@ -1,5 +1,5 @@
 import { Suspense, lazy, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { getDefaultPageItems } from '../App/utils';
 import { Col, Row, Spin, Collapse, Divider } from 'antd';
 import UserAvatar from '../UserAvatar/UserAvatar';
@@ -59,7 +59,7 @@ const ModerationLog = ({ t }: ModerationLogProps) => {
           <Collapse
             bordered={false}
             expandIcon={() => (
-            <span role="button" aria-label="Expand button">
+              <span role="button" aria-label="Expand button">
                 <UserAvatar
                   avatar={postEdit.user.avatar}
                   username={postEdit.user.username}

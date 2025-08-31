@@ -6,7 +6,7 @@ import { Table, Spin, Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GET_FLAGGED_POSTS, REMOVE_FLAG } from './Queries';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client/react';
 import {
   FlaggedDataType,
   TranslationFn,

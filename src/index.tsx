@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from './Routes/Routes';
 import { useNewClient } from './apolloConfig';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18';
 import 'antd/dist/reset.css';

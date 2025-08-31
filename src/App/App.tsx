@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { ConfigProvider, Layout, Card, Spin, Affix } from 'antd';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';

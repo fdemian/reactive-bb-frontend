@@ -1,5 +1,5 @@
 import { clearUser } from '../Login/authUtils';
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 import { SET_LOGIN } from '../Login/queries';
 import { clearBanStatus } from '../Login/authUtils';

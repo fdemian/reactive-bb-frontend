@@ -14,7 +14,7 @@ import {
   BOOKMARK_POST,
   REMOVE_BOOKMARK,
 } from './Mutations';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { BookmarkType, LikeType, PostFooterProps, PostType } from './postTypes';
 
 const PostFooter = (props: PostFooterProps) => {
@@ -32,7 +32,6 @@ const PostFooter = (props: PostFooterProps) => {
     t,
   } = props;
 
-
   const [postLikes, setPostLikes] = useState<LikeType[]>(item.likes!);
   const [addBookmark] = useMutation(BOOKMARK_POST, {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -40,8 +39,7 @@ const PostFooter = (props: PostFooterProps) => {
       cache.modify({
         fields: {
           bookmarksByPostList(existingBookmarks = []) {
-            if(!data?.bookmarkPost)
-              return existingBookmarks;
+            if (!data?.bookmarkPost) return existingBookmarks;
             const { postId, userId } = data?.bookmarkPost;
             return existingBookmarks.concat({
               id: 0,
@@ -60,8 +58,7 @@ const PostFooter = (props: PostFooterProps) => {
       cache.modify({
         fields: {
           bookmarksByPostList(existingBookmarks = []) {
-            if(!data?.removeBookmark)
-              return existingBookmarks;
+            if (!data?.removeBookmark) return existingBookmarks;
             const { postId, userId } = data?.removeBookmark;
             return existingBookmarks.filter(
               (b: BookmarkType) => b.postId !== postId && b.userId !== userId
@@ -198,7 +195,9 @@ const PostFooter = (props: PostFooterProps) => {
           color="gainsboro"
           icon={faQuoteLeft}
           size="2x"
-          onClick={() => { quotePost(item); }}
+          onClick={() => {
+            quotePost(item);
+          }}
           style={{ marginRight: '10px' }}
         />
         <Badge count={postLikes.length} overflowCount={99}>
@@ -208,14 +207,18 @@ const PostFooter = (props: PostFooterProps) => {
             icon={faHeart}
             size="2x"
             className="like-post-mobile"
-            onClick={() => { bumpLikes(item); }}
+            onClick={() => {
+              bumpLikes(item);
+            }}
             style={{ marginTop: '10px' }}
           />
         </Badge>
         <FontAwesomeIcon
           className="bookmark-post-mobile"
           data-testid="bookmark-icon-mobile"
-          onClick={() => { bookmarkPost(item); }}
+          onClick={() => {
+            bookmarkPost(item);
+          }}
           icon={faBookmark}
           size="2x"
           color={itemColor}
@@ -228,7 +231,11 @@ const PostFooter = (props: PostFooterProps) => {
   const items = [
     {
       label: (
-        <div onClick={() => { replyAsNewPost(item); }}>
+        <div
+          onClick={() => {
+            replyAsNewPost(item);
+          }}
+        >
           <FontAwesomeIcon icon={faReply} /> &nbsp;{' '}
           {t('posts.footer.replyAsTopic')}
         </div>
@@ -251,7 +258,9 @@ const PostFooter = (props: PostFooterProps) => {
         <Dropdown.Button
           type="primary"
           className="dropdown-button-quote"
-          onClick={() => { quotePost(item); }}
+          onClick={() => {
+            quotePost(item);
+          }}
           menu={{ items }}
         >
           <FontAwesomeIcon icon={faQuoteLeft} />
@@ -279,7 +288,9 @@ const PostFooter = (props: PostFooterProps) => {
               icon={faHeart}
               size="2x"
               className="like-post-icon"
-              onClick={() => { bumpLikes(item); }}
+              onClick={() => {
+                bumpLikes(item);
+              }}
             />
           </span>
         </Tooltip>
@@ -288,7 +299,9 @@ const PostFooter = (props: PostFooterProps) => {
         <span>
           <FontAwesomeIcon
             data-testid={testId}
-            onClick={() => { bookmarkPost(item); }}
+            onClick={() => {
+              bookmarkPost(item);
+            }}
             icon={faBookmark}
             size="2x"
             color={itemColor}

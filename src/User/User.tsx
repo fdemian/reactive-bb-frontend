@@ -1,5 +1,5 @@
 import UserAvatar from '../UserAvatar/UserAvatar';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { GET_USER } from './Queries';
 import { useParams } from 'react-router-dom';
 import { Card, Tag } from 'antd';
@@ -63,10 +63,7 @@ export const Component = () => {
           </div>
         </div>
       </Card>
-      <UserProfileMenu 
-        id={parsedId} 
-        user={data.getUser} 
-      />
+      <UserProfileMenu id={parsedId} user={data.getUser} />
     </>
   );
 };

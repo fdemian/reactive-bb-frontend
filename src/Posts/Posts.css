@@ -9,6 +9,11 @@
   background-color: darkred !important;
 }
 
+.float-button-reply > div > div > div {
+  margin: auto !important;
+  width: auto !important;
+}
+
 .posts-page-container .ant-list-item-action-split {
   display: none;
 }

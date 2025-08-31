@@ -12,7 +12,7 @@ import {
 } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { UPLOAD_IMAGE } from '../Queries';
 
 const { Dragger } = Upload;
@@ -45,7 +45,9 @@ const InlineImageModal = (props: InlineImageModalProps) => {
   const [uploadImage] = useMutation(UPLOAD_IMAGE);
   const [uploading, setUploading] = useState(false);
 
-  const onCheckedChange = (e: any) => { setShowCaption(e.target.checked); };
+  const onCheckedChange = (e: any) => {
+    setShowCaption(e.target.checked);
+  };
 
   const uploadImageToServer = async (options: any) => {
     const { file } = options;
@@ -161,7 +163,9 @@ const InlineImageModal = (props: InlineImageModalProps) => {
             placeholder={t('imageModal.altText')}
             style={{ width: 'calc(100% - 200px)' }}
             value={altText}
-            onChange={(e) => { setAltText(e.target.value); }}
+            onChange={(e) => {
+              setAltText(e.target.value);
+            }}
           />
         </Form.Item>
       </Form>

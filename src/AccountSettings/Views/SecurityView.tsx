@@ -5,7 +5,7 @@ import ModifyEmailModal from '../ModifyEmail/ModifyEmailModal';
 import { GET_PROFILE } from '../Queries';
 import Loading from '../../Loading/LoadingIndicator';
 import { getUserId } from '../../Login/authUtils';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 
 const SecurityView = () => {
@@ -14,16 +14,27 @@ const SecurityView = () => {
   });
 
   const userId = getUserId();
-  const { loading, error, data } = useQuery(GET_PROFILE, { variables: { id: userId ?? -1 }, skip: !userId });
+  const { loading, error, data } = useQuery(GET_PROFILE, {
+    variables: { id: userId ?? -1 },
+    skip: !userId,
+  });
 
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
 
-  const openPasswordModal = () => { setShowPasswordModal(true); };
-  const closePasswordModal = () => { setShowPasswordModal(false); };
+  const openPasswordModal = () => {
+    setShowPasswordModal(true);
+  };
+  const closePasswordModal = () => {
+    setShowPasswordModal(false);
+  };
 
-  const openEmailModal = () => { setShowEmailModal(true); };
-  const closeEmailModal = () => { setShowEmailModal(false); };
+  const openEmailModal = () => {
+    setShowEmailModal(true);
+  };
+  const closeEmailModal = () => {
+    setShowEmailModal(false);
+  };
 
   if (loading || !data || !data.getUser) return <Loading />;
 

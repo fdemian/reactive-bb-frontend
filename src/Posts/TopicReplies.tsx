@@ -12,7 +12,7 @@ import PostFooter from './PostFooter';
 import ModeratorPostControls from './ModeratorPostControls';
 import Loading from '../Loading/LoadingIndicator';
 import { GET_BOOKMARKS_BY_POSTS } from './Queries';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { getDate, getDateRelative, savePostReplyContent } from './utils';
 import { useNavigate } from 'react-router-dom';
 import { TopicRepliesProps, PostType } from './postTypes';
@@ -88,8 +88,12 @@ const PostsFile = (props: TopicRepliesProps) => {
                     <ModeratorPostControls
                       isEditing={item.id === editablePost}
                       t={t}
-                      onDelete={() => { removePost(item.id); }}
-                      onEdit={() => { setEditablePost(item.id); }}
+                      onDelete={() => {
+                        removePost(item.id);
+                      }}
+                      onEdit={() => {
+                        setEditablePost(item.id);
+                      }}
                     />
                   </Suspense>
                 ) : null
@@ -179,7 +183,9 @@ const PostsFile = (props: TopicRepliesProps) => {
                     key="cancelEditButtn"
                     type="primary"
                     size="large"
-                    onClick={() => { setEditablePost(null); }}
+                    onClick={() => {
+                      setEditablePost(null);
+                    }}
                   >
                     <FontAwesomeIcon icon={faTimes} />
                     &nbsp; {t('posts.mod.cancelEdit')}
@@ -191,7 +197,9 @@ const PostsFile = (props: TopicRepliesProps) => {
                     key="confirmEditBtn"
                     type="primary"
                     size="large"
-                    onClick={(val: any) => { editUserPost(val); }}
+                    onClick={(val: any) => {
+                      editUserPost(val);
+                    }}
                   >
                     {t('posts.mod.confirmEdit')}
                     &nbsp; <FontAwesomeIcon icon={faCheck} />

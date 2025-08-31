@@ -13,7 +13,7 @@ import {
   faCheck,
   faLock,
 } from '@fortawesome/free-solid-svg-icons';
-import { useMutation, useLazyQuery } from '@apollo/client';
+import { useMutation, useLazyQuery } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 import { CREATE_USER } from './Mutations';
 import { CHECK_USERNAME } from './Queries';

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Loading from '../Loading/LoadingIndicator';
 import { useParams, Navigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { VALIDATE_USER } from './Mutations';
 
 export const Component = () => {
@@ -9,7 +9,7 @@ export const Component = () => {
   const [validateUser, { loading, data }] = useMutation(VALIDATE_USER);
 
   useEffect(() => {
-    if(token) {
+    if (token) {
       validateUser({
         variables: {
           token: token,

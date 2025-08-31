@@ -2,7 +2,7 @@ import { Result, Typography } from 'antd';
 import { isRouteErrorResponse } from 'react-router-dom';
 const { Paragraph, Text } = Typography;
 
-const ErrorBoundary = ({ error }: any) => {
+const ErrorBoundary = (error: any) => {
   if (isRouteErrorResponse(error)) {
     return (
       <Result status="error" title="Error" subTitle={error.status} extra={[]}>
@@ -53,7 +53,9 @@ const ErrorBoundary = ({ error }: any) => {
               key="error-desc-paragraph-text"
             >
               Error{' '}
-              {error === undefined ? '(Unknown cause)' : error.toISOString()}
+              {error === undefined || !error.toISOString
+                ? '(Unknown cause)'
+                : error.toISOString()}
             </Text>
           </Paragraph>
         </div>

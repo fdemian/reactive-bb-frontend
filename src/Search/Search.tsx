@@ -1,6 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client/react';
 import { getDefaultPageItems } from '../App/utils';
 import { getPageNumber } from '../utils/pageUtils';
 import { useTranslation } from 'react-i18next';
@@ -32,7 +32,7 @@ export const Component = () => {
     SEARCH_TERM,
     {
       variables: {
-        term: search ?? "",
+        term: search ?? '',
         where: searchIn.length === 0 ? ['titles', 'posts'] : searchIn,
         limit: PAGE_LIMIT,
         offset: PAGE_OFFSET,
@@ -45,7 +45,7 @@ export const Component = () => {
       const where = searchIn.length === 0 ? ['titles', 'posts'] : searchIn;
       performSearch({
         variables: {
-          term: searchTerm ?? "",
+          term: searchTerm ?? '',
           where: where,
           limit: PAGE_LIMIT,
           offset: PAGE_OFFSET,
@@ -110,7 +110,7 @@ export const Component = () => {
       title: <p>{t('search')}</p>,
     },
   ];
-  
+
   return (
     <Card>
       <Breadcrumb items={breadCrumbItems} />
@@ -119,8 +119,9 @@ export const Component = () => {
       </h1>
       {search ? (
         <h2>
-          {t('searchedFor')} <code>{search}</code> {t('in')}{': '}
-          <strong>{searchIn.map(s => `${t(s)} `).join(', ')}</strong>.
+          {t('searchedFor')} <code>{search}</code> {t('in')}
+          {': '}
+          <strong>{searchIn.map((s) => `${t(s)} `).join(', ')}</strong>.
         </h2>
       ) : (
         <h2>{t('noSearch')}</h2>

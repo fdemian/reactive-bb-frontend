@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Input, Button, Alert } from 'antd';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { useQuery, useApolloClient } from '@apollo/client';
+import { useQuery, useApolloClient } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faSignIn } from '@fortawesome/free-solid-svg-icons';

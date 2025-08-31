@@ -1,5 +1,5 @@
 import { Spin, Button, Result } from 'antd';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { REMOVE_BAN } from './Mutations';
 import { GET_MENTION_USERS } from '../../Editor/Queries';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
@@ -49,7 +49,7 @@ const RemoveBanScreen = ({ user, goBack, t }: BanUserTypes) => {
         }
       />
     );
-  
+
   //lockoutTime
   return (
     <div style={{ textAlign: 'center' }}>

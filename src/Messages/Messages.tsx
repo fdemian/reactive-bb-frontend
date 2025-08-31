@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import NoMessages from './NoMessages';
 import ChatsList from './ChatsList';
 import { getUserId } from '../Login/authUtils';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 import { GET_ALL_CHATS } from './Queries';
 import { SEND_PM } from './Mutations';
@@ -19,8 +19,7 @@ export const Component = () => {
     const editor: any = containerRef.current;
     const message = editor.getContent();
 
-    if(!userId)
-      return;
+    if (!userId) return;
 
     sendPm({
       variables: {

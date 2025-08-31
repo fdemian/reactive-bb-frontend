@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client/react';
 import { getUserId } from '../Login/authUtils';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
@@ -25,8 +25,7 @@ export const Component = () => {
           bookmarksByUser(bookmarksByUser = []) {
             // Workarround checking for __ref prop.
             // TODO: investigate why .filter(b => b.id !== id) is not working.
-            if(!data?.removeBookmark)
-              return;
+            if (!data?.removeBookmark) return;
             const { id } = data?.removeBookmark;
             return bookmarksByUser.filter(
               (b: BookmarkType) => b.__ref !== 'Bookmark:' + id

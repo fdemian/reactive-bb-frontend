@@ -6,7 +6,7 @@ import { Spin, notification } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import CalliopeEditor from 'kalliope';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 import { GET_MENTION_USERS, UPLOAD_IMAGE } from './Queries';
 import AccountAvatar from '../UserAvatar/UserAvatar';
@@ -196,10 +196,10 @@ const Editor = (props: EditorProps) => {
       defaultCaptionText: t('internal.enterCaption'),
     },
     inlineImage: {
-      showModal: (modalProps: InlineImageModalProps):void => {
+      showModal: (modalProps: InlineImageModalProps): void => {
         setInlineModalUpdateVisible(true);
         setInlineImageModalProps(modalProps);
-      }
+      },
     },
     excalidrawConfig: {
       modal: ExcalidrawModal,

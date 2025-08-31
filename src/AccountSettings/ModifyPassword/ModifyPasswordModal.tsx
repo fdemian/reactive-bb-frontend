@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Input, Form, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faLock } from '@fortawesome/free-solid-svg-icons';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { UPDATE_PASSWORD } from '../Mutations';
 import ErrorLayout from './ErrorLayout';
 import Loading from '../../Loading/LoadingIndicator';
@@ -12,17 +12,16 @@ import { getUserId } from '../../Login/authUtils';
 interface InputType {
   target: {
     value: string;
-  }
+  };
 }
 
 const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
   const [updatePassword, mutationData] = useMutation(UPDATE_PASSWORD);
   const modifyPassword = (currentPass: string, newPass: string) => {
     const userId = getUserId();
-    
+
     // TODO: show error message?
-    if(!userId)
-      return;
+    if (!userId) return;
 
     updatePassword({
       variables: {
@@ -70,12 +69,10 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
     return true;
   }
 
-   
-   
   const { loading, error, data } = mutationData;
 
   // Enabling this rule does not make sense here, since we are checking for something different.
-   
+
   if (error || (data?.updatePassword && !data.updatePassword.ok)) {
     if (!errorState) {
       setErrorState(true);
@@ -83,7 +80,9 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
     }
   }
 
-  const newPasswordInputChangeFn = (e: InputType) => { setNewPass(e.target.value); };
+  const newPasswordInputChangeFn = (e: InputType) => {
+    setNewPass(e.target.value);
+  };
 
   if (loading) return <Loading />;
 
@@ -112,7 +111,9 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
           name="passwordCurrent"
           className="input-field-security "
           placeholder={t('passwordInputPlaceholder')}
-          onChange={(e) => { setCurrentPass(e.target.value); }}
+          onChange={(e) => {
+            setCurrentPass(e.target.value);
+          }}
           value={currentPass}
           prefix={<FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />}
         />
@@ -140,7 +141,9 @@ const ModifyPasswordModal = ({ t }: { t: (key: string) => string }) => {
           role="input"
           name="passwordRepeat"
           placeholder={t('passwordConfirmPlaceholder')}
-          onChange={(e) => { setNewPassRepeat(e.target.value); }}
+          onChange={(e) => {
+            setNewPassRepeat(e.target.value);
+          }}
           type="password"
           value={newPassRepeat}
           prefix={<FontAwesomeIcon icon={faLock} size="lg" color="gainsboro" />}

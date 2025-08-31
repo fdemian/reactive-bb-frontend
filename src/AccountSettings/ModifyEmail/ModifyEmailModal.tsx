@@ -6,7 +6,7 @@ import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 import ErrorLayer from './ErrorLayer';
 import { UPDATE_EMAIL } from './Mutations';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { UserType } from '../../User/userTypes';
 
 interface ModifyEmailModalProps {
@@ -15,13 +15,11 @@ interface ModifyEmailModalProps {
 }
 
 const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
-  
   const { email } = user;
   const [userEmail, setUserEmail] = useState(email);
   const [updateEmail, mutationData] = useMutation(UPDATE_EMAIL);
 
   const changeEmail = () => {
-     
     updateEmail({
       variables: {
         id: user.id,
@@ -30,10 +28,7 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
     });
   };
 
-   
-     
-  const success =
-    mutationData.data?.updateEmail;
+  const success = mutationData.data?.updateEmail;
   const error = mutationData.error;
 
   if (mutationData.loading) return <Loading />;
@@ -72,7 +67,9 @@ const ModifyEmailModal = ({ user, t }: ModifyEmailModalProps) => {
           aria-label={t('emailChangePlaceholder')}
           className="input-field-security"
           placeholder={t('emailChangePlaceholder')}
-          onChange={(e) => { setUserEmail(e.target.value); }}
+          onChange={(e) => {
+            setUserEmail(e.target.value);
+          }}
           value={userEmail}
           prefix={
             <FontAwesomeIcon icon={faEnvelope} size="lg" color="gainsboro" />

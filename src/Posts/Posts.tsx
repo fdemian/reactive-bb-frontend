@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client/react';
 import { GET_TOPIC, GET_POSTS } from './Queries';
 import {
   ADD_POST,
@@ -95,8 +95,7 @@ export const Component = () => {
   const [reopenTopicMut] = useMutation(REOPEN_TOPIC);
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data }) {
-      if(!data || !data.createPost)
-        return;
+      if (!data || !data.createPost) return;
       cache.modify({
         fields: {
           posts(existingPosts = []) {
@@ -109,8 +108,7 @@ export const Component = () => {
 
   const [deletePost] = useMutation(DELETE_POST, {
     update(cache, { data }) {
-      if(!data || !data.deletePost)
-        return;
+      if (!data || !data.deletePost) return;
       cache.modify({
         fields: {
           posts(existingPosts = []) {
@@ -126,8 +124,7 @@ export const Component = () => {
 
   const [editPost] = useMutation(EDIT_POST, {
     update(cache, { data }) {
-      if(!data || !data.editPost)
-      return;
+      if (!data || !data.editPost) return;
       cache.modify({
         fields: {
           posts(existingPosts = []) {
@@ -151,15 +148,14 @@ export const Component = () => {
   const [publishMentions] = useMutation(SET_MENTIONS);
   const [increaseViewCount] = useMutation(INCREASE_VIEW_COUNT);
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
-  const isLoggedIn = loginQuery.data?.loggedIn;
   const { id, selectedPost } = useParams();
+  const isLoggedIn = loginQuery.data?.loggedIn;
 
   const handleFlagPost = () => {
     setFlagPostDialog(false);
     const userId = getUserId();
 
-    if(!flaggedPostId || !userId)
-      return;
+    if (!flaggedPostId || !userId) return;
 
     flagPost({
       variables: {
@@ -210,7 +206,9 @@ export const Component = () => {
 
   const containerRef = useRef<CalliopeContainerType>(null);
   const [visible, setVisible] = useState(false);
-  const showDrawer = () => { setVisible(true); };
+  const showDrawer = () => {
+    setVisible(true);
+  };
   const onClose = () => {
     setVisible(false);
     const editor: any = containerRef.current;
@@ -299,8 +297,7 @@ export const Component = () => {
   const removePost = (postId: number) => {
     const userId = getUserId();
 
-    if(!userId)
-      return;
+    if (!userId) return;
 
     deletePost({
       variables: {
@@ -323,8 +320,7 @@ export const Component = () => {
     const newPostContent = JSON.stringify(editorContent);
     const postId = editablePost;
 
-    if(!postId || !userId)
-      return;
+    if (!postId || !userId) return;
 
     editPost({
       variables: {
@@ -349,8 +345,7 @@ export const Component = () => {
   const createPost = () => {
     const editor = containerRef.current;
 
-    if(!editor)
-      return;
+    if (!editor) return;
 
     const postContent = editor.getContent();
     const jsonContent = JSON.stringify(postContent);
@@ -358,8 +353,7 @@ export const Component = () => {
     const userId = getUserId();
     const userName = getUserName();
 
-    if(!userId || !userQuery.data || !userQuery.data.getUser)
-      return;
+    if (!userId || !userQuery.data || !userQuery.data.getUser) return;
 
     addPost({
       variables: {
@@ -369,9 +363,9 @@ export const Component = () => {
       },
       optimisticResponse: {
         createPost: {
-            content: jsonContent,
-            user: userQuery.data.getUser,
-          },
+          content: jsonContent,
+          user: userQuery.data.getUser,
+        },
       },
     });
     onClose();
@@ -382,8 +376,8 @@ export const Component = () => {
       publishMentions({
         variables: {
           link: topicLink,
-          user: userName ?? "",
-          mentioned: mentions.map(m => m.name),
+          user: userName ?? '',
+          mentioned: mentions.map((m) => m.name),
         },
       });
     }
@@ -391,8 +385,9 @@ export const Component = () => {
     onChangePage(numberOfPages);
   };
 
-  const navigateToLogin = () =>
-    { navigate('/login', { state: { from: location } }); };
+  const navigateToLogin = () => {
+    navigate('/login', { state: { from: location } });
+  };
   const { posts } = postsQuery.data!;
 
   const replyActionButton = isLoggedIn ? (
@@ -449,7 +444,8 @@ export const Component = () => {
     },
   ];
 
-  const userFromQuery = userQuery.data?.getUser === undefined ? null : userQuery.data?.getUser;
+  const userFromQuery =
+    userQuery.data?.getUser === undefined ? null : userQuery.data?.getUser;
 
   return (
     <>
@@ -469,9 +465,8 @@ export const Component = () => {
                 <FontAwesomeIcon icon={faLock} size="1x" color="gainsboro" />
               )}
             </p>
-            <TagList tags={topic.tags ?? ""} />
-            {(banStatus === null || !banStatus.banned) &&
-              replyActionButton}
+            <TagList tags={topic.tags ?? ''} />
+            {(banStatus === null || !banStatus.banned) && replyActionButton}
           </>
           <span className="topic-statistics">
             <Statistic
@@ -530,7 +525,7 @@ export const Component = () => {
             <FloatButton
               className="float-button-reply"
               type="primary"
-              tooltip={<div>{t('posts.main.reply')}</div>}
+              tooltip={<>{t('posts.main.reply')}</>}
               onClick={showDrawer}
               icon={<FontAwesomeIcon icon={faEnvelope} />}
             />
@@ -544,7 +539,9 @@ export const Component = () => {
           title="Flag post"
           open={flagPostDialog}
           onOk={handleFlagPost}
-          onCancel={() => { setFlagPostDialog(false); }}
+          onCancel={() => {
+            setFlagPostDialog(false);
+          }}
         >
           <FlagPostModal
             flagReasonValue={flagReasonValue}

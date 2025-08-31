@@ -1,11 +1,19 @@
-import { ApolloClient, ApolloLink, split, ServerError } from '@apollo/client';
-import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
+import { ApolloClient, ApolloLink } from '@apollo/client';
+import UploadHttpLink from 'apollo-upload-client/UploadHttpLink.mjs';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { onError } from '@apollo/client/link/error';
+import { ErrorLink } from '@apollo/client/link/error';
 import { createClient } from 'graphql-ws';
 import { cache } from './cache';
 import { refreshToken } from './Login/authUtils';
+import {
+  CombinedGraphQLErrors,
+  CombinedProtocolErrors,
+  LocalStateError,
+  ServerError,
+  ServerParseError,
+  UnconventionalError,
+} from '@apollo/client/errors';
 
 const redirectToLogout = () => {
   const newURL = window.location.origin + '/logout';
@@ -35,34 +43,45 @@ const getWSURL = (): string => {
   return 'wss://' + host + '/api/subscriptions';
 };
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      { console.log(
-        // eslint-disable @typescript-eslint/restrict-template-expressions
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path?.toString()}`
-      ); }
-    );
-  }
-
-  if (networkError && networkError.name === 'ServerError') {
-    const errorParsed: ServerError = networkError as ServerError;
-    const { statusCode } = errorParsed;
+// Comprehensive error handling example.
+const handleError = (error: unknown, result: unknown) => {
+  console.log(error);
+  if (CombinedGraphQLErrors.is(error)) {
+    // Handle GraphQL errors
+  } else if (CombinedProtocolErrors.is(error)) {
+    // Handle multipart subscription protocol errors
+  } else if (LocalStateError.is(error)) {
+    // Handle errors thrown by the `LocalState` class
+  } else if (ServerError.is(error)) {
+    // Handle server HTTP errors
+    const { statusCode } = error;
     const { href, host, protocol } = window.location;
     if (statusCode === 412) {
       eraseUserTokensAndLogout(href, host, protocol);
-      const onFail = () => { eraseUserTokensAndLogout(href, host, protocol); return; }
+      const onFail = () => {
+        eraseUserTokensAndLogout(href, host, protocol);
+        return;
+      };
       refreshToken(onFail);
+    } else if (ServerParseError.is(error)) {
+      // Handle JSON parse errors
+    } else if (UnconventionalError.is(error)) {
+      // Handle errors thrown by irregular types
+    } else {
+      // Handle other errors
     }
   }
-});
+};
 
-const httpLink = createUploadLink({ uri: '/api/graphql' });
+const errorLink = new ErrorLink(({ error, result }) => {
+  handleError(error, result);
+});
+const httpLink = new UploadHttpLink({ uri: '/api/graphql' });
 const wsLink = new GraphQLWsLink(createClient({ url: getWSURL() }));
 
 const enhancedHttpLink = ApolloLink.from([errorLink, httpLink]);
 
-const splitLink = split(
+const splitLink = ApolloLink.split(
   ({ query }) => {
     const definition = getMainDefinition(query);
     return (

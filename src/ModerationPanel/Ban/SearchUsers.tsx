@@ -1,6 +1,6 @@
 import { Input } from 'antd';
 import SearchUsersList from './SearchUsersList';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client/react';
 import { GET_MENTION_USERS } from '../../Editor/Queries';
 import { SearchUserTypes } from '../moderationPanelTypes';
 

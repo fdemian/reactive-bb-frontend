@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Button, Input } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { CREATE_CATEGORY } from './Mutations';
 import './Categories.css';
 

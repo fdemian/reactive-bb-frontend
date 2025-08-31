@@ -1,1 +1,1 @@
-declare module 'apollo-upload-client/createUploadLink.mjs';
+declare module 'apollo-upload-client/UploadHttpLink.mjs';

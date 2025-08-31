@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { List, Avatar, Spin } from 'antd';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { GET_CATEGORIES } from './Queries';
 import { GET_IS_LOGGED_IN } from '../Login/queries';
 import { useTranslation } from 'react-i18next';
@@ -29,8 +29,7 @@ export const Component = () => {
 
   let { categories } = data;
 
-  if(!categories)
-    categories = [];
+  if (!categories) categories = [];
 
   const categoriesData = [defaultCategory].concat(categories);
 

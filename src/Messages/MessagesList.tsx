@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { GET_CHAT, CHATS_SUBSCRIPTION } from './Queries';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { List, Tooltip, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import UserAvatar from '../UserAvatar/UserAvatar';
@@ -13,22 +13,22 @@ const getDateRelative = (date: string) =>
   formatDistance(parseISO(date), new Date(), { addSuffix: true });
 
 interface ChatMessageType {
-  __typename?: "ChatMessage" | undefined;
+  __typename?: 'ChatMessage' | undefined;
   date: any;
-    content: any;
-    author: {
-      __typename?: "User" | undefined;
-      id: number;
-      avatar?: string | null | undefined;
-      username: string;
-    };
-    recipient: {
-      __typename?: "User" | undefined;
-      id: number;
-      avatar?: string | null | undefined;
-      username: string;
-    };
-};
+  content: any;
+  author: {
+    __typename?: 'User' | undefined;
+    id: number;
+    avatar?: string | null | undefined;
+    username: string;
+  };
+  recipient: {
+    __typename?: 'User' | undefined;
+    id: number;
+    avatar?: string | null | undefined;
+    username: string;
+  };
+}
 
 const MessagesList = ({
   currentUser,
@@ -55,13 +55,17 @@ const MessagesList = ({
       },
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
-        const prevChats:ChatMessageType[] = prev.chat !== undefined && prev.chat !== null ? prev.chat : [];
+        const prevChats: ChatMessageType[] =
+          prev.chat !== undefined && prev.chat !== null ? prev.chat : [];
 
-        if(subscriptionData.data.chatAdded === null || subscriptionData.data.chatAdded === undefined){
+        if (
+          subscriptionData.data.chatAdded === null ||
+          subscriptionData.data.chatAdded === undefined
+        ) {
           return prev;
         }
 
-        const newChatItem:ChatMessageType = subscriptionData.data.chatAdded;
+        const newChatItem: ChatMessageType = subscriptionData.data.chatAdded;
 
         return {
           chat: [...prevChats, newChatItem],

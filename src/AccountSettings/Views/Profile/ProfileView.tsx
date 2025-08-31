@@ -5,7 +5,7 @@ import { GET_PROFILE } from '../../Queries';
 import Loading from '../../../Loading/LoadingIndicator';
 import AvatarView from './AvatarView';
 import { getUserId } from '../../../Login/authUtils';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import './ProfileView.css';
@@ -44,16 +44,15 @@ const UserProfile = () => {
   if (status !== null && about !== null && avatar !== null) {
     if (modalProps.avatar === '') {
       setModalProps({
-        avatar: avatar ?? "",
-        status: status ?? "",
-        about: about ?? "",
+        avatar: avatar ?? '',
+        status: status ?? '',
+        about: about ?? '',
       });
     }
   }
 
   const updateProfileInfo = () => {
-    if(!data.getUser)
-      return;
+    if (!data.getUser) return;
 
     updateProfile({
       variables: {
@@ -64,18 +63,20 @@ const UserProfile = () => {
     });
   };
 
-  const setStatus = (e: TargetValue) =>
-    { setModalProps({
+  const setStatus = (e: TargetValue) => {
+    setModalProps({
       ...modalProps,
       status: e.target.value,
-    }); };
+    });
+  };
 
-  const setAbout = (e: TargetValue) =>
-    { setModalProps({
+  const setAbout = (e: TargetValue) => {
+    setModalProps({
       ...modalProps,
       about: e.target.value,
-    }); };
-  
+    });
+  };
+
   return (
     <>
       <Helmet>
@@ -117,7 +118,7 @@ const UserProfile = () => {
         <div className="right">
           <AvatarView
             id={data.getUser.id}
-            avatar={data.getUser.avatar ?? ""}
+            avatar={data.getUser.avatar ?? ''}
             username={username}
             t={t}
           />

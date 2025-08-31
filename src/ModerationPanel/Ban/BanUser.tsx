@@ -6,7 +6,7 @@ import { getIsMobile } from '../../App/utils';
 import BanDatePicker from './BanDatePicker';
 import { BAN_USER } from './Mutations';
 import { GET_MENTION_USERS } from '../../Editor/Queries';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { BanUserTypes } from '../moderationPanelTypes';
@@ -99,7 +99,9 @@ const BanUser = ({ user, goBack, t }: BanUserTypes) => {
           className="checkbox-ban-permanent"
           checked={isPermanent}
           disabled={false}
-          onChange={(evt) => { setIsPermanent(evt.target.checked); }}
+          onChange={(evt) => {
+            setIsPermanent(evt.target.checked);
+          }}
         >
           <h2>{t('permanent')}</h2> &nbsp;
         </Checkbox>

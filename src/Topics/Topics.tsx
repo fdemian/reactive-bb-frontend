@@ -1,5 +1,5 @@
 import { useState, Suspense, lazy } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { Helmet } from 'react-helmet-async';
 import { Card, Divider, Spin } from 'antd';
 import { GET_TOPICS, GET_PINNED_TOPICS } from './Queries';
@@ -62,7 +62,7 @@ export const Component = () => {
       limit: PAGE_LIMIT,
       offset: PAGE_OFFSET,
     },
-    pollInterval: 500,
+    pollInterval: 10000,
   });
   const categoriesQuery = useQuery(GET_CATEGORIES);
   const loginQuery = useQuery(GET_IS_LOGGED_IN);

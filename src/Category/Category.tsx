@@ -1,5 +1,5 @@
 import { GET_CATEGORY } from './Queries';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getIsMobile } from '../App/utils';

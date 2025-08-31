@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { GET_TOPICS, PIN_TOPIC } from './Queries';
 import { Tooltip } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,7 +6,9 @@ import { faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { TopicType } from './topicTypes';
 import './Topics.css';
 
-interface PinTopicParams { topic: TopicType }
+interface PinTopicParams {
+  topic: TopicType;
+}
 
 const PinTopic = ({ topic }: PinTopicParams) => {
   const [pinTopicMut] = useMutation(PIN_TOPIC);

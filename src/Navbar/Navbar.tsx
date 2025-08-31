@@ -1,6 +1,6 @@
 import { lazy, useState, Suspense } from 'react';
 import { getUserId, getUserType, clearUser } from '../Login/authUtils';
-import { useQuery, useApolloClient, useMutation } from '@apollo/client';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client/react';
 import { useNavigate } from 'react-router-dom';
 import NavLogo from './NavLogo';
 import { useTranslation } from 'react-i18next';

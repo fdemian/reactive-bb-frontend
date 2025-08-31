@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client/react';
 import { GET_MENTION_USERS } from '../Editor/Queries';
 import Editor from '../Editor/Editor';
 import { Button, Form, Mentions, GetProp, MentionProps } from 'antd';
@@ -18,18 +18,20 @@ interface CreateMessageProps {
 }
 
 interface UserMentionType {
-  __typename?: "User" | undefined;
+  __typename?: 'User' | undefined;
   id: number;
   username: string;
   avatar?: string | null | undefined;
   banned: boolean;
   banReason?: string | null | undefined;
   banExpires?: any;
-};
+}
 
 type MentionsOptionProps = GetProp<MentionProps, 'options'>[number];
 
-const emptyFn = (m: MentionType[]) => { console.log(m); };
+const emptyFn = (m: MentionType[]) => {
+  console.log(m);
+};
 
 const CreateMessage = ({
   sendMessage,
@@ -43,7 +45,9 @@ const CreateMessage = ({
 
   const mentionSelectChange = ({ value }: MentionsOptionProps) => {
     /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-    const filteredUser = users.filter((u: UserMentionType) => u.username === value);
+    const filteredUser = users.filter(
+      (u: UserMentionType) => u.username === value
+    );
     if (!filteredUser) return;
     const user = filteredUser[0];
     const userIdCurrent = user.id;
@@ -91,7 +95,7 @@ const CreateMessage = ({
         link: `/users/${u.id}/${u.username}`,
         avatar: u.avatar,
         username: u.username,
-        banned: u.banned
+        banned: u.banned,
       }));
       setUsers(_suggestions);
     }

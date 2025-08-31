@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Spin } from 'antd';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { Navigate, useParams } from 'react-router-dom';
 import { getDefaultPageItems } from '../App/utils';
 import format_title_string from '../utils/formats';

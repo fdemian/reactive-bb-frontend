@@ -5,7 +5,7 @@ import { List } from 'antd';
 import { Link } from 'react-router-dom';
 import Renderer from '../Editor/Renderer';
 import { UserType, LikeType } from './userTypes';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 
 interface UserLikesProps {
   id: number;
