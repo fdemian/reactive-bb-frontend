@@ -2,7 +2,7 @@
 /* eslint react-refresh/only-export-components: 0 */ //
 //import PropTypes from 'prop-types';
 import React from 'react';
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider } from "@apollo/client/testing/react";
 import { Context as ResponsiveContext } from 'react-responsive';
 import { createRoutesStub } from "react-router";
 import { HelmetProvider } from 'react-helmet-async';
@@ -154,25 +154,9 @@ const TestingWrapper = (props) => {
 
   console.clear();
   console.log(routes);
+  console.log(initialEntries);
   console.log("dfadsfdfafdssdfa");
   console.log(Stub);
-
-  return (
-  <HelmetProvider>
-      <I18nextProvider i18n={i18n}>
-        <MockedProvider
-          mocks={finalMocks}
-          cache={cache}
-          resolvers={resolvers}
-          addTypename={true}
-        >
-          <ResponsiveContext.Provider value={{ width: isMobile ? 300 : 1900 }}>
-            <Stub initialEntries={initialEntries} hydrateFallbackElement={<Loading />} />
-          </ResponsiveContext.Provider>
-        </MockedProvider>
-    </I18nextProvider>
-  </HelmetProvider>  
-  );
 
   return (
   <HelmetProvider>
