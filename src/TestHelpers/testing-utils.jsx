@@ -152,6 +152,28 @@ const TestingWrapper = (props) => {
   const providerMocks = mocks ? mocks.concat(configMock) : configMock;
   const finalMocks = providerMocks.concat(navbarMocks);
 
+  console.clear();
+  console.log(routes);
+  console.log("dfadsfdfafdssdfa");
+  console.log(Stub);
+
+  return (
+  <HelmetProvider>
+      <I18nextProvider i18n={i18n}>
+        <MockedProvider
+          mocks={finalMocks}
+          cache={cache}
+          resolvers={resolvers}
+          addTypename={true}
+        >
+          <ResponsiveContext.Provider value={{ width: isMobile ? 300 : 1900 }}>
+            <Stub initialEntries={initialEntries} hydrateFallbackElement={<Loading />} />
+          </ResponsiveContext.Provider>
+        </MockedProvider>
+    </I18nextProvider>
+  </HelmetProvider>  
+  );
+
   return (
   <HelmetProvider>
     <I18nextProvider i18n={i18n}>
