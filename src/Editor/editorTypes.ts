@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CalliopeFormatTypes } from './toolbarUtils';
 import { UserType } from '../User/userTypes';
-import { InlineImageModalProps } from './InlineImageModal/InlineImageModal';
 import { CalliopeContainerType } from 'kalliope';
 import { MentionTypeUser } from '../ModerationPanel/moderationPanelTypes';
 import { UserTypePost } from '../Posts/postTypes';
@@ -41,15 +40,10 @@ export interface EditorProps {
   isMobile: boolean;
 }
 
-
 export interface FooterProps {
   inlineModalUpdateVisible: boolean;
   setInlineModalUpdateVisible: (p: boolean) => void;
-  inlineImagemodalProps: InlineImageModalProps | null;
   insertImage: (p: InsertImageProps) => void;
-  insertInlineImage: (p: InsertImageInlineProps) => void;
-  inlineImageModalVisible: boolean;
-  setInlineImageModalVisible: (p: boolean) => void;
   editor: any;
   canUndo: boolean;
   canRedo: boolean;
@@ -84,13 +78,6 @@ export interface MobileDrawerProps {
   toggleVideoToolbar: () => void;
   insertImage: (val: InsertImageProps) => void;
   t: (key: string) => string;
-}
-
-export interface InlineImageProps {
-  altText: string;
-  position: string;
-  showCaption: boolean;
-  src: string;
 }
 
 export interface ImageProps {

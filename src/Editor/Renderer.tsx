@@ -30,9 +30,6 @@ const Renderer = ({ content }: RendererParse) => {
     excalidrawConfig: {
       modal: () => <div></div>,
     },
-    inlineImage: {
-      showModal: () => {},
-    },
     onError: (error: Error) => {
       throw error;
     },

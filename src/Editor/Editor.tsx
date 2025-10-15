@@ -17,13 +17,11 @@ import {
   EditorProps,
   MentionType,
   EntryComponentTypes,
-  InlineImageProps,
   ImageProps,
   InsertEquationProps,
 } from './editorTypes';
 import './Editor.css';
 import { CalliopeFormatTypes } from './toolbarUtils';
-import { InlineImageModalProps } from './InlineImageModal/InlineImageModal';
 
 const MobileDrawer = lazy(() => import('./MobileDrawer'));
 const Toolbar = lazy(() => import('./Toolbar'));
@@ -60,9 +58,6 @@ const Editor = (props: EditorProps) => {
   const [imageModalVisible, setImageModal] = useState(false);
   const [bgColorModalVisible, setBgColorModal] = useState(false);
   const [fontColorModalVisible, setFontColorModal] = useState(false);
-  const [inlineImageModalVisible, setInlineImageModalVisible] = useState(false);
-  const [inlineImagemodalProps, setInlineImageModalProps] =
-    useState<InlineImageModalProps | null>(null);
   const [inlineModalUpdateVisible, setInlineModalUpdateVisible] =
     useState(false);
 
@@ -135,12 +130,6 @@ const Editor = (props: EditorProps) => {
     toggleImageModal();
   };
 
-  const insertInlineImage = (image: InlineImageProps) => {
-    if (!containerRef.current) return;
-    containerRef.current.focus();
-    containerRef.current.executeCommand('INSERT_IMAGE_INLINE', image);
-  };
-
   const onSearchChange = (match: string) => {
     if (match === null || match.length < 3) return;
     getMentionCandidates({
@@ -183,6 +172,8 @@ const Editor = (props: EditorProps) => {
   }
 
   const config = {
+    selectionAlwaysOnDisplay: true,
+    useShiki: false,
     placeholderText: t('toolbar.placeholderText'),
     initialState: initialState,
     readOnly: false,
@@ -194,12 +185,6 @@ const Editor = (props: EditorProps) => {
     imageConfig: {
       addCaptionText: t('internal.addCaption'),
       defaultCaptionText: t('internal.enterCaption'),
-    },
-    inlineImage: {
-      showModal: (modalProps: InlineImageModalProps): void => {
-        setInlineModalUpdateVisible(true);
-        setInlineImageModalProps(modalProps);
-      },
     },
     excalidrawConfig: {
       modal: ExcalidrawModal,
@@ -330,10 +315,6 @@ const Editor = (props: EditorProps) => {
       <EditorFooter
         inlineModalUpdateVisible={inlineModalUpdateVisible}
         setInlineModalUpdateVisible={setInlineModalUpdateVisible}
-        inlineImagemodalProps={inlineImagemodalProps}
-        inlineImageModalVisible={inlineImageModalVisible}
-        setInlineImageModalVisible={setInlineImageModalVisible}
-        insertInlineImage={insertInlineImage}
         insertImage={insertImage}
         editor={containerRef.current}
         canUndo={canUndo}

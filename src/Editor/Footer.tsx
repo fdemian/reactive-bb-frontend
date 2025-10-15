@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMicrophone,
   faUpload,
-  faCloudArrowUp,
   faTrash,
   faUndo,
   faRedo,
@@ -13,35 +12,17 @@ import { FooterProps } from './editorTypes';
 import './Toolbar.css';
 
 const ImageModal = lazy(() => import('./ImageModal/ImageModal'));
-const InlineImageModal = lazy(
-  () => import('./InlineImageModal/InlineImageModal')
-);
-const UpdateInlineImageDialog = lazy(
-  () => import('./InlineImageModal/UpdateInlineImageModal')
-);
 
 const EditorFooter = (props: FooterProps) => {
-  const {
-    inlineModalUpdateVisible,
-    setInlineModalUpdateVisible,
-    inlineImagemodalProps,
-    inlineImageModalVisible,
-    setInlineImageModalVisible,
-    insertImage,
-    insertInlineImage,
-    editor,
-    canUndo,
-    canRedo,
-    t,
-  } = props;
+  const { insertImage, editor, canUndo, canRedo, t } = props;
 
   const [isSpeechToText, setIsSpeechToText] = useState(false);
   const [imageURL, setImageURL] = useState<string | null>('');
   const [altText, setAltText] = useState('');
-  const [position, setPostion] = useState('left');
-  const [showCaption, setShowCaption] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
-  const toggleModalVisible = () => { setUploadModalVisible(!uploadModalVisible); };
+  const toggleModalVisible = () => {
+    setUploadModalVisible(!uploadModalVisible);
+  };
 
   const SUPPORT_SPEECH_RECOGNITION =
     'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
@@ -66,38 +47,6 @@ const EditorFooter = (props: FooterProps) => {
       },
       onCancel: () => {
         toggleModalVisible();
-        setImageURL('');
-      },
-    },
-    inlineModalUpdate: {
-      title: t('inlineModalUpdateTitle'),
-      open: inlineModalUpdateVisible,
-      onCancel: () => {
-        setInlineModalUpdateVisible(false);
-      },
-      footer: null,
-    },
-    inlineImageModal: {
-      title: t('imageModal.inlineImageModalTitle'),
-      open: inlineImageModalVisible,
-      onOk: () => {
-        const payload = {
-          altText,
-          position,
-          showCaption,
-          src: imageURL ?? '',
-        };
-        if (imageURL) {
-          insertInlineImage(payload);
-        }
-        setInlineImageModalVisible(false);
-        setImageURL('');
-      },
-      okButtonProps: {
-        disabled: (imageURL ?? '').trim() === '' || altText.trim() === '',
-      },
-      onCancel: () => {
-        setInlineImageModalVisible(false);
         setImageURL('');
       },
     },
@@ -140,20 +89,6 @@ const EditorFooter = (props: FooterProps) => {
           onClick={toggleModalVisible}
         >
           <FontAwesomeIcon icon={faUpload} size="lg" />
-        </button>
-      </Tooltip>
-      <Tooltip
-        placement="bottom"
-        title={t('toolbar.inlineImage')}
-        key="INLINE_IMAGE_UPLOAD_TOOLTIPO"
-      >
-        <button
-          aria-label={t('toolbar.inlineImage')}
-          className="toolbar-style-button"
-          key="UPLOAD_inline_IMAGE"
-          onClick={() => { setInlineImageModalVisible(true); }}
-        >
-          <FontAwesomeIcon icon={faCloudArrowUp} size="lg" />
         </button>
       </Tooltip>
       <Tooltip placement="bottom" title={t('toolbar.clearEditor')} key="clear">
@@ -206,30 +141,6 @@ const EditorFooter = (props: FooterProps) => {
             setImageURL={setImageURL}
             altText={altText}
             setAltText={setAltText}
-          />
-        </Suspense>
-      </Modal>
-      <Modal {...modalButtonsText} {...modalMainProps.inlineModalUpdate}>
-        <Suspense fallback={<Spin />}>
-          <UpdateInlineImageDialog
-            {...inlineImagemodalProps}
-            onClose={() => { setInlineModalUpdateVisible(false); }}
-            t={t}
-          />
-        </Suspense>
-      </Modal>
-      <Modal {...modalButtonsText} {...modalMainProps.inlineImageModal}>
-        <Suspense fallback={<Spin />}>
-          <InlineImageModal
-            imageURL={imageURL ?? ''}
-            setImageURL={setImageURL}
-            altText={altText}
-            setAltText={setAltText}
-            position={position}
-            setPosition={setPostion}
-            showCaption={showCaption}
-            setShowCaption={setShowCaption}
-            t={t}
           />
         </Suspense>
       </Modal>
