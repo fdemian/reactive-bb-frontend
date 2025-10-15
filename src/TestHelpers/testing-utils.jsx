@@ -12,7 +12,6 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { GET_CONFIG } from '../App/Queries';
 import routes from '../Routes/RoutesForTesting';
-import cache from '../cache';
 import {
   GET_NOTIFICATIONS,
   NOTIFICATIONS_SUBSCRIPTION,
@@ -20,6 +19,7 @@ import {
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import Loading from '../Loading/LoadingIndicator';
+import { InMemoryCache } from '@apollo/client';
 
 const navbarMocks = [
   {
@@ -136,27 +136,27 @@ const TestingWrapper = (props) => {
     configSettingsMock.push(configRequestMock);
   }
 
-  const resolvers = {
-    Query: {
-      loggedIn() {
-        return isLoggedIn;
-      },
-    },
-  };
-
   const Stub = createRoutesStub(routes);
   
+  const cache = new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          loggedIn: {
+            read() {
+              return isLoggedIn;
+            },
+          },
+        },
+      },
+    },
+  });
+
   const configMock = configMockOverride
     ? configMockOverride
     : configSettingsMock;
   const providerMocks = mocks ? mocks.concat(configMock) : configMock;
   const finalMocks = providerMocks.concat(navbarMocks);
-
-  console.clear();
-  console.log(routes);
-  console.log(initialEntries);
-  console.log("dfadsfdfafdssdfa");
-  console.log(Stub);
 
   return (
   <HelmetProvider>
@@ -165,7 +165,6 @@ const TestingWrapper = (props) => {
         <MockedProvider
           mocks={finalMocks}
           cache={cache}
-          resolvers={resolvers}
           addTypename={true}
         >
           <Stub initialEntries={initialEntries} hydrateFallbackElement={<Loading />} />
