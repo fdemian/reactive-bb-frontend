@@ -10,18 +10,11 @@ interface InsertImageProps {
   altText: string;
 }
 
-interface InsertImageInlineProps {
-  altText: string;
-  position: string;
-  showCaption: boolean;
-  src: string;
-}
-
 export interface EntryComponentTypes {
   option: {
-    id: number;
+    id?: number;
     avatar?: string | null | undefined;
-    name: string;
+    name?: string;
   };
 }
 

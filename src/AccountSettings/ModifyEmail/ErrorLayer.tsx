@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ApolloError } from '@apollo/client';
+import type { ErrorLike } from '@apollo/client';
 
 interface ErrorLayerProps {
-  error: ApolloError | undefined;
+  error: ErrorLike | undefined;
   tr: (key: string) => string;
 }
 

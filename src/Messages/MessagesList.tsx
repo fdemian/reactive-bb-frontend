@@ -13,17 +13,17 @@ const getDateRelative = (date: string) =>
   formatDistance(parseISO(date), new Date(), { addSuffix: true });
 
 interface ChatMessageType {
-  __typename?: 'ChatMessage' | undefined;
+  __typename?: 'ChatMessage';
   date: any;
   content: any;
   author: {
-    __typename?: 'User' | undefined;
+    __typename?: 'User';
     id: number;
     avatar?: string | null | undefined;
     username: string;
   };
   recipient: {
-    __typename?: 'User' | undefined;
+    __typename?: 'User';
     id: number;
     avatar?: string | null | undefined;
     username: string;
@@ -56,8 +56,7 @@ const MessagesList = ({
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
         const prevChats: ChatMessageType[] =
-          prev.chat !== undefined && prev.chat !== null ? prev.chat : [];
-
+          prev.chat === undefined || prev.chat === null ? [] : prev.chat;
         if (
           subscriptionData.data.chatAdded === null ||
           subscriptionData.data.chatAdded === undefined
@@ -66,7 +65,6 @@ const MessagesList = ({
         }
 
         const newChatItem: ChatMessageType = subscriptionData.data.chatAdded;
-
         return {
           chat: [...prevChats, newChatItem],
         };

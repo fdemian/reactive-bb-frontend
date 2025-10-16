@@ -44,7 +44,7 @@ const getWSURL = (): string => {
 };
 
 // Comprehensive error handling example.
-const handleError = (error: unknown, result: unknown) => {
+const handleError = (error: unknown) => {
   console.log(error);
   if (CombinedGraphQLErrors.is(error)) {
     // Handle GraphQL errors
@@ -73,8 +73,8 @@ const handleError = (error: unknown, result: unknown) => {
   }
 };
 
-const errorLink = new ErrorLink(({ error, result }) => {
-  handleError(error, result);
+const errorLink = new ErrorLink(({ error }) => {
+  handleError(error);
 });
 const httpLink = new UploadHttpLink({ uri: '/api/graphql' });
 const wsLink = new GraphQLWsLink(createClient({ url: getWSURL() }));

@@ -86,7 +86,8 @@ const Toolbar = (props: ToolbarProps) => {
     t,
   } = props;
 
-  const CODE_LANGUAGE_OPTIONS: [string, string][] = getCodeLanguageOptions();
+  const CODE_LANGUAGE_OPTIONS: [string, string][] =
+    getCodeLanguageOptions(false);
 
   //
   const BUTTON_ELEMENTS = getButtonElementsToolbarDesktop(t, formats);

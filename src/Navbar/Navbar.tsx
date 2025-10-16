@@ -52,7 +52,9 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
   };
 
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
-  const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn === true;
+  /* @ts-expect-error */
+  const isLoggedIn: boolean =
+    loginQuery.data && loginQuery.data.loggedIn === true;
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { id: id ?? -1 },
     skip: !id,

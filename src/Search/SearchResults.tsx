@@ -15,12 +15,12 @@ type ResultType = {
 
 interface SearchResultsType {
   __typename?: 'SearchResponse' | undefined;
-  total: number;
+  total?: number | undefined;
   results?: ResultType[] | null | undefined;
 }
 
 interface SearchResultsData {
-  data: SearchResultsType | undefined | null;
+  data: SearchResultsType | null;
   t: (key: string) => string;
 }
 

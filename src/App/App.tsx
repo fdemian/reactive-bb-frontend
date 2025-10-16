@@ -34,6 +34,7 @@ const App = () => {
   /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   /* eslint-disable @typescript-eslint/no-unsafe-argument */
   /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+  /* @ts-expect-error  */
   const isLoggedIn: boolean = loginQuery.data?.loggedIn;
 
   const banStatus = getBanStatus();

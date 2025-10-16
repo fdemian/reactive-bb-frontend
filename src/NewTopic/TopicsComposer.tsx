@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import format_title_string from '../utils/formats.js';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client/react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
 import { Input } from 'antd';
@@ -56,7 +56,7 @@ export const Component = () => {
     const _content = editor?.getContent();
 
     if (!title || !id) return;
-    
+
     const queryOpts = {
       variables: {
         name: title,
@@ -151,7 +151,7 @@ export const Component = () => {
             <Input
               role="textbox"
               aria-label={t('titlePlaceholder')}
-              value={title ?? ""}
+              value={title ?? ''}
               placeholder={t('titlePlaceholder')}
               className="TitleInput"
               defaultValue={title === null ? '' : title}

@@ -1,10 +1,10 @@
-import { ApolloError } from '@apollo/client';
+import { ErrorLike } from '@apollo/client';
 import { Result, Typography } from 'antd';
 
 const { Paragraph, Text } = Typography;
 
 interface AppErrorParams {
-  error: ApolloError;
+  error: ErrorLike;
 }
 
 const AppError = ({ error }: AppErrorParams) => {
@@ -15,7 +15,9 @@ const AppError = ({ error }: AppErrorParams) => {
       <div className="desc" key="error-desc">
         <Paragraph key="error-desc-paragraph">
           <Text strong style={{ fontSize: 16 }} key="error-desc-paragraph-text">
-            {stackStr?.map((s) => <p key={s}>{s}</p>)}
+            {stackStr?.map((s) => (
+              <p key={s}>{s}</p>
+            ))}
           </Text>
         </Paragraph>
       </div>

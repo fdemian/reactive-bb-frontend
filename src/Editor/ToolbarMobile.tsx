@@ -82,7 +82,8 @@ const Toolbar = (props: ToolbarProps) => {
     editor.executeCommand('CHANGE_FONT_BG_COLOR', val.toHexString());
   };
 
-  const CODE_LANGUAGE_OPTIONS: [string, string][] = getCodeLanguageOptions();
+  const CODE_LANGUAGE_OPTIONS: [string, string][] =
+    getCodeLanguageOptions(false);
 
   //
   const BUTTON_ELEMENTS = getButtonElementsToolbarMobile(t, formats);

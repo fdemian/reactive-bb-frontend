@@ -149,6 +149,7 @@ export const Component = () => {
   const [increaseViewCount] = useMutation(INCREASE_VIEW_COUNT);
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
   const { id, selectedPost } = useParams();
+  /* @ts-expect-error  */
   const isLoggedIn = loginQuery.data?.loggedIn;
 
   const handleFlagPost = () => {

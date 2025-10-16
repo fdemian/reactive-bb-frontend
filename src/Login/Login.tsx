@@ -114,7 +114,8 @@ export const Component = (): React.ReactElement => {
     return <Navigate to="/banned" replace={true} />;
   }
 
-  if (loginQuery.data.loggedIn && !userBanned)
+  /* @ts-expect-error */
+  if (loginQuery.data?.loggedIn && !userBanned)
     return <Navigate to={from} replace={true} />;
 
   return (

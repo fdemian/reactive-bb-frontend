@@ -3,7 +3,6 @@ import { Input, Button, Alert } from 'antd';
 import Loading from '../../Loading/LoadingIndicator';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-
 import ErrorLayer from './ErrorLayer';
 import { UPDATE_EMAIL } from './Mutations';
 import { useMutation } from '@apollo/client/react';

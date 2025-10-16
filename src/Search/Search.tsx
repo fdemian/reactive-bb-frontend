@@ -21,7 +21,9 @@ export const Component = () => {
   const pageParams = searchParams.get('page');
   const { t } = useTranslation('search', { keyPrefix: 'search' });
   const [searchIn, setSearchIn] = useState<string[]>([]);
-  const [search, setSearch] = useState<string | null>(searchTerm);
+  const [search, setSearch] = useState<string | null>(
+    searchTerm === null ? null : searchTerm
+  );
   const initialPage = getPageNumber(pageParams);
   const PAGE_LIMIT = parseInt(getDefaultPageItems() ?? '5', 10);
   const PAGE_OFFSET = (initialPage - 1) * PAGE_LIMIT;
@@ -84,7 +86,7 @@ export const Component = () => {
       variables: {
         offset: _offset,
         limit: _limit,
-        term: search,
+        term: search ?? '',
         where: searchIn,
       },
     });

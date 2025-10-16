@@ -23,6 +23,7 @@ const Renderer = ({ content }: RendererParse) => {
 
   const config = {
     placeholderText: '',
+    useShiki: false,
     selectionAlwaysOnDisplay: false,
     initialState: parsedContent ?? undefined,
     readOnly: true,

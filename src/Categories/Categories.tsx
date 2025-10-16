@@ -19,6 +19,7 @@ const NewCategoryForm = lazy(() => import('./NewCategoryForm'));
 export const Component = () => {
   const { loading, error, data } = useQuery(GET_CATEGORIES);
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
+  /* @ts-expect-error  */
   const isLoggedIn = loginQuery.data?.loggedIn;
 
   const { t } = useTranslation('categories', { keyPrefix: 'categories' });

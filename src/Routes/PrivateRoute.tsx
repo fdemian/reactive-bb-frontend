@@ -26,6 +26,7 @@ const PrivateRoute = ({
   const navigate = useNavigate();
   const { requiresActiveUser, modRoute, adminRoute } = rest;
   const loginQuery = useQuery(GET_IS_LOGGED_IN);
+  /* @ts-expect-error */
   const isLoggedIn = loginQuery.data && loginQuery.data.loggedIn === true;
   const client = useApolloClient();
   const location = useLocation();

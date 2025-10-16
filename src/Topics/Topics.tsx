@@ -103,6 +103,7 @@ export const Component = () => {
 
   /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+  /* @ts-expect-error  */
   const isLoggedIn = loginQuery.data?.loggedIn;
 
   if (

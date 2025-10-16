@@ -130,7 +130,7 @@ const Editor = (props: EditorProps) => {
     toggleImageModal();
   };
 
-  const onSearchChange = (match: string) => {
+  const onSearchChange = (match: string | null) => {
     if (match === null || match.length < 3) return;
     getMentionCandidates({
       variables: {
@@ -232,7 +232,7 @@ const Editor = (props: EditorProps) => {
         <>
           <AccountAvatar
             avatar={avatar ?? ''}
-            username={name}
+            username={name ?? ''}
             size={5}
             shape="circle"
           />

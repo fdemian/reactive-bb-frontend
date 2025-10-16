@@ -1,8 +1,22 @@
-import { ApolloError, MutationFunctionOptions, ApolloCache } from '@apollo/client';
+import { ErrorLike, ApolloCache } from '@apollo/client';
 import { UserType } from '../User/userTypes';
-import { GetChatsByUserQuery, MarkNotificationsReadMutation, Exact, InputMaybe }  from '../__generated__/graphql';
+import {
+  GetChatsByUserQuery,
+  MarkNotificationsReadMutation,
+  Exact,
+  InputMaybe,
+} from '../__generated__/graphql';
+import { useMutation } from '@apollo/client/react';
 
-export type MarkNotificationsMutation = (options?: MutationFunctionOptions<MarkNotificationsReadMutation, Exact<{ notifications?: InputMaybe<number | number[]> | undefined; }>, any, ApolloCache<any>> | undefined) => Promise<any>;
+export type MarkNotificationsMutation = (
+  options?:
+    | useMutation.MutationFunctionOptions<
+        MarkNotificationsReadMutation,
+        Exact<{ notifications?: InputMaybe<number | number[]> | undefined }>,
+        ApolloCache
+      >
+    | undefined
+) => Promise<any>;
 
 interface UserNotificationType {
   id: number;
@@ -29,7 +43,7 @@ export interface MessageType {
 export interface ChatsByUserResponse {
   data: GetChatsByUserQuery | undefined;
   loading: boolean;
-  error?: ApolloError | undefined;
+  error?: ErrorLike | undefined;
 }
 
 export interface NavbarLoggedProps {
