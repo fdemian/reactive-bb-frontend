@@ -5,13 +5,15 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import Renderer from '../Editor/Renderer';
 import { ReactElement } from 'react';
 
-type ResultType = {
-  __typename?: 'SearchResult' | undefined;
-  id: number;
-  text: string;
-  topicId: number;
-  topic: string;
-};
+type ResultType =
+  | {
+      __typename?: 'SearchResult' | undefined;
+      id?: number | undefined;
+      text?: string | undefined;
+      topicId?: number | undefined;
+      topic?: string | undefined;
+    }
+  | undefined;
 
 interface SearchResultsType {
   __typename?: 'SearchResponse' | undefined;
@@ -20,7 +22,7 @@ interface SearchResultsType {
 }
 
 interface SearchResultsData {
-  data: SearchResultsType | null;
+  data: SearchResultsType | undefined;
   t: (key: string) => string;
 }
 
@@ -34,18 +36,21 @@ const SearchResults = ({ data, t }: SearchResultsData): ReactElement => {
       itemLayout="vertical"
       dataSource={data.results}
       renderItem={(item) => (
-        <List.Item key={item.id}>
+        <List.Item key={item?.id ?? -1}>
           <List.Item.Meta
             description={
               <h2>
                 <FontAwesomeIcon icon={faComment} /> &nbsp;
-                <Link aria-label="Result post link" to={`/postlink/${item.id}`}>
-                  {item.topic}
+                <Link
+                  aria-label="Result post link"
+                  to={`/postlink/${item?.id}`}
+                >
+                  {item?.topic ?? ''}
                 </Link>
               </h2>
             }
           />
-          <Renderer content={item.text} />
+          <Renderer content={item?.text ?? ''} />
         </List.Item>
       )}
     />

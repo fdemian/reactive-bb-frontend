@@ -4,6 +4,7 @@ import CalliopeEditor from 'kalliope';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import './Editor.css';
+import { EntryComponentTypes } from './editorTypes';
 
 interface RendererParse {
   content: string | null | undefined;
@@ -64,7 +65,9 @@ const Renderer = ({ content }: RendererParse) => {
       onSearchChange: () => {},
       onAddMention: () => {},
       onRemoveMention: () => {},
-      entryComponent: () => {},
+      entryComponent: ({ option: { name } }: EntryComponentTypes) => (
+        <p>{name}</p>
+      ),
       mentionsData: [],
     },
     dragAndDropImage: {

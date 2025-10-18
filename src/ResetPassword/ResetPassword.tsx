@@ -35,6 +35,7 @@ export const Component = () => {
 
   if (loading) return <Loading />;
 
+  /* @ts-expect-error */
   const { loggedIn } = data;
 
   if (loggedIn) return <Navigate to="/" />;

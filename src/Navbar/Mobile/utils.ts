@@ -4,7 +4,7 @@ interface GetItemReturnProps {
   label: ReactElement;
   key: string;
   icon: any;
-  children?: any[];
+  children?: any[] | undefined;
   disabled?: boolean;
 }
 
@@ -12,7 +12,7 @@ export function getItem(
   label: ReactElement,
   key: string,
   icon: any,
-  children?: any[],
+  children?: any[] | undefined,
   disabled?: boolean
 ): GetItemReturnProps {
   return {
