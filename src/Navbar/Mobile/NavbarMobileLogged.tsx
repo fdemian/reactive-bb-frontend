@@ -14,7 +14,7 @@ import {
 import NotificationMobile from './NotificationMobile';
 import ChatMobile from './ChatMobile';
 import { Link } from 'react-router-dom';
-import { getItem } from './utils';
+import { getItem, MenuItem } from './utils';
 import '../Navbar.css';
 import DrawerToggleButton from './DrawerToggleButton';
 import { NavbarLoggedProps } from '../navbarTypes';
@@ -35,8 +35,12 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
   } = props;
 
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const closeDrawer = () => { setDrawerVisible(false); };
-  const openDrawer = () => { setDrawerVisible(true); };
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+  };
+  const openDrawer = () => {
+    setDrawerVisible(true);
+  };
 
   useEffect(() => {
     newSubscription();
@@ -49,8 +53,7 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
   };
 
   const dismissNotifications = () => {
-    if(notifications === null || notifications === undefined)
-      return;
+    if (notifications === null || notifications === undefined) return;
 
     const notificationIds = notifications.map((n) => n.id);
     markAsRead({
@@ -67,13 +70,10 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
 
   const chatsDisabled = chats.data && chats.data.chatsByUser?.length === 0;
 
-  
   const notificationsItem = getItem(
     <>
       <strong>
-        {t(
-          notificationsEnabled ? 'notifications' : 'notificationsDisabled'
-        )}
+        {t(notificationsEnabled ? 'notifications' : 'notificationsDisabled')}
       </strong>
       &nbsp;
       <Badge
@@ -108,28 +108,34 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
       )
       .concat(
         getItem(
-          <span
-            className="notification-title"
-            onClick={dismissNotifications}
-          >
+          <span className="notification-title" onClick={dismissNotifications}>
             &nbsp; {t('markAllNotificationsRead')}
           </span>,
           'dismiss-notifications',
           <FontAwesomeIcon
             icon={faArrowsRotate}
             size="lg"
-            color={notifications && notifications.length > 0 ? 'black' : 'gainsboro'}
-            spin={notifications !== null && notifications !== undefined && notifications.length > 9}
+            color={
+              notifications && notifications.length > 0 ? 'black' : 'gainsboro'
+            }
+            spin={
+              notifications !== null &&
+              notifications !== undefined &&
+              notifications.length > 9
+            }
           />,
           undefined,
-          notifications===undefined || notifications===null || notifications.length === 0
+          notifications === undefined ||
+            notifications === null ||
+            notifications.length === 0
         )
       ),
-      notifications===undefined || notifications===null || notifications.length === 0
+    notifications === undefined ||
+      notifications === null ||
+      notifications.length === 0
   );
 
-
-  const items = user
+  const items: (MenuItem | null)[] = user
     ? [
         getItem(
           <strong className="sidemenu-style-title">{t('user')}</strong>,
@@ -177,13 +183,17 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
             ),
           ]
         ),
-        notifications !== null && notifications !== undefined ? notificationsItem : null,
+        notifications !== null && notifications !== undefined
+          ? notificationsItem
+          : null,
         getItem(
           <>
             <strong>{t('chats')}</strong>
             <Badge
               count={
-                chatsDisabled || !chats.data ? 0 : chats.data.chatsByUser?.length
+                chatsDisabled || !chats.data
+                  ? 0
+                  : chats.data.chatsByUser?.length
               }
             />
           </>,
@@ -223,7 +233,11 @@ const NavbarMobileLogged = (props: NavbarLoggedProps) => {
           t={t}
           openDrawer={openDrawer}
           isLoggedIn={true}
-          showBadge={notifications !== undefined && notifications !== null && notifications.length > 0}
+          showBadge={
+            notifications !== undefined &&
+            notifications !== null &&
+            notifications.length > 0
+          }
           user={user}
         />
       </span>
