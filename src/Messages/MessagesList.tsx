@@ -12,23 +12,24 @@ const getDate = (date: Date) => format(new Date(date), 'MMM d yyyy h:mm');
 const getDateRelative = (date: string) =>
   formatDistance(parseISO(date), new Date(), { addSuffix: true });
 
+/*
 interface ChatMessageType {
-  __typename?: 'ChatMessage';
-  date: any;
-  content: any;
+  __typename?: "ChatMessage" | undefined;
+  date?: any;
+  content?: any;
   author: {
-    __typename?: 'User';
+    __typename?: "User" | undefined;
     id: number;
     avatar?: string | null | undefined;
     username: string;
   };
-  recipient: {
-    __typename?: 'User';
-    id: number;
+  recipient?: {
+    __typename?: "User" | undefined;
+    id?: number | undefined;
     avatar?: string | null | undefined;
     username: string;
   };
-}
+}*/
 
 const MessagesList = ({
   currentUser,
@@ -55,7 +56,7 @@ const MessagesList = ({
       },
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
-        const prevChats: ChatMessageType[] =
+        const prevChats =
           prev.chat === undefined || prev.chat === null ? [] : prev.chat;
         if (
           subscriptionData.data.chatAdded === null ||
@@ -64,10 +65,10 @@ const MessagesList = ({
           return prev;
         }
 
-        const newChatItem: ChatMessageType = subscriptionData.data.chatAdded;
-        return {
-          chat: [...prevChats, newChatItem],
-        };
+        const newChatItem = subscriptionData.data.chatAdded;
+        return newChatItem === undefined
+          ? { chat: [...prevChats] }
+          : { chat: [...prevChats, newChatItem] };
       },
     });
 
