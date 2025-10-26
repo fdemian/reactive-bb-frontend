@@ -30,17 +30,8 @@ export const Component = () => {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
   // Total page calculation.
-  const [performSearch, { data, loading, error, fetchMore }] = useLazyQuery(
-    SEARCH_TERM,
-    {
-      variables: {
-        term: search ?? '',
-        where: searchIn.length === 0 ? ['titles', 'posts'] : searchIn,
-        limit: PAGE_LIMIT,
-        offset: PAGE_OFFSET,
-      },
-    }
-  );
+  const [performSearch, { data, loading, error, fetchMore }] =
+    useLazyQuery(SEARCH_TERM);
 
   useEffect(() => {
     if (searchTerm || search) {

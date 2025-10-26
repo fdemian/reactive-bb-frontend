@@ -14,6 +14,7 @@ import {
   ServerParseError,
   UnconventionalError,
 } from '@apollo/client/errors';
+import { notification } from 'antd';
 
 const redirectToLogout = () => {
   const newURL = window.location.origin + '/logout';
@@ -45,9 +46,28 @@ const getWSURL = (): string => {
 
 // Comprehensive error handling example.
 const handleError = (error: unknown) => {
-  console.log(error);
   if (CombinedGraphQLErrors.is(error)) {
     // Handle GraphQL errors
+    const messages = error.errors.map((e) => e.message);
+    const [api, _] = notification.useNotification();
+    for (const message of messages) {
+      //
+      api.open({
+        message: message,
+        description: 'GraphQL Error',
+        duration: 0,
+      });
+    }
+
+    if (messages.includes('Invalid auth credentials.')) {
+      const { href, host, protocol } = window.location;
+      eraseUserTokensAndLogout(href, host, protocol);
+      const onFail = () => {
+        eraseUserTokensAndLogout(href, host, protocol);
+        return;
+      };
+      refreshToken(onFail);
+    }
   } else if (CombinedProtocolErrors.is(error)) {
     // Handle multipart subscription protocol errors
   } else if (LocalStateError.is(error)) {

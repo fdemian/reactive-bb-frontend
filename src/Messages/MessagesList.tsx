@@ -7,29 +7,11 @@ import UserAvatar from '../UserAvatar/UserAvatar';
 import Renderer from '../Editor/Renderer';
 import { formatDistance, format, parseISO } from 'date-fns';
 import './Messages.css';
+//import { ChatAddedSubscription } from '../__generated__/graphql';
 
 const getDate = (date: Date) => format(new Date(date), 'MMM d yyyy h:mm');
 const getDateRelative = (date: string) =>
   formatDistance(parseISO(date), new Date(), { addSuffix: true });
-
-/*
-interface ChatMessageType {
-  __typename?: "ChatMessage" | undefined;
-  date?: any;
-  content?: any;
-  author: {
-    __typename?: "User" | undefined;
-    id: number;
-    avatar?: string | null | undefined;
-    username: string;
-  };
-  recipient?: {
-    __typename?: "User" | undefined;
-    id?: number | undefined;
-    avatar?: string | null | undefined;
-    username: string;
-  };
-}*/
 
 const MessagesList = ({
   currentUser,
@@ -47,33 +29,35 @@ const MessagesList = ({
     },
   });
 
-  const newSubscription = () =>
-    subscribeToMore({
+  useEffect(() => {
+    const unsubscribe = subscribeToMore({
       document: CHATS_SUBSCRIPTION,
       variables: {
         userA: currentUser,
         userB: otherUser,
       },
       updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        const prevChats =
-          prev.chat === undefined || prev.chat === null ? [] : prev.chat;
+        const subData = subscriptionData.data;
         if (
-          subscriptionData.data.chatAdded === null ||
-          subscriptionData.data.chatAdded === undefined
-        ) {
+          !subData ||
+          subData.chatAdded === null ||
+          subData.chatAdded === undefined
+        )
           return prev;
-        }
 
-        const newChatItem = subscriptionData.data.chatAdded;
-        return newChatItem === undefined
-          ? { chat: [...prevChats] }
-          : { chat: [...prevChats, newChatItem] };
+        /*
+        const newChatItem = subData.chatAdded;
+        const prevChats = prev.chat === undefined || prev.chat === null ? [] : prev.chat;
+        const newChats =  Object.assign({}, prev, {
+          chat: newChatItem //[...prevChats, newChatItem]
+        });
+        return newChats;*/
       },
     });
 
-  useEffect(() => {
-    newSubscription();
+    return () => {
+      unsubscribe();
+    };
   });
 
   if (error) return <p>Error</p>;
