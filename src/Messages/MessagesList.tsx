@@ -7,7 +7,7 @@ import UserAvatar from '../UserAvatar/UserAvatar';
 import Renderer from '../Editor/Renderer';
 import { formatDistance, format, parseISO } from 'date-fns';
 import './Messages.css';
-//import { ChatAddedSubscription } from '../__generated__/graphql';
+import { GetChatQuery } from '../__generated__/graphql';
 
 const getDate = (date: Date) => format(new Date(date), 'MMM d yyyy h:mm');
 const getDateRelative = (date: string) =>
@@ -43,15 +43,15 @@ const MessagesList = ({
           subData.chatAdded === null ||
           subData.chatAdded === undefined
         )
-          return prev;
+          return prev as GetChatQuery;
 
-        /*
         const newChatItem = subData.chatAdded;
-        const prevChats = prev.chat === undefined || prev.chat === null ? [] : prev.chat;
-        const newChats =  Object.assign({}, prev, {
-          chat: newChatItem //[...prevChats, newChatItem]
+        const prevChats =
+          prev.chat === undefined || prev.chat === null ? [] : prev.chat;
+        const newChats = Object.assign({}, prev, {
+          chat: [...prevChats, newChatItem],
         });
-        return newChats;*/
+        return newChats as GetChatQuery;
       },
     });
 

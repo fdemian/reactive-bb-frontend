@@ -14,6 +14,7 @@ import {
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import { GET_IS_LOGGED_IN, SET_LOGIN } from '../Login/queries';
+import { NotificationsQuery } from '../__generated__/graphql';
 import './Navbar.css';
 
 // Desktop search bar component.
@@ -108,11 +109,11 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
           subscriptionData.data.notificationAdded === undefined ||
           !prev.notifications
         )
-          return prev;
+          return prev as NotificationsQuery;
 
         const newNotification = subscriptionData.data.notificationAdded;
 
-        if (!newNotification) return prev;
+        if (!newNotification) return prev as NotificationsQuery;
 
         const _newNotification = {
           id: 0,
@@ -121,7 +122,7 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
 
         return {
           notifications: [...prev.notifications, _newNotification],
-        };
+        } as NotificationsQuery;
       },
     });
 
@@ -143,12 +144,13 @@ const Navbar = ({ mobile, name, logoURL, isLoading, isError }: NavbarProps) => {
           !subscriptionData.data.chatNotification ||
           !prev.chatsByUser
         )
-          return prev;
+          return prev as NotificationsQuery;
 
         const newChat = subscriptionData.data.chatNotification;
-        return {
+        const chatObj = {
           chatsByUser: [...prev.chatsByUser, newChat.author],
         };
+        return chatObj as NotificationsQuery;
       },
     });
 
