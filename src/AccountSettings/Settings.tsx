@@ -14,6 +14,8 @@ interface MenuMapItem {
 }
 
 export const Settings = () => {
+  console.log('@@ffsddsafdfsadfsafsddfsadfs');
+
   const { t } = useTranslation('accountSettings', {
     keyPrefix: 'settings.options',
   });

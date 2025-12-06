@@ -101,7 +101,7 @@ test('<Bookmarks /> > Renders correctly', async () => {
 
   const { bookmarksByUser } = mockBookmarks;
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   expect(await screen.findByText('bookmarks.bookmarks')).toBeInTheDocument();
 

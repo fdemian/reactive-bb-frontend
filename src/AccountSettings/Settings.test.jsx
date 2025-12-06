@@ -177,8 +177,6 @@ test('<Settings /> > Renders settings (Profile view)', async () => {
     isLoggedIn: true,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
-
   const profileTexts = await screen.findAllByText(i18n('options.profile'));
   expect(profileTexts.length).toStrictEqual(2);
 

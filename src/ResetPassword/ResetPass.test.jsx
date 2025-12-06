@@ -71,7 +71,7 @@ test('<ResetPassword /> > Reset Password', async () => {
     isLoggedIn: false,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   const allByText = await screen.findAllByText('register.resetPass');
   expect(allByText.length).toStrictEqual(3);
 

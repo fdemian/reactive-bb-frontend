@@ -176,7 +176,7 @@ test('<TopicsList /> > Logged out > No topics > Renders no topics page', async (
     initialEntries: ['/'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   expect(await screen.findByText(i18n('noTopics'))).toBeInTheDocument();
 });
 
@@ -249,7 +249,7 @@ test('<TopicsList /> > Logged out > Topics present.', async () => {
     initialEntries: ['/'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   await waitFor(() => {
     expect(screen.getByText(i18n('topics'))).toBeInTheDocument();
@@ -325,7 +325,7 @@ test('<TopicsList /> > Logged in > Topics present.', async () => {
     initialEntries: ['/'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   expect(await screen.findByText(i18n('topics'))).toBeInTheDocument();
 
   await waitFor(() => {

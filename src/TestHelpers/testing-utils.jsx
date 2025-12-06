@@ -4,7 +4,7 @@
 import React from 'react';
 import { MockedProvider } from "@apollo/client/testing/react";
 import { Context as ResponsiveContext } from 'react-responsive';
-import { createRoutesStub } from "react-router";
+import { RouterProvider, createRoutesStub, createMemoryRouter } from "react-router";
 import { HelmetProvider } from 'react-helmet-async';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
@@ -20,6 +20,47 @@ import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import Loading from '../Loading/LoadingIndicator';
 import { InMemoryCache } from '@apollo/client';
+import { vi } from 'vitest';
+
+global.ResizeObserver = class FakeResizeObserver {
+
+  observe() {
+    return vi.fn();
+  }
+  disconnect() {
+    return vi.fn()
+  }
+
+  unobserve() {
+    return vi.fn();
+  }
+};
+
+vi.mock('react-router-dom', async () => {
+  const actualDom = await vi.importActual('react-router');
+  return {
+    ...actualDom,
+    __esModule: true,
+    useNavigate: vi.fn()
+  };
+});
+
+/*
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal(); // Import the actual module to get other exports
+  return {
+    ...actual, // Spread the actual exports to keep other functionalities
+    useNavigate: vi.fn(),
+    useSearchParams: vi.fn(),
+    Outlet: (props) => {
+      console.log("dfdfdfasfdsfdfsa------->>>>>>");
+      console.log(props);
+      console.log("@@@@@@====");
+      return(<div data-testid="mock-outlet">settings</div>);
+    }, // Mocked Outlet
+  };
+});
+*/
 
 const navbarMocks = [
   {
@@ -137,7 +178,7 @@ const TestingWrapper = (props) => {
   }
 
   const Stub = createRoutesStub(routes);
-  
+
   const cache = new InMemoryCache({
     typePolicies: {
       Query: {

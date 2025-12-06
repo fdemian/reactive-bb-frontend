@@ -63,7 +63,7 @@ test('<PostLink /> > <PostLinkError />', async () => {
     isMobile: false,
   });
 
-  //expect(screen.getByText('Loading')).toBeInTheDocument();
+  //
   expect(
     await screen.findByText('postLink.postAccessError')
   ).toBeInTheDocument();

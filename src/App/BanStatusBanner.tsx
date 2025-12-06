@@ -8,7 +8,7 @@ const BanStatusBanner = () => {
   const { t } = useTranslation('banned', { keyPrefix: 'banned' });
 
   return (
-    <Card bordered={true} className="ban-alert-class">
+    <Card variant="outlined" className="ban-alert-class">
       <h1>
         <FontAwesomeIcon icon={faCircleExclamation} color="red" />
         &nbsp; {t('banStatusNotice')}

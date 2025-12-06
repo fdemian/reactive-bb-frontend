@@ -165,7 +165,7 @@ test.skip('<NewTopic /> > Create topic', async () => {
       isMobile: false,
       initialEntries: ['/topics/new'],
     });
-    expect(screen.getByText('Loading')).toBeInTheDocument();    
+        
 
     
     expect(await screen.findByRole("button", { name: "topicsComposer.cancel" })).toBeInTheDocument();

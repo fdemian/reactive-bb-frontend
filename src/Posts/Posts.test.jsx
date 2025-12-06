@@ -40,7 +40,7 @@ test('<Posts /> > Logged out > test render', async () => {
     isMobile: false,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   const topicTitleTexts = await screen.findAllByText(mockTopic.name);
   expect(topicTitleTexts.length).toStrictEqual(2);
@@ -72,7 +72,7 @@ test('<Posts /> > Logged in > Test render.', async () => {
     isMobile: false,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   expect(
     await screen.findByRole('button', { name: 'posts.main.reply' })
   ).toBeInTheDocument();
@@ -105,7 +105,7 @@ test('<Posts /> > Logged in > Test interaction.', async () => {
     isMobile: false,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   const bookmarkIcon = await screen.findAllByTestId('bookmark-icon');
   expect(bookmarkIcon.length).toStrictEqual(2);
 

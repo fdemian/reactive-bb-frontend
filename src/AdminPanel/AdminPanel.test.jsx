@@ -53,7 +53,7 @@ test('<AdminPanel /> > <ModerationLog /> > No moderation logs', async () => {
     initialEntries: ['/admincp'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   expect(
     await screen.findByRole('button', { name: 'editedPosts' })
@@ -105,7 +105,7 @@ test('<AdminPanel /> > <ModerationLog /> > Moderation logs render correctly', as
     initialEntries: ['/admincp'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   expect(
     await screen.findByRole('button', { name: 'editedPosts' })

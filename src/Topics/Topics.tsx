@@ -149,7 +149,7 @@ export const Component = () => {
 
       <Card
         className={`topics-list-container${isMobile ? '-mobile' : ''}`}
-        bordered={false}
+        variant="borderless"
         title={
           isMobile ? null : <p className="topics-header-title">{t('topics')}</p>
         }

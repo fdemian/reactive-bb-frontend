@@ -118,7 +118,7 @@ const App = () => {
                 <AppError error={error} />
               ) : (
                 <div data-testid="content-container">
-                  <Card bordered={false}>
+                  <Card variant="borderless">
                     {isLoggedIn && banned && (
                       <Suspense fallback={<Spin />}>
                         <BanStatusBanner />

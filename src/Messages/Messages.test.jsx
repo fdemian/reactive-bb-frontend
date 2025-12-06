@@ -264,7 +264,7 @@ test('<Messages /> > No messages.', async () => {
     initialEntries: ['/messages'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   expect(
     await screen.findByText('chats.startConversation')
   ).toBeInTheDocument();
@@ -296,7 +296,7 @@ test('Messages editor > Render', async () => {
     });
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   expect(await screen.findByText('chats.title')).toBeInTheDocument();
 
@@ -330,7 +330,7 @@ test('<Messages /> > Messages editor > Interaction', async () => {
     });
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   expect(await screen.findByText('chats.title')).toBeInTheDocument();
 

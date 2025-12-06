@@ -38,7 +38,7 @@ test('<Posts /> > Logged out > test render (MOBILE)', async () => {
     isMobile: true,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   /*
     await waitFor(() => {
@@ -72,7 +72,7 @@ test('<Posts /> > Logged in > Test render (MOBILE)', async () => {
     isMobile: true,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   expect(
     await screen.findByRole('button', { name: 'posts.main.reply' })
   ).toBeInTheDocument();

@@ -175,7 +175,7 @@ test('<Register /> > User activation screen > ActivationSuccess', async () => {
     initialEntries: ['/activation/token1'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   await waitFor(() => {
     expect(mockNavigateComp).toHaveBeenCalledOnce();

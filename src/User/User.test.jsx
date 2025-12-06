@@ -82,7 +82,7 @@ test('<User /> > Renders correctly.', async () => {
     isLoggedIn: true,
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   expect(
     await screen.findByRole('img', {

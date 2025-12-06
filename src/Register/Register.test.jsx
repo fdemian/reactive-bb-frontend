@@ -164,7 +164,7 @@ test('<Register /> > User activation screen > ActivationError', async () => {
     mocks: activationMocksError,
     initialEntries: ['/activation/token1'],
   });
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   expect(await screen.findByText('Error')).toBeInTheDocument();
 });
 

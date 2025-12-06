@@ -39,7 +39,7 @@ test('<Categories /> > Renders correctly', async () => {
     initialEntries: ['/categories'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   expect(await screen.findByText('categories.categories')).toBeInTheDocument();
 

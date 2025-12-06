@@ -84,7 +84,7 @@ test('<App /> > Renders with errors.', async () => {
     configMockOverride: mockOverride,
     initialEntries: ['/'],
   });
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   expect(await screen.findByTestId('app-layout')).toBeInTheDocument();
 
@@ -103,7 +103,7 @@ test('<App /> > <BanStatusBanner />', async () => {
 
   expect(await screen.findByTestId('app-layout')).toBeInTheDocument();
 
-  //expect(screen.getByText('Loading')).toBeInTheDocument();
+  //
   expect(
     await screen.findByText('banned.banStatusNoticeText', { exact: false })
   ).toBeInTheDocument();

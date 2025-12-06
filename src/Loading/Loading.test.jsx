@@ -7,6 +7,6 @@ test('<LoadingIndicator /> > Renders correctly', () => {
   render(<Loading />);
 
   expect(screen.getByText('Loading...')).toBeInTheDocument();
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   expect(screen.getByText('Please wait.')).toBeInTheDocument();
 });

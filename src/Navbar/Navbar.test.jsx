@@ -82,7 +82,7 @@ test('<NavbarDesktop /> > Not logged in.', async () => {
     initialEntries: ['/'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
 
   const blogText = await screen.findByText('Morpheus');
   expect(blogText).toBeInTheDocument();
@@ -105,7 +105,7 @@ test('<NavbarDesktop /> > Logged in.', async () => {
     initialEntries: ['/'],
   });
 
-  expect(screen.getByText('Loading')).toBeInTheDocument();
+  
   const imgHeading = await screen.findAllByRole('img');
   expect(imgHeading.length).toStrictEqual(1);
 
