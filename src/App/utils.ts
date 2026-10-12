@@ -1,5 +1,5 @@
 import { es, enUS } from 'date-fns/locale';
-import { setDefaultOptions, Locale } from 'date-fns';
+import { setDefaultOptions } from 'date-fns';
 import type { ConfigType, OAuthConfig } from './types';
 const IS_MOBILE = 'isMobile';
 const DEFAULT_PAGE_ITEMS = 'DEFAULT_PAGE_ITEMS';
@@ -7,7 +7,7 @@ const DEFAULT_LOCALE = 'DEFAULT_LOCALE';
 const OAUTH_CONFIG = 'OAUTH_CONFIG';
 const CONFIG = 'CONFIG';
 
-const locales: Record<string, Locale> = {
+const locales: Record<string, any> = {
   es: es,
   en: enUS,
 };

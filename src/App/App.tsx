@@ -16,10 +16,9 @@ import {
 import { useTranslation } from 'react-i18next';
 import { getBanStatus } from '../Login/authUtils';
 import enUS from 'antd/locale/en_US';
-import { DirectionType } from 'antd/es/config-provider';
 import Loading from '../Loading/LoadingIndicator';
 
-const CONTENT_DIRECTION: DirectionType = 'ltr';
+const CONTENT_DIRECTION: string = 'ltr';
 
 const Navbar = lazy(() => import('../Navbar/Navbar.tsx'));
 const AppError = lazy(() => import('./AppError'));

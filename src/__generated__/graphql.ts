@@ -1,1170 +1,386 @@
 /* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = T | null | undefined;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
+/** Internal type. DO NOT USE DIRECTLY. */
+type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+/** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> =
   | T
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
     };
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  Datetime: { input: any; output: any };
-  JSON: { input: any; output: any };
-  Upload: { input: any; output: any };
-};
-
-export type Bookmark = {
-  __typename?: 'Bookmark';
-  id: Scalars['Int']['output'];
-  post?: Maybe<Post>;
-  postId: Scalars['Int']['output'];
-  userId: Scalars['Int']['output'];
-};
-
-export type BookmarkMutationPayload = {
-  __typename?: 'BookmarkMutationPayload';
-  id: Scalars['Int']['output'];
-  ok: Scalars['Boolean']['output'];
-  postId: Scalars['Int']['output'];
-  userId: Scalars['Int']['output'];
-};
-
-export type Category = {
-  __typename?: 'Category';
-  description: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
-  topics?: Maybe<Array<Topic>>;
-};
-
-export type ChatMessage = {
-  __typename?: 'ChatMessage';
-  author: User;
-  content: Scalars['JSON']['output'];
-  date: Scalars['Datetime']['output'];
-  recipient: User;
-};
-
-export type ChatNotification = {
-  __typename?: 'ChatNotification';
-  author: User;
-  read: Scalars['Boolean']['output'];
-  recipient: User;
-};
-
-export type CheckUsernameResponse = {
-  __typename?: 'CheckUsernameResponse';
-  exists: Scalars['Boolean']['output'];
-  message: Scalars['String']['output'];
-};
-
-export type Config = {
-  __typename?: 'Config';
-  config: Scalars['JSON']['output'];
-  oauth: Scalars['JSON']['output'];
-};
-
-export type EditPostResponse = {
-  __typename?: 'EditPostResponse';
-  content?: Maybe<Scalars['JSON']['output']>;
-  id?: Maybe<Scalars['Int']['output']>;
-  ok: Scalars['Boolean']['output'];
-};
-
-export type FileUploadResponse = {
-  __typename?: 'FileUploadResponse';
-  id: Scalars['Int']['output'];
-  ok: Scalars['Boolean']['output'];
-  url: Scalars['String']['output'];
-};
-
-export type FlaggedPost = {
-  __typename?: 'FlaggedPost';
-  postId: Scalars['Int']['output'];
-  reasonId: Scalars['Int']['output'];
-  reasonText?: Maybe<Scalars['String']['output']>;
-  userId: Scalars['Int']['output'];
-};
-
-export type ImageUploadResponse = {
-  __typename?: 'ImageUploadResponse';
-  src: Scalars['String']['output'];
-};
-
-export type Like = {
-  __typename?: 'Like';
-  id: Scalars['Int']['output'];
-  post: Post;
-  postId: Scalars['Int']['output'];
-  userId: Scalars['Int']['output'];
-};
-
-export type LikeMutationPayload = {
-  __typename?: 'LikeMutationPayload';
-  id: Scalars['Int']['output'];
-  likes: Scalars['Int']['output'];
-  ok: Scalars['Boolean']['output'];
-  postId: Scalars['Int']['output'];
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  banUser?: Maybe<Scalars['Boolean']['output']>;
-  bookmarkPost?: Maybe<BookmarkMutationPayload>;
-  closeTopic: Scalars['Boolean']['output'];
-  createCategory: Category;
-  createPost: Post;
-  createTopic?: Maybe<MutationIdPayload>;
-  createUser?: Maybe<UserMutationPayload>;
-  deletePost?: Maybe<MutationIdPayload>;
-  deleteTopic: Scalars['Boolean']['output'];
-  editPost?: Maybe<EditPostResponse>;
-  flagPost?: Maybe<Scalars['Boolean']['output']>;
-  increaseViewCount?: Maybe<MutationIdPayload>;
-  likePost?: Maybe<LikeMutationPayload>;
-  markNotificationsRead?: Maybe<Array<Scalars['Int']['output']>>;
-  pinTopic: Scalars['Boolean']['output'];
-  removeBookmark?: Maybe<BookmarkMutationPayload>;
-  removeFlag?: Maybe<RemoveFlagResponse>;
-  removeLike?: Maybe<LikeMutationPayload>;
-  removeUserBan?: Maybe<Scalars['Boolean']['output']>;
-  removeUserImage?: Maybe<Scalars['Boolean']['output']>;
-  reopenTopic: Scalars['Boolean']['output'];
-  resetPassword?: Maybe<Scalars['Boolean']['output']>;
-  resetPasswordRequest?: Maybe<Scalars['Boolean']['output']>;
-  sendMessage: Scalars['Boolean']['output'];
-  setMentions?: Maybe<Scalars['Boolean']['output']>;
-  updateEmail: Scalars['Boolean']['output'];
-  updatePassword?: Maybe<MutationIdPayload>;
-  updateProfile?: Maybe<MutationIdPayload>;
-  uploadImage?: Maybe<ImageUploadResponse>;
-  uploadUserImage?: Maybe<FileUploadResponse>;
-  validateUser?: Maybe<MutationIdPayload>;
-};
-
-export type MutationBanUserArgs = {
-  expires?: InputMaybe<Scalars['Datetime']['input']>;
-  reason: Scalars['String']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type MutationBookmarkPostArgs = {
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type MutationCloseTopicArgs = {
-  topic: Scalars['Int']['input'];
-};
-
-export type MutationCreateCategoryArgs = {
-  description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-};
-
-export type MutationCreatePostArgs = {
-  content: Scalars['JSON']['input'];
-  topic: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type MutationCreateTopicArgs = {
-  category?: InputMaybe<Scalars['Int']['input']>;
-  content: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  tags?: InputMaybe<Scalars['String']['input']>;
-  user: Scalars['Int']['input'];
-};
-
-export type MutationCreateUserArgs = {
-  email: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-  username: Scalars['String']['input'];
-};
-
-export type MutationDeletePostArgs = {
-  post: Scalars['Int']['input'];
-  user?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type MutationDeleteTopicArgs = {
-  topic: Scalars['Int']['input'];
-};
-
-export type MutationEditPostArgs = {
-  content: Scalars['JSON']['input'];
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type MutationFlagPostArgs = {
-  post: Scalars['Int']['input'];
-  reason: Scalars['Int']['input'];
-  text?: InputMaybe<Scalars['String']['input']>;
-  user: Scalars['Int']['input'];
-};
-
-export type MutationIncreaseViewCountArgs = {
-  topic: Scalars['Int']['input'];
-};
-
-export type MutationLikePostArgs = {
-  originator: Scalars['Int']['input'];
-  post: Scalars['Int']['input'];
-  topic: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type MutationMarkNotificationsReadArgs = {
-  notifications?: InputMaybe<Array<Scalars['Int']['input']>>;
-};
-
-export type MutationPinTopicArgs = {
-  topic: Scalars['Int']['input'];
-};
-
-export type MutationRemoveBookmarkArgs = {
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type MutationRemoveFlagArgs = {
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type MutationRemoveLikeArgs = {
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type MutationRemoveUserBanArgs = {
-  user: Scalars['Int']['input'];
-};
-
-export type MutationRemoveUserImageArgs = {
-  id: Scalars['Int']['input'];
-};
-
-export type MutationReopenTopicArgs = {
-  topic: Scalars['Int']['input'];
-};
-
-export type MutationResetPasswordArgs = {
-  password: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-};
-
-export type MutationResetPasswordRequestArgs = {
-  email: Scalars['String']['input'];
-};
-
-export type MutationSendMessageArgs = {
-  author: Scalars['Int']['input'];
-  message: Scalars['JSON']['input'];
-  newchat: Scalars['Boolean']['input'];
-  recipient: Scalars['Int']['input'];
-};
-
-export type MutationSetMentionsArgs = {
-  link: Scalars['String']['input'];
-  mentioned?: InputMaybe<Array<Scalars['String']['input']>>;
-  user: Scalars['String']['input'];
-};
-
-export type MutationUpdateEmailArgs = {
-  email: Scalars['String']['input'];
-  id: Scalars['Int']['input'];
-};
-
-export type MutationUpdatePasswordArgs = {
-  currentPass: Scalars['String']['input'];
-  id: Scalars['Int']['input'];
-  newPass: Scalars['String']['input'];
-};
-
-export type MutationUpdateProfileArgs = {
-  about?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['Int']['input'];
-  status?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type MutationUploadImageArgs = {
-  image: Scalars['Upload']['input'];
-};
-
-export type MutationUploadUserImageArgs = {
-  id: Scalars['Int']['input'];
-  image: Scalars['Upload']['input'];
-};
-
-export type MutationValidateUserArgs = {
-  token: Scalars['String']['input'];
-};
-
-export type MutationIdPayload = {
-  __typename?: 'MutationIdPayload';
-  id?: Maybe<Scalars['Int']['output']>;
-  ok: Scalars['Boolean']['output'];
-};
-
-export type NotificationResponse = {
-  __typename?: 'NotificationResponse';
-  id: Scalars['Int']['output'];
-  link: Scalars['String']['output'];
-  originator: User;
-  read: Scalars['Boolean']['output'];
-  type: Scalars['String']['output'];
-  user: User;
-};
-
-export type OauthResponse = {
-  __typename?: 'OauthResponse';
-  ok: Scalars['Boolean']['output'];
-  user: User;
-};
-
-export type Post = {
-  __typename?: 'Post';
-  content: Scalars['String']['output'];
-  created: Scalars['Datetime']['output'];
-  edited: Scalars['Boolean']['output'];
-  id: Scalars['Int']['output'];
-  likeCount: Scalars['Int']['output'];
-  likes?: Maybe<Array<Like>>;
-  topicId: Scalars['Int']['output'];
-  user: User;
-};
-
-export type PostEdit = {
-  __typename?: 'PostEdit';
-  current: Scalars['JSON']['output'];
-  date: Scalars['Datetime']['output'];
-  previous: Scalars['JSON']['output'];
-  user: UserPostEdit;
-};
-
-export type PostEditsResponse = {
-  __typename?: 'PostEditsResponse';
-  editsCount: Scalars['Int']['output'];
-  postEdits?: Maybe<Array<PostEdit>>;
-};
-
-export type PostLinkResponse = {
-  __typename?: 'PostLinkResponse';
-  name: Scalars['String']['output'];
-  page: Scalars['Int']['output'];
-  topicId: Scalars['Int']['output'];
-};
-
-export type Query = {
-  __typename?: 'Query';
-  allNotifications?: Maybe<Array<NotificationResponse>>;
-  bookmarksByPostList?: Maybe<Array<Bookmark>>;
-  bookmarksByUser?: Maybe<Array<Bookmark>>;
-  categories?: Maybe<Array<Category>>;
-  category: Category;
-  chat?: Maybe<Array<ChatMessage>>;
-  chatsByUser?: Maybe<Array<User>>;
-  checkUsername: CheckUsernameResponse;
-  config: Config;
-  flaggedPosts?: Maybe<Array<FlaggedPost>>;
-  getUser?: Maybe<User>;
-  likesByUser?: Maybe<Array<Like>>;
-  mentionCandidates?: Maybe<Array<User>>;
-  notifications?: Maybe<Array<NotificationResponse>>;
-  pinnedTopics?: Maybe<Array<Topic>>;
-  postEdits?: Maybe<PostEditsResponse>;
-  postLink: PostLinkResponse;
-  posts?: Maybe<Array<Post>>;
-  postsByUser?: Maybe<Array<Post>>;
-  search?: Maybe<SearchResponse>;
-  topic?: Maybe<Topic>;
-  topics: TopicsReponse;
-  topicsByUser?: Maybe<Array<Topic>>;
-};
-
-export type QueryAllNotificationsArgs = {
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-};
-
-export type QueryBookmarksByPostListArgs = {
-  posts?: InputMaybe<Array<Scalars['Int']['input']>>;
-  user: Scalars['Int']['input'];
-};
-
-export type QueryBookmarksByUserArgs = {
-  user: Scalars['Int']['input'];
-};
-
-export type QueryCategoryArgs = {
-  id: Scalars['Int']['input'];
-};
-
-export type QueryChatArgs = {
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-  userA: Scalars['Int']['input'];
-  userB: Scalars['Int']['input'];
-};
-
-export type QueryChatsByUserArgs = {
-  user: Scalars['Int']['input'];
-};
-
-export type QueryCheckUsernameArgs = {
-  username: Scalars['String']['input'];
-};
-
-export type QueryFlaggedPostsArgs = {
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-};
-
-export type QueryGetUserArgs = {
-  id: Scalars['Int']['input'];
-};
-
-export type QueryLikesByUserArgs = {
-  id: Scalars['Int']['input'];
-};
-
-export type QueryMentionCandidatesArgs = {
-  search: Scalars['String']['input'];
-};
-
-export type QueryNotificationsArgs = {
-  user: Scalars['Int']['input'];
-};
-
-export type QueryPostEditsArgs = {
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-};
-
-export type QueryPostLinkArgs = {
-  itemscount: Scalars['Int']['input'];
-  post: Scalars['Int']['input'];
-};
-
-export type QueryPostsArgs = {
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-  topicId: Scalars['Int']['input'];
-};
-
-export type QueryPostsByUserArgs = {
-  id: Scalars['Int']['input'];
-};
-
-export type QuerySearchArgs = {
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-  term: Scalars['String']['input'];
-  where?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-export type QueryTopicArgs = {
-  id: Scalars['Int']['input'];
-};
-
-export type QueryTopicsArgs = {
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-};
-
-export type QueryTopicsByUserArgs = {
-  id: Scalars['Int']['input'];
-};
-
-export type RemoveFlagResponse = {
-  __typename?: 'RemoveFlagResponse';
-  ok: Scalars['Boolean']['output'];
-  postId: Scalars['Int']['output'];
-  userId: Scalars['Int']['output'];
-};
-
-export type SearchResponse = {
-  __typename?: 'SearchResponse';
-  results?: Maybe<Array<SearchResult>>;
-  total: Scalars['Int']['output'];
-};
-
-export type SearchResult = {
-  __typename?: 'SearchResult';
-  id: Scalars['Int']['output'];
-  text: Scalars['String']['output'];
-  topic: Scalars['String']['output'];
-  topicId: Scalars['Int']['output'];
-};
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  chatAdded?: Maybe<ChatMessage>;
-  chatNotification?: Maybe<ChatNotification>;
-  notificationAdded?: Maybe<NotificationResponse>;
-};
-
-export type SubscriptionChatAddedArgs = {
-  userA: Scalars['Int']['input'];
-  userB: Scalars['Int']['input'];
-};
-
-export type SubscriptionChatNotificationArgs = {
-  user: Scalars['Int']['input'];
-};
-
-export type SubscriptionNotificationAddedArgs = {
-  user: Scalars['Int']['input'];
-};
-
-export type Topic = {
-  __typename?: 'Topic';
-  category?: Maybe<Category>;
-  closed: Scalars['Boolean']['output'];
-  created: Scalars['Datetime']['output'];
-  id: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
-  pinned: Scalars['Boolean']['output'];
-  replies: Scalars['Int']['output'];
-  tags?: Maybe<Scalars['String']['output']>;
-  user: User;
-  views: Scalars['Int']['output'];
-};
-
-export type TopicsReponse = {
-  __typename?: 'TopicsReponse';
-  topics?: Maybe<Array<Topic>>;
-  topicsCount: Scalars['Int']['output'];
-};
-
-export type User = {
-  __typename?: 'User';
-  about?: Maybe<Scalars['String']['output']>;
-  avatar?: Maybe<Scalars['String']['output']>;
-  banExpires?: Maybe<Scalars['Datetime']['output']>;
-  banReason?: Maybe<Scalars['String']['output']>;
-  banned: Scalars['Boolean']['output'];
-  email: Scalars['String']['output'];
-  fullname: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
-  link: Scalars['String']['output'];
-  lockoutTime?: Maybe<Scalars['Datetime']['output']>;
-  status?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  username: Scalars['String']['output'];
-};
-
-export type UserMutationPayload = {
-  __typename?: 'UserMutationPayload';
-  email: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
-  message: Scalars['String']['output'];
-  ok: Scalars['Boolean']['output'];
-};
-
-export type UserPostEdit = {
-  __typename?: 'UserPostEdit';
-  avatar?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  username: Scalars['String']['output'];
-};
-
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type UpdateEmailMutationVariables = Exact<{
-  id: Scalars['Int']['input'];
-  email: Scalars['String']['input'];
+  id: number;
+  email: string;
 }>;
 
-export type UpdateEmailMutation = {
-  __typename?: 'Mutation';
-  updateEmail: boolean;
-};
+export type UpdateEmailMutation = { updateEmail: boolean };
 
 export type UpdatePasswordMutationVariables = Exact<{
-  id: Scalars['Int']['input'];
-  currentPass: Scalars['String']['input'];
-  newPass: Scalars['String']['input'];
+  id: number;
+  currentPass: string;
+  newPass: string;
 }>;
 
-export type UpdatePasswordMutation = {
-  __typename?: 'Mutation';
-  updatePassword?: { __typename?: 'MutationIdPayload'; ok: boolean } | null;
-};
+export type UpdatePasswordMutation = { updatePassword: { ok: boolean } | null };
 
 export type UpdateProfileMutationVariables = Exact<{
-  id: Scalars['Int']['input'];
-  status?: InputMaybe<Scalars['String']['input']>;
-  about?: InputMaybe<Scalars['String']['input']>;
+  id: number;
+  status?: string | null | undefined;
+  about?: string | null | undefined;
 }>;
 
-export type UpdateProfileMutation = {
-  __typename?: 'Mutation';
-  updateProfile?: { __typename?: 'MutationIdPayload'; ok: boolean } | null;
-};
+export type UpdateProfileMutation = { updateProfile: { ok: boolean } | null };
 
 export type UploadAvatarMutationVariables = Exact<{
-  image: Scalars['Upload']['input'];
-  id: Scalars['Int']['input'];
+  image: unknown;
+  id: number;
 }>;
 
 export type UploadAvatarMutation = {
-  __typename?: 'Mutation';
-  uploadUserImage?: {
-    __typename?: 'FileUploadResponse';
-    id: number;
-    ok: boolean;
-  } | null;
+  uploadUserImage: { id: number; ok: boolean } | null;
 };
 
 export type RemoveAvatarMutationVariables = Exact<{
-  id: Scalars['Int']['input'];
+  id: number;
 }>;
 
-export type RemoveAvatarMutation = {
-  __typename?: 'Mutation';
-  removeUserImage?: boolean | null;
-};
+export type RemoveAvatarMutation = { removeUserImage: boolean | null };
 
 export type PostEditsQueryVariables = Exact<{
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
+  limit: number;
+  offset: number;
 }>;
 
 export type PostEditsQuery = {
-  __typename?: 'Query';
-  postEdits?: {
-    __typename?: 'PostEditsResponse';
+  postEdits: {
     editsCount: number;
-    postEdits?: Array<{
-      __typename?: 'PostEdit';
-      date: any;
-      previous: any;
-      current: any;
-      user: {
-        __typename?: 'UserPostEdit';
-        id: number;
-        avatar?: string | null;
-        username: string;
-      };
+    postEdits: Array<{
+      date: unknown;
+      previous: unknown;
+      current: unknown;
+      user: { id: number; avatar: string | null; username: string };
     }> | null;
   } | null;
 };
 
 export type GetConfigQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetConfigQuery = {
-  __typename?: 'Query';
-  config: { __typename?: 'Config'; config: any; oauth: any };
-};
+export type GetConfigQuery = { config: { config: unknown; oauth: unknown } };
 
 export type GetBookmarksByUserQueryVariables = Exact<{
-  user: Scalars['Int']['input'];
+  user: number;
 }>;
 
 export type GetBookmarksByUserQuery = {
-  __typename?: 'Query';
-  bookmarksByUser?: Array<{
-    __typename?: 'Bookmark';
+  bookmarksByUser: Array<{
     id: number;
-    post?: {
-      __typename?: 'Post';
+    post: {
       id: number;
       content: string;
-      user: {
-        __typename?: 'User';
-        id: number;
-        username: string;
-        avatar?: string | null;
-      };
+      user: { id: number; username: string; avatar: string | null };
     } | null;
   }> | null;
 };
 
 export type CreateCategoryMutationVariables = Exact<{
-  name: Scalars['String']['input'];
-  description: Scalars['String']['input'];
+  name: string;
+  description: string;
 }>;
 
 export type CreateCategoryMutation = {
-  __typename?: 'Mutation';
-  createCategory: {
-    __typename?: 'Category';
-    id: number;
-    name: string;
-    description: string;
-  };
+  createCategory: { id: number; name: string; description: string };
 };
 
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCategoriesQuery = {
-  __typename?: 'Query';
-  categories?: Array<{
-    __typename?: 'Category';
-    id: number;
-    name: string;
-    description: string;
-  }> | null;
+  categories: Array<{ id: number; name: string; description: string }> | null;
 };
 
 export type GetCategoryQueryVariables = Exact<{
-  id: Scalars['Int']['input'];
+  id: number;
 }>;
 
 export type GetCategoryQuery = {
-  __typename?: 'Query';
   category: {
-    __typename?: 'Category';
     id: number;
     name: string;
     description: string;
-    topics?: Array<{
-      __typename?: 'Topic';
+    topics: Array<{
       id: number;
       name: string;
       views: number;
       replies: number;
-      created: any;
+      created: unknown;
       pinned: boolean;
       closed: boolean;
-      user: {
-        __typename?: 'User';
-        id: number;
-        avatar?: string | null;
-        username: string;
-      };
-      category?: { __typename?: 'Category'; id: number; name: string } | null;
+      user: { id: number; avatar: string | null; username: string };
+      category: { id: number; name: string } | null;
     }> | null;
   };
 };
 
 export type GetMentionCandidatesQueryVariables = Exact<{
-  search: Scalars['String']['input'];
+  search: string;
 }>;
 
 export type GetMentionCandidatesQuery = {
-  __typename?: 'Query';
-  mentionCandidates?: Array<{
-    __typename?: 'User';
+  mentionCandidates: Array<{
     id: number;
     username: string;
-    avatar?: string | null;
+    avatar: string | null;
     banned: boolean;
-    banReason?: string | null;
-    banExpires?: any | null;
+    banReason: string | null;
+    banExpires: unknown;
   }> | null;
 };
 
 export type SetMentionsMutationVariables = Exact<{
-  link: Scalars['String']['input'];
-  user: Scalars['String']['input'];
-  mentioned?: InputMaybe<
-    Array<Scalars['String']['input']> | Scalars['String']['input']
-  >;
+  link: string;
+  user: string;
+  mentioned?: Array<string> | string | null | undefined;
 }>;
 
-export type SetMentionsMutation = {
-  __typename?: 'Mutation';
-  setMentions?: boolean | null;
-};
+export type SetMentionsMutation = { setMentions: boolean | null };
 
 export type UploadImageMutationVariables = Exact<{
-  image: Scalars['Upload']['input'];
+  image: unknown;
 }>;
 
-export type UploadImageMutation = {
-  __typename?: 'Mutation';
-  uploadImage?: { __typename?: 'ImageUploadResponse'; src: string } | null;
-};
+export type UploadImageMutation = { uploadImage: { src: string } | null };
 
 export type SendMessageMutationVariables = Exact<{
-  author: Scalars['Int']['input'];
-  recipient: Scalars['Int']['input'];
-  message: Scalars['JSON']['input'];
-  newchat: Scalars['Boolean']['input'];
+  author: number;
+  recipient: number;
+  message: unknown;
+  newchat: boolean;
 }>;
 
-export type SendMessageMutation = {
-  __typename?: 'Mutation';
-  sendMessage: boolean;
-};
+export type SendMessageMutation = { sendMessage: boolean };
 
 export type GetChatsByUserQueryVariables = Exact<{
-  user: Scalars['Int']['input'];
+  user: number;
 }>;
 
 export type GetChatsByUserQuery = {
-  __typename?: 'Query';
-  chatsByUser?: Array<{
-    __typename?: 'User';
+  chatsByUser: Array<{
     id: number;
-    avatar?: string | null;
+    avatar: string | null;
     username: string;
   }> | null;
 };
 
 export type GetChatQueryVariables = Exact<{
-  userA: Scalars['Int']['input'];
-  userB: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
-  limit: Scalars['Int']['input'];
+  userA: number;
+  userB: number;
+  offset: number;
+  limit: number;
 }>;
 
 export type GetChatQuery = {
-  __typename?: 'Query';
-  chat?: Array<{
-    __typename?: 'ChatMessage';
-    date: any;
-    content: any;
-    author: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
-    recipient: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
+  chat: Array<{
+    date: unknown;
+    content: unknown;
+    author: { id: number; avatar: string | null; username: string };
+    recipient: { id: number; avatar: string | null; username: string };
   }> | null;
 };
 
 export type ChatAddedSubscriptionVariables = Exact<{
-  userA: Scalars['Int']['input'];
-  userB: Scalars['Int']['input'];
+  userA: number;
+  userB: number;
 }>;
 
 export type ChatAddedSubscription = {
-  __typename?: 'Subscription';
-  chatAdded?: {
-    __typename?: 'ChatMessage';
-    date: any;
-    content: any;
-    author: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
-    recipient: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
+  chatAdded: {
+    date: unknown;
+    content: unknown;
+    author: { id: number; avatar: string | null; username: string };
+    recipient: { id: number; avatar: string | null; username: string };
   } | null;
 };
 
 export type BanUserMutationVariables = Exact<{
-  user: Scalars['Int']['input'];
-  expires?: InputMaybe<Scalars['Datetime']['input']>;
-  reason: Scalars['String']['input'];
+  user: number;
+  expires?: unknown;
+  reason: string;
 }>;
 
-export type BanUserMutation = {
-  __typename?: 'Mutation';
-  banUser?: boolean | null;
-};
+export type BanUserMutation = { banUser: boolean | null };
 
 export type RemoveUserBanMutationVariables = Exact<{
-  user: Scalars['Int']['input'];
+  user: number;
 }>;
 
-export type RemoveUserBanMutation = {
-  __typename?: 'Mutation';
-  removeUserBan?: boolean | null;
-};
+export type RemoveUserBanMutation = { removeUserBan: boolean | null };
 
 export type GetFlaggedPostsQueryVariables = Exact<{
-  offset: Scalars['Int']['input'];
-  limit: Scalars['Int']['input'];
+  offset: number;
+  limit: number;
 }>;
 
 export type GetFlaggedPostsQuery = {
-  __typename?: 'Query';
-  flaggedPosts?: Array<{
-    __typename?: 'FlaggedPost';
+  flaggedPosts: Array<{
     postId: number;
     userId: number;
     reasonId: number;
-    reasonText?: string | null;
+    reasonText: string | null;
   }> | null;
 };
 
 export type RemoveFlagMutationVariables = Exact<{
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
+  post: number;
+  user: number;
 }>;
 
 export type RemoveFlagMutation = {
-  __typename?: 'Mutation';
-  removeFlag?: {
-    __typename?: 'RemoveFlagResponse';
-    postId: number;
-    userId: number;
-  } | null;
+  removeFlag: { postId: number; userId: number } | null;
 };
 
 export type NotificationsQueryVariables = Exact<{
-  user: Scalars['Int']['input'];
+  user: number;
 }>;
 
 export type NotificationsQuery = {
-  __typename?: 'Query';
-  notifications?: Array<{
-    __typename?: 'NotificationResponse';
+  notifications: Array<{
     id: number;
     link: string;
     type: string;
     read: boolean;
-    originator: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
-    user: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
+    originator: { id: number; avatar: string | null; username: string };
+    user: { id: number; avatar: string | null; username: string };
   }> | null;
 };
 
 export type NotificationAddedSubscriptionVariables = Exact<{
-  user: Scalars['Int']['input'];
+  user: number;
 }>;
 
 export type NotificationAddedSubscription = {
-  __typename?: 'Subscription';
-  notificationAdded?: {
-    __typename?: 'NotificationResponse';
+  notificationAdded: {
     link: string;
     type: string;
     read: boolean;
-    originator: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
-    user: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
+    originator: { id: number; avatar: string | null; username: string };
+    user: { id: number; avatar: string | null; username: string };
   } | null;
 };
 
 export type ChatNotificationSubscriptionVariables = Exact<{
-  user: Scalars['Int']['input'];
+  user: number;
 }>;
 
 export type ChatNotificationSubscription = {
-  __typename?: 'Subscription';
-  chatNotification?: {
-    __typename?: 'ChatNotification';
+  chatNotification: {
     read: boolean;
-    author: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
-    recipient: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
+    author: { id: number; avatar: string | null; username: string };
+    recipient: { id: number; avatar: string | null; username: string };
   } | null;
 };
 
 export type MarkNotificationsReadMutationVariables = Exact<{
-  notifications?: InputMaybe<
-    Array<Scalars['Int']['input']> | Scalars['Int']['input']
-  >;
+  notifications?: Array<number> | number | null | undefined;
 }>;
 
 export type MarkNotificationsReadMutation = {
-  __typename?: 'Mutation';
-  markNotificationsRead?: Array<number> | null;
+  markNotificationsRead: Array<number> | null;
 };
 
 export type CreateTopicMutationVariables = Exact<{
-  user: Scalars['Int']['input'];
-  name: Scalars['String']['input'];
-  content: Scalars['String']['input'];
-  category?: InputMaybe<Scalars['Int']['input']>;
-  tags?: InputMaybe<Scalars['String']['input']>;
+  user: number;
+  name: string;
+  content: string;
+  category?: number | null | undefined;
+  tags?: string | null | undefined;
 }>;
 
 export type CreateTopicMutation = {
-  __typename?: 'Mutation';
-  createTopic?: {
-    __typename?: 'MutationIdPayload';
-    id?: number | null;
-    ok: boolean;
-  } | null;
+  createTopic: { id: number | null; ok: boolean } | null;
 };
 
 export type AllNotificationsQueryVariables = Exact<{
-  user: Scalars['Int']['input'];
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
+  user: number;
+  limit: number;
+  offset: number;
 }>;
 
 export type AllNotificationsQuery = {
-  __typename?: 'Query';
-  allNotifications?: Array<{
-    __typename?: 'NotificationResponse';
+  allNotifications: Array<{
     id: number;
     link: string;
     type: string;
     read: boolean;
-    originator: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
-    user: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
+    originator: { id: number; avatar: string | null; username: string };
+    user: { id: number; avatar: string | null; username: string };
   }> | null;
 };
 
 export type GetPositionIdQueryVariables = Exact<{
-  post: Scalars['Int']['input'];
-  itemscount: Scalars['Int']['input'];
+  post: number;
+  itemscount: number;
 }>;
 
 export type GetPositionIdQuery = {
-  __typename?: 'Query';
-  postLink: {
-    __typename?: 'PostLinkResponse';
-    topicId: number;
-    page: number;
-    name: string;
-  };
+  postLink: { topicId: number; page: number; name: string };
 };
 
 export type AddPostMutationVariables = Exact<{
-  user: Scalars['Int']['input'];
-  topic: Scalars['Int']['input'];
-  content: Scalars['JSON']['input'];
+  user: number;
+  topic: number;
+  content: unknown;
 }>;
 
 export type AddPostMutation = {
-  __typename?: 'Mutation';
   createPost: {
-    __typename?: 'Post';
     content: string;
-    user: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
+    user: { id: number; avatar: string | null; username: string };
   };
 };
 
 export type IncreaseViewCountMutationVariables = Exact<{
-  topic: Scalars['Int']['input'];
+  topic: number;
 }>;
 
 export type IncreaseViewCountMutation = {
-  __typename?: 'Mutation';
-  increaseViewCount?: {
-    __typename?: 'MutationIdPayload';
-    id?: number | null;
-    ok: boolean;
-  } | null;
+  increaseViewCount: { id: number | null; ok: boolean } | null;
 };
 
 export type FlagPostMutationVariables = Exact<{
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-  reason: Scalars['Int']['input'];
-  text?: InputMaybe<Scalars['String']['input']>;
+  post: number;
+  user: number;
+  reason: number;
+  text?: string | null | undefined;
 }>;
 
-export type FlagPostMutation = {
-  __typename?: 'Mutation';
-  flagPost?: boolean | null;
-};
+export type FlagPostMutation = { flagPost: boolean | null };
 
 export type LikePostMutationVariables = Exact<{
-  user: Scalars['Int']['input'];
-  originator: Scalars['Int']['input'];
-  topic: Scalars['Int']['input'];
-  post: Scalars['Int']['input'];
+  user: number;
+  originator: number;
+  topic: number;
+  post: number;
 }>;
 
 export type LikePostMutation = {
-  __typename?: 'Mutation';
-  likePost?: {
-    __typename?: 'LikeMutationPayload';
-    id: number;
-    ok: boolean;
-    postId: number;
-    likes: number;
-  } | null;
+  likePost: { id: number; ok: boolean; postId: number; likes: number } | null;
 };
 
 export type RemoveLikeMutationVariables = Exact<{
-  user: Scalars['Int']['input'];
-  post: Scalars['Int']['input'];
+  user: number;
+  post: number;
 }>;
 
 export type RemoveLikeMutation = {
-  __typename?: 'Mutation';
-  removeLike?: {
-    __typename?: 'LikeMutationPayload';
-    id: number;
-    ok: boolean;
-    postId: number;
-    likes: number;
-  } | null;
+  removeLike: { id: number; ok: boolean; postId: number; likes: number } | null;
 };
 
 export type BookmarkPostMutationVariables = Exact<{
-  user: Scalars['Int']['input'];
-  post: Scalars['Int']['input'];
+  user: number;
+  post: number;
 }>;
 
 export type BookmarkPostMutation = {
-  __typename?: 'Mutation';
-  bookmarkPost?: {
-    __typename?: 'BookmarkMutationPayload';
+  bookmarkPost: {
     id: number;
     ok: boolean;
     postId: number;
@@ -1173,14 +389,12 @@ export type BookmarkPostMutation = {
 };
 
 export type RemoveBookmarkMutationVariables = Exact<{
-  user: Scalars['Int']['input'];
-  post: Scalars['Int']['input'];
+  user: number;
+  post: number;
 }>;
 
 export type RemoveBookmarkMutation = {
-  __typename?: 'Mutation';
-  removeBookmark?: {
-    __typename?: 'BookmarkMutationPayload';
+  removeBookmark: {
     id: number;
     ok: boolean;
     postId: number;
@@ -1189,126 +403,94 @@ export type RemoveBookmarkMutation = {
 };
 
 export type CloseTopicMutationVariables = Exact<{
-  topic: Scalars['Int']['input'];
+  topic: number;
 }>;
 
-export type CloseTopicMutation = {
-  __typename?: 'Mutation';
-  closeTopic: boolean;
-};
+export type CloseTopicMutation = { closeTopic: boolean };
 
 export type DeleteTopicMutationVariables = Exact<{
-  topic: Scalars['Int']['input'];
+  topic: number;
 }>;
 
-export type DeleteTopicMutation = {
-  __typename?: 'Mutation';
-  deleteTopic: boolean;
-};
+export type DeleteTopicMutation = { deleteTopic: boolean };
 
 export type ReopenTopicMutationVariables = Exact<{
-  topic: Scalars['Int']['input'];
+  topic: number;
 }>;
 
-export type ReopenTopicMutation = {
-  __typename?: 'Mutation';
-  reopenTopic: boolean;
-};
+export type ReopenTopicMutation = { reopenTopic: boolean };
 
 export type DeletePostMutationVariables = Exact<{
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
+  post: number;
+  user: number;
 }>;
 
 export type DeletePostMutation = {
-  __typename?: 'Mutation';
-  deletePost?: {
-    __typename?: 'MutationIdPayload';
-    ok: boolean;
-    id?: number | null;
-  } | null;
+  deletePost: { ok: boolean; id: number | null } | null;
 };
 
 export type EditPostMutationVariables = Exact<{
-  post: Scalars['Int']['input'];
-  user: Scalars['Int']['input'];
-  content: Scalars['JSON']['input'];
+  post: number;
+  user: number;
+  content: unknown;
 }>;
 
 export type EditPostMutation = {
-  __typename?: 'Mutation';
-  editPost?: {
+  editPost: {
     __typename: 'EditPostResponse';
-    id?: number | null;
+    id: number | null;
     ok: boolean;
-    content?: any | null;
+    content: unknown;
   } | null;
 };
 
 export type GetTopicQueryVariables = Exact<{
-  id: Scalars['Int']['input'];
+  id: number;
 }>;
 
 export type GetTopicQuery = {
-  __typename?: 'Query';
-  topic?: {
-    __typename?: 'Topic';
+  topic: {
     id: number;
     name: string;
     views: number;
     replies: number;
-    created: any;
+    created: unknown;
     closed: boolean;
-    tags?: string | null;
-    user: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
-    category?: { __typename?: 'Category'; id: number; name: string } | null;
+    tags: string | null;
+    user: { id: number; avatar: string | null; username: string };
+    category: { id: number; name: string } | null;
   } | null;
 };
 
 export type GetPostsQueryVariables = Exact<{
-  topicId: Scalars['Int']['input'];
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
+  topicId: number;
+  limit: number;
+  offset: number;
 }>;
 
 export type GetPostsQuery = {
-  __typename?: 'Query';
-  posts?: Array<{
-    __typename?: 'Post';
+  posts: Array<{
     id: number;
     content: string;
     edited: boolean;
-    created: any;
-    likes?: Array<{
-      __typename?: 'Like';
-      id: number;
-      userId: number;
-      postId: number;
-    }> | null;
+    created: unknown;
+    likes: Array<{ id: number; userId: number; postId: number }> | null;
     user: {
-      __typename?: 'User';
       id: number;
-      avatar?: string | null;
+      avatar: string | null;
       username: string;
-      status?: string | null;
+      status: string | null;
     };
   }> | null;
 };
 
 export type GetBookmarksByPostsQueryVariables = Exact<{
-  user: Scalars['Int']['input'];
-  posts?: InputMaybe<Array<Scalars['Int']['input']> | Scalars['Int']['input']>;
+  user: number;
+  posts?: Array<number> | number | null | undefined;
 }>;
 
 export type GetBookmarksByPostsQuery = {
-  __typename?: 'Query';
-  bookmarksByPostList?: Array<{
-    __typename?: 'Bookmark';
+  bookmarksByPostList: Array<{
     id: number;
     userId: number;
     postId: number;
@@ -1316,15 +498,13 @@ export type GetBookmarksByPostsQuery = {
 };
 
 export type CreateUserMutationVariables = Exact<{
-  username: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-  email: Scalars['String']['input'];
+  username: string;
+  password: string;
+  email: string;
 }>;
 
 export type CreateUserMutation = {
-  __typename?: 'Mutation';
-  createUser?: {
-    __typename?: 'UserMutationPayload';
+  createUser: {
     ok: boolean;
     id: number;
     message: string;
@@ -1333,62 +513,45 @@ export type CreateUserMutation = {
 };
 
 export type ValidateUserMutationVariables = Exact<{
-  token: Scalars['String']['input'];
+  token: string;
 }>;
 
 export type ValidateUserMutation = {
-  __typename?: 'Mutation';
-  validateUser?: {
-    __typename?: 'MutationIdPayload';
-    id?: number | null;
-    ok: boolean;
-  } | null;
+  validateUser: { id: number | null; ok: boolean } | null;
 };
 
 export type CheckUsernameQueryVariables = Exact<{
-  username: Scalars['String']['input'];
+  username: string;
 }>;
 
-export type CheckUsernameQuery = {
-  __typename?: 'Query';
-  checkUsername: { __typename?: 'CheckUsernameResponse'; exists: boolean };
-};
+export type CheckUsernameQuery = { checkUsername: { exists: boolean } };
 
 export type ResetPasswordRequestMutationVariables = Exact<{
-  email: Scalars['String']['input'];
+  email: string;
 }>;
 
 export type ResetPasswordRequestMutation = {
-  __typename?: 'Mutation';
-  resetPasswordRequest?: boolean | null;
+  resetPasswordRequest: boolean | null;
 };
 
 export type ResetPasswordMutationVariables = Exact<{
-  token: Scalars['String']['input'];
-  password: Scalars['String']['input'];
+  token: string;
+  password: string;
 }>;
 
-export type ResetPasswordMutation = {
-  __typename?: 'Mutation';
-  resetPassword?: boolean | null;
-};
+export type ResetPasswordMutation = { resetPassword: boolean | null };
 
 export type GetSearchQueryVariables = Exact<{
-  term: Scalars['String']['input'];
-  where?: InputMaybe<
-    Array<Scalars['String']['input']> | Scalars['String']['input']
-  >;
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
+  term: string;
+  where?: Array<string> | string | null | undefined;
+  limit: number;
+  offset: number;
 }>;
 
 export type GetSearchQuery = {
-  __typename?: 'Query';
-  search?: {
-    __typename?: 'SearchResponse';
+  search: {
     total: number;
-    results?: Array<{
-      __typename?: 'SearchResult';
+    results: Array<{
       id: number;
       text: string;
       topicId: number;
@@ -1398,31 +561,23 @@ export type GetSearchQuery = {
 };
 
 export type GetTopicsQueryVariables = Exact<{
-  limit: Scalars['Int']['input'];
-  offset: Scalars['Int']['input'];
+  limit: number;
+  offset: number;
 }>;
 
 export type GetTopicsQuery = {
-  __typename?: 'Query';
   topics: {
-    __typename?: 'TopicsReponse';
     topicsCount: number;
-    topics?: Array<{
-      __typename?: 'Topic';
+    topics: Array<{
       id: number;
       name: string;
       views: number;
       replies: number;
-      created: any;
+      created: unknown;
       closed: boolean;
       pinned: boolean;
-      user: {
-        __typename?: 'User';
-        id: number;
-        avatar?: string | null;
-        username: string;
-      };
-      category?: { __typename?: 'Category'; id: number; name: string } | null;
+      user: { id: number; avatar: string | null; username: string };
+      category: { id: number; name: string } | null;
     }> | null;
   };
 };
@@ -1430,92 +585,70 @@ export type GetTopicsQuery = {
 export type GetPinnedTopicsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetPinnedTopicsQuery = {
-  __typename?: 'Query';
-  pinnedTopics?: Array<{
-    __typename?: 'Topic';
+  pinnedTopics: Array<{
     id: number;
     name: string;
     views: number;
     replies: number;
-    created: any;
+    created: unknown;
     closed: boolean;
     pinned: boolean;
-    user: {
-      __typename?: 'User';
-      id: number;
-      avatar?: string | null;
-      username: string;
-    };
-    category?: { __typename?: 'Category'; id: number; name: string } | null;
+    user: { id: number; avatar: string | null; username: string };
+    category: { id: number; name: string } | null;
   }> | null;
 };
 
 export type PinTopicMutationVariables = Exact<{
-  topic: Scalars['Int']['input'];
+  topic: number;
 }>;
 
-export type PinTopicMutation = { __typename?: 'Mutation'; pinTopic: boolean };
+export type PinTopicMutation = { pinTopic: boolean };
 
 export type GetUserQueryVariables = Exact<{
-  id: Scalars['Int']['input'];
+  id: number;
 }>;
 
 export type GetUserQuery = {
-  __typename?: 'Query';
-  getUser?: {
-    __typename?: 'User';
+  getUser: {
     id: number;
     username: string;
-    avatar?: string | null;
+    avatar: string | null;
     type: string;
     fullname: string;
     email: string;
-    status?: string | null;
-    about?: string | null;
+    status: string | null;
+    about: string | null;
     banned: boolean;
-    banExpires?: any | null;
-    banReason?: string | null;
+    banExpires: unknown;
+    banReason: string | null;
   } | null;
 };
 
 export type GetLikesByUserQueryVariables = Exact<{
-  id: Scalars['Int']['input'];
+  id: number;
 }>;
 
 export type GetLikesByUserQuery = {
-  __typename?: 'Query';
-  likesByUser?: Array<{
-    __typename?: 'Like';
+  likesByUser: Array<{
     id: number;
-    post: { __typename?: 'Post'; id: number; topicId: number; content: string };
+    post: { id: number; topicId: number; content: string };
   }> | null;
 };
 
 export type GetTopicsByUserQueryVariables = Exact<{
-  id: Scalars['Int']['input'];
+  id: number;
 }>;
 
 export type GetTopicsByUserQuery = {
-  __typename?: 'Query';
-  topicsByUser?: Array<{
-    __typename?: 'Topic';
-    id: number;
-    name: string;
-  }> | null;
+  topicsByUser: Array<{ id: number; name: string }> | null;
 };
 
 export type GetPostsByUserQueryVariables = Exact<{
-  id: Scalars['Int']['input'];
+  id: number;
 }>;
 
 export type GetPostsByUserQuery = {
-  __typename?: 'Query';
-  postsByUser?: Array<{
-    __typename?: 'Post';
-    id: number;
-    content: string;
-    topicId: number;
-  }> | null;
+  postsByUser: Array<{ id: number; content: string; topicId: number }> | null;
 };
 
 export const UpdateEmailDocument = {

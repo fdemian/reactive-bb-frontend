@@ -1,6 +1,7 @@
 import App from '../App/App';
 import ErrorBoundary from '../App/ErrorBoundary';
-import PrivateRoute, { PrivateRoutePropsRedux } from './PrivateRoute';
+import PrivateRoute from './PrivateRoute';
+import type { PrivateRoutePropsRedux } from './PrivateRoute';
 
 const routes = [
   {
@@ -55,9 +56,8 @@ const routes = [
       {
         path: 'modcp',
         async lazy() {
-          const { Component } = await import(
-            '../ModerationPanel/ModerationPanel'
-          );
+          const { Component } =
+            await import('../ModerationPanel/ModerationPanel');
           const props: PrivateRoutePropsRedux = {
             requiresActiveUser: true,
             modRoute: true,
