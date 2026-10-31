@@ -14,7 +14,7 @@ import {
 import { GET_USER } from '../User/Queries';
 import { GET_ALL_CHATS } from '../Messages/Queries';
 import { GET_IS_LOGGED_IN, SET_LOGIN } from '../Login/queries';
-import { NotificationsQuery } from '../__generated__/graphql';
+import type { NotificationsQuery } from '../__generated__/graphql';
 import './Navbar.css';
 
 // Desktop search bar component.

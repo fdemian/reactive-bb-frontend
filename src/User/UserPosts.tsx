@@ -5,7 +5,7 @@ import { List } from 'antd';
 import { Link } from 'react-router-dom';
 import Renderer from '../Editor/Renderer';
 import { useQuery } from '@apollo/client/react';
-import { UserType } from './userTypes';
+import type { UserType } from './userTypes';
 
 interface UserPostsParams {
   id: number;

@@ -1,3 +1,7 @@
+.editor {
+  min-height: 300px !important;
+}
+
 .editor-shell {
   margin-top: 10px;
 }

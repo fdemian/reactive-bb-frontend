@@ -338,8 +338,6 @@ export const getButtonElementsToolbarDesktop = (
 ) => {
   if (!formats) return [];
 
-  console.log(formats);
-
   return [
     BOLD_ELEMENT(t, formats),
     ITALIC_ELEMENT(t, formats),

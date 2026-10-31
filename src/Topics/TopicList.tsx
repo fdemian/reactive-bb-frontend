@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { List, Spin, Statistic } from 'antd';
 import format_title_string from '../utils/formats';
 import { format } from 'date-fns';
-import { TopicsListParams } from './topicTypes';
+import type { TopicsListParams } from './topicTypes';
 
 // Lazy imports.
 const Avatar = lazy(() => import('../UserAvatar/UserAvatar'));
@@ -100,7 +100,10 @@ const TopicsList = (props: TopicsListParams) => {
                   )}
                 </Link>
                 <Suspense fallback={<Spin />}>
-                  <CategoryLink category={item.category ?? null} isMobile={isMobile} />
+                  <CategoryLink
+                    category={item.category ?? null}
+                    isMobile={isMobile}
+                  />
                   <ClosedIcon closed={item.closed} />
                 </Suspense>
               </>

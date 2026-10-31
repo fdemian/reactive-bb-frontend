@@ -15,7 +15,7 @@ import { GET_BOOKMARKS_BY_POSTS } from './Queries';
 import { useQuery } from '@apollo/client/react';
 import { getDate, getDateRelative, savePostReplyContent } from './utils';
 import { useNavigate } from 'react-router-dom';
-import { TopicRepliesProps, PostType } from './postTypes';
+import type { TopicRepliesProps, PostType } from './postTypes';
 
 import './Posts.css';
 

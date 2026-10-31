@@ -6,10 +6,10 @@ import Loading from '../Loading/LoadingIndicator';
 import BookrmarkList from './BookmarkPostList';
 import { GET_BOOKMARKS_BY_USER } from './Queries';
 import { REMOVE_BOOKMARK } from '../Posts/Mutations';
-import { BookmarkType } from './bookmarkTypes';
+import type { BookmarkType } from './bookmarkTypes';
 import './Bookmarks.css';
 
-export const Component = () => {
+export const Bookmarks = () => {
   const userId = getUserId();
   const { t } = useTranslation('bookmarks', { keyPrefix: 'bookmarks' });
 

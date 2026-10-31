@@ -6,7 +6,7 @@ import MessageMenuHeader from './MessagesMenuHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { ChatsByUserResponse } from '../../navbarTypes';
+import type { ChatsByUserResponse } from '../../navbarTypes';
 
 interface MessagesMenuProps {
   chatSubscription: () => void;
@@ -68,7 +68,11 @@ const MessagesMenu = ({
           },
         ]
       : data.chatsByUser!.map((m, index) => ({
-          label: <Message message={{id: m.id, avatar: m.avatar, username: m.username}} />,
+          label: (
+            <Message
+              message={{ id: m.id, avatar: m.avatar, username: m.username }}
+            />
+          ),
           key: 'message-' + index,
           disabled: false,
         }));

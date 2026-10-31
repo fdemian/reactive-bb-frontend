@@ -13,15 +13,15 @@ import AccountAvatar from '../UserAvatar/UserAvatar';
 import EditorFooter from './Footer';
 import ExcalidrawModal from './ExcalidrawModal/ExcalidrawModal';
 import emojiData from 'emojibase-data/en/data.json';
-import {
+import type {
   EditorProps,
   MentionType,
   EntryComponentTypes,
   ImageProps,
   InsertEquationProps,
 } from './editorTypes';
+import type { CalliopeFormatTypes } from './toolbarUtils';
 import './Editor.css';
-import { CalliopeFormatTypes } from './toolbarUtils';
 
 const MobileDrawer = lazy(() => import('./MobileDrawer'));
 const Toolbar = lazy(() => import('./Toolbar'));

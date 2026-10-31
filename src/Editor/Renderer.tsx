@@ -4,7 +4,7 @@ import CalliopeEditor from 'kalliope';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import './Editor.css';
-import { EntryComponentTypes } from './editorTypes';
+import type { EntryComponentTypes } from './editorTypes';
 
 interface RendererParse {
   content: string | null | undefined;

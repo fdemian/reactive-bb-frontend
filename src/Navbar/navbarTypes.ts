@@ -1,6 +1,6 @@
-import { ErrorLike, ApolloCache } from '@apollo/client';
-import { UserType } from '../User/userTypes';
-import {
+import type { ErrorLike, ApolloCache } from '@apollo/client';
+import type { UserType } from '../User/userTypes';
+import type {
   GetChatsByUserQuery,
   MarkNotificationsReadMutation,
   Exact,

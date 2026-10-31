@@ -1,5 +1,5 @@
 import { getConfig } from '../App/utils';
-import { ConfigType } from '../App/types';
+import type { ConfigType } from '../App/types';
 import './Login.css';
 
 const TopIcon = (): React.ReactElement => {

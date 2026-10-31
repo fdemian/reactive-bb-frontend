@@ -8,7 +8,7 @@ import {
   faUndo,
   faRedo,
 } from '@fortawesome/free-solid-svg-icons';
-import { FooterProps } from './editorTypes';
+import type { FooterProps } from './editorTypes';
 import './Toolbar.css';
 
 const ImageModal = lazy(() => import('./ImageModal/ImageModal'));

@@ -2,7 +2,7 @@ import { Input } from 'antd';
 import SearchUsersList from './SearchUsersList';
 import { useLazyQuery } from '@apollo/client/react';
 import { GET_MENTION_USERS } from '../../Editor/Queries';
-import { SearchUserTypes } from '../moderationPanelTypes';
+import type { SearchUserTypes } from '../moderationPanelTypes';
 
 const SearchUsers = ({ setScreenType, setUserToBan, t }: SearchUserTypes) => {
   const [getMentionCandidates, { data }] = useLazyQuery(GET_MENTION_USERS);

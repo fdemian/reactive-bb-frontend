@@ -1,4 +1,4 @@
-import { gql } from '../__generated__/gql';
+import { gql } from '../__generated__';
 
 export const GET_BOOKMARKS_BY_USER = gql(/* GraphQL */ `
   query GetBookmarksByUser($user: Int!) {

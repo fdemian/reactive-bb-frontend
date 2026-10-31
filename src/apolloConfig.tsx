@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloLink } from '@apollo/client';
+import { LocalState } from '@apollo/client/local-state';
 import UploadHttpLink from 'apollo-upload-client/UploadHttpLink.mjs';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
@@ -113,9 +114,14 @@ const splitLink = ApolloLink.split(
   enhancedHttpLink
 );
 
+const localState = new LocalState({
+  cache,
+});
+
 export const useNewClient = () => {
   return new ApolloClient({
     link: splitLink,
     cache: cache,
+    localState: localState,
   });
 };

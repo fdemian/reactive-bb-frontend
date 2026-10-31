@@ -14,10 +14,11 @@ import {
 import NotificationMobile from './NotificationMobile';
 import ChatMobile from './ChatMobile';
 import { Link } from 'react-router-dom';
-import { getItem, MenuItem } from './utils';
+import { getItem } from './utils';
+import type { MenuItem } from './utils';
 import '../Navbar.css';
 import DrawerToggleButton from './DrawerToggleButton';
-import { NavbarLoggedProps } from '../navbarTypes';
+import type { NavbarLoggedProps } from '../navbarTypes';
 
 const AccountAvatar = lazy(() => import('../../UserAvatar/UserAvatar'));
 

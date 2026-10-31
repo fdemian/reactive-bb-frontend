@@ -4,7 +4,7 @@ import Renderer from '../Editor/Renderer';
 import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
-import { BookmarkListProps, BookmarkType } from './bookmarkTypes';
+import type { BookmarkListProps, BookmarkType } from './bookmarkTypes';
 import './Bookmarks.css';
 
 const BookmarkPostList = ({
@@ -15,8 +15,7 @@ const BookmarkPostList = ({
 }: BookmarkListProps) => {
   const navigate = useNavigate();
   const deleteBookmark = (bookmark: BookmarkType) => {
-    if(!bookmark || !bookmark.post)
-      return;
+    if (!bookmark || !bookmark.post) return;
 
     removeBookmark({
       variables: {
@@ -35,9 +34,8 @@ const BookmarkPostList = ({
   };
 
   const goToBookmark = (bookmark: BookmarkType) => {
-    if(!bookmark || !bookmark.post)
-      return;    
-    navigate(`/postlink/${bookmark.post.id}`); 
+    if (!bookmark || !bookmark.post) return;
+    navigate(`/postlink/${bookmark.post.id}`);
   };
 
   return (
@@ -60,7 +58,7 @@ const BookmarkPostList = ({
               >
                 <Avatar
                   avatar={bookmark.post?.user.avatar}
-                  username={bookmark.post?.user.username ?? ""}
+                  username={bookmark.post?.user.username ?? ''}
                   shape="square"
                   size={60}
                 />
@@ -81,7 +79,9 @@ const BookmarkPostList = ({
             <Tooltip placement="bottomLeft" title={t('goToBookmark')}>
               <FontAwesomeIcon
                 data-testid="bookmark-icon"
-                onClick={() => { goToBookmark(bookmark); }}
+                onClick={() => {
+                  goToBookmark(bookmark);
+                }}
                 icon={faArrowCircleUp}
                 size="2x"
                 color="gainsboro"
@@ -94,7 +94,9 @@ const BookmarkPostList = ({
             <Tooltip placement="bottomLeft" title={t('removeBookmark')}>
               <FontAwesomeIcon
                 data-testid="bookmark-icon"
-                onClick={() => { deleteBookmark(bookmark); }}
+                onClick={() => {
+                  deleteBookmark(bookmark);
+                }}
                 icon={faTrash}
                 size="2x"
                 color="gainsboro"

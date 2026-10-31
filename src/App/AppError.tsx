@@ -1,4 +1,4 @@
-import { ErrorLike } from '@apollo/client';
+import type { ErrorLike } from '@apollo/client';
 import { Result, Typography } from 'antd';
 
 const { Paragraph, Text } = Typography;

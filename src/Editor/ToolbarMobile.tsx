@@ -25,7 +25,7 @@ import {
   faTextHeight,
 } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faXTwitter } from '@fortawesome/free-brands-svg-icons';
-import { ToolbarProps } from './editorTypes';
+import type { ToolbarProps } from './editorTypes';
 import { getCodeLanguageOptions } from 'kalliope';
 import type { ColorVal } from './utils';
 import {

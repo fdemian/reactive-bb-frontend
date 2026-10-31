@@ -1,8 +1,8 @@
-import Badge from 'antd/lib/badge';
+import { Badge } from 'antd';
 import Tooltip from 'antd/lib/tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faBellSlash } from '@fortawesome/free-solid-svg-icons';
-import { NotificationType } from '../../navbarTypes';
+import type { NotificationType } from '../../navbarTypes';
 import './Notifications.css';
 
 interface NotificationsHeaderParams {

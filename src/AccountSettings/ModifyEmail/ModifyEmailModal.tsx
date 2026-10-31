@@ -6,7 +6,7 @@ import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import ErrorLayer from './ErrorLayer';
 import { UPDATE_EMAIL } from './Mutations';
 import { useMutation } from '@apollo/client/react';
-import { UserType } from '../../User/userTypes';
+import type { UserType } from '../../User/userTypes';
 
 interface ModifyEmailModalProps {
   user: UserType;

@@ -53,10 +53,10 @@ import { getPageNumber } from '../utils/pageUtils';
 import format_title_string from '../utils/formats';
 import TopicModifyButtons from './TopicModifyButtons';
 import FlagPostModal from './FlagPostModal';
-import { PostToQuote, PostType } from './postTypes';
+import type { PostToQuote, PostType } from './postTypes';
+import type { MentionType } from '../Editor/editorTypes';
+import type { CalliopeContainerType } from 'kalliope';
 import './Posts.css';
-import { MentionType } from '../Editor/editorTypes';
-import { CalliopeContainerType } from 'kalliope';
 
 const TopicReplies = lazy(() => import('./TopicReplies'));
 const ReplyDrawer = lazy(() => import('./ReplyDrawer'));

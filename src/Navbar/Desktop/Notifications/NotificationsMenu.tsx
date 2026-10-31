@@ -2,7 +2,10 @@ import { useEffect } from 'react';
 import { Dropdown } from 'antd';
 import NotificationsHeader from './NotificationsMenuHeader';
 import Notification from './Notification';
-import { NotificationType, MarkNotificationsMutation } from '../../navbarTypes';
+import type {
+  NotificationType,
+  MarkNotificationsMutation,
+} from '../../navbarTypes';
 import { Empty } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,7 +14,6 @@ import {
   faInbox,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
 
 interface NotificationProps {
   notifications: NotificationType[];
@@ -31,7 +33,7 @@ const NotificationsMenu = (props: NotificationProps) => {
         notifications: notificationIds,
       },
       optimisticResponse: {
-        markNotificationsRead: []
+        markNotificationsRead: [],
       },
     });
   };

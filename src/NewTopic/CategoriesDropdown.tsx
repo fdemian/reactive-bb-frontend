@@ -1,7 +1,7 @@
 import Badge from 'antd/es/badge';
 import Select from 'antd/es/select';
 import './Composer.css';
-import { CategoryType } from '../Topics/topicTypes';
+import type { CategoryType } from '../Topics/topicTypes';
 
 const Option = Select.Option;
 
@@ -14,12 +14,7 @@ interface CategoriesDropdownProps {
 }
 
 type BadgeStatusTypes =
-  | 'success'
-  | 'error'
-  | 'default'
-  | 'warning'
-  | 'processing'
-  | undefined;
+  'success' | 'error' | 'default' | 'warning' | 'processing' | undefined;
 
 const getBadgeStatus = (
   colors: BadgeStatusTypes[],
@@ -39,7 +34,7 @@ const CategoriesDropdown = ({
   categories,
 }: CategoriesDropdownProps) => {
   const handleChange = (value: number) => {
-    updateCategoryFn(categories.filter(p => p.id == value)[0]);
+    updateCategoryFn(categories.filter((p) => p.id == value)[0]);
   };
 
   return (

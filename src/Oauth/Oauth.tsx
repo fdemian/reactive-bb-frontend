@@ -66,9 +66,9 @@ export const Component = (): React.ReactElement => {
 
   return (
     <div>
-      <Spin tip={t('loggingIn')}>
+      <Spin description={t('loggingIn')}>
         <Alert
-          message={t('waitWarning')}
+          title={t('waitWarning')}
           description={`${t('loggingInWith')} ${service}`}
           type="info"
         />

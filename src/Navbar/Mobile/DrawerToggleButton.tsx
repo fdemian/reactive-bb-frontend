@@ -2,7 +2,7 @@ import { Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
-import { UserType } from '../../User/userTypes';
+import type { UserType } from '../../User/userTypes';
 
 interface DrawerToggleButtonProps {
   openDrawer: () => void;

@@ -1,22 +1,22 @@
-import { BanStatusReturn } from '../Login/authUtils';
-import { MentionType } from '../Editor/editorTypes';
-import { CalliopeContainerType } from 'kalliope';
+import type { BanStatusReturn } from '../Login/authUtils';
+import type { MentionType } from '../Editor/editorTypes';
+import type { CalliopeContainerType } from 'kalliope';
 
 interface CategoryType {
   id: number;
   name: string;
 }
 
-export interface UserTypePost { 
-  __typename?: "User" | undefined; 
-  id: number; 
-  avatar?: string | null | undefined; 
-  username: string; 
-  status?: string | null | undefined; 
-};
+export interface UserTypePost {
+  __typename?: 'User' | undefined;
+  id: number;
+  avatar?: string | null | undefined;
+  username: string;
+  status?: string | null | undefined;
+}
 
 interface TopicType {
-  __typename?: "Topic" | undefined;
+  __typename?: 'Topic' | undefined;
   id: number;
   name: string;
   views: number;
@@ -35,7 +35,7 @@ export interface PostToQuote {
 }
 
 export interface LikeType {
-  __typename?: "Like" | undefined;
+  __typename?: 'Like' | undefined;
   id: number;
   userId: number;
   postId: number;
@@ -47,15 +47,16 @@ export interface BookmarkType {
   postId: number;
 }
 
-export interface PostType  {
-   __typename?: "Post" | undefined; 
-   id: number; content: string; 
-   edited: boolean; 
-   created: any;
-   user: UserTypePost;
-   likes?: LikeType[] | null;
-   __ref?: string;
-};
+export interface PostType {
+  __typename?: 'Post' | undefined;
+  id: number;
+  content: string;
+  edited: boolean;
+  created: any;
+  user: UserTypePost;
+  likes?: LikeType[] | null;
+  __ref?: string;
+}
 
 export interface TopicRepliesProps {
   userType: string;
@@ -79,7 +80,7 @@ export interface TopicRepliesProps {
 }
 
 export interface PostFooterProps {
-  item: PostType;//
+  item: PostType; //
   userId: number;
   topic: TopicType;
   banStatus: BanStatusReturn;

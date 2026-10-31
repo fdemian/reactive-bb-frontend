@@ -15,7 +15,7 @@ const PaginationFooter = lazy(
   () => import('../PaginationFooter/PaginationFooter')
 );
 
-export const Component = () => {
+export const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchTerm = searchParams.get('term');
   const pageParams = searchParams.get('page');

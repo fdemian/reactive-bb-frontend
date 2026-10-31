@@ -1,9 +1,12 @@
 import { Tag } from 'antd';
 import format_title_string from '../utils/formats';
-import { CategoryType } from './topicTypes';
+import type { CategoryType } from './topicTypes';
 import './Topics.css';
 
-interface CategoryLinkProps { category: CategoryType | null; isMobile: boolean }
+interface CategoryLinkProps {
+  category: CategoryType | null;
+  isMobile: boolean;
+}
 
 const CategoryLink = ({ category, isMobile }: CategoryLinkProps) => {
   const categoryItem =
@@ -11,14 +14,12 @@ const CategoryLink = ({ category, isMobile }: CategoryLinkProps) => {
   const categoryLink = `/categories/${categoryItem.id}/${format_title_string(
     categoryItem.name
   )}`;
-  
+
   return (
     <a href={categoryLink}>
       <Tag color="darkgreen" className={isMobile ? '' : 'categories-link'}>
         {isMobile ? (
-          <p className="categories-link-mobile">
-            {categoryItem.name}
-          </p>
+          <p className="categories-link-mobile">{categoryItem.name}</p>
         ) : (
           <>{categoryItem.name}</>
         )}

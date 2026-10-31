@@ -1,4 +1,5 @@
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
+import type { ReactElement } from 'react';
 import { Menu } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ProfileView from './Views/Profile/ProfileView';

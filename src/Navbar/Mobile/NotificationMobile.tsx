@@ -1,6 +1,9 @@
 import { Badge } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { NotificationType, MarkNotificationsMutation } from '../navbarTypes';
+import type {
+  NotificationType,
+  MarkNotificationsMutation,
+} from '../navbarTypes';
 import '../Navbar.css';
 
 const getTranslationKey = (key: string): string => {
@@ -28,7 +31,9 @@ const NotificationMobile = (props: NotificationParams) => {
         notifications: [notification.id],
       },
       optimisticResponse: {
-        markNotificationsRead: notifications.filter((n) => n.id !== notification.id).map(n => n.id),
+        markNotificationsRead: notifications
+          .filter((n) => n.id !== notification.id)
+          .map((n) => n.id),
       },
     });
     navigate(notification.link);
@@ -37,7 +42,9 @@ const NotificationMobile = (props: NotificationParams) => {
   return (
     <span
       className="notification-title"
-      onClick={() => { markNotificationAsRead(notification, notifications); }}
+      onClick={() => {
+        markNotificationAsRead(notification, notifications);
+      }}
     >
       {`${notification.user.username} ${t(getTranslationKey(notification.type))}`}
       <Badge status="processing" className="new-notification-icon" />

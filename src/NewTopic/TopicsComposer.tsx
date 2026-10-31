@@ -17,8 +17,8 @@ import { getPostReplyContent, clearPostReplyContent } from '../Posts/utils';
 import { getIsMobile } from '../App/utils.js';
 import { getQuoteStateFromProps } from './utils';
 import './Composer.css';
-import { CategoryType } from '../Topics/topicTypes.js';
-import { CalliopeContainerType } from 'kalliope';
+import type { CategoryType } from '../Topics/topicTypes.js';
+import type { CalliopeContainerType } from 'kalliope';
 
 interface EventType {
   target: {
@@ -32,7 +32,7 @@ const defaultCategory = {
   description: 'Default category.',
 };
 
-export const Component = () => {
+export const TopicsComposer = () => {
   const editing = false;
 
   const { t } = useTranslation('topicsComposer', {

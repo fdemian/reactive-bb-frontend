@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Spin } from 'antd';
-import { NavbarLoggedProps } from '../navbarTypes';
+import type { NavbarLoggedProps } from '../navbarTypes';
 import '../Navbar.css';
 
 const AccountMenu = lazy(() => import('./AccountMenu/AccountMenu'));

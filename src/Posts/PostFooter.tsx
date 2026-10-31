@@ -15,7 +15,12 @@ import {
   REMOVE_BOOKMARK,
 } from './Mutations';
 import { useMutation } from '@apollo/client/react';
-import { BookmarkType, LikeType, PostFooterProps, PostType } from './postTypes';
+import type {
+  BookmarkType,
+  LikeType,
+  PostFooterProps,
+  PostType,
+} from './postTypes';
 
 const PostFooter = (props: PostFooterProps) => {
   const {

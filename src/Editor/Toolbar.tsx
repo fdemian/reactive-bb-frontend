@@ -23,7 +23,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Toolbar.css';
-import { ToolbarProps } from './editorTypes';
+import type { ToolbarProps } from './editorTypes';
 import { recomendedColors } from './toolbarUtils';
 import { getCodeLanguageOptions } from 'kalliope';
 import {

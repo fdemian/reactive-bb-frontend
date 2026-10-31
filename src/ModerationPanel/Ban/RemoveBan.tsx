@@ -5,7 +5,7 @@ import { GET_MENTION_USERS } from '../../Editor/Queries';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
 import Renderer from '../../Editor/Renderer';
 import BanExpirationClock from './BanExpirationClock';
-import { BanUserTypes } from '../moderationPanelTypes';
+import type { BanUserTypes } from '../moderationPanelTypes';
 import './Ban.css';
 
 const RemoveBanScreen = ({ user, goBack, t }: BanUserTypes) => {

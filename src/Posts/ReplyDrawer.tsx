@@ -3,7 +3,7 @@ import { Button, Drawer, Skeleton } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faReply, faCheck } from '@fortawesome/free-solid-svg-icons';
 import Editor from '../Editor/Editor';
-import { ReplyTitleProps, ReplyDrawerProps } from './postTypes';
+import type { ReplyTitleProps, ReplyDrawerProps } from './postTypes';
 import './Posts.css';
 
 const ReplyTitle = ({ topic, isMobile }: ReplyTitleProps) => {

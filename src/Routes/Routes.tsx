@@ -2,6 +2,7 @@ import App from '../App/App';
 import ErrorBoundary from '../App/ErrorBoundary';
 import PrivateRoute from './PrivateRoute';
 import type { PrivateRoutePropsRedux } from './PrivateRoute';
+import { TopicsComposer } from '../NewTopic/TopicsComposer.tsx';
 
 const routes = [
   {
@@ -85,14 +86,16 @@ const routes = [
       {
         path: 'topics/new',
         async lazy() {
-          const { Component } = await import('../NewTopic/TopicsComposer');
+          const { TopicsComposer } = await import('../NewTopic/TopicsComposer');
           const props: PrivateRoutePropsRedux = {
             requiresActiveUser: true,
             modRoute: false,
             adminRoute: false,
           };
           return {
-            Component: () => <PrivateRoute {...props} component={Component} />,
+            Component: () => (
+              <PrivateRoute {...props} component={TopicsComposer} />
+            ),
           };
         },
       } /**/,
@@ -151,28 +154,28 @@ const routes = [
       {
         path: 'bookmarks',
         async lazy() {
-          const { Component } = await import('../Bookmarks/Bookmarks');
+          const { Bookmarks } = await import('../Bookmarks/Bookmarks');
           const props: PrivateRoutePropsRedux = {
             requiresActiveUser: false,
             modRoute: false,
             adminRoute: false,
           };
           return {
-            Component: () => <PrivateRoute {...props} component={Component} />,
+            Component: () => <PrivateRoute {...props} component={Bookmarks} />,
           };
         },
       } /**/,
       {
         path: 'search',
         async lazy() {
-          const { Component } = await import('../Search/Search');
+          const { Search } = await import('../Search/Search');
           const props: PrivateRoutePropsRedux = {
             requiresActiveUser: false,
             modRoute: false,
             adminRoute: false,
           };
           return {
-            Component: () => <PrivateRoute {...props} component={Component} />,
+            Component: () => <PrivateRoute {...props} component={Search} />,
           };
         },
       } /**/,

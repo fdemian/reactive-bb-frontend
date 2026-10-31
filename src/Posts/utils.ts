@@ -1,5 +1,5 @@
-import { CategoryType } from '../Topics/topicTypes';
-import { UserTypePost } from './postTypes';
+import type { CategoryType } from '../Topics/topicTypes';
+import type { UserTypePost } from './postTypes';
 import format_title_string from '../utils/formats';
 import { format, formatDistance, parseISO } from 'date-fns';
 
@@ -36,13 +36,16 @@ export const savePostReplyContent = (
 };
 
 export const getCategoryURL = (category: CategoryType | null | undefined) => {
-  if (category === null || category === undefined || category.id === -1) return '/categories/-1/uncategorized';
+  if (category === null || category === undefined || category.id === -1)
+    return '/categories/-1/uncategorized';
 
   return `/categories/${category.id}/${format_title_string(category.name)}`;
 };
 
 export const getCategoryName = (category: CategoryType | null | undefined) =>
-(category === null || category === undefined || category.id === -1) ? 'Uncategorized': category.name;
+  category === null || category === undefined || category.id === -1
+    ? 'Uncategorized'
+    : category.name;
 
 export const getDate = (date: string) =>
   format(new Date(date), 'MMM d yyyy, h:mm');

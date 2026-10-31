@@ -10,7 +10,7 @@ import {
   faBookmark,
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { UserType } from '../../../User/userTypes';
+import type { UserType } from '../../../User/userTypes';
 import './AccountMenu.css';
 
 interface AccountMenuType {
@@ -130,7 +130,7 @@ const AccountMenu = ({ userType, user, logoutFn, t }: AccountMenuType) => {
 
   return (
     <Dropdown
-      overlayClassName="account-menu"
+      classNames={{ root: 'account-menu' }}
       menu={{ items }}
       placement="bottom"
     >

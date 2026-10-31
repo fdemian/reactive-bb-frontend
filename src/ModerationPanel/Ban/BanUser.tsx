@@ -9,7 +9,7 @@ import { GET_MENTION_USERS } from '../../Editor/Queries';
 import { useMutation } from '@apollo/client/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { BanUserTypes } from '../moderationPanelTypes';
+import type { BanUserTypes } from '../moderationPanelTypes';
 import './Ban.css';
 
 const BanUser = ({ user, goBack, t }: BanUserTypes) => {

@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { NotificationType, MarkNotificationsMutation } from '../../navbarTypes';
+import type {
+  NotificationType,
+  MarkNotificationsMutation,
+} from '../../navbarTypes';
 import UserAvatar from '../../../UserAvatar/UserAvatar';
 
 const getTranslationKey = (key: string): string => {
@@ -30,7 +33,9 @@ const Notification = ({
             notifications: [notification.id],
           },
           optimisticResponse: {
-            markNotificationsRead: notifications.filter((n) => n.id !== notification.id).map(n => n.id),
+            markNotificationsRead: notifications
+              .filter((n) => n.id !== notification.id)
+              .map((n) => n.id),
           },
         });
         navigate(notification.link);

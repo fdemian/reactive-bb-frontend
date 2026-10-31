@@ -5,7 +5,7 @@ import { List } from 'antd';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client/react';
 import format_title_string from '../utils/formats.js';
-import { UserType, TopicType } from './userTypes';
+import type { UserType, TopicType } from './userTypes';
 
 interface UserTopicsProps {
   id: number;

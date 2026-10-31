@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CalliopeFormatTypes } from './toolbarUtils';
-import { UserType } from '../User/userTypes';
-import { CalliopeContainerType } from 'kalliope';
-import { MentionTypeUser } from '../ModerationPanel/moderationPanelTypes';
-import { UserTypePost } from '../Posts/postTypes';
+import type { CalliopeFormatTypes } from './toolbarUtils';
+import type { UserType } from '../User/userTypes';
+import type { CalliopeContainerType } from 'kalliope';
+import type { MentionTypeUser } from '../ModerationPanel/moderationPanelTypes';
+import type { UserTypePost } from '../Posts/postTypes';
 
 interface InsertImageProps {
   src: string;

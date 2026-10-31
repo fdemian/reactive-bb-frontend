@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import UserPosts from './UserPosts';
 import UserTopics from './UserTopics';
 import UserLikes from './UserLikes';
-import { UserType } from './userTypes';
+import type { UserType } from './userTypes';
 import './User.css';
 
 interface UserProfileProps {
@@ -12,7 +12,6 @@ interface UserProfileProps {
 }
 
 const UserProfileMenu = ({ id, user }: UserProfileProps) => {
-
   const [selectIndex, setSelectIndex] = useState(0);
 
   if (!user) return null;
@@ -47,7 +46,6 @@ const UserProfileMenu = ({ id, user }: UserProfileProps) => {
   const title = menuItem.name;
   const selectKey = menuItem.key;
   const childComponent = menuItem.component;
-
 
   return (
     <div className="info-main">

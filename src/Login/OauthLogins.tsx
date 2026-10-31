@@ -7,13 +7,14 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { Tooltip } from 'antd';
 import { getOauthConfig } from '../App/utils';
-import { TranslationFn } from '../utils/types';
-import { OAuthService, OAuthConfig } from '../App/types';
+import type { TranslationFn } from '../utils/types';
+import type { OAuthService, OAuthConfig } from '../App/types';
 import './Login.css';
 
 interface OauthIconType {
   name: string;
   icon: any;
+  x;
 }
 
 const oauthIcons: OauthIconType[] = [
